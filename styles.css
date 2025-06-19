@@ -1,0 +1,361 @@
+
+      
+      :root {
+      --bg: #0d0d0d;
+      --text: #e6e6e6;
+      --accent: rgb(233, 233, 243);
+      --muted: #999;
+    }
+   [data-theme='light'] {
+      --bg: #f0f0f0;
+      --text: #111;
+      --accent: #007bff;
+      --muted: #555;
+    }
+    
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Share Tech Mono', monospace;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: all 0.3s ease;
+    }
+
+body::before {
+  content: "";
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(0, 255, 255, 0.1), transparent 40%);
+  transition: background 0.2s ease;
+  z-index: -1;
+}
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.1); opacity: 1; }
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 60px 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      color: var(--accent);
+      text-shadow: 0 0 5px var(--accent), 0 0 10px var(--accent);
+      margin-bottom: 5px;
+    }
+
+    h1::after {
+      content: "_";
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    h2 {
+      font-size: 1.1rem;
+      color: var(--muted);
+      margin-top: 0;
+    }
+
+    .section {
+      margin-top: 50px;
+      border-left: 2px solid var(--accent);
+      padding-left: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+      color: var(--accent);
+    }
+
+    .job, .project {
+      margin-bottom: 20px;
+    }
+
+    .job strong, .project strong {
+      color: var(--text);
+    }
+
+    .job span, .project span {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    input[type="email"] {
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      width: 60%;
+      background: #1a1a1a;
+      color: var(--text);
+      outline: none;
+    }
+
+    button {
+      padding: 10px 16px;
+      margin-left: 10px;
+      border: none;
+      border-radius: 4px;
+      background-color: var(--accent);
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      filter: brightness(1.2);
+    }
+
+    .socials {
+      margin-top: 40px;
+    }
+
+    .socials a {
+      margin-right: 12px;
+      color: var(--accent);
+      font-size: 20px;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .socials a:hover,
+    .section-title:hover,
+    button:hover {
+      color: var(--accent);
+      text-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
+    }
+
+    .theme-toggle {
+      cursor: pointer;
+      background: transparent;
+      border: 1px solid var(--accent);
+      border-radius: 5px;
+      color: var(--accent);
+      padding: 5px 10px;
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+
+    .email-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 20px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 20px rgba(0, 245, 255, 0.1);
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #333;
+      margin: 40px 0;
+    }
+
+.job-entry {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 24px;
+}
+
+.logo-img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  border-radius: 6px;
+  background: white;
+  padding: 4px;
+}
+
+.job-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.job-info strong {
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.job-info span {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.edu-entry {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.edu-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.logo-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  object-fit: contain;
+  background: white;
+  padding: 4px;
+}
+
+.job-desc {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.toggle-desc {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-family: inherit;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.toggle-desc::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  padding: 1px;
+  background: linear-gradient(145deg, #0fffc3, #2a82ff);
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.toggle-desc:hover {
+  background-color: rgba(255, 255, 255, 0.07);
+  transform: scale(1.05);
+  color: white;
+}
+
+.hidden {
+  display: none;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--bg);
+  padding: 12px 24px;
+  border-bottom: 1px solid var(--muted);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(6px);
+}
+
+.navbar a,
+.navbar button {
+  color: var(--accent);
+  text-decoration: none;
+  margin-right: 16px;
+  font-family: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.navbar a:hover,
+.navbar button:hover {
+  text-decoration: underline;
+  color: var(--text);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+.skills-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.skills-pills span {
+  background: white;
+  color: black;
+  padding: 6px 14px;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+[data-theme="dark"] .skills-pills span {
+  background: #e6e6e6;
+  color: #111;
+}
+
+.skills-pills span:hover {
+  transform: scale(1.05);
+  cursor: default;
+}
+/* 🔮 Terminal Intro Screen */
+#terminal-intro {
+  background: black;
+  color: #f5fffd;
+  font-family: 'Courier New', monospace;
+  padding: 40px;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  white-space: pre-wrap;
+  z-index: 1000;
+}
+
+.terminal-line::after {
+  content: "_";
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}

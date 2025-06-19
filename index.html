@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Muhannad Abuzahrieh | Portfolio</title>
+
+  <!-- Fonts and Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="manifest" href="favicon/site.webmanifest">
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- 🔮 Terminal Intro -->
+  <div id="terminal-intro">
+    <div class="terminal-line" id="terminal-line"></div>
+  </div>
+
+  <!-- 👨‍💻 Site Content (initially hidden) -->
+  <div id="main-content" style="display: none;">
+    
+    <!-- Navigation bar -->
+    <nav class="navbar">
+      <a href="#home">Home</a>
+      <a href="https://github.com/imkalimu" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/muhannad-abuzahrieh-0b7330265/" target="_blank">LinkedIn</a>
+      <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+      <header id="home">
+        <h1>Muhannad Abuzahrieh</h1>
+      </header>
+
+      <div class="section">
+        <div class="section-title">About</div>
+        <p>Willing to make a dent in the technology space.</p>
+        <p>Learnt coding by going around on the internet and school.</p>
+        <p>Fun fact: The first computer mouse was made of wood! 🐭🪵</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Work Experience</div>
+
+        <div class="job">
+          <img src="images/scaleai.png" alt="Scale AI Logo" class="logo-img">
+          <strong>Scale AI</strong>
+          <span>Software Engineer Contractor | January 2024 – December 2024</span>
+          <button class="toggle-desc" onclick="toggleDescription(this)">Show Details</button>
+          <div class="job-desc hidden">
+            <ul>
+              <li>Evaluated and refined AI-generated code outputs by ranking response quality and correcting logic, syntax, and
+performance errors across many different languages such as Java, Python, C++</li>
+              <li>Improved data labeling workflows and throughput.</li>
+              <li>Helped improve AI coding models by identifying bugs, refactoring inefficient code, and validating outputs against
+sample test cases and expected results.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="job">
+          <img src="images/hubhyve.png" alt="Hubhyve Logo" class="logo-img">
+          <strong>Hubhyve</strong>
+          <span>Systems Engineer Intern | June 2023 - August 2023</span>
+          <button class="toggle-desc" onclick="toggleDescription(this)">Show Details</button>
+          <div class="job-desc hidden">
+            <ul>
+              <li>Wrote simple Python scripts to automate repetitive tasks like creating user accounts</li>
+              <li>Built monitoring scripts for server uptime</li>
+              <li>Collaborated on implementing system updates while maintaining access permissions and auditing user activity.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Projects</div>
+        <div class="project">
+          <a href="https://shadoconnect.com" target="_blank" class="project-link">
+            <strong>ShadoConnect</strong>
+          </a>
+          <span>Redefining how the next generation explores careers.</span>
+        </div>
+        <div class="project">
+          <strong>Advanced Vertical Axis Wind Turbine</strong>
+          <span>Developed a data collection system. Project on GitHub.</span>
+        </div>
+        <div class="project">
+          <strong>Public Wi-Fi Risk Analyzer</strong>
+          <span>Simulated IAM audit trail. Project on GitHub.</span>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Education</div>
+        <div class="edu-entry">
+          <img src="images/csu.jpeg" alt="CSU Logo" class="logo-img">
+          <div class="edu-info">
+            <strong>Cleveland State University</strong>
+            Bachelor's of Science in Computer Science<br>
+            2021 – 2025
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Skills</div>
+        <div class="skills-pills">
+          <span>Python</span><span>Java</span><span>JavaScript</span><span>HTML/CSS</span>
+          <span>SQL</span><span>C</span><span>C++</span><span>Git</span>
+          <span>VSCode</span><span>Linux</span><span>Arduino</span><span>Splunk</span>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Stay Updated</div>
+        <div class="email-box">
+          <input type="email" placeholder="Enter your email">
+          <button>Subscribe</button>
+        </div>
+      </div>
+
+      <hr>
+    </div> <!-- /container -->
+  </div> <!-- /main-content -->
+
+  <!-- External JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
