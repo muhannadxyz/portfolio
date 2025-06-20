@@ -1,5 +1,5 @@
 
-// 🧠 Terminal Intro Typing Effect
+// Terminal Intro Typing Effect
 const lines = [
   "Initializing neural interface...",
   "Connecting to mainframe...",
@@ -36,13 +36,13 @@ function typeLine() {
   }
 }
 
-// ✨ Cursor glow tracking
+// Cursor glow tracking
 document.addEventListener('mousemove', e => {
   document.body.style.setProperty('--x', `${e.clientX}px`);
   document.body.style.setProperty('--y', `${e.clientY}px`);
 });
 
-// 🎛 Toggle job descriptions
+// Toggle job descriptions
 function toggleDescription(btn) {
   const desc = btn.nextElementSibling;
   if (desc.classList.contains('hidden')) {
@@ -54,7 +54,7 @@ function toggleDescription(btn) {
   }
 }
 
-// 🌙 Theme toggle
+// Theme toggle
 function toggleTheme() {
   const current = document.documentElement.getAttribute('data-theme');
   if (current === 'light') {
@@ -64,7 +64,7 @@ function toggleTheme() {
   }
 }
 
-// ⌨️ Skip intro with Enter
+// Skip intro with Enter
 document.addEventListener('keydown', e => {
   if (e.key === 'Enter') {
     document.getElementById("terminal-intro").style.display = "none";
@@ -72,7 +72,7 @@ document.addEventListener('keydown', e => {
   }
 });
 
-// 🚀 Initialize
+// Initialize
 window.onload = () => {
   if (target) typeLine();
   document.documentElement.setAttribute('data-theme', 'dark');
