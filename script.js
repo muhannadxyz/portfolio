@@ -1,79 +1,78 @@
-
-// Terminal Intro Typing Effect
-const lines = [
-  "Initializing neural interface...",
-  "Connecting to mainframe...",
-  "Authenticating as Guest...",
-  "Loading portfolio modules...",
-  "Launching UI system... ✅",
-  "",
-  "Welcome, Operator."
+// 💻 Terminal Text Lines
+const terminalText = [
+  "booting portfolioOS...",
+  "loading personality modules...",
+  "establishing neural link...",
+  "initializing interface...",
+  "launching Muhannad Abuzahrieh portfolio..."
 ];
 
-let i = 0;
-let j = 0;
-let currentLine = "";
-const target = document.getElementById("terminal-line");
+const line = document.getElementById("terminal-line");
+let index = 0;
 
-function typeLine() {
-  if (i < lines.length) {
-    currentLine = lines[i];
-    if (j < currentLine.length) {
-      target.textContent += currentLine.charAt(j);
-      j++;
-      setTimeout(typeLine, 25);
-    } else {
-      target.textContent += "\n";
-      i++;
-      j = 0;
-      setTimeout(typeLine, 300);
-    }
+// 🧠 Type one line at a time
+function typeLine(text, i = 0) {
+  if (i < text.length) {
+    line.innerHTML += text.charAt(i);
+    setTimeout(() => typeLine(text, i + 1), 40);
   } else {
-    setTimeout(() => {
-      document.getElementById("terminal-intro").style.display = "none";
-      document.getElementById("main-content").style.display = "block";
-    }, 1000);
+    line.innerHTML += "<br>";
+    index++;
+    if (index < terminalText.length) {
+      setTimeout(() => typeLine(terminalText[index]), 400);
+    } else {
+      // ⏭ Done with terminal: show Xbox loading
+      showXboxLoading();
+    }
   }
 }
 
-// Cursor glow tracking
+// 🚀 Called once terminal finishes
+function showXboxLoading() {
+  document.getElementById("terminal-intro").style.display = "none";
+  document.getElementById("xbox-loading").style.display = "flex";
+
+  // ⏱ After 3 seconds, show site content
+  setTimeout(() => {
+    document.getElementById("xbox-loading").style.display = "none";
+    document.getElementById("main-content").style.display = "block";
+  }, 3000);
+}
+
+// 🚨 Allow skipping with Enter key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    skipIntro();
+  }
+});
+
+function skipIntro() {
+  document.getElementById("terminal-intro").style.display = "none";
+  document.getElementById("xbox-loading").style.display = "none";
+  document.getElementById("main-content").style.display = "block";
+}
+
+// 🧪 Mouse tracking glow
 document.addEventListener('mousemove', e => {
   document.body.style.setProperty('--x', `${e.clientX}px`);
   document.body.style.setProperty('--y', `${e.clientY}px`);
 });
 
-// Toggle job descriptions
+// 📜 Job Description Toggle
 function toggleDescription(btn) {
   const desc = btn.nextElementSibling;
-  if (desc.classList.contains('hidden')) {
-    desc.classList.remove('hidden');
-    btn.textContent = 'Hide Details';
-  } else {
-    desc.classList.add('hidden');
-    btn.textContent = 'Show Details';
-  }
+  desc.classList.toggle('hidden');
+  btn.textContent = desc.classList.contains('hidden') ? 'Show Details' : 'Hide Details';
 }
 
-// Theme toggle
+// 🌓 Theme
 function toggleTheme() {
   const current = document.documentElement.getAttribute('data-theme');
-  if (current === 'light') {
-    document.documentElement.setAttribute('data-theme', 'dark');
-  } else {
-    document.documentElement.setAttribute('data-theme', 'light');
-  }
+  document.documentElement.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
 }
 
-// Skip intro with Enter
-document.addEventListener('keydown', e => {
-  if (e.key === 'Enter') {
-    document.getElementById("terminal-intro").style.display = "none";
-    document.getElementById("main-content").style.display = "block";
-  }
-});
-
-// Initialize
-window.onload = () => {
-  if (target) typeLine();
+// ⏱ Init
+window.addEventListener("DOMContentLoaded", () => {
   document.documentElement.setAttribute('data-theme', 'dark');
-};
+  typeLine(terminalText[0]);
+});

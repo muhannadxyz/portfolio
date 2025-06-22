@@ -359,3 +359,41 @@ html {
 @keyframes blink {
   50% { opacity: 0; }
 }
+/* Xbox 360 Like  Loading Animation Container */
+.xbox-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;                  /* Full viewport height */
+  background-color: black;       /* Dark Xbox-style background */
+}
+
+/* Spinning & Pulsing Circle */
+.xbox-loading .circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;            /* Makes it a perfect circle */
+  border: 8px solid rgba(0, 255, 0, 0.4);     /* Soft green outer ring */
+  border-top-color: rgba(0, 255, 0, 1);       /* Bright green top border for spin effect */
+  animation: spin 1s linear infinite,         /* Rotation effect */
+             pulse 2s ease-in-out infinite;   /* Glowing pulse effect */
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.7);   /* Green glow */
+}
+
+/* Smooth continuous rotation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Pulsing glow effect */
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(0, 255, 0, 1);
+    transform: scale(1.1);
+  }
+}
