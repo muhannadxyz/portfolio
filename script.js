@@ -14,12 +14,12 @@ let index = 0;
 function typeLine(text, i = 0) {
   if (i < text.length) {
     line.innerHTML += text.charAt(i);
-    setTimeout(() => typeLine(text, i + 1), 40);
+    setTimeout(() => typeLine(text, i + 1), 5);
   } else {
     line.innerHTML += "<br>";
     index++;
     if (index < terminalText.length) {
-      setTimeout(() => typeLine(terminalText[index]), 400);
+      setTimeout(() => typeLine(terminalText[index]), 50);
     } else {
       // ⏭ Done with terminal: show Xbox loading
       showXboxLoading();
