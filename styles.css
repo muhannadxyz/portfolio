@@ -258,8 +258,11 @@ body::before {
   padding: 1px;
   background: linear-gradient(145deg, #0fffc3, #2a82ff);
   -webkit-mask: 
-    linear-gradient(#fff 0 0) content-box, 
-    linear-gradient(#fff 0 0);
+  linear-gradient(#fff 0 0) content-box, 
+  linear-gradient(#fff 0 0);
+mask: 
+  linear-gradient(#fff 0 0) content-box, 
+  linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;

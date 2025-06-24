@@ -14,14 +14,14 @@ let index = 0;
 function typeLine(text, i = 0) {
   if (i < text.length) {
     line.innerHTML += text.charAt(i);
-    setTimeout(() => typeLine(text, i + 1), 5);
+    setTimeout(() => typeLine(text, i + 1), 10); // 10ms delay between characters
   } else {
-    line.innerHTML += "<br>";
+    line.innerHTML += "<br>"; // Add a new line after each line
     index++;
     if (index < terminalText.length) {
-      setTimeout(() => typeLine(terminalText[index]), 50);
+      setTimeout(() => typeLine(terminalText[index]), 75); // 75ms delay between lines
     } else {
-      // ⏭ Done with terminal: show Xbox loading
+      // Done with terminal: show Xbox loading
       showXboxLoading();
     }
   }
@@ -60,9 +60,9 @@ document.addEventListener('mousemove', e => {
 
 // job Description Toggle
 function toggleDescription(btn) {
-  const desc = btn.nextElementSibling;
+  const desc = btn.nextElementSibling; 
   desc.classList.toggle('hidden');
-  btn.textContent = desc.classList.contains('hidden') ? 'Show Details' : 'Hide Details';
+  btn.textContent = desc.classList.contains('hidden') ? 'Show Details' : 'Hide Details'; 
 }
 
 // Theme
@@ -71,8 +71,9 @@ function toggleTheme() {
   document.documentElement.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
 }
 
-// Init
+// Init 
 window.addEventListener("DOMContentLoaded", () => {
   document.documentElement.setAttribute('data-theme', 'dark');
-  typeLine(terminalText[0]);
+  typeLine(terminalText[0]); 
 });
+
