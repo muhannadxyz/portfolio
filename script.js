@@ -59,10 +59,11 @@ document.addEventListener('mousemove', e => {
 });
 
 // job Description Toggle
-function toggleDescription(btn) {
-  const desc = btn.nextElementSibling; 
+function toggleDescription(header) {
+  const desc = header.parentElement.querySelector('.job-desc');
   desc.classList.toggle('hidden');
-  btn.textContent = desc.classList.contains('hidden') ? 'Show Details' : 'Hide Details'; 
+  const arrow = header.querySelector('.arrow');
+  arrow.classList.toggle('open');
 }
 
 // Theme
