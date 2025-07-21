@@ -36,7 +36,7 @@ function showXboxLoading() {
   setTimeout(() => {
     document.getElementById("xbox-loading").style.display = "none";
     document.getElementById("main-content").style.display = "block";
-  }, 3000);
+  }, 1000);
 }
 
 // Allow skipping with Enter key
