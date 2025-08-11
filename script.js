@@ -32,7 +32,7 @@ function showXboxLoading() {
   document.getElementById("terminal-intro").style.display = "none";
   document.getElementById("xbox-loading").style.display = "flex";
 
-  //After 3 seconds, show site content
+  //After 1 seconds, show site content
   setTimeout(() => {
     document.getElementById("xbox-loading").style.display = "none";
     document.getElementById("main-content").style.display = "block";
