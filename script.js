@@ -14,12 +14,12 @@ let index = 0;
 function typeLine(text, i = 0) {
   if (i < text.length) {
     line.innerHTML += text.charAt(i);
-    setTimeout(() => typeLine(text, i + 1), 10); // 10ms delay between characters
+    setTimeout(() => typeLine(text, i + 1), 1); // 10ms delay between characters
   } else {
     line.innerHTML += "<br>"; // Add a new line after each line
     index++;
     if (index < terminalText.length) {
-      setTimeout(() => typeLine(terminalText[index]), 75); // 75ms delay between lines
+      setTimeout(() => typeLine(terminalText[index]), 25); // 75ms delay between lines
     } else {
       // Done with terminal: show Xbox loading
       showXboxLoading();
@@ -36,7 +36,7 @@ function showXboxLoading() {
   setTimeout(() => {
     document.getElementById("xbox-loading").style.display = "none";
     document.getElementById("main-content").style.display = "block";
-  }, 1000);
+  }, 250);
 }
 
 // Allow skipping with Enter key
