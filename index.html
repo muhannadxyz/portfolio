@@ -30,136 +30,131 @@
 
   <!-- Site Content (initially hidden) -->
   <div id="main-content" style="display: none;">
-    
-    <!-- Navigation bar -->
-    <nav class="navbar">
-      <a href="#home">Home</a>
-      <a href="https://github.com/muhannadxyz" target="_blank">GitHub</a>
-      <a href="https://www.linkedin.com/in/muhannad-abuzahrieh-0b7330265/" target="_blank">LinkedIn</a>
-      <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
-    </nav>
-
-    <!-- Main Container -->
-    <div class="container">
-      <header id="home">
-        <h1>Muhannad Abuzahrieh</h1>
-      </header>
-
-      <div class="section">
-        <div class="section-title">About</div>
-        <p>Committed to shaping the future of tech.</p>
-        <p>First College Graduate in my Family</p>
-        <p>Fun fact: The first computer mouse was made of wood!</p>
+    <section class="hero">
+      <h1 class="hero-title">
+        <span class="hero-soft">Muhannad is making</span>
+        <span class="hero-underline">Privacy.</span>
+      </h1>
+      <div class="hero-sub">See clearly. Stay private. — <a href="https://lucentir.xyz/" target="_blank" rel="noreferrer">LUCENTIR</a></div>
+      <div class="hero-meta">
+        <div class="meta-left">
+          <div class="links">
+            <a href="portfolio.html">VIEW PORTFOLIO</a>
+            <a href="https://github.com/muhannadxyz" target="_blank" rel="noreferrer">EXPLORE</a>
+          </div>
+          <div class="last-seen">LAST SEEN TODAY, AT UNITED STATES.</div>
+          <div class="social-row">
+            <a href="https://github.com/muhannadxyz" target="_blank" rel="noreferrer">GITHUB</a>
+            <a href="https://www.linkedin.com/in/muhannad-abuzahrieh-0b7330265/" target="_blank" rel="noreferrer">LINKEDIN</a>
+          </div>
+        </div>
+        <div class="meta-right only-past">
+          <span class="past-label">PAST WORK</span>
+          <a href="https://lucentir.xyz/" target="_blank" rel="noreferrer">LUCENTIR</a>
+          <a href="https://shadoconnect.com" target="_blank" rel="noreferrer">SHADOCONNECT</a>
+        </div>
+        
       </div>
-
-      <div class="section">
-        <div class="section-title">Work Experience</div>
-
-        <div class="job">
-          <div class="job-header" onclick="toggleDescription(this)">
-            <span class="arrow">&#9654;</span>
-            <img src="images/scaleAI.png" alt="Scale AI Logo" class="logo-img">
-            <div class="job-info">
-              <strong>Outlier AI via Scale AI</strong>
-              <span> AI Engineer - Model Trainer | January 2024 – December 2024</span>
+      <!-- Mini OS desktop -->
+      <div id="desktop" class="desktop">
+        <div class="window" data-app="terminal" data-lock="true" style="left: 6vw; top: 30vh; width: 60vw;">
+          <div class="titlebar">
+            <div class="traffic">
+              <button class="close" aria-label="close" onclick="closeWindow(this)"></button>
+              <button class="min" aria-label="minimize" onclick="minimizeWindow(this)"></button>
+              <button class="max" aria-label="maximize" onclick="maximizeWindow(this)"></button>
+            </div>
+            <span>Terminal</span>
+          </div>
+          <div class="content term">
+            <div id="term-log" class="term-log"></div>
+            <div class="term-input-row">
+              <span class="prompt">muhannad ~ %</span>
+              <input id="term-input" class="term-input" autocomplete="off" placeholder="type 'help' and press Enter" />
             </div>
           </div>
-          <div class="job-desc hidden">
-            <ul>
-              <li>Evaluated and refined AI-generated code outputs by ranking response quality and correcting logic, syntax, and
-performance errors across many different languages such as Java, Python, C++</li>
-              <li>Provided detailed technical feedback on system behavior and structured output to enhance consistency, clarity, and
-production readiness of AI responses.</li>
-              <li>Helped improve AI coding models by identifying bugs, refactoring inefficient code, and validating outputs against
-sample test cases and expected results.</li>
-              <li>Applied Reinforcement Learning with Human Feedback (RLHF) to improve large language models understanding,
-reasoning, and alignment with development best practices.</li>
-            </ul>
+        </div>
+
+        <div class="window" data-app="notes" style="left: 35vw; top: 35vh; display:none;">
+          <div class="titlebar">
+            <div class="traffic">
+              <button class="close" aria-label="close" onclick="closeWindow(this)"></button>
+              <button class="min" aria-label="minimize" onclick="minimizeWindow(this)"></button>
+              <button class="max" aria-label="maximize" onclick="maximizeWindow(this)"></button>
+            </div>
+            <span>Notes</span>
+          </div>
+          <div class="content notes" contenteditable="true" spellcheck="false">Idea: private-first tools. Ship Lucentir v1.</div>
+        </div>
+
+        <div class="window" data-app="browser" style="left: 58vw; top: 28vh; width: 520px; display:none;">
+          <div class="titlebar">
+            <div class="traffic">
+              <button class="close" aria-label="close" onclick="closeWindow(this)"></button>
+              <button class="min" aria-label="minimize" onclick="minimizeWindow(this)"></button>
+              <button class="max" aria-label="maximize" onclick="maximizeWindow(this)"></button>
+            </div>
+            <span>Browser</span>
+          </div>
+          <div class="content browser">
+            <div class="toolbar">
+              <div class="tab active">Lucentir</div>
+              <div class="tab">ShadoConnect</div>
+              <input class="address" value="https://lucentir.xyz" placeholder="Enter URL and press Enter" />
+            </div>
+            <div class="page">See clearly. Stay private.</div>
           </div>
         </div>
 
-        <div class="job">
-          <div class="job-header" onclick="toggleDescription(this)">
-            <span class="arrow">&#9654;</span>
-            <img src="images/hubhyve.png" alt="Hubhyve Logo" class="logo-img">
-            <div class="job-info">
-              <strong>Hubhyve</strong>
-              <span>Systems Engineer Intern | June 2023 - August 2023</span>
+        <div class="window" data-app="files" style="left: 15vw; top: 58vh; width: 360px; display:none;">
+          <div class="titlebar">
+            <div class="traffic">
+              <button class="close" aria-label="close" onclick="closeWindow(this)"></button>
+              <button class="min" aria-label="minimize" onclick="minimizeWindow(this)"></button>
+              <button class="max" aria-label="maximize" onclick="maximizeWindow(this)"></button>
+            </div>
+            <span>Files</span>
+          </div>
+          <div class="content files">
+            <div class="files-head">
+              <button class="files-up" onclick="filesUp()">⬆</button>
+              <div class="files-crumbs" id="files-crumbs">/</div>
+            </div>
+            <div class="files-grid" id="files-grid"></div>
+            <div class="files-preview" id="files-preview">Select a file to preview.</div>
+          </div>
+        </div>
+
+        <div class="window" data-app="monitor" style="left: 45vw; top: 60vh; width: 420px; display:none;">
+          <div class="titlebar">
+            <div class="traffic">
+              <button class="close" aria-label="close" onclick="closeWindow(this)"></button>
+              <button class="min" aria-label="minimize" onclick="minimizeWindow(this)"></button>
+              <button class="max" aria-label="maximize" onclick="maximizeWindow(this)"></button>
+            </div>
+            <span>System Monitor</span>
+          </div>
+          <div class="content monitor">
+            <div class="bars">
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
             </div>
           </div>
-          <div class="job-desc hidden">
-            <ul>
-              <li>Wrote simple Python scripts to automate repetitive tasks like creating user accounts</li>
-              <li>Performed basic Linux system administration tasks, such as managing users, setting permissions, and running shell
-commands to support daily operations.</li>
-              <li>Collaborated on implementing system updates while maintaining access permissions and auditing user activity.</li>
-            </ul>
-          </div>
+        </div>
+
+        <div class="dock">
+          <button onclick="restoreApp('terminal')" title="Terminal">⌘_</button>
+          <button onclick="restoreApp('notes')" title="Notes">✎</button>
+          <button onclick="restoreApp('browser')" title="Browser">🌐</button>
+          <button onclick="restoreApp('files')" title="Files">📁</button>
+          <button onclick="restoreApp('monitor')" title="Monitor">📊</button>
+          <button onclick="toggleDashboard()" title="Tile/Untile">▦</button>
+          <button onclick="showDesktop()" title="Show Desktop">◻</button>
         </div>
       </div>
-
-      <div class="section">
-        <div class="section-title">Projects</div>
-        <div class="project">
-          <a href="https://shadoconnect.com" target="_blank" class="project-link">
-            <strong>ShadoConnect</strong>
-          </a>
-          <span>Redefining how the next generation explores careers. AI-Powered hub for High school students to find shadowing opportunities and College students to find internships and experience </span>
-        </div>
-        <div class="project">
-          <strong>Advanced Vertical Axis Wind Turbine</strong>
-          <span>Developed a data collection system for performance of a wind turbine and increased wind speed by 30%. Project on GitHub.</span>
-        </div>
-        <div class="project">
-          <strong>Public Wi-Fi Risk Analyzer</strong>
-          <span>Built a user-friendly GUI with Tkinter to display risk results and save scan history. Analyzes public Wi-Fi security using HTTPS, DNS, VPN, and firewall checks. Logs SSIDs, timestamps, and risk scores to simulate IAM audit trail behavior. Project on GitHub.</span>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="section-title">Education</div>
-        <div class="edu-entry">
-          <img src="images/csu.jpeg" alt="CSU Logo" class="logo-img">
-          <div class="edu-info">
-            <strong>Cleveland State University</strong>
-            Bachelor's of Science in Computer Science<br>
-            2021 – 2025
-          </div>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="section-title">Skills</div>
-        <div class="skills-pills">
-          <span>Python</span><span>Java</span><span>JavaScript</span><span>HTML/CSS</span>
-          <span>SQL</span><span>C</span><span>C++</span><span>Git</span>
-          <span>VSCode</span><span>Linux</span><span>Arduino</span><span>Splunk</span>
-        </div>
-      </div>
-
-      <div class = "section">
-        <div class = "section-title">Certifications</div>
-        <div class = "Cerfs">
-          <span>Google CyberSecurity </span>
-          <ul>
-            <li>Using security information and event management (SIEM) tools for cybersecurity </li>
-            <li>Detecting and responding to incidents using an intrusion detection system</li>
-            <li>Implemented Frameworks and controls that inform security operations </li>
-            <li>Performing packet capture and analysis </li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="section-title">Stay Updated</div>
-        <div class="email-box">
-          <input type="email" placeholder="Enter your email">
-          <button>Subscribe</button>
-        </div>
-      </div>
-
-      <hr>
-    </div> <!-- /container -->
+    </section>
   </div> <!-- /main-content -->
 
   <!-- External JavaScript -->

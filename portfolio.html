@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Muhannad Abuzahrieh | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  
+
+  <div class="container">
+    <header id="home">
+      <h1 class="gradient-title" style="text-shadow:none">Portfolio</h1>
+    </header>
+
+    <div class="section panel">
+      <div class="section-title">About</div>
+      <p>Committed to shaping the future of tech. First college graduate in my family.</p>
+      <p>Building privacy‑first tools like <a class="neon-link" href="https://lucentir.xyz" target="_blank">Lucentir</a>. I enjoy clean design, clear UX, and robust engineering practices.</p>
+    </div>
+
+    <div class="section panel">
+      <div class="section-title">Work Experience</div>
+
+      <div class="job">
+        <div class="job-header" onclick="toggleDescription(this)">
+          <span class="arrow">&#9654;</span>
+          <img src="images/scaleAI.png" alt="Scale AI Logo" class="logo-img">
+          <div class="job-info">
+            <strong>Outlier AI via Scale AI</strong>
+            <span>AI Engineer - Model Trainer | Jan 2024 – Dec 2024</span>
+          </div>
+        </div>
+        <div class="job-desc hidden">
+          <ul>
+            <li>Validated and corrected logic, syntax, and performance issues across multiple languages (Python, Java, C++), including complex AI‑generated code.</li>
+            <li>Applied model training and debugging techniques to identify bugs, validate output, and ensure functionality aligned with business logic and user requirements.</li>
+            <li>Supported production‑ready code development through test case creation and reinforcement learning with human feedback (RLHF); collaborated with engineers to isolate environment vs. code issues.</li>
+            <li>Developed automated validation scripts using Python to detect anomalies in AI output, improving detection accuracy and system response time by 15%.</li>
+            <li>Monitored application performance metrics and logs to identify recurring issues, proposed targeted fixes, and verified improvements through follow‑up testing.</li>
+            <li>Delivered structured feedback on system behavior, logic errors, and output formatting to improve software reliability; documented incidents/defects and reproducible steps in issue‑tracking systems.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="job">
+        <div class="job-header" onclick="toggleDescription(this)">
+          <span class="arrow">&#9654;</span>
+          <img src="images/hubhyve.png" alt="Hubhyve Logo" class="logo-img">
+          <div class="job-info">
+            <strong>Hubhyve</strong>
+            <span>Software Systems Intern | Jun 2023 - Aug 2023</span>
+          </div>
+        </div>
+        <div class="job-desc hidden">
+          <ul>
+            <li>Designed and built core platform logic for managing class sessions, instructor permissions, and real‑time user activity for medical students.</li>
+            <li>Developed features to track live session states, enforce registration rules, and update learning progress using cloud‑based workflows and async logic.</li>
+            <li>Wrote and tested modular functions connected to internal data structures and event triggers, contributing to feature releases used by instructors and students.</li>
+            <li>Contributed to platform‑side logic for handling schedule changes, late joins, and session closures in a scalable and maintainable way.</li>
+            <li>Documented system behavior, edge cases, and implementation notes to support future iterations and developer handoff.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="section panel">
+      <div class="section-title">Projects</div>
+      <div class="project">
+        <strong>Lucentir — Privacy & Threat Intelligence Platform</strong>
+        <span>Built a privacy intelligence platform that scores 256 comparison cases across 5 pillars: minimization, control, security, sharing, transparency. Shipped VPN and Ad‑Blocker comparisons (10+ providers each) with privacy‑first toggles (Free/Open Source/No Telemetry), rich filters/sorting, and side‑by‑side comparison. Implemented a transparent scoring model with cited sources per city (privacy and transparency links on every profile) and methodology aligned to IR/SOC reporting.</span>
+      </div>
+      <div class="project">
+        <a href="https://shadoconnect.com" target="_blank" class="project-link"><strong>ShadoConnect</strong></a>
+        <span>AI‑powered hub for students to find shadowing opportunities and internships.</span>
+      </div>
+      <div class="project">
+        <strong>Advanced Vertical Axis Wind Turbine</strong>
+        <span>Developed performance data system; increased wind speed by 30% (repo on GitHub).</span>
+      </div>
+      <div class="project">
+        <strong>Public Wi‑Fi Risk Analyzer — Python GUI Security App</strong>
+        <span>Built a user‑friendly GUI with Tkinter to display risk results and save scan history. Analyzes public Wi‑Fi security using HTTPS, DNS, VPN, and firewall checks; logs SSIDs, timestamps, and risk scores to simulate IAM audit‑trail behavior.</span>
+      </div>
+    </div>
+
+    <div class="section panel">
+      <div class="section-title">Education</div>
+      <div class="edu-entry">
+        <img src="images/csu.jpeg" alt="CSU Logo" class="logo-img">
+        <div class="edu-info">
+          <strong>Cleveland State University</strong>
+          Bachelor's of Science in Computer Science<br>
+          2021 – 2025 
+          <div style="margin-top:6px; color:var(--muted); font-size:0.9rem">Relevant Coursework: Data Structures & Algorithms, Object‑Oriented Programming, Artificial Intelligence, Computer Security, Web Development, Systems Programming, Computer Networking</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section panel">
+      <div class="section-title">Skills</div>
+      <div class="skills-pills">
+        <span>Python</span><span>JavaScript (ES6+)</span><span>PHP</span><span>Bash</span>
+        <span>PowerShell</span><span>SQL</span><span>HTML5/CSS3</span><span>C</span><span>C++</span>
+        <span>WordPress Core</span><span>Gutenberg (React)</span><span>Blade (Laravel)</span>
+        <span>Tailwind CSS</span><span>Vite</span><span>PostCSS</span>
+        <span>Git</span><span>VS Code</span><span>Firebase</span><span>AWS (basic)</span>
+        <span>VMware</span><span>Neovim/Vim</span><span>Composer</span>
+        <span>OOP</span><span>REST APIs</span><span>Agile</span>
+        <span>Code Review</span><span>Testing</span><span>Data Validation</span><span>Design Patterns</span>
+      </div>
+    </div>
+
+    
+    <div class="section panel">
+      <div class="section-title">Certifications</div>
+      <div class="Cerfs">
+        <div style="margin-bottom:8px; font-weight:700; color:var(--text)">Google Cybersecurity</div>
+        <div style="font-size:0.9rem; color:var(--muted); margin-bottom:10px">Credential ID: NVOKEWUEELQ6 · Issued: September 2024</div>
+        <ul>
+          <li>Using SIEM tools for cybersecurity</li>
+          <li>Detecting/responding to incidents with IDS</li>
+          <li>Implemented frameworks and controls for operations</li>
+          <li>Packet capture and analysis</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr>
+    <div style="font-family:'Share Tech Mono',monospace; font-size:12px; color:#999">
+      <a href="index.html" style="color:#e6e6e6; text-decoration:none">← Back</a>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
