@@ -411,3 +411,230 @@ document.addEventListener('DOMContentLoaded', () => {
   setupBrowser();
 });
 
+// ========== HOLOGRAPHIC PARTICLE SYSTEM ==========
+class ParticleSystem {
+  constructor() {
+    this.canvas = document.getElementById('particle-canvas');
+    if (!this.canvas) return;
+    this.ctx = this.canvas.getContext('2d');
+    this.particles = [];
+    this.mouse = { x: 0, y: 0 };
+    this.init();
+  }
+
+  init() {
+    this.resize();
+    window.addEventListener('resize', () => this.resize());
+    document.addEventListener('mousemove', (e) => {
+      this.mouse.x = e.clientX;
+      this.mouse.y = e.clientY;
+    });
+
+    // Create particles
+    const particleCount = Math.min(80, Math.floor(window.innerWidth / 20));
+    for (let i = 0; i < particleCount; i++) {
+      this.particles.push(new Particle(this.canvas.width, this.canvas.height));
+    }
+
+    this.animate();
+  }
+
+  resize() {
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
+  }
+
+  animate() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    
+    // Update and draw particles
+    this.particles.forEach((p, i) => {
+      p.update(this.mouse);
+      p.draw(this.ctx);
+      
+      // Connect nearby particles
+      this.particles.slice(i + 1).forEach(p2 => {
+        const dx = p.x - p2.x;
+        const dy = p.y - p2.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        
+        if (dist < 120) {
+          this.ctx.beginPath();
+          this.ctx.strokeStyle = `rgba(0, 255, 225, ${0.2 * (1 - dist / 120)})`;
+          this.ctx.lineWidth = 1;
+          this.ctx.moveTo(p.x, p.y);
+          this.ctx.lineTo(p2.x, p2.y);
+          this.ctx.stroke();
+        }
+      });
+    });
+
+    requestAnimationFrame(() => this.animate());
+  }
+}
+
+class Particle {
+  constructor(w, h) {
+    this.x = Math.random() * w;
+    this.y = Math.random() * h;
+    this.vx = (Math.random() - 0.5) * 0.5;
+    this.vy = (Math.random() - 0.5) * 0.5;
+    this.radius = Math.random() * 2 + 1;
+    this.opacity = Math.random() * 0.5 + 0.2;
+  }
+
+  update(mouse) {
+    // Magnetic attraction to mouse
+    const dx = mouse.x - this.x;
+    const dy = mouse.y - this.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    
+    if (dist < 150) {
+      const force = (150 - dist) / 150;
+      this.vx += (dx / dist) * force * 0.02;
+      this.vy += (dy / dist) * force * 0.02;
+    }
+
+    // Update position
+    this.x += this.vx;
+    this.y += this.vy;
+
+    // Boundary wrap
+    if (this.x < 0) this.x = window.innerWidth;
+    if (this.x > window.innerWidth) this.x = 0;
+    if (this.y < 0) this.y = window.innerHeight;
+    if (this.y > window.innerHeight) this.y = 0;
+
+    // Damping
+    this.vx *= 0.99;
+    this.vy *= 0.99;
+  }
+
+  draw(ctx) {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(0, 255, 225, ${this.opacity})`;
+    ctx.fill();
+    
+    // Glow effect
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = 'rgba(0, 255, 225, 0.8)';
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  }
+}
+
+// ========== NEURAL NETWORK VISUALIZATION ==========
+class NeuralNetwork {
+  constructor() {
+    this.canvas = document.getElementById('neural-network');
+    if (!this.canvas) return;
+    this.ctx = this.canvas.getContext('2d');
+    this.nodes = [];
+    this.connections = [];
+    this.init();
+  }
+
+  init() {
+    this.resize();
+    window.addEventListener('resize', () => this.resize());
+    
+    // Create network nodes at element positions
+    this.createNetwork();
+    this.animate();
+  }
+
+  resize() {
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
+  }
+
+  createNetwork() {
+    // Find interactive elements to connect
+    const elements = document.querySelectorAll('.panel, .window, .skills-pills span, .hero-title');
+    
+    elements.forEach((el, i) => {
+      const rect = el.getBoundingClientRect();
+      this.nodes.push({
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2,
+        element: el,
+        active: false
+      });
+
+      // Create connections to nearby nodes
+      if (i > 0 && Math.random() > 0.7) {
+        const targetIndex = Math.floor(Math.random() * i);
+        this.connections.push({
+          from: i,
+          to: targetIndex,
+          strength: Math.random()
+        });
+      }
+    });
+
+    // Track element visibility
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const node = this.nodes.find(n => n.element === entry.target);
+        if (node) node.active = entry.isIntersecting;
+      });
+    }, { threshold: 0.1 });
+
+    elements.forEach(el => observer.observe(el));
+  }
+
+  animate() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    
+    // Update node positions from elements
+    this.nodes.forEach((node, i) => {
+      if (node.element) {
+        const rect = node.element.getBoundingClientRect();
+        node.x = rect.left + rect.width / 2;
+        node.y = rect.top + rect.height / 2;
+      }
+    });
+
+    // Draw connections
+    this.connections.forEach(conn => {
+      const from = this.nodes[conn.from];
+      const to = this.nodes[conn.to];
+      if (!from || !to) return;
+
+      const opacity = (from.active || to.active) ? 0.4 : 0.1;
+      
+      this.ctx.beginPath();
+      this.ctx.moveTo(from.x, from.y);
+      this.ctx.lineTo(to.x, to.y);
+      this.ctx.strokeStyle = `rgba(42, 130, 255, ${opacity * conn.strength})`;
+      this.ctx.lineWidth = 1;
+      this.ctx.stroke();
+    });
+
+    // Draw nodes
+    this.nodes.forEach(node => {
+      if (!node.active) return;
+      
+      this.ctx.beginPath();
+      this.ctx.arc(node.x, node.y, 3, 0, Math.PI * 2);
+      this.ctx.fillStyle = `rgba(0, 255, 225, 0.6)`;
+      this.ctx.fill();
+      
+      // Glow
+      this.ctx.shadowBlur = 8;
+      this.ctx.shadowColor = 'rgba(0, 255, 225, 0.8)';
+      this.ctx.fill();
+      this.ctx.shadowBlur = 0;
+    });
+
+    requestAnimationFrame(() => this.animate());
+  }
+}
+
+// Initialize when main content is visible
+setTimeout(() => {
+  new ParticleSystem();
+  new NeuralNetwork();
+}, 500);
+
