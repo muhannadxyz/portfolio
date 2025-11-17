@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Muhannad Abuzahrieh | Portfolio</title>
+  <title>Muhannad Abuzahrieh</title>
 
   <!-- Fonts and Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
@@ -12,14 +12,19 @@
   <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
   <link rel="manifest" href="favicon/site.webmanifest">
 
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/framer-motion@11/dist/framer-motion.min.js"></script>
+
   <!-- Main stylesheet -->
   <link rel="stylesheet" href="styles.css">
+  <style>
+    .prose img { border-radius: 1rem; margin: 2rem 0; }
+    .group:hover img { transform: scale(1.05); }
+  </style>
 </head>
 
 <body>
-  <!-- Particle Canvas Background -->
-  <canvas id="particle-canvas"></canvas>
-  
   <!-- Neural Network Visualization -->
   <canvas id="neural-network"></canvas>
 
@@ -35,34 +40,46 @@
 
   <!-- Site Content (initially hidden) -->
   <div id="main-content" style="display: none;">
-    <section class="hero">
-      <h1 class="hero-title">
-        <span class="hero-soft">Muhannad is making</span>
-        <span class="hero-underline">Privacy.</span>
-      </h1>
-      <div class="hero-sub">See clearly. Stay private. — <a href="https://lucentir.xyz/" target="_blank" rel="noreferrer">LUCENTIR</a></div>
-      <div class="hero-meta">
-        <div class="meta-left">
-          <div class="links">
-            <a href="portfolio.html">VIEW PORTFOLIO</a>
-            <a href="https://github.com/muhannadxyz" target="_blank" rel="noreferrer">EXPLORE</a>
-          </div>
-          <div class="last-seen">LAST SEEN TODAY, AT UNITED STATES.</div>
-          <div class="social-row">
-            <a href="https://github.com/muhannadxyz" target="_blank" rel="noreferrer">GITHUB</a>
-            <a href="https://www.linkedin.com/in/muhannad-abuzahrieh-0b7330265/" target="_blank" rel="noreferrer">LINKEDIN</a>
-          </div>
+    <!-- Hamburger Menu -->
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    
+    <nav class="dropdown-nav" id="dropdown-nav">
+      <div class="dropdown-content">
+        <div class="dropdown-header">
+          <div class="dropdown-name">Muhannad</div>
+          <button class="dropdown-close" onclick="toggleMenu()">×</button>
         </div>
-        <div class="meta-right only-past">
-          <span class="past-label">PAST WORK</span>
-          <a href="https://lucentir.xyz/" target="_blank" rel="noreferrer">LUCENTIR</a>
-          <a href="https://shadoconnect.com" target="_blank" rel="noreferrer">SHADOCONNECT</a>
+        <div class="dropdown-links">
+          <a href="#projects" onclick="toggleMenu()">Projects</a>
+          <a href="portfolio.html" onclick="toggleMenu()">Resume</a>
+          <a href="https://github.com/muhannadxyz" target="_blank" rel="noreferrer" onclick="toggleMenu()">GitHub</a>
+          <a href="https://www.linkedin.com/in/muhannad-abuzahrieh-0b7330265/" target="_blank" rel="noreferrer" onclick="toggleMenu()">Contact</a>
         </div>
-        
       </div>
+    </nav>
+    
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-badge">Available for work</div>
+        <h1 class="hero-title">
+          <span class="hero-soft">Muhannad is making</span>
+          <span class="hero-underline">Software 2.0</span>
+        </h1>
+      </div>
+      
+      <!-- Projects Grid -->
+      <div id="projects" class="max-w-7xl mx-auto px-8 py-20">
+        <h2 class="text-4xl font-bold mb-12" style="color: var(--text);">Featured Projects</h2>
+        <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
+      </div>
+      
       <!-- Mini OS desktop -->
       <div id="desktop" class="desktop">
-        <div class="window" data-app="terminal" data-lock="true" style="left: 6vw; top: 30vh; width: 60vw;">
+        <div class="window" data-app="terminal" style="left: 6vw; top: 30vh; width: 60vw; display: none;">
           <div class="titlebar">
             <div class="traffic">
               <button class="close" aria-label="close" onclick="closeWindow(this)"></button>
@@ -162,7 +179,311 @@
     </section>
   </div> <!-- /main-content -->
 
+  <!-- Full-Screen Project Overlay -->
+  <div id="project-overlay" class="fixed inset-0 hidden z-50 overflow-y-auto bg-white dark:bg-black"></div>
+
   <!-- External JavaScript -->
   <script src="script.js"></script>
+  
+  <!-- Projects Showcase Script -->
+  <script>
+    function initProjects() {
+      // Check if Framer Motion is available
+      if (!window.framerMotion || !window.framerMotion.motion) {
+        console.error('Framer Motion not available');
+        // Fallback: render without animations
+        renderProjectsWithoutMotion();
+        return;
+      }
+      
+      const { motion } = window.framerMotion;
+      
+      // Projects Data
+      const projects = [
+      {
+        slug: "lucentir",
+        title: "Lucentir",
+        company: "Privacy & Threat Intelligence",
+        logo: "🔒",
+        thumb: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=600&fit=crop",
+        description: "Built a privacy intelligence platform that scores 256 comparison cases across 5 pillars: minimization, control, security, sharing, transparency. Shipped VPN and Ad‑Blocker comparisons (10+ providers each) with privacy‑first toggles (Free/Open Source/No Telemetry), rich filters/sorting, and side‑by‑side comparison.",
+        details: "Implemented a transparent scoring model with cited sources per city (privacy and transparency links on every profile) and methodology aligned to IR/SOC reporting.",
+        link: "https://lucentir.xyz/"
+      },
+      {
+        slug: "shadoconnect",
+        title: "ShadoConnect",
+        company: "Healthcare Platform",
+        logo: "👥",
+        thumb: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=600&fit=crop",
+        description: "AI‑powered hub for students to find shadowing opportunities and internships.",
+        details: "Built a platform that connects medical students with healthcare professionals for shadowing experiences. Intelligent matching algorithms help students discover relevant internship opportunities based on their interests and qualifications.",
+        link: "https://shadoconnect.com"
+      },
+      {
+        slug: "rentwise",
+        title: "Rentwise",
+        company: "Property Management",
+        logo: "🏠",
+        thumb: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop",
+        description: "Property management platform designed to streamline rental operations.",
+        details: "Built features for tenant management, lease tracking, maintenance requests, and financial reporting. Implemented a user-friendly interface for both property managers and tenants with real-time notifications and automated workflows.",
+        link: "https://rentwise.tech/"
+      }
+    ];
+
+    // Elements
+    const grid = document.getElementById("projects-grid");
+    const overlay = document.getElementById("project-overlay");
+
+    // Generate Project Cards
+    projects.forEach(p => {
+      const cardContainer = document.createElement("div");
+      cardContainer.className = "cursor-pointer group";
+      cardContainer.innerHTML = `
+        <motion.div 
+          layoutId="card-${p.slug}" 
+          class="bg-neutral-50 dark:bg-neutral-900 rounded-3xl overflow-hidden border border-neutral-200 dark:border-neutral-800 w-full"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          whileHover={{ y: -12 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+        >
+          <div class="aspect-video relative overflow-hidden">
+            <img src="${p.thumb}" alt="${p.title}" class="w-full h-full object-cover transition-transform duration-700">
+          </div>
+          <div class="p-8">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 text-3xl flex items-center justify-center bg-neutral-100 dark:bg-neutral-800 rounded-lg flex-shrink-0">${p.logo}</div>
+              <div>
+                <h2 class="text-2xl font-semibold text-black dark:text-white">${p.title}</h2>
+                <p class="text-neutral-600 dark:text-neutral-400">${p.company}</p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      `;
+      
+        cardContainer.addEventListener("click", () => openProject(p));
+        grid.appendChild(cardContainer);
+      });
+
+      // Open Project (Expands with Shared Animation)
+      function openProject(p) {
+        overlay.innerHTML = `
+        <div class="min-h-screen relative">
+          <!-- Expanding Hero Image -->
+          <motion.div 
+            layoutId="card-${p.slug}" 
+            class="fixed inset-0 z-0"
+            initial={{ scale: 1 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+          >
+            <img src="${p.thumb}" alt="${p.title}" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+          </motion.div>
+          
+          <!-- Close Button -->
+          <button id="close" style="position: fixed; top: 32px; right: 32px; z-index: 9999; background: white; color: black; border-radius: 50%; width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 300; cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.3); border: none;">✕</button>
+          
+          <!-- Project Title Overlay -->
+          <div class="absolute bottom-0 left-0 right-0 p-16 text-white z-10 bg-gradient-to-t from-black/90">
+            <h1 class="text-6xl md:text-9xl font-bold mb-2">${p.title}</h1>
+            <p class="text-2xl opacity-90">${p.company}</p>
+          </div>
+          
+          <!-- Case Study Content (Scrollable) -->
+          <article class="relative z-10 max-w-4xl mx-auto px-8 pt-40 pb-24 prose prose-2xl prose-invert max-w-none">
+            <section class="bg-neutral-50 dark:bg-neutral-900 rounded-3xl p-8 mb-8">
+              <h2 class="text-4xl font-bold mb-4 text-black dark:text-white">My Role</h2>
+              <p class="text-xl text-neutral-700 dark:text-neutral-300">${p.description}</p>
+            </section>
+            
+            <img src="${p.thumb}" alt="Project detail" class="w-full rounded-3xl">
+            
+            <section class="bg-neutral-50 dark:bg-neutral-900 rounded-3xl p-8 mt-8">
+              <h3 class="text-3xl font-bold mb-4 text-black dark:text-white">The Challenge</h3>
+              <p class="text-lg text-neutral-700 dark:text-neutral-300">${p.details}</p>
+            </section>
+            
+            <section class="bg-neutral-50 dark:bg-neutral-900 rounded-3xl p-8 mt-8">
+              <h3 class="text-3xl font-bold mb-4 text-black dark:text-white">Visit Project</h3>
+              <a href="${p.link}" target="_blank" class="inline-block px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-lg font-semibold transition-colors">
+                View Live Site →
+              </a>
+            </section>
+          </article>
+        </div>
+      `;
+      
+      // Show Overlay
+      overlay.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+      
+      // Close Events
+      const closeBtn = overlay.querySelector("#close");
+      
+      if (closeBtn) {
+        closeBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          closeOverlay();
+        });
+      }
+      
+      overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) closeOverlay();
+      });
+    }
+
+      // Close Overlay (Collapses Back)
+      function closeOverlay() {
+        overlay.classList.add("hidden");
+        document.body.style.overflow = "";
+        // Scroll back to top smoothly
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      
+      // ESC key to close
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !overlay.classList.contains('hidden')) {
+          closeOverlay();
+        }
+      });
+
+      // Stagger Grid Animation on Load
+      grid.style.opacity = "0";
+      setTimeout(() => {
+        grid.style.transition = "opacity 0.6s";
+        grid.style.opacity = "1";
+      }, 100);
+    }
+    
+    // Fallback function without Framer Motion
+    function renderProjectsWithoutMotion() {
+      const projects = [
+        {
+          slug: "lucentir",
+          title: "Lucentir",
+          company: "Privacy & Threat Intelligence",
+          logo: "🔒",
+          thumb: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=600&fit=crop",
+          description: "Built a privacy intelligence platform that scores 256 comparison cases across 5 pillars: minimization, control, security, sharing, transparency. Shipped VPN and Ad‑Blocker comparisons (10+ providers each) with privacy‑first toggles (Free/Open Source/No Telemetry), rich filters/sorting, and side‑by‑side comparison.",
+          details: "Implemented a transparent scoring model with cited sources per city (privacy and transparency links on every profile) and methodology aligned to IR/SOC reporting.",
+          link: "https://lucentir.xyz/"
+        },
+        {
+          slug: "shadoconnect",
+          title: "ShadoConnect",
+          company: "Healthcare Platform",
+          logo: "👥",
+          thumb: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=600&fit=crop",
+          description: "AI‑powered hub for students to find shadowing opportunities and internships.",
+          details: "Built a platform that connects medical students with healthcare professionals for shadowing experiences. Intelligent matching algorithms help students discover relevant internship opportunities based on their interests and qualifications.",
+          link: "https://shadoconnect.com"
+        },
+        {
+          slug: "rentwise",
+          title: "Rentwise",
+          company: "Property Management",
+          logo: "🏠",
+          thumb: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop",
+          description: "Property management platform designed to streamline rental operations.",
+          details: "Built features for tenant management, lease tracking, maintenance requests, and financial reporting. Implemented a user-friendly interface for both property managers and tenants with real-time notifications and automated workflows.",
+          link: "https://rentwise.tech/"
+        }
+      ];
+      
+      const grid = document.getElementById("projects-grid");
+      const overlay = document.getElementById("project-overlay");
+      if (!grid) return;
+      
+      projects.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "cursor-pointer group bg-neutral-50 dark:bg-neutral-900 rounded-3xl overflow-hidden border border-neutral-200 dark:border-neutral-800 w-full hover:-translate-y-3 transition-transform";
+        card.innerHTML = `
+          <div class="aspect-video relative overflow-hidden">
+            <img src="${p.thumb}" alt="${p.title}" class="w-full h-full object-cover transition-transform duration-700">
+          </div>
+          <div class="p-8">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 text-3xl flex items-center justify-center bg-neutral-100 dark:bg-neutral-800 rounded-lg flex-shrink-0">${p.logo}</div>
+              <div>
+                <h2 class="text-2xl font-semibold text-black dark:text-white">${p.title}</h2>
+                <p class="text-neutral-600 dark:text-neutral-400">${p.company}</p>
+              </div>
+            </div>
+          </div>
+        `;
+        card.addEventListener("click", () => {
+          overlay.innerHTML = `
+            <div class="min-h-screen relative">
+              <div class="fixed inset-0 z-0">
+                <img src="${p.thumb}" alt="${p.title}" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+              </div>
+              
+              <!-- Close Button -->
+              <button id="close" style="position: fixed; top: 32px; right: 32px; z-index: 9999; background: white; color: black; border-radius: 50%; width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 300; cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.3); border: none;">✕</button>
+              
+              <div class="absolute bottom-0 left-0 right-0 p-16 text-white z-10 bg-gradient-to-t from-black/90">
+                <h1 class="text-6xl md:text-9xl font-bold mb-2">${p.title}</h1>
+                <p class="text-2xl opacity-90">${p.company}</p>
+              </div>
+              <article class="relative z-10 max-w-4xl mx-auto px-8 pt-40 pb-24">
+                <section class="bg-neutral-50 dark:bg-neutral-900 rounded-3xl p-8 mb-8">
+                  <h2 class="text-4xl font-bold mb-4 text-black dark:text-white">My Role</h2>
+                  <p class="text-xl text-neutral-700 dark:text-neutral-300">${p.description}</p>
+                </section>
+                <img src="${p.thumb}" alt="Project detail" class="w-full rounded-3xl">
+                <section class="bg-neutral-50 dark:bg-neutral-900 rounded-3xl p-8 mt-8">
+                  <h3 class="text-3xl font-bold mb-4 text-black dark:text-white">The Challenge</h3>
+                  <p class="text-lg text-neutral-700 dark:text-neutral-300">${p.details}</p>
+                </section>
+                <section class="bg-neutral-50 dark:bg-neutral-900 rounded-3xl p-8 mt-8">
+                  <h3 class="text-3xl font-bold mb-4 text-black dark:text-white">Visit Project</h3>
+                  <a href="${p.link}" target="_blank" class="inline-block px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-lg font-semibold transition-colors">View Live Site →</a>
+                </section>
+              </article>
+            </div>
+          `;
+          overlay.classList.remove("hidden");
+          document.body.style.overflow = "hidden";
+          
+          // Close button event
+          const closeBtn = overlay.querySelector("#close");
+          if (closeBtn) {
+            closeBtn.addEventListener("click", (e) => {
+              e.preventDefault();
+              overlay.classList.add("hidden");
+              document.body.style.overflow = "";
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+          }
+        });
+        grid.appendChild(card);
+      });
+    }
+    
+    // Wait for main-content to be visible
+    function waitForMainContent() {
+      const mainContent = document.getElementById("main-content");
+      if (mainContent && mainContent.style.display !== "none") {
+        // Wait a bit for Framer Motion to load
+        setTimeout(() => {
+          initProjects();
+        }, 500);
+      } else {
+        setTimeout(waitForMainContent, 100);
+      }
+    }
+    
+    // Start checking when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', waitForMainContent);
+    } else {
+      waitForMainContent();
+    }
+  </script>
 </body>
 </html>
