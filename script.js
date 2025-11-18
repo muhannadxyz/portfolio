@@ -535,3 +535,87 @@ function toggleMenu() {
   }
 }
 
+// Make Dock Draggable
+(function initDraggableDock() {
+  const dock = document.querySelector('.dock');
+  if (!dock) return;
+
+  let isDragging = false;
+  let currentX;
+  let currentY;
+  let initialX;
+  let initialY;
+  let xOffset = 0;
+  let yOffset = 0;
+
+  // Load saved position from localStorage
+  const savedPos = localStorage.getItem('dockPosition');
+  if (savedPos) {
+    const { x, y } = JSON.parse(savedPos);
+    dock.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    xOffset = x;
+    yOffset = y;
+  }
+
+  dock.addEventListener('mousedown', dragStart);
+  document.addEventListener('mousemove', drag);
+  document.addEventListener('mouseup', dragEnd);
+
+  // Touch support for mobile
+  dock.addEventListener('touchstart', dragStart);
+  document.addEventListener('touchmove', drag);
+  document.addEventListener('touchend', dragEnd);
+
+  function dragStart(e) {
+    // Don't drag if clicking on a button
+    if (e.target.tagName === 'BUTTON') return;
+    
+    if (e.type === 'touchstart') {
+      initialX = e.touches[0].clientX - xOffset;
+      initialY = e.touches[0].clientY - yOffset;
+    } else {
+      initialX = e.clientX - xOffset;
+      initialY = e.clientY - yOffset;
+    }
+
+    isDragging = true;
+    dock.classList.add('dragging');
+  }
+
+  function drag(e) {
+    if (!isDragging) return;
+
+    e.preventDefault();
+
+    if (e.type === 'touchmove') {
+      currentX = e.touches[0].clientX - initialX;
+      currentY = e.touches[0].clientY - initialY;
+    } else {
+      currentX = e.clientX - initialX;
+      currentY = e.clientY - initialY;
+    }
+
+    xOffset = currentX;
+    yOffset = currentY;
+
+    setTranslate(currentX, currentY, dock);
+  }
+
+  function dragEnd() {
+    if (!isDragging) return;
+    
+    isDragging = false;
+    dock.classList.remove('dragging');
+
+    // Save position to localStorage
+    localStorage.setItem('dockPosition', JSON.stringify({
+      x: xOffset,
+      y: yOffset
+    }));
+  }
+
+  function setTranslate(xPos, yPos, el) {
+    el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
+  }
+})();
+

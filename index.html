@@ -72,9 +72,9 @@
       </div>
       
       <!-- Projects Grid -->
-      <div id="projects" class="max-w-7xl mx-auto px-8 py-20">
-        <h2 class="text-4xl font-bold mb-12" style="color: var(--text);">Featured Projects</h2>
-        <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
+      <div id="projects" class="max-w-7xl mx-auto px-6 py-8">
+        <h2 class="text-2xl font-bold mb-6" style="color: var(--text);">Featured Projects</h2>
+        <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4"></div>
       </div>
       
       <!-- Mini OS desktop -->
@@ -204,31 +204,196 @@
         slug: "lucentir",
         title: "Lucentir",
         company: "Privacy & Threat Intelligence",
-        logo: "🔒",
-        thumb: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=600&fit=crop",
+        logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="24" fill="url(#lucentir-gradient)"/><path d="M24 12C19 12 16 14 16 14V24C16 29 19.5 33 24 36C28.5 33 32 29 32 24V14C32 14 29 12 24 12Z" fill="white"/><defs><linearGradient id="lucentir-gradient" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop stop-color="#10B981"/><stop offset="1" stop-color="#059669"/></linearGradient></defs></svg>',
+        thumb: "images/lucentir.png",
+        tagline: "See clearly. Stay private.",
         description: "Built a privacy intelligence platform that scores 256 comparison cases across 5 pillars: minimization, control, security, sharing, transparency. Shipped VPN and Ad‑Blocker comparisons (10+ providers each) with privacy‑first toggles (Free/Open Source/No Telemetry), rich filters/sorting, and side‑by‑side comparison.",
         details: "Implemented a transparent scoring model with cited sources per city (privacy and transparency links on every profile) and methodology aligned to IR/SOC reporting.",
+        brandColor: "#10B981",
         link: "https://lucentir.xyz/"
       },
       {
         slug: "shadoconnect",
         title: "ShadoConnect",
-        company: "Healthcare Platform",
-        logo: "👥",
-        thumb: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=600&fit=crop",
-        description: "AI‑powered hub for students to find shadowing opportunities and internships.",
-        details: "Built a platform that connects medical students with healthcare professionals for shadowing experiences. Intelligent matching algorithms help students discover relevant internship opportunities based on their interests and qualifications.",
+        company: "Healthcare & Education Platform",
+        logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#6366F1"/><circle cx="16" cy="18" r="4" fill="white"/><path d="M12 28C12 25 14 23 16 23C18 23 20 25 20 28" stroke="white" stroke-width="2" stroke-linecap="round"/><circle cx="32" cy="18" r="4" fill="white"/><path d="M28 28C28 25 30 23 32 23C34 23 36 25 36 28" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M20 24H28" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>',
+        thumb: "images/shadoconnect.png",
+        tagline: "Shape your future career with real experience",
+        description: "Built an AI-powered platform connecting high school and college students with healthcare professionals for shadowing, internships, and job opportunities. Developed intelligent matching algorithms that pair students with healthcare providers based on specialty, location, availability, and career interests. Implemented real-time scheduling, profile management, and communication tools to streamline the shadowing application process.",
+        details: "Created a comprehensive platform addressing the gap between aspiring healthcare students and professional mentors. Built features for student profile creation, healthcare professional discovery, application tracking, and automated scheduling. The platform serves both pre-med students seeking clinical exposure and healthcare facilities looking to mentor the next generation of medical professionals.",
+        brandColor: "#6366F1",
         link: "https://shadoconnect.com"
       },
       {
         slug: "rentwise",
         title: "Rentwise",
-        company: "Property Management",
-        logo: "🏠",
-        thumb: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop",
-        description: "Property management platform designed to streamline rental operations.",
-        details: "Built features for tenant management, lease tracking, maintenance requests, and financial reporting. Implemented a user-friendly interface for both property managers and tenants with real-time notifications and automated workflows.",
-        link: "https://rentwise.tech/"
+        company: "Property Management Platform",
+        logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#2563EB"/><rect x="18" y="14" width="12" height="20" rx="1" stroke="white" stroke-width="2"/><rect x="22" y="28" width="4" height="6" fill="white"/><rect x="20" y="18" width="2" height="2" fill="white"/><rect x="26" y="18" width="2" height="2" fill="white"/><rect x="20" y="22" width="2" height="2" fill="white"/><rect x="26" y="22" width="2" height="2" fill="white"/></svg>',
+        thumb: "images/rentwise1.jpeg",
+        tagline: "Streamline your rental operations",
+        description: "Built a comprehensive property management platform designed to streamline rental operations for landlords and property managers. Developed features for tenant management, lease tracking, maintenance request workflows, and financial reporting. Implemented automated rent collection, document management, and communication tools to improve efficiency.",
+        details: "Created an all-in-one solution addressing the complexities of managing rental properties. Built tenant portals for rent payments and maintenance requests, landlord dashboards for property oversight, automated lease renewals, and financial analytics. The platform reduces administrative overhead and improves tenant satisfaction through real-time notifications and seamless communication.",
+        brandColor: "#2563EB",
+        link: "https://rentwise.tech/",
+        gallery: [
+          "images/rentwise1.jpeg",
+          "images/rentwise2.jpeg",
+          "images/rentwise3.jpeg",
+          "images/rentwise4.jpeg"
+        ]
+      },
+      {
+        slug: "wifi-analyzer",
+        title: "Public Wi-Fi Risk Analyzer",
+        company: "Security & Network Tool",
+        logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#EF4444"/><path d="M24 18C29 18 33 22 33 27" stroke="white" stroke-width="2.5" stroke-linecap="round"/><path d="M24 22C26.5 22 29 24.5 29 27" stroke="white" stroke-width="2.5" stroke-linecap="round"/><circle cx="24" cy="27" r="2" fill="white"/><path d="M18 32L30 32" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M20 28L28 28" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2 2"/></svg>',
+        thumb: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=800&h=600&fit=crop",
+        tagline: "Assess public Wi-Fi security risks",
+        description: "Developed a Python-based security application with Tkinter GUI to assess the safety of public Wi-Fi networks. Built comprehensive security checks including HTTPS support verification, DNS resolution testing, firewall status detection, and VPN activity monitoring. Implemented real-time connectivity testing and automated logging with timestamps for security audits.",
+        details: "Created a user-friendly desktop tool that helps users make informed decisions about public Wi-Fi security. The application performs multi-layered security assessments including SSL/TLS verification, network interface analysis, cross-platform firewall detection, and connectivity health checks. Features detailed logging and reporting to track network security over time.",
+        brandColor: "#EF4444",
+        link: "#",
+        codeSnippets: [
+          {
+            title: "HTTPS Security Check",
+            language: "python",
+            code: `def check_https_multiple():
+    test_domains = ["https://google.com", "https://example.com", "https://cloudflare.com"]
+    successes = 0
+    for domain in test_domains:
+        try:
+            response = requests.get(domain, timeout=5)
+            if response.url.startswith("https://"):
+                successes += 1
+        except:
+            continue
+    return successes >= 2`
+          },
+          {
+            title: "Firewall Detection",
+            language: "python",
+            code: `def check_firewall():
+    system = platform.system()
+    try:
+        if system == "Windows":
+            output = subprocess.getoutput("netsh advfirewall show allprofiles")
+            return "ON" in output
+        elif system == "Darwin":  # macOS
+            output = subprocess.getoutput("/usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate")
+            return "enabled" in output.lower()
+        elif system == "Linux":
+            output = subprocess.getoutput("sudo ufw status")
+            return "active" in output.lower()
+    except:
+        pass
+    return False`
+          }
+        ],
+        codeSnippets: [
+          {
+            title: "HTTPS Security Check",
+            language: "python",
+            code: `def check_https_multiple():
+    test_domains = ["https://google.com", "https://example.com", "https://cloudflare.com"]
+    successes = 0
+    for domain in test_domains:
+        try:
+            response = requests.get(domain, timeout=5)
+            if response.url.startswith("https://"):
+                successes += 1
+        except:
+            continue
+    return successes >= 2`
+          },
+          {
+            title: "Firewall Detection",
+            language: "python",
+            code: `def check_firewall():
+    system = platform.system()
+    try:
+        if system == "Windows":
+            output = subprocess.getoutput("netsh advfirewall show allprofiles")
+            return "ON" in output
+        elif system == "Darwin":  # macOS
+            output = subprocess.getoutput("/usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate")
+            return "enabled" in output.lower()
+        elif system == "Linux":
+            output = subprocess.getoutput("sudo ufw status")
+            return "active" in output.lower()
+    except:
+        pass
+            return False`
+          }
+        ]
+      },
+      {
+        slug: "wind-turbine",
+        title: "Wind Turbine Monitoring System",
+        company: "IoT & Renewable Energy",
+        logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#059669"/><circle cx="24" cy="20" r="3" fill="white"/><path d="M24 20L24 10M24 10L20 14M24 10L28 14" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M24 20L32 26M32 26L28 28M32 26L34 22" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M24 20L16 26M16 26L12 22M16 26L20 28" stroke="white" stroke-width="2" stroke-linecap="round"/><rect x="22" y="20" width="4" height="14" fill="white" rx="1"/></svg>',
+        thumb: "https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?w=800&h=600&fit=crop",
+        tagline: "Real-time renewable energy data collection",
+        description: "Developed an advanced IoT monitoring system for wind turbines using Arduino and real-time sensors. Implemented Hall-effect sensors for RPM measurement, voltage and current sensors for power analysis, and RTC integration for precise timestamping. Built a comprehensive data logging system that tracks turbine performance metrics including rotational speed, electrical output, and power generation in real-time.",
+        details: "Created an embedded systems solution for renewable energy monitoring. The system uses interrupt-driven Hall-effect sensing for accurate RPM calculation, analog sensor integration for voltage/current measurement, and automatic power computation. Features include real-time clock synchronization for data integrity, efficient pulse counting algorithms, and serial data logging for performance analysis and optimization.",
+        brandColor: "#059669",
+        link: "#",
+        codeSnippets: [
+          {
+            title: "RPM & Power Monitoring Loop",
+            language: "c++",
+            code: `void loop() {
+    unsigned long currentTime = millis();
+    
+    // Calculate RPM every second
+    if (currentTime - lastTime >= 1000) {
+        int rpm = (pulseCount * 60); // Convert pulses to RPM
+        pulseCount = 0;              // Reset counter
+        lastTime = currentTime;
+
+        // Read voltage and current sensor values
+        voltage = analogRead(VOLTAGE_SENSOR) * (5.0 / 1023.0) * 10;
+        current = analogRead(CURRENT_SENSOR) * (5.0 / 1023.0) / 0.185;
+        power = voltage * current;
+
+        // Get current time
+        DateTime now = rtc.now();
+        
+        // Log data with timestamp
+        Serial.print("Timestamp: ");
+        Serial.print(now.year()); Serial.print("-");
+        Serial.print(now.month()); Serial.print("-");
+        Serial.print(now.day());
+        Serial.print(" | RPM: "); Serial.print(rpm);
+        Serial.print(" | Voltage: "); Serial.print(voltage);
+        Serial.print("V | Current: "); Serial.print(current);
+        Serial.print("A | Power: "); Serial.print(power);
+        Serial.println("W");
+    }
+}`
+          },
+          {
+            title: "Interrupt-Driven Hall Sensor",
+            language: "c++",
+            code: `// Interrupt service routine for hall sensor
+void countPulse() {
+    pulseCount++;  
+}
+
+void setup() {
+    Serial.begin(9600);
+    pinMode(HALL_SENSOR_PIN, INPUT);
+    
+    // Attach interrupt for accurate pulse counting
+    attachInterrupt(digitalPinToInterrupt(HALL_SENSOR_PIN), countPulse, RISING);
+    
+    // Initialize RTC
+    if (!rtc.begin()) {
+        Serial.println("Couldn't find RTC");
+        while (1);
+    }
+}`
+          }
+        ]
       }
     ];
 
@@ -249,15 +414,15 @@
           whileHover={{ y: -12 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
-          <div class="aspect-video relative overflow-hidden">
+          <div class="aspect-[2/1] relative overflow-hidden">
             <img src="${p.thumb}" alt="${p.title}" class="w-full h-full object-cover transition-transform duration-700">
           </div>
-          <div class="p-8">
-            <div class="flex items-center gap-4">
-              <div class="w-12 h-12 text-3xl flex items-center justify-center bg-neutral-100 dark:bg-neutral-800 rounded-lg flex-shrink-0">${p.logo}</div>
+          <div class="p-3">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 text-xl flex items-center justify-center bg-neutral-100 dark:bg-neutral-800 rounded-lg flex-shrink-0">${p.logo}</div>
               <div>
-                <h2 class="text-2xl font-semibold text-black dark:text-white">${p.title}</h2>
-                <p class="text-neutral-600 dark:text-neutral-400">${p.company}</p>
+                <h2 class="text-base font-semibold text-black dark:text-white">${p.title}</h2>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">${p.company}</p>
               </div>
             </div>
           </div>
@@ -271,49 +436,118 @@
       // Open Project (Expands with Shared Animation)
       function openProject(p) {
         overlay.innerHTML = `
-        <div class="min-h-screen relative">
-          <!-- Expanding Hero Image -->
-          <motion.div 
-            layoutId="card-${p.slug}" 
-            class="fixed inset-0 z-0"
-            initial={{ scale: 1 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
-          >
-            <img src="${p.thumb}" alt="${p.title}" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-          </motion.div>
-          
-          <!-- Close Button -->
-          <button id="close" style="position: fixed; top: 32px; right: 32px; z-index: 9999; background: white; color: black; border-radius: 50%; width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 300; cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.3); border: none;">✕</button>
-          
-          <!-- Project Title Overlay -->
-          <div class="absolute bottom-0 left-0 right-0 p-16 text-white z-10 bg-gradient-to-t from-black/90">
-            <h1 class="text-6xl md:text-9xl font-bold mb-2">${p.title}</h1>
-            <p class="text-2xl opacity-90">${p.company}</p>
+        <div class="min-h-screen relative bg-black">
+          <!-- Parallax Hero Image with Overlay -->
+          <div class="fixed inset-0 z-0" style="transform-origin: center;">
+            <img src="${p.thumb}" alt="${p.title}" class="w-full h-full object-cover scale-105" style="filter: brightness(0.4) saturate(1.2);">
+            <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
           </div>
           
-          <!-- Case Study Content (Scrollable) -->
-          <article class="relative z-10 max-w-4xl mx-auto px-8 pt-40 pb-24 prose prose-2xl prose-invert max-w-none">
-            <section class="bg-neutral-50 dark:bg-neutral-900 rounded-3xl p-8 mb-8">
-              <h2 class="text-4xl font-bold mb-4 text-black dark:text-white">My Role</h2>
-              <p class="text-xl text-neutral-700 dark:text-neutral-300">${p.description}</p>
-            </section>
-            
-            <img src="${p.thumb}" alt="Project detail" class="w-full rounded-3xl">
-            
-            <section class="bg-neutral-50 dark:bg-neutral-900 rounded-3xl p-8 mt-8">
-              <h3 class="text-3xl font-bold mb-4 text-black dark:text-white">The Challenge</h3>
-              <p class="text-lg text-neutral-700 dark:text-neutral-300">${p.details}</p>
-            </section>
-            
-            <section class="bg-neutral-50 dark:bg-neutral-900 rounded-3xl p-8 mt-8">
-              <h3 class="text-3xl font-bold mb-4 text-black dark:text-white">Visit Project</h3>
-              <a href="${p.link}" target="_blank" class="inline-block px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-lg font-semibold transition-colors">
-                View Live Site →
-              </a>
-            </section>
-          </article>
+          <!-- Close Button -->
+          <button id="close" style="position: fixed; top: 24px; right: 24px; z-index: 9999; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); color: white; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 300; cursor: pointer; box-shadow: 0 8px 32px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s;">✕</button>
+          
+          <!-- Hero Section -->
+          <div class="relative z-10 min-h-screen flex items-end pb-20 px-8 md:px-16">
+            <div class="max-w-6xl w-full">
+              <!-- Project Icon -->
+              <div class="mb-6 animate-float" style="width: 120px; height: 120px; display: flex; align-items: center; justify-content: center;">${p.logo}</div>
+              
+              <!-- Title with Glass Effect -->
+              <div class="inline-block mb-6" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); padding: 24px 32px; border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">
+                <h1 class="text-5xl md:text-7xl font-bold text-white mb-2" style="line-height: 1.1;">${p.title}</h1>
+                <p class="text-xl md:text-2xl text-gray-300">${p.company}</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Content Section -->
+          <div class="relative z-20 bg-gradient-to-b from-black to-neutral-950 px-6 md:px-12 py-16">
+            <div class="max-w-5xl mx-auto space-y-8">
+              
+              <!-- My Role Card -->
+              <div class="group" style="background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 40px; transition: all 0.4s; box-shadow: 0 4px 24px rgba(0,0,0,0.2);">
+                <div class="flex items-center gap-3 mb-4">
+                  <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">💼</div>
+                  <h2 class="text-3xl font-bold text-white">My Role</h2>
+                </div>
+                <p class="text-lg text-gray-300 leading-relaxed">${p.description}</p>
+              </div>
+              
+              <!-- Visual Showcase / Code Flip Card -->
+              ${p.codeSnippets ? `
+              <div class="flip-card-container" onclick="this.querySelector('.flip-card').classList.toggle('flipped')">
+                <div class="flip-card">
+                  <!-- Front: Image -->
+                  <div class="flip-card-front">
+                    <div style="border-radius: 24px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); position: relative;">
+                      <img src="${p.thumb}" alt="Project showcase" class="w-full" style="display: block;">
+                      <div class="flip-hint">Click to see code 💻</div>
+                    </div>
+                  </div>
+                  
+                  <!-- Back: Code -->
+                  <div class="flip-card-back">
+                    <h3 class="text-2xl font-bold text-white mb-4" style="color: #10b981;">💻 Code Implementation</h3>
+                    <div style="max-height: 500px; overflow-y: auto;">
+                      ${p.codeSnippets.map(snippet => `
+                        <div style="margin-bottom: 24px;">
+                          <div style="background: rgba(255,255,255,0.05); padding: 12px 20px; border-radius: 12px 12px 0 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                              <span style="color: #10b981; font-weight: 600; font-size: 16px;">${snippet.title}</span>
+                              <span style="color: #9ca3af; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">${snippet.language}</span>
+                            </div>
+                          </div>
+                          <pre style="margin: 0; padding: 20px; background: rgba(0,0,0,0.5); border-radius: 0 0 12px 12px; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.5; color: #e5e7eb;"><code>${snippet.code}</code></pre>
+                        </div>
+                      `).join('')}
+                    </div>
+                    <div style="margin-top: 20px; text-align: center; color: #9ca3af; font-size: 14px;">Click again to flip back</div>
+                  </div>
+                </div>
+              </div>
+              ` : `
+              <div style="border-radius: 24px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+                <img src="${p.thumb}" alt="Project showcase" class="w-full" style="display: block;">
+              </div>
+              `}
+              
+              ${p.gallery ? `
+              <!-- Photo Gallery -->
+              <div style="background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 40px;">
+                <h3 class="text-2xl font-bold text-white mb-6">Project Gallery</h3>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+                  ${p.gallery.map(img => `
+                    <div style="border-radius: 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);">
+                      <img src="${img}" alt="Project screenshot" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+              ` : ''}
+              
+              <!-- Spacer -->
+              <div style="height: 80px;"></div>
+              
+              <!-- The Challenge Card -->
+              <div class="group" style="background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 40px; transition: all 0.4s; box-shadow: 0 4px 24px rgba(0,0,0,0.2);">
+                <div class="flex items-center gap-3 mb-4">
+                  <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">🎯</div>
+                  <h3 class="text-3xl font-bold text-white">The Challenge</h3>
+                </div>
+                <p class="text-lg text-gray-300 leading-relaxed">${p.details}</p>
+              </div>
+              
+              <!-- CTA Card -->
+              <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%); backdrop-filter: blur(20px); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 24px; padding: 40px; text-align: center;">
+                <h3 class="text-2xl font-bold text-white mb-6">Visit Project</h3>
+                <a href="${p.link}" target="_blank" style="display: inline-block; padding: 16px 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 16px; font-size: 18px; font-weight: 600; text-decoration: none; transition: all 0.3s; box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);">
+                  View Live Site →
+                </a>
+              </div>
+              
+            </div>
+          </div>
         </div>
       `;
       
@@ -366,31 +600,160 @@
           slug: "lucentir",
           title: "Lucentir",
           company: "Privacy & Threat Intelligence",
-          logo: "🔒",
-          thumb: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=600&fit=crop",
+          logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="24" fill="url(#lucentir-gradient-fb)"/><path d="M24 12C19 12 16 14 16 14V24C16 29 19.5 33 24 36C28.5 33 32 29 32 24V14C32 14 29 12 24 12Z" fill="white"/><defs><linearGradient id="lucentir-gradient-fb" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop stop-color="#10B981"/><stop offset="1" stop-color="#059669"/></linearGradient></defs></svg>',
+          thumb: "images/lucentir.png",
+          tagline: "See clearly. Stay private.",
           description: "Built a privacy intelligence platform that scores 256 comparison cases across 5 pillars: minimization, control, security, sharing, transparency. Shipped VPN and Ad‑Blocker comparisons (10+ providers each) with privacy‑first toggles (Free/Open Source/No Telemetry), rich filters/sorting, and side‑by‑side comparison.",
           details: "Implemented a transparent scoring model with cited sources per city (privacy and transparency links on every profile) and methodology aligned to IR/SOC reporting.",
+          brandColor: "#10B981",
           link: "https://lucentir.xyz/"
         },
         {
           slug: "shadoconnect",
           title: "ShadoConnect",
-          company: "Healthcare Platform",
-          logo: "👥",
-          thumb: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=600&fit=crop",
-          description: "AI‑powered hub for students to find shadowing opportunities and internships.",
-          details: "Built a platform that connects medical students with healthcare professionals for shadowing experiences. Intelligent matching algorithms help students discover relevant internship opportunities based on their interests and qualifications.",
+          company: "Healthcare & Education Platform",
+          logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#6366F1"/><circle cx="16" cy="18" r="4" fill="white"/><path d="M12 28C12 25 14 23 16 23C18 23 20 25 20 28" stroke="white" stroke-width="2" stroke-linecap="round"/><circle cx="32" cy="18" r="4" fill="white"/><path d="M28 28C28 25 30 23 32 23C34 23 36 25 36 28" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M20 24H28" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>',
+          thumb: "images/shadoconnect.png",
+          tagline: "Shape your future career with real experience",
+          description: "Built an AI-powered platform connecting high school and college students with healthcare professionals for shadowing, internships, and job opportunities. Developed intelligent matching algorithms that pair students with healthcare providers based on specialty, location, availability, and career interests. Implemented real-time scheduling, profile management, and communication tools to streamline the shadowing application process.",
+          details: "Created a comprehensive platform addressing the gap between aspiring healthcare students and professional mentors. Built features for student profile creation, healthcare professional discovery, application tracking, and automated scheduling. The platform serves both pre-med students seeking clinical exposure and healthcare facilities looking to mentor the next generation of medical professionals.",
+          brandColor: "#6366F1",
           link: "https://shadoconnect.com"
         },
         {
           slug: "rentwise",
           title: "Rentwise",
-          company: "Property Management",
-          logo: "🏠",
-          thumb: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop",
-          description: "Property management platform designed to streamline rental operations.",
-          details: "Built features for tenant management, lease tracking, maintenance requests, and financial reporting. Implemented a user-friendly interface for both property managers and tenants with real-time notifications and automated workflows.",
-          link: "https://rentwise.tech/"
+          company: "Property Management Platform",
+          logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#2563EB"/><rect x="18" y="14" width="12" height="20" rx="1" stroke="white" stroke-width="2"/><rect x="22" y="28" width="4" height="6" fill="white"/><rect x="20" y="18" width="2" height="2" fill="white"/><rect x="26" y="18" width="2" height="2" fill="white"/><rect x="20" y="22" width="2" height="2" fill="white"/><rect x="26" y="22" width="2" height="2" fill="white"/></svg>',
+          thumb: "images/rentwise1.jpeg",
+          tagline: "Streamline your rental operations",
+          description: "Built a comprehensive property management platform designed to streamline rental operations for landlords and property managers. Developed features for tenant management, lease tracking, maintenance request workflows, and financial reporting. Implemented automated rent collection, document management, and communication tools to improve efficiency.",
+          details: "Created an all-in-one solution addressing the complexities of managing rental properties. Built tenant portals for rent payments and maintenance requests, landlord dashboards for property oversight, automated lease renewals, and financial analytics. The platform reduces administrative overhead and improves tenant satisfaction through real-time notifications and seamless communication.",
+          brandColor: "#2563EB",
+          link: "https://rentwise.tech/",
+          gallery: [
+            "images/rentwise1.jpeg",
+            "images/rentwise2.jpeg",
+            "images/rentwise3.jpeg",
+            "images/rentwise4.jpeg"
+          ]
+        },
+        {
+          slug: "wifi-analyzer",
+          title: "Public Wi-Fi Risk Analyzer",
+          company: "Security & Network Tool",
+          logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#EF4444"/><path d="M24 18C29 18 33 22 33 27" stroke="white" stroke-width="2.5" stroke-linecap="round"/><path d="M24 22C26.5 22 29 24.5 29 27" stroke="white" stroke-width="2.5" stroke-linecap="round"/><circle cx="24" cy="27" r="2" fill="white"/><path d="M18 32L30 32" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M20 28L28 28" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2 2"/></svg>',
+          thumb: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=800&h=600&fit=crop",
+          tagline: "Assess public Wi-Fi security risks",
+          description: "Developed a Python-based security application with Tkinter GUI to assess the safety of public Wi-Fi networks. Built comprehensive security checks including HTTPS support verification, DNS resolution testing, firewall status detection, and VPN activity monitoring. Implemented real-time connectivity testing and automated logging with timestamps for security audits.",
+          details: "Created a user-friendly desktop tool that helps users make informed decisions about public Wi-Fi security. The application performs multi-layered security assessments including SSL/TLS verification, network interface analysis, cross-platform firewall detection, and connectivity health checks. Features detailed logging and reporting to track network security over time.",
+          brandColor: "#EF4444",
+          link: "#",
+          codeSnippets: [
+            {
+              title: "HTTPS Security Check",
+              language: "python",
+              code: `def check_https_multiple():
+    test_domains = ["https://google.com", "https://example.com", "https://cloudflare.com"]
+    successes = 0
+    for domain in test_domains:
+        try:
+            response = requests.get(domain, timeout=5)
+            if response.url.startswith("https://"):
+                successes += 1
+        except:
+            continue
+    return successes >= 2`
+            },
+            {
+              title: "Firewall Detection",
+              language: "python",
+              code: `def check_firewall():
+    system = platform.system()
+    try:
+        if system == "Windows":
+            output = subprocess.getoutput("netsh advfirewall show allprofiles")
+            return "ON" in output
+        elif system == "Darwin":  # macOS
+            output = subprocess.getoutput("/usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate")
+            return "enabled" in output.lower()
+        elif system == "Linux":
+            output = subprocess.getoutput("sudo ufw status")
+            return "active" in output.lower()
+    except:
+        pass
+    return False`
+            }
+          ]
+        },
+        {
+          slug: "wind-turbine",
+          title: "Wind Turbine Monitoring System",
+          company: "IoT & Renewable Energy",
+          logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#059669"/><circle cx="24" cy="20" r="3" fill="white"/><path d="M24 20L24 10M24 10L20 14M24 10L28 14" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M24 20L32 26M32 26L28 28M32 26L34 22" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M24 20L16 26M16 26L12 22M16 26L20 28" stroke="white" stroke-width="2" stroke-linecap="round"/><rect x="22" y="20" width="4" height="14" fill="white" rx="1"/></svg>',
+          thumb: "https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?w=800&h=600&fit=crop",
+          tagline: "Real-time renewable energy data collection",
+          description: "Developed an advanced IoT monitoring system for wind turbines using Arduino and real-time sensors. Implemented Hall-effect sensors for RPM measurement, voltage and current sensors for power analysis, and RTC integration for precise timestamping. Built a comprehensive data logging system that tracks turbine performance metrics including rotational speed, electrical output, and power generation in real-time.",
+          details: "Created an embedded systems solution for renewable energy monitoring. The system uses interrupt-driven Hall-effect sensing for accurate RPM calculation, analog sensor integration for voltage/current measurement, and automatic power computation. Features include real-time clock synchronization for data integrity, efficient pulse counting algorithms, and serial data logging for performance analysis and optimization.",
+          brandColor: "#059669",
+          link: "#",
+          codeSnippets: [
+            {
+              title: "RPM & Power Monitoring Loop",
+              language: "c++",
+              code: `void loop() {
+    unsigned long currentTime = millis();
+    
+    // Calculate RPM every second
+    if (currentTime - lastTime >= 1000) {
+        int rpm = (pulseCount * 60); // Convert pulses to RPM
+        pulseCount = 0;              // Reset counter
+        lastTime = currentTime;
+
+        // Read voltage and current sensor values
+        voltage = analogRead(VOLTAGE_SENSOR) * (5.0 / 1023.0) * 10;
+        current = analogRead(CURRENT_SENSOR) * (5.0 / 1023.0) / 0.185;
+        power = voltage * current;
+
+        // Get current time
+        DateTime now = rtc.now();
+        
+        // Log data with timestamp
+        Serial.print("Timestamp: ");
+        Serial.print(now.year()); Serial.print("-");
+        Serial.print(now.month()); Serial.print("-");
+        Serial.print(now.day());
+        Serial.print(" | RPM: "); Serial.print(rpm);
+        Serial.print(" | Voltage: "); Serial.print(voltage);
+        Serial.print("V | Current: "); Serial.print(current);
+        Serial.print("A | Power: "); Serial.print(power);
+        Serial.println("W");
+    }
+}`
+            },
+            {
+              title: "Interrupt-Driven Hall Sensor",
+              language: "c++",
+              code: `// Interrupt service routine for hall sensor
+void countPulse() {
+    pulseCount++;  
+}
+
+void setup() {
+    Serial.begin(9600);
+    pinMode(HALL_SENSOR_PIN, INPUT);
+    
+    // Attach interrupt for accurate pulse counting
+    attachInterrupt(digitalPinToInterrupt(HALL_SENSOR_PIN), countPulse, RISING);
+    
+    // Initialize RTC
+    if (!rtc.begin()) {
+        Serial.println("Couldn't find RTC");
+        while (1);
+    }
+}`
+            }
+          ]
         }
       ];
       
@@ -402,49 +765,133 @@
         const card = document.createElement("div");
         card.className = "cursor-pointer group bg-neutral-50 dark:bg-neutral-900 rounded-3xl overflow-hidden border border-neutral-200 dark:border-neutral-800 w-full hover:-translate-y-3 transition-transform";
         card.innerHTML = `
-          <div class="aspect-video relative overflow-hidden">
+          <div class="aspect-[2/1] relative overflow-hidden">
             <img src="${p.thumb}" alt="${p.title}" class="w-full h-full object-cover transition-transform duration-700">
           </div>
-          <div class="p-8">
-            <div class="flex items-center gap-4">
-              <div class="w-12 h-12 text-3xl flex items-center justify-center bg-neutral-100 dark:bg-neutral-800 rounded-lg flex-shrink-0">${p.logo}</div>
+          <div class="p-3">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 text-xl flex items-center justify-center bg-neutral-100 dark:bg-neutral-800 rounded-lg flex-shrink-0">${p.logo}</div>
               <div>
-                <h2 class="text-2xl font-semibold text-black dark:text-white">${p.title}</h2>
-                <p class="text-neutral-600 dark:text-neutral-400">${p.company}</p>
+                <h2 class="text-base font-semibold text-black dark:text-white">${p.title}</h2>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400">${p.company}</p>
               </div>
             </div>
           </div>
         `;
         card.addEventListener("click", () => {
           overlay.innerHTML = `
-            <div class="min-h-screen relative">
-              <div class="fixed inset-0 z-0">
-                <img src="${p.thumb}" alt="${p.title}" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+            <div class="min-h-screen relative bg-black">
+              <!-- Parallax Hero Image with Overlay -->
+              <div class="fixed inset-0 z-0" style="transform-origin: center;">
+                <img src="${p.thumb}" alt="${p.title}" class="w-full h-full object-cover scale-105" style="filter: brightness(0.4) saturate(1.2);">
+                <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
               </div>
               
               <!-- Close Button -->
-              <button id="close" style="position: fixed; top: 32px; right: 32px; z-index: 9999; background: white; color: black; border-radius: 50%; width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 300; cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.3); border: none;">✕</button>
+              <button id="close" style="position: fixed; top: 24px; right: 24px; z-index: 9999; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); color: white; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 300; cursor: pointer; box-shadow: 0 8px 32px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s;">✕</button>
               
-              <div class="absolute bottom-0 left-0 right-0 p-16 text-white z-10 bg-gradient-to-t from-black/90">
-                <h1 class="text-6xl md:text-9xl font-bold mb-2">${p.title}</h1>
-                <p class="text-2xl opacity-90">${p.company}</p>
+              <!-- Hero Section -->
+              <div class="relative z-10 min-h-screen flex items-end pb-20 px-8 md:px-16">
+                <div class="max-w-6xl w-full">
+                  <!-- Project Icon -->
+                  <div class="mb-6" style="width: 120px; height: 120px; display: flex; align-items: center; justify-content: center;">${p.logo}</div>
+                  
+                  <!-- Title with Glass Effect -->
+                  <div class="inline-block mb-6" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); padding: 24px 32px; border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">
+                    <h1 class="text-5xl md:text-7xl font-bold text-white mb-2" style="line-height: 1.1;">${p.title}</h1>
+                    <p class="text-xl md:text-2xl text-gray-300">${p.company}</p>
+                  </div>
+                </div>
               </div>
-              <article class="relative z-10 max-w-4xl mx-auto px-8 pt-40 pb-24">
-                <section class="bg-neutral-50 dark:bg-neutral-900 rounded-3xl p-8 mb-8">
-                  <h2 class="text-4xl font-bold mb-4 text-black dark:text-white">My Role</h2>
-                  <p class="text-xl text-neutral-700 dark:text-neutral-300">${p.description}</p>
-                </section>
-                <img src="${p.thumb}" alt="Project detail" class="w-full rounded-3xl">
-                <section class="bg-neutral-50 dark:bg-neutral-900 rounded-3xl p-8 mt-8">
-                  <h3 class="text-3xl font-bold mb-4 text-black dark:text-white">The Challenge</h3>
-                  <p class="text-lg text-neutral-700 dark:text-neutral-300">${p.details}</p>
-                </section>
-                <section class="bg-neutral-50 dark:bg-neutral-900 rounded-3xl p-8 mt-8">
-                  <h3 class="text-3xl font-bold mb-4 text-black dark:text-white">Visit Project</h3>
-                  <a href="${p.link}" target="_blank" class="inline-block px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-lg font-semibold transition-colors">View Live Site →</a>
-                </section>
-              </article>
+              
+              <!-- Content Section -->
+              <div class="relative z-20 bg-gradient-to-b from-black to-neutral-950 px-6 md:px-12 py-16">
+                <div class="max-w-5xl mx-auto space-y-8">
+                  
+                  <!-- My Role Card -->
+                  <div class="group" style="background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 40px; transition: all 0.4s; box-shadow: 0 4px 24px rgba(0,0,0,0.2);">
+                    <div class="flex items-center gap-3 mb-4">
+                      <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">💼</div>
+                      <h2 class="text-3xl font-bold text-white">My Role</h2>
+                    </div>
+                    <p class="text-lg text-gray-300 leading-relaxed">${p.description}</p>
+                  </div>
+                  
+                  <!-- Visual Showcase / Code Flip Card -->
+                  ${p.codeSnippets ? `
+                  <div class="flip-card-container" onclick="this.querySelector('.flip-card').classList.toggle('flipped')">
+                    <div class="flip-card">
+                      <!-- Front: Image -->
+                      <div class="flip-card-front">
+                        <div style="border-radius: 24px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); position: relative;">
+                          <img src="${p.thumb}" alt="Project showcase" class="w-full" style="display: block;">
+                          <div class="flip-hint">Click to see code 💻</div>
+                        </div>
+                      </div>
+                      
+                      <!-- Back: Code -->
+                      <div class="flip-card-back">
+                        <h3 class="text-2xl font-bold text-white mb-4" style="color: #10b981;">💻 Code Implementation</h3>
+                        <div style="max-height: 500px; overflow-y: auto;">
+                          ${p.codeSnippets.map(snippet => `
+                            <div style="margin-bottom: 24px;">
+                              <div style="background: rgba(255,255,255,0.05); padding: 12px 20px; border-radius: 12px 12px 0 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                  <span style="color: #10b981; font-weight: 600; font-size: 16px;">${snippet.title}</span>
+                                  <span style="color: #9ca3af; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">${snippet.language}</span>
+                                </div>
+                              </div>
+                              <pre style="margin: 0; padding: 20px; background: rgba(0,0,0,0.5); border-radius: 0 0 12px 12px; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.5; color: #e5e7eb;"><code>${snippet.code}</code></pre>
+                            </div>
+                          `).join('')}
+                        </div>
+                        <div style="margin-top: 20px; text-align: center; color: #9ca3af; font-size: 14px;">Click again to flip back</div>
+                      </div>
+                    </div>
+                  </div>
+                  ` : `
+                  <div style="border-radius: 24px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+                    <img src="${p.thumb}" alt="Project showcase" class="w-full" style="display: block;">
+                  </div>
+                  `}
+                  
+                  ${p.gallery ? `
+                  <!-- Photo Gallery -->
+                  <div style="background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 40px;">
+                    <h3 class="text-2xl font-bold text-white mb-6">Project Gallery</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+                      ${p.gallery.map(img => `
+                        <div style="border-radius: 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);">
+                          <img src="${img}" alt="Project screenshot" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                        </div>
+                      `).join('')}
+                    </div>
+                  </div>
+                  ` : ''}
+                  
+                  <!-- Spacer -->
+                  <div style="height: 80px;"></div>
+                  
+                  <!-- The Challenge Card -->
+                  <div class="group" style="background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 40px; transition: all 0.4s; box-shadow: 0 4px 24px rgba(0,0,0,0.2);">
+                    <div class="flex items-center gap-3 mb-4">
+                      <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">🎯</div>
+                      <h3 class="text-3xl font-bold text-white">The Challenge</h3>
+                    </div>
+                    <p class="text-lg text-gray-300 leading-relaxed">${p.details}</p>
+                  </div>
+                  
+                  <!-- CTA Card -->
+                  <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%); backdrop-filter: blur(20px); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 24px; padding: 40px; text-align: center;">
+                    <h3 class="text-2xl font-bold text-white mb-6">Visit Project</h3>
+                    <a href="${p.link}" target="_blank" style="display: inline-block; padding: 16px 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 16px; font-size: 18px; font-weight: 600; text-decoration: none; transition: all 0.3s; box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);">
+                      View Live Site →
+                    </a>
+                  </div>
+                  
+                </div>
+              </div>
             </div>
           `;
           overlay.classList.remove("hidden");
