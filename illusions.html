@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Optical Illusions - Muhannad Abuzahrieh</title>
+
+  <!-- Fonts and Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="manifest" href="favicon/site.webmanifest">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="illusions.css">
+</head>
+
+<body class="illusions-page">
+  <!-- Header with Navigation -->
+  <header class="illusions-header">
+    <div class="illusions-header-content">
+      <a href="index.html" class="back-button">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Back to Portfolio</span>
+      </a>
+      <div class="header-title">
+        <h1>Optical Illusions</h1>
+        <p>Scroll to experience infinite visual effects</p>
+      </div>
+      <div class="scroll-progress">
+        <div class="scroll-progress-bar" id="scroll-progress"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="illusions-container" id="illusions-container">
+    <!-- Illusion cards will be dynamically loaded here -->
+  </main>
+
+  <!-- Loading Indicator -->
+  <div class="loading-indicator" id="loading-indicator">
+    <div class="loading-spinner"></div>
+    <p>Loading more illusions...</p>
+  </div>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" id="scroll-to-top" aria-label="Scroll to top">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M12 19V5M5 12L12 5L19 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <!-- JavaScript -->
+  <script src="illusions.js"></script>
+</body>
+</html>
+
