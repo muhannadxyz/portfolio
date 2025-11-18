@@ -1594,6 +1594,50 @@ html {
   }
 }
 
+/* Portfolio Favicon in Bottom Left */
+.portfolio-favicon {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 9998;
+  padding: 12px;
+  background: rgba(13, 13, 13, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 255, 225, 0.2);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 255, 225, 0.15);
+  transition: all 0.3s ease;
+}
+
+.portfolio-favicon:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(0, 255, 225, 0.3);
+  border-color: rgba(0, 255, 225, 0.4);
+}
+
+.portfolio-favicon img {
+  display: block;
+  filter: drop-shadow(0 0 8px rgba(0, 255, 225, 0.3));
+  transition: filter 0.3s ease;
+}
+
+.portfolio-favicon:hover img {
+  filter: drop-shadow(0 0 12px rgba(0, 255, 225, 0.6));
+}
+
+@media (max-width: 768px) {
+  .portfolio-favicon {
+    bottom: 10px;
+    left: 10px;
+    padding: 8px;
+  }
+  
+  .portfolio-favicon img {
+    width: 24px;
+    height: 24px;
+  }
+}
+
 /* ============================================
    OS OVERLAY
    ============================================ */
