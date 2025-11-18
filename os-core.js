@@ -67,6 +67,11 @@ function exitOS() {
   const preview = document.getElementById('os-preview');
   const mainContent = document.getElementById('main-content');
   
+  // Stop music playback before closing
+  if (window.MusicApp && typeof window.MusicApp.stop === 'function') {
+    window.MusicApp.stop();
+  }
+  
   // Close all windows
   const windows = OSState.getAllWindows();
   windows.forEach(win => {

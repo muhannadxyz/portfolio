@@ -270,6 +270,11 @@ const WindowManager = (function() {
     const windowObj = OSState.getWindow(windowId);
     if (!windowObj) return;
     
+    // If closing music app, stop playback
+    if (windowObj.appName === 'music' && window.MusicApp && typeof window.MusicApp.stop === 'function') {
+      window.MusicApp.stop();
+    }
+    
     windowObj.element.classList.add('closing');
     
     setTimeout(() => {

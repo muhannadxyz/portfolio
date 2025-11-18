@@ -1,43 +1,51 @@
-// Music Player App
+// Music Player App - Real Playback with HTML5 Audio API
 const MusicApp = (function() {
-  let library = [];
-  let currentTrack = null;
+  let audio = null; // HTML5 Audio object
   let currentTrackIndex = -1;
   let isPlaying = false;
-  let audio = null;
   let isShuffle = false;
   let isRepeat = false;
-  let isMiniMode = false;
   
-  // Load library from localStorage
-  function loadLibrary() {
-    const saved = localStorage.getItem('music_library');
-    if (saved) {
-      try {
-        library = JSON.parse(saved);
-      } catch (e) {
-        console.error('Error loading library:', e);
-      }
+  // Pre-loaded library with royalty-free music
+  // Using Free Music Archive and public domain tracks
+  const library = [
+    {
+      id: 1,
+      title: "Chill Lofi Beats",
+      artist: "Ambient Music",
+      url: "https://www.bensound.com/bensound-music/bensound-slowmotion.mp3"
+    },
+    {
+      id: 2,
+      title: "Creative Minds",
+      artist: "Bensound",
+      url: "https://www.bensound.com/bensound-music/bensound-creativeminds.mp3"
+    },
+    {
+      id: 3,
+      title: "Acoustic Breeze",
+      artist: "Bensound",
+      url: "https://www.bensound.com/bensound-music/bensound-acousticbreeze.mp3"
+    },
+    {
+      id: 4,
+      title: "Summer",
+      artist: "Bensound",
+      url: "https://www.bensound.com/bensound-music/bensound-summer.mp3"
     }
-  }
-  
-  function saveLibrary() {
-    localStorage.setItem('music_library', JSON.stringify(library));
-  }
+  ];
   
   function createMusicContent() {
-    loadLibrary();
-    
     const container = document.createElement('div');
     container.className = 'music-container';
     container.style.cssText = 'height: 100%; display: flex; flex-direction: column; background: linear-gradient(135deg, #1a1a2e, #0d0d0d); font-family: -apple-system, sans-serif;';
     
-    // Header with add music button
+    // Header
     const header = document.createElement('div');
     header.style.cssText = 'padding: 16px; background: rgba(30, 30, 30, 0.8); border-bottom: 1px solid rgba(0, 255, 225, 0.1); display: flex; justify-content: space-between; align-items: center;';
     header.innerHTML = `
       <h2 style="color: #00ffe1; font-size: 18px; margin: 0;">🎵 Music Library</h2>
-      <button class="add-music-btn" style="padding: 8px 16px; background: rgba(0, 255, 225, 0.15); border: 1px solid rgba(0, 255, 225, 0.3); border-radius: 6px; color: #00ffe1; cursor: pointer; font-size: 13px; font-weight: 600;">+ Add Music</button>
+      <div style="color: #999; font-size: 12px;">${library.length} tracks</div>
     `;
     
     // Library view
@@ -85,24 +93,85 @@ const MusicApp = (function() {
     // Setup events
     setTimeout(() => {
       renderLibrary(libraryView);
-      setupMusicEvents(container, header, libraryView, playerControls);
+      setupMusicEvents(playerControls);
+      initializeAudio();
     }, 100);
     
     return container;
   }
   
-  function renderLibrary(libraryView) {
-    if (library.length === 0) {
-      libraryView.innerHTML = `
-        <div style="text-align: center; padding: 60px 20px; color: #999;">
-          <div style="font-size: 64px; margin-bottom: 20px;">🎵</div>
-          <div style="font-size: 18px; margin-bottom: 12px;">Your library is empty</div>
-          <div style="font-size: 14px;">Click "+ Add Music" to add tracks</div>
-        </div>
-      `;
-      return;
+  function initializeAudio() {
+    // Create HTML5 Audio object
+    audio = new Audio();
+    audio.volume = 0.5;
+    
+    // Add event listeners
+    audio.addEventListener('timeupdate', updateProgress);
+    audio.addEventListener('loadedmetadata', updateDuration);
+    audio.addEventListener('ended', handleTrackEnd);
+    audio.addEventListener('error', handleAudioError);
+    audio.addEventListener('play', () => {
+      isPlaying = true;
+      updatePlayButton();
+    });
+    audio.addEventListener('pause', () => {
+      isPlaying = false;
+      updatePlayButton();
+    });
+  }
+  
+  function updateProgress() {
+    if (!audio || !audio.duration) return;
+    
+    const progressBar = document.querySelector('.progress-bar');
+    const currentTimeEl = document.querySelector('.current-time');
+    
+    if (progressBar && !progressBar.dataset.seeking) {
+      const percent = (audio.currentTime / audio.duration) * 100;
+      progressBar.value = percent;
     }
     
+    if (currentTimeEl) {
+      currentTimeEl.textContent = formatTime(audio.currentTime);
+    }
+  }
+  
+  function updateDuration() {
+    if (!audio) return;
+    
+    const totalTimeEl = document.querySelector('.total-time');
+    if (totalTimeEl) {
+      totalTimeEl.textContent = formatTime(audio.duration);
+    }
+  }
+  
+  function handleTrackEnd() {
+    console.log('Track ended');
+    
+    if (isRepeat) {
+      // Replay current track
+      audio.currentTime = 0;
+      audio.play().catch(err => console.error('Play error:', err));
+    } else {
+      // Play next track
+      playNextTrack();
+    }
+  }
+  
+  function handleAudioError(e) {
+    console.error('Audio error:', e);
+    const nowPlaying = document.querySelector('.now-playing');
+    if (nowPlaying) {
+      nowPlaying.textContent = 'Error loading track';
+      nowPlaying.style.color = '#ff5f57';
+      
+      setTimeout(() => {
+        nowPlaying.style.color = '#00ffe1';
+      }, 3000);
+    }
+  }
+  
+  function renderLibrary(libraryView) {
     libraryView.innerHTML = '';
     
     library.forEach((track, index) => {
@@ -111,16 +180,20 @@ const MusicApp = (function() {
       trackEl.style.cssText = `display: flex; align-items: center; gap: 16px; padding: 12px; background: rgba(30, 30, 30, 0.5); border-radius: 8px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s; border: 1px solid ${currentTrackIndex === index ? 'rgba(0, 255, 225, 0.5)' : 'transparent'};`;
       
       trackEl.innerHTML = `
-        <div style="font-size: 32px;">${track.isPlaying ? '🔊' : '🎵'}</div>
+        <div style="font-size: 32px;">${currentTrackIndex === index && isPlaying ? '🔊' : '🎵'}</div>
         <div style="flex: 1; min-width: 0;">
           <div style="color: ${currentTrackIndex === index ? '#00ffe1' : '#e6e6e6'}; font-weight: 600; font-size: 14px; margin-bottom: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${track.title}</div>
-          <div style="color: #999; font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${track.artist || 'Unknown Artist'}</div>
+          <div style="color: #999; font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${track.artist}</div>
         </div>
-        <button class="delete-track-btn" data-index="${index}" style="padding: 6px 12px; background: rgba(255, 95, 87, 0.1); border: 1px solid rgba(255, 95, 87, 0.3); border-radius: 4px; color: #ff5f57; cursor: pointer; font-size: 11px;">Delete</button>
+        <div style="color: #00ffe1; font-size: 20px;">${currentTrackIndex === index && isPlaying ? '⏸️' : '▶️'}</div>
       `;
       
-      trackEl.addEventListener('click', (e) => {
-        if (!e.target.closest('.delete-track-btn')) {
+      trackEl.addEventListener('click', () => {
+        if (currentTrackIndex === index) {
+          // Toggle play/pause on same track
+          togglePlayPause();
+        } else {
+          // Play new track
           playTrack(index);
         }
       });
@@ -137,19 +210,9 @@ const MusicApp = (function() {
       
       libraryView.appendChild(trackEl);
     });
-    
-    // Setup delete buttons
-    libraryView.querySelectorAll('.delete-track-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const index = parseInt(btn.dataset.index);
-        deleteTrack(index, libraryView);
-      });
-    });
   }
   
-  function setupMusicEvents(container, header, libraryView, playerControls) {
-    const addBtn = header.querySelector('.add-music-btn');
+  function setupMusicEvents(playerControls) {
     const playPauseBtn = playerControls.querySelector('.play-pause-btn');
     const prevBtn = playerControls.querySelector('.prev-btn');
     const nextBtn = playerControls.querySelector('.next-btn');
@@ -159,23 +222,13 @@ const MusicApp = (function() {
     const volumeSlider = playerControls.querySelector('.volume-slider');
     const volumeDisplay = playerControls.querySelector('.volume-display');
     
-    // Add music
-    addBtn.addEventListener('click', () => {
-      showAddMusicDialog(libraryView);
-    });
-    
-    addBtn.addEventListener('mouseenter', () => {
-      addBtn.style.background = 'rgba(0, 255, 225, 0.25)';
-    });
-    
-    addBtn.addEventListener('mouseleave', () => {
-      addBtn.style.background = 'rgba(0, 255, 225, 0.15)';
-    });
-    
     // Play/Pause
     playPauseBtn.addEventListener('click', () => {
-      if (currentTrack) {
-        togglePlayPause(playPauseBtn);
+      if (currentTrackIndex === -1 && library.length > 0) {
+        // If no track selected, play first track
+        playTrack(0);
+      } else {
+        togglePlayPause();
       }
     });
     
@@ -201,9 +254,17 @@ const MusicApp = (function() {
       repeatBtn.style.background = isRepeat ? 'rgba(0, 255, 225, 0.25)' : 'rgba(0, 255, 225, 0.1)';
     });
     
-    // Progress bar
+    // Progress bar seeking
+    progressBar.addEventListener('mousedown', () => {
+      progressBar.dataset.seeking = 'true';
+    });
+    
+    progressBar.addEventListener('mouseup', () => {
+      delete progressBar.dataset.seeking;
+    });
+    
     progressBar.addEventListener('input', (e) => {
-      if (audio) {
+      if (audio && audio.duration) {
         const percent = e.target.value;
         audio.currentTime = (percent / 100) * audio.duration;
       }
@@ -217,88 +278,60 @@ const MusicApp = (function() {
         audio.volume = volume / 100;
       }
     });
-    
-    // Update progress
-    setInterval(() => {
-      if (audio && isPlaying) {
-        const percent = (audio.currentTime / audio.duration) * 100;
-        progressBar.value = percent || 0;
-        
-        const currentTime = formatTime(audio.currentTime);
-        const totalTime = formatTime(audio.duration);
-        playerControls.querySelector('.current-time').textContent = currentTime;
-        playerControls.querySelector('.total-time').textContent = totalTime;
-      }
-    }, 100);
-  }
-  
-  function showAddMusicDialog(libraryView) {
-    const title = prompt('Enter track title:');
-    if (!title) return;
-    
-    const artist = prompt('Enter artist name (optional):');
-    const url = prompt('Enter track URL (YouTube, SoundCloud, or direct MP3 link):');
-    
-    if (!url) {
-      alert('URL is required');
-      return;
-    }
-    
-    const track = {
-      id: Date.now(),
-      title,
-      artist: artist || 'Unknown Artist',
-      url,
-      duration: 0,
-      isPlaying: false
-    };
-    
-    library.push(track);
-    saveLibrary();
-    renderLibrary(libraryView);
   }
   
   function playTrack(index) {
     if (index < 0 || index >= library.length) return;
     
     currentTrackIndex = index;
-    currentTrack = library[index];
+    const track = library[index];
     
-    // Note: Due to browser restrictions, we can't actually play external audio URLs
-    // In a real implementation, you would use the Web Audio API or a player library
-    // For this demo, we'll simulate playback
-    
-    isPlaying = true;
-    
-    // Update UI
-    const nowPlaying = document.querySelector('.now-playing');
-    const trackArtist = document.querySelector('.track-artist');
-    const playPauseBtn = document.querySelector('.play-pause-btn');
-    
-    if (nowPlaying) nowPlaying.textContent = currentTrack.title;
-    if (trackArtist) trackArtist.textContent = currentTrack.artist;
-    if (playPauseBtn) playPauseBtn.textContent = '⏸️';
-    
-    // Rerender library to show active track
-    const libraryView = document.querySelector('.music-library');
-    if (libraryView) renderLibrary(libraryView);
-    
-    // Simulate playback
-    if (!audio) {
-      audio = {
-        currentTime: 0,
-        duration: 180, // 3 minutes default
-        volume: 0.5
-      };
+    // Load and play the track
+    if (audio) {
+      audio.src = track.url;
+      audio.load();
+      audio.play().then(() => {
+        console.log(`Now playing: ${track.title} by ${track.artist}`);
+      }).catch(err => {
+        console.error('Play error:', err);
+        // Some browsers require user interaction before playing
+        alert('Click OK to allow audio playback');
+      });
     }
     
-    console.log(`Playing: ${currentTrack.title} by ${currentTrack.artist}`);
-    console.log(`URL: ${currentTrack.url}`);
+    // Update UI
+    updateNowPlaying(track);
+    renderLibraryUI();
   }
   
-  function togglePlayPause(playPauseBtn) {
-    isPlaying = !isPlaying;
-    playPauseBtn.textContent = isPlaying ? '⏸️' : '▶️';
+  function togglePlayPause() {
+    if (!audio || currentTrackIndex === -1) return;
+    
+    if (isPlaying) {
+      audio.pause();
+    } else {
+      audio.play().catch(err => console.error('Play error:', err));
+    }
+  }
+  
+  function updatePlayButton() {
+    const playPauseBtn = document.querySelector('.play-pause-btn');
+    if (playPauseBtn) {
+      playPauseBtn.textContent = isPlaying ? '⏸️' : '▶️';
+    }
+  }
+  
+  function updateNowPlaying(track) {
+    const nowPlaying = document.querySelector('.now-playing');
+    const trackArtist = document.querySelector('.track-artist');
+    
+    if (nowPlaying) nowPlaying.textContent = track.title;
+    if (trackArtist) trackArtist.textContent = track.artist;
+  }
+  
+  function renderLibraryUI() {
+    const libraryView = document.querySelector('.music-library');
+    if (libraryView) renderLibrary(libraryView);
   }
   
   function playNextTrack() {
@@ -306,8 +339,10 @@ const MusicApp = (function() {
     
     let nextIndex;
     if (isShuffle) {
+      // Random track
       nextIndex = Math.floor(Math.random() * library.length);
     } else {
+      // Next track in order
       nextIndex = (currentTrackIndex + 1) % library.length;
     }
     
@@ -319,8 +354,10 @@ const MusicApp = (function() {
     
     let prevIndex;
     if (isShuffle) {
+      // Random track
       prevIndex = Math.floor(Math.random() * library.length);
     } else {
+      // Previous track
       prevIndex = currentTrackIndex - 1;
       if (prevIndex < 0) prevIndex = library.length - 1;
     }
@@ -328,33 +365,8 @@ const MusicApp = (function() {
     playTrack(prevIndex);
   }
   
-  function deleteTrack(index, libraryView) {
-    if (confirm(`Delete "${library[index].title}"?`)) {
-      library.splice(index, 1);
-      
-      if (currentTrackIndex === index) {
-        currentTrack = null;
-        currentTrackIndex = -1;
-        isPlaying = false;
-        
-        const nowPlaying = document.querySelector('.now-playing');
-        const trackArtist = document.querySelector('.track-artist');
-        const playPauseBtn = document.querySelector('.play-pause-btn');
-        
-        if (nowPlaying) nowPlaying.textContent = 'No track selected';
-        if (trackArtist) trackArtist.textContent = 'Select a track to play';
-        if (playPauseBtn) playPauseBtn.textContent = '▶️';
-      } else if (currentTrackIndex > index) {
-        currentTrackIndex--;
-      }
-      
-      saveLibrary();
-      renderLibrary(libraryView);
-    }
-  }
-  
   function formatTime(seconds) {
-    if (isNaN(seconds)) return '0:00';
+    if (isNaN(seconds) || seconds === Infinity) return '0:00';
     const mins = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
     return `${mins}:${secs.toString().padStart(2, '0')}`;
@@ -376,10 +388,20 @@ const MusicApp = (function() {
     });
   }
   
+  function stop() {
+    // Stop audio playback and cleanup
+    if (audio) {
+      audio.pause();
+      audio.src = '';
+      isPlaying = false;
+    }
+    currentTrackIndex = -1;
+  }
+  
   return {
-    open
+    open,
+    stop
   };
 })();
 
 window.MusicApp = MusicApp;
-
