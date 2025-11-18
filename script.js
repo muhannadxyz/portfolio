@@ -1,56 +1,25 @@
-// Terminal Text Lines
-const terminalText = [
-  "booting portfolioOS...",
-  "loading personality modules...",
-  "establishing neural link...",
-  "initializing interface...",
-  "launching Muhannad Abuzahrieh portfolio..."
-];
+// Terminal intro removed - content loads immediately
+// Keeping code commented for reference
 
-const line = document.getElementById("terminal-line");
-let index = 0;
+// const terminalText = [
+//   "booting portfolioOS...",
+//   "loading personality modules...",
+//   "establishing neural link...",
+//   "initializing interface...",
+//   "launching Muhannad Abuzahrieh portfolio..."
+// ];
 
-// Type one line at a time
-function typeLine(text, i = 0) {
-  if (i < text.length) {
-    line.innerHTML += text.charAt(i);
-    setTimeout(() => typeLine(text, i + 1), 1); // 1ms delay between characters
-  } else {
-    line.innerHTML += "<br>"; // Add a new line after each line
-    index++;
-    if (index < terminalText.length) {
-      setTimeout(() => typeLine(terminalText[index]), 25); // 25ms delay between lines
-    } else {
-      // Done with terminal: show Xbox loading
-      showXboxLoading();
-    }
-  }
-}
+// function typeLine(text, i = 0) {
+//   ...
+// }
 
-// Called once terminal finishes
-function showXboxLoading() {
-  document.getElementById("terminal-intro").style.display = "none";
-  document.getElementById("xbox-loading").style.display = "flex";
+// function showXboxLoading() {
+//   ...
+// }
 
-  //After 1 seconds, show site content
-  setTimeout(() => {
-    document.getElementById("xbox-loading").style.display = "none";
-    document.getElementById("main-content").style.display = "block";
-  }, 250);
-}
-
-// Allow skipping with Enter key
-document.addEventListener('keydown', e => {
-  if (e.key === 'Enter') {
-    skipIntro();
-  }
-});
-
-function skipIntro() {
-  document.getElementById("terminal-intro").style.display = "none";
-  document.getElementById("xbox-loading").style.display = "none";
-  document.getElementById("main-content").style.display = "block";
-}
+// function skipIntro() {
+//   ...
+// }
 
 // Mouse tracking glow
 document.addEventListener('mousemove', e => {
@@ -172,7 +141,7 @@ function terminalDemo() {
 // Init 
 window.addEventListener("DOMContentLoaded", () => {
   document.documentElement.setAttribute('data-theme', 'dark');
-  typeLine(terminalText[0]); 
+  // typeLine(terminalText[0]); // Removed - no loading screen
   // Make windows draggable
   document.querySelectorAll('.window').forEach(makeDraggable);
   // Start terminal ambient demo
