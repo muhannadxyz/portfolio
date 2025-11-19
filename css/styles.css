@@ -2161,3 +2161,301 @@ html {
   cursor: pointer;
   border: none;
 }
+
+/* ============================================
+   MOBILE RESPONSIVE STYLES
+   ============================================ */
+
+/* Mobile: 768px and below */
+@media (max-width: 768px) {
+  /* Main Content Container */
+  #main-content {
+    display: block;
+  }
+
+  /* Hero Section */
+  .hero {
+    padding: 4vh 4vw 2vh;
+    min-height: auto;
+    margin-top: 0;
+  }
+
+  .hero-content {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .hero-badge {
+    font-size: 12px;
+    padding: 8px 14px;
+    margin-bottom: 16px;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 8vw, 3rem);
+    margin-bottom: 12px;
+  }
+
+  .hero-soft {
+    font-size: 0.65em;
+    margin-bottom: 6px;
+  }
+
+  /* OS Preview - Make it full width and stack properly on mobile */
+  .os-preview {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    left: auto !important;
+    width: calc(100% - 2rem) !important;
+    max-width: 100% !important;
+    margin: 80px auto 20px auto !important;
+    transform: none !important;
+  }
+
+  .os-preview-header {
+    padding: 8px 12px;
+  }
+
+  .os-preview-title {
+    font-size: 10px;
+  }
+
+  .os-preview-content {
+    height: 120px;
+  }
+
+  .os-preview-desktop {
+    padding: 8px;
+  }
+
+  .os-preview-menubar {
+    padding: 4px 6px;
+    font-size: 7px;
+  }
+
+  .os-preview-window {
+    display: none; /* Hide mini windows on mobile */
+  }
+
+  .os-preview-dock {
+    padding: 6px;
+    gap: 4px;
+  }
+
+  .os-preview-dock > div {
+    width: 12px;
+    height: 12px;
+  }
+
+  .os-preview-footer {
+    padding: 8px 12px;
+    font-size: 10px;
+  }
+
+  /* Projects Section */
+  #projects {
+    padding: 2rem 1rem !important;
+    margin-top: 0;
+    max-width: 100% !important;
+  }
+
+  #projects h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding: 0;
+    text-align: left;
+  }
+
+  #projects-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+    padding: 0;
+    width: 100%;
+  }
+
+  /* Override Tailwind grid classes on mobile */
+  #projects-grid.grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Hamburger Menu */
+  .hamburger {
+    top: 16px;
+    left: 16px;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+  }
+
+  .hamburger span {
+    width: 20px;
+    height: 2.5px;
+  }
+
+  .dropdown-nav {
+    top: 70px;
+    left: 16px;
+    right: 16px;
+    width: auto;
+  }
+
+  .dropdown-content {
+    min-width: auto;
+    width: 100%;
+    padding: 16px 20px;
+  }
+
+  /* Portfolio Favicon */
+  .portfolio-favicon {
+    bottom: 12px;
+    left: 12px;
+    padding: 8px;
+  }
+
+  .portfolio-favicon img {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Main Content Spacing */
+  #main-content {
+    padding-bottom: 2rem;
+  }
+
+  /* Neural Network - Reduce opacity on mobile for performance */
+  #neural-network {
+    opacity: 0.15;
+  }
+
+  /* Ensure proper spacing between hero and projects */
+  .hero {
+    margin-bottom: 1rem;
+  }
+
+  /* Project cards - ensure they don't overflow */
+  #projects-grid > div {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Fix any overflow issues */
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Ensure sections don't overlap */
+  section.hero {
+    position: relative;
+    z-index: 10;
+  }
+}
+
+/* Mobile: 480px and below (Small phones) */
+@media (max-width: 480px) {
+  /* Hero Section */
+  .hero {
+    padding: 3vh 3vw 1.5vh;
+  }
+
+  .hero-badge {
+    font-size: 11px;
+    padding: 6px 12px;
+    margin-bottom: 12px;
+  }
+
+  .hero-title {
+    font-size: clamp(1.75rem, 10vw, 2.5rem);
+    line-height: 1.2;
+  }
+
+  .hero-soft {
+    font-size: 0.7em;
+  }
+
+  /* OS Preview - Even smaller */
+  .os-preview {
+    margin: 15px auto;
+    margin-bottom: 25px;
+  }
+
+  .os-preview-content {
+    height: 100px;
+  }
+
+  .os-preview-footer {
+    padding: 6px 10px;
+    font-size: 9px;
+  }
+
+  /* Projects */
+  #projects {
+    padding: 1.5rem 0.75rem !important;
+  }
+
+  #projects h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1.25rem;
+    padding: 0 0.75rem;
+  }
+
+  #projects-grid {
+    gap: 1.25rem !important;
+    padding: 0 0.75rem;
+  }
+
+  /* Hamburger */
+  .hamburger {
+    top: 12px;
+    left: 12px;
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+  }
+
+  .dropdown-nav {
+    top: 64px;
+    left: 12px;
+    right: 12px;
+  }
+
+  .dropdown-content {
+    padding: 14px 16px;
+  }
+
+  /* Favicon */
+  .portfolio-favicon {
+    bottom: 10px;
+    left: 10px;
+    padding: 6px;
+  }
+
+  .portfolio-favicon img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Tablet: 769px to 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Projects Grid - 2 columns on tablet */
+  #projects-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.5rem !important;
+  }
+
+  /* OS Preview */
+  .os-preview {
+    width: 280px;
+  }
+
+  .os-preview-content {
+    height: 180px;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 5vh 5vw 2vh;
+  }
+}
