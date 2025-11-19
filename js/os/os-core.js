@@ -50,6 +50,11 @@ function launchOS() {
     preview.style.display = 'none';
   }
   
+  // Pause neural network to improve OS performance
+  if (window.neuralNet) {
+    window.neuralNet.pause();
+  }
+  
   // Show OS overlay
   overlay.style.display = 'block';
   
@@ -91,6 +96,11 @@ function exitOS() {
   // Show preview window
   if (preview) {
     preview.style.display = 'block';
+  }
+  
+  // Resume neural network animation
+  if (window.neuralNet) {
+    window.neuralNet.resume();
   }
   
   console.log('OS exited');

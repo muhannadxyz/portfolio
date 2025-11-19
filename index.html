@@ -492,6 +492,17 @@ void setup() {
 
       // Open Project (Expands with Shared Animation)
       function openProject(p) {
+        // Hide OS preview when project opens
+        const osPreview = document.getElementById('os-preview');
+        if (osPreview) {
+          osPreview.style.display = 'none';
+        }
+        
+        // Pause neural network to improve performance
+        if (window.neuralNet) {
+          window.neuralNet.pause();
+        }
+        
         overlay.innerHTML = `
         <div class="min-h-screen relative bg-black">
           <!-- Parallax Hero Image with Overlay -->
@@ -631,6 +642,15 @@ void setup() {
       function closeOverlay() {
         overlay.classList.add("hidden");
         document.body.style.overflow = "";
+        // Show OS preview again when project closes
+        const osPreview = document.getElementById('os-preview');
+        if (osPreview) {
+          osPreview.style.display = 'block';
+        }
+        // Resume neural network animation
+        if (window.neuralNet) {
+          window.neuralNet.resume();
+        }
         // Scroll back to top smoothly
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
@@ -836,6 +856,17 @@ void setup() {
           </div>
         `;
         card.addEventListener("click", () => {
+          // Hide OS preview when project opens
+          const osPreview = document.getElementById('os-preview');
+          if (osPreview) {
+            osPreview.style.display = 'none';
+          }
+          
+          // Pause neural network to improve performance
+          if (window.neuralNet) {
+            window.neuralNet.pause();
+          }
+          
           overlay.innerHTML = `
             <div class="min-h-screen relative bg-black">
               <!-- Parallax Hero Image with Overlay -->
@@ -961,6 +992,15 @@ void setup() {
               e.preventDefault();
               overlay.classList.add("hidden");
               document.body.style.overflow = "";
+              // Show OS preview again
+              const osPreview = document.getElementById('os-preview');
+              if (osPreview) {
+                osPreview.style.display = 'block';
+              }
+              // Resume neural network animation
+              if (window.neuralNet) {
+                window.neuralNet.resume();
+              }
               window.scrollTo({ top: 0, behavior: 'smooth' });
             });
           }

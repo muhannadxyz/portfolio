@@ -388,6 +388,8 @@ class NeuralNetwork {
     this.ctx = this.canvas.getContext('2d');
     this.nodes = [];
     this.connections = [];
+    this.isAnimating = true;
+    this.animationId = null;
     this.init();
   }
 
@@ -398,6 +400,21 @@ class NeuralNetwork {
     // Create network nodes at element positions
     this.createNetwork();
     this.animate();
+  }
+  
+  pause() {
+    this.isAnimating = false;
+    if (this.animationId) {
+      cancelAnimationFrame(this.animationId);
+      this.animationId = null;
+    }
+  }
+  
+  resume() {
+    if (!this.isAnimating) {
+      this.isAnimating = true;
+      this.animate();
+    }
   }
 
   resize() {
@@ -441,6 +458,8 @@ class NeuralNetwork {
   }
 
   animate() {
+    if (!this.isAnimating) return;
+    
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     
     // Update node positions from elements
@@ -484,13 +503,16 @@ class NeuralNetwork {
       this.ctx.shadowBlur = 0;
     });
 
-    requestAnimationFrame(() => this.animate());
+    this.animationId = requestAnimationFrame(() => this.animate());
   }
 }
 
 // Initialize when main content is visible
+let neuralNet;
 setTimeout(() => {
-  new NeuralNetwork();
+  neuralNet = new NeuralNetwork();
+  // Make it globally accessible
+  window.neuralNet = neuralNet;
 }, 500);
 
 // Hamburger Menu Toggle
