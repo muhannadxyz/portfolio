@@ -459,7 +459,31 @@ Size: ${size}
     if (!name || name.trim() === '') return;
     
     try {
+      const folderPath = currentPath === '/' ? `/${name.trim()}` : `${currentPath}/${name.trim()}`;
       await FileSystem.createFolder(name.trim(), currentPath);
+      
+      // Add to undo history
+      if (window.UndoRedoSystem) {
+        window.UndoRedoSystem.addAction({
+          undo: async () => {
+            try {
+              await FileSystem.deleteFile(folderPath);
+              navigateToPath(currentPath, container);
+            } catch (e) {
+              console.error('Undo failed:', e);
+            }
+          },
+          redo: async () => {
+            try {
+              await FileSystem.createFolder(name.trim(), currentPath);
+              navigateToPath(currentPath, container);
+            } catch (e) {
+              console.error('Redo failed:', e);
+            }
+          }
+        });
+      }
+      
       navigateToPath(currentPath, container);
     } catch (error) {
       alert(`Error creating folder: ${error.message}`);
@@ -476,9 +500,45 @@ Size: ${size}
     if (!confirm(`Delete ${count} item(s)?`)) return;
     
     try {
+      const deletedFiles = [];
       for (const filePath of selectedFiles) {
-        await FileSystem.deleteFile(filePath);
+        const file = await FileSystem.readFile(filePath);
+        if (file) {
+          deletedFiles.push({ path: filePath, file: file });
+          await FileSystem.deleteFile(filePath);
+        }
       }
+      
+      // Add to undo history
+      if (window.UndoRedoSystem && deletedFiles.length > 0) {
+        window.UndoRedoSystem.addAction({
+          undo: async () => {
+            try {
+              for (const item of deletedFiles) {
+                if (item.file.type === 'folder') {
+                  await FileSystem.createFolder(item.file.name, item.file.parent);
+                } else {
+                  await FileSystem.createFile(item.file.name, item.file.content, item.file.parent);
+                }
+              }
+              navigateToPath(currentPath, container);
+            } catch (e) {
+              console.error('Undo failed:', e);
+            }
+          },
+          redo: async () => {
+            try {
+              for (const item of deletedFiles) {
+                await FileSystem.deleteFile(item.path);
+              }
+              navigateToPath(currentPath, container);
+            } catch (e) {
+              console.error('Redo failed:', e);
+            }
+          }
+        });
+      }
+      
       selectedFiles.clear();
       navigateToPath(currentPath, container);
     } catch (error) {
@@ -585,11 +645,36 @@ Size: ${size}
       return;
     }
     
-    const newName = prompt('Enter new name:', file.name);
-    if (!newName || newName.trim() === '' || newName === file.name) return;
+    const oldName = file.name;
+    const newName = prompt('Enter new name:', oldName);
+    if (!newName || newName.trim() === '' || newName === oldName) return;
     
     try {
+      const newPath = file.parent === '/' ? `/${newName.trim()}` : `${file.parent}/${newName.trim()}`;
       await FileSystem.renameFile(filePath, newName.trim());
+      
+      // Add to undo history
+      if (window.UndoRedoSystem) {
+        window.UndoRedoSystem.addAction({
+          undo: async () => {
+            try {
+              await FileSystem.renameFile(newPath, oldName);
+              navigateToPath(currentPath, container);
+            } catch (e) {
+              console.error('Undo failed:', e);
+            }
+          },
+          redo: async () => {
+            try {
+              await FileSystem.renameFile(filePath, newName.trim());
+              navigateToPath(currentPath, container);
+            } catch (e) {
+              console.error('Redo failed:', e);
+            }
+          }
+        });
+      }
+      
       selectedFiles.clear();
       navigateToPath(currentPath, container);
     } catch (error) {

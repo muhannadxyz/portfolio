@@ -362,14 +362,56 @@ const SettingsApp = (function() {
   }
   
   function applyTheme(themeId) {
-    // Theme application logic (simplified for now)
-    console.log(`Theme applied: ${themeId}`);
+    // Apply theme to document
+    document.documentElement.setAttribute('data-theme', themeId);
+    
+    // Update OS-specific theme variables
+    if (themeId === 'light') {
+      document.documentElement.style.setProperty('--os-bg-primary', '#f5f5f5');
+      document.documentElement.style.setProperty('--os-bg-secondary', '#ffffff');
+      document.documentElement.style.setProperty('--os-bg-window', 'rgba(255, 255, 255, 0.98)');
+      document.documentElement.style.setProperty('--os-bg-menubar', 'rgba(245, 245, 245, 0.98)');
+      document.documentElement.style.setProperty('--os-bg-dock', 'rgba(245, 245, 245, 0.95)');
+      document.documentElement.style.setProperty('--os-text-primary', '#333');
+      document.documentElement.style.setProperty('--os-text-secondary', '#666');
+    } else {
+      document.documentElement.style.setProperty('--os-bg-primary', '#0d0d0d');
+      document.documentElement.style.setProperty('--os-bg-secondary', '#1a1a2e');
+      document.documentElement.style.setProperty('--os-bg-window', 'rgba(20, 20, 20, 0.98)');
+      document.documentElement.style.setProperty('--os-bg-menubar', 'rgba(20, 20, 20, 0.98)');
+      document.documentElement.style.setProperty('--os-bg-dock', 'rgba(20, 20, 20, 0.95)');
+      document.documentElement.style.setProperty('--os-text-primary', '#e6e6e6');
+      document.documentElement.style.setProperty('--os-text-secondary', '#999');
+    }
+    
+    // Save preference
+    OSState.setPreference('theme', themeId);
   }
   
   function applyAccentColor(color) {
-    // Accent color application logic
-    document.documentElement.style.setProperty('--accent-color', color);
-    console.log(`Accent color applied: ${color}`);
+    // Convert hex to RGB for rgba usage
+    const hex = color.replace('#', '');
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+    
+    // Apply accent color to CSS variables
+    document.documentElement.style.setProperty('--os-accent-color', color);
+    document.documentElement.style.setProperty('--os-accent-rgb', `${r}, ${g}, ${b}`);
+    
+    // Update all accent-related variables
+    document.documentElement.style.setProperty('--os-border-color', `rgba(${r}, ${g}, ${b}, 0.2)`);
+    document.documentElement.style.setProperty('--os-border-light', `rgba(${r}, ${g}, ${b}, 0.1)`);
+    document.documentElement.style.setProperty('--os-border-medium', `rgba(${r}, ${g}, ${b}, 0.3)`);
+    document.documentElement.style.setProperty('--os-border-strong', `rgba(${r}, ${g}, ${b}, 0.5)`);
+    document.documentElement.style.setProperty('--os-shadow-accent', `rgba(${r}, ${g}, ${b}, 0.2)`);
+    document.documentElement.style.setProperty('--os-shadow-accent-strong', `rgba(${r}, ${g}, ${b}, 0.4)`);
+    
+    // Also update the legacy --a1 variable for compatibility
+    document.documentElement.style.setProperty('--a1', color);
+    
+    // Save preference
+    OSState.setPreference('accentColor', color);
   }
   
   function applyWallpaper(wallpaperId) {
@@ -377,8 +419,36 @@ const SettingsApp = (function() {
     if (wallpaper) {
       const desktop = document.querySelector('.os-desktop');
       if (desktop) {
+        // Preserve gradient overlays while changing base
         desktop.style.background = wallpaper.gradient;
+        desktop.style.backgroundImage = `
+          ${wallpaper.gradient},
+          radial-gradient(circle at 20% 50%, rgba(var(--os-accent-rgb), 0.05) 0%, transparent 50%),
+          radial-gradient(circle at 80% 80%, rgba(42, 130, 255, 0.05) 0%, transparent 50%),
+          radial-gradient(circle at 40% 20%, rgba(102, 126, 234, 0.03) 0%, transparent 50%)
+        `;
       }
+    }
+    
+    // Save preference
+    OSState.setPreference('wallpaper', wallpaperId);
+  }
+  
+  // Load saved preferences on init
+  function loadPreferences() {
+    const savedTheme = OSState.getPreference('theme');
+    if (savedTheme) {
+      applyTheme(savedTheme);
+    }
+    
+    const savedAccent = OSState.getPreference('accentColor');
+    if (savedAccent) {
+      applyAccentColor(savedAccent);
+    }
+    
+    const savedWallpaper = OSState.getPreference('wallpaper');
+    if (savedWallpaper) {
+      applyWallpaper(savedWallpaper);
     }
   }
   
@@ -388,6 +458,9 @@ const SettingsApp = (function() {
       WindowManager.focusWindow(existing.id);
       return;
     }
+    
+    // Load preferences when opening
+    loadPreferences();
     
     const content = createSettingsContent();
     WindowManager.createWindow('settings', 'Settings', content, {
@@ -399,7 +472,8 @@ const SettingsApp = (function() {
   }
   
   return {
-    open
+    open,
+    loadPreferences
   };
 })();
 

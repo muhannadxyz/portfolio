@@ -143,17 +143,129 @@ const BrowserApp = (function() {
         return;
       }
       
+      // Show loading indicator
+      showLoadingIndicator(content);
+      
       // Add to history
       addToHistory(url);
       
       // Update tab title
       const domain = url.replace(/^https?:\/\//, '').split('/')[0];
       tabSystem.updateTabLabel(tabId, domain);
-      
-      // Open external URL in new tab
-      window.open(url, '_blank');
       urlInput.value = url;
+      
+      // Try to load in iframe (for same-origin or CORS-enabled sites)
+      // For most external sites, we'll show a message and open in new tab
+      const iframe = document.createElement('iframe');
+      iframe.style.cssText = 'width: 100%; height: 100%; border: none; background: rgba(13, 13, 13, 0.9);';
+      iframe.src = url;
+      
+      let iframeLoaded = false;
+      let timeoutId = null;
+      
+      iframe.onload = () => {
+        iframeLoaded = true;
+        if (timeoutId) clearTimeout(timeoutId);
+        content.innerHTML = '';
+        content.appendChild(iframe);
+      };
+      
+      iframe.onerror = () => {
+        if (timeoutId) clearTimeout(timeoutId);
+        showErrorPage(content, url);
+      };
+      
+      // Timeout fallback - if iframe doesn't load in 2 seconds, show message
+      timeoutId = setTimeout(() => {
+        if (!iframeLoaded) {
+          // Check if we can access iframe content (CORS check)
+          try {
+            const canAccess = iframe.contentDocument || iframe.contentWindow;
+            if (!canAccess) {
+              showExternalPageMessage(content, url);
+            }
+          } catch (e) {
+            // CORS error - show external page message
+            showExternalPageMessage(content, url);
+          }
+        }
+      }, 2000);
+      
+      // Add iframe to content to start loading
+      content.innerHTML = '';
+      content.appendChild(iframe);
+      
+      // Also open in new tab as fallback for user convenience
+      try {
+        window.open(url, '_blank');
+      } catch (e) {
+        console.error('Failed to open URL:', e);
+      }
     };
+    
+    function showLoadingIndicator(content) {
+      content.innerHTML = `
+        <div style="text-align: center; padding: 60px 20px;">
+          <div style="font-size: 48px; margin-bottom: 16px; animation: spin 1s linear infinite;">⏳</div>
+          <div style="color: #00ffe1; font-size: 18px; margin-bottom: 8px;">Loading...</div>
+          <div style="color: #999; font-size: 14px;">Please wait</div>
+        </div>
+        <style>
+          @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+          }
+        </style>
+      `;
+    }
+    
+    function showErrorPage(content, url) {
+      content.innerHTML = `
+        <div style="text-align: center; padding: 60px 20px;">
+          <div style="font-size: 48px; margin-bottom: 16px;">⚠️</div>
+          <div style="color: #ff5f57; font-size: 18px; margin-bottom: 8px;">Unable to load page</div>
+          <div style="color: #999; font-size: 14px; margin-bottom: 24px; word-break: break-all;">${url}</div>
+          <div style="color: #666; font-size: 13px; margin-bottom: 24px; line-height: 1.6;">
+            This page cannot be displayed in the browser due to security restrictions.<br>
+            External sites are opened in a new tab for your safety.
+          </div>
+          <button onclick="window.open('${url}', '_blank')" style="
+            padding: 12px 24px;
+            background: rgba(0, 255, 225, 0.1);
+            border: 1px solid rgba(0, 255, 225, 0.3);
+            border-radius: 8px;
+            color: #00ffe1;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+          ">Open in New Tab</button>
+        </div>
+      `;
+    }
+    
+    function showExternalPageMessage(content, url) {
+      content.innerHTML = `
+        <div style="text-align: center; padding: 60px 20px;">
+          <div style="font-size: 48px; margin-bottom: 16px;">🌐</div>
+          <div style="color: #00ffe1; font-size: 18px; margin-bottom: 8px;">External Page</div>
+          <div style="color: #999; font-size: 14px; margin-bottom: 24px; word-break: break-all;">${url}</div>
+          <div style="color: #666; font-size: 13px; margin-bottom: 24px; line-height: 1.6; max-width: 500px; margin-left: auto; margin-right: auto;">
+            For security reasons, external websites open in a new browser tab.<br>
+            The page should have opened automatically. If not, click the button below.
+          </div>
+          <button onclick="window.open('${url}', '_blank')" style="
+            padding: 12px 24px;
+            background: rgba(0, 255, 225, 0.1);
+            border: 1px solid rgba(0, 255, 225, 0.3);
+            border-radius: 8px;
+            color: #00ffe1;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+          " onmouseenter="this.style.background='rgba(0, 255, 225, 0.2)'" onmouseleave="this.style.background='rgba(0, 255, 225, 0.1)'">Open in New Tab</button>
+        </div>
+      `;
+    }
     
     goBtn.addEventListener('click', () => {
       let url = urlInput.value.trim();
@@ -195,6 +307,8 @@ const BrowserApp = (function() {
     refreshBtn.addEventListener('click', () => {
       if (urlInput.value && urlInput.value !== 'about:blank') {
         navigate(urlInput.value);
+      } else {
+        showHomePage(content, urlInput, tabSystem, tabId);
       }
     });
     

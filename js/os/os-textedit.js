@@ -72,9 +72,15 @@ const TextEditApp = (function() {
     const findPanel = document.createElement('div');
     findPanel.style.cssText = 'display: none; padding: 12px 16px; background: rgba(20, 20, 20, 0.9); border-bottom: 1px solid rgba(0, 255, 225, 0.1); gap: 8px;';
     findPanel.innerHTML = `
-      <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+      <div style="display: flex; gap: 8px; margin-bottom: 8px; align-items: center;">
         <input type="text" placeholder="Find..." class="find-input" style="flex: 1; padding: 6px 12px; background: rgba(13, 13, 13, 0.8); border: 1px solid rgba(0, 255, 225, 0.2); border-radius: 4px; color: #e6e6e6; font-size: 13px; outline: none;">
-        <button class="find-next-btn" style="padding: 6px 12px; background: rgba(0, 255, 225, 0.1); border: 1px solid rgba(0, 255, 225, 0.3); border-radius: 4px; color: #00ffe1; cursor: pointer; font-size: 12px;">Next</button>
+        <button class="find-prev-btn" style="padding: 6px 12px; background: rgba(0, 255, 225, 0.1); border: 1px solid rgba(0, 255, 225, 0.3); border-radius: 4px; color: #00ffe1; cursor: pointer; font-size: 12px;">↑ Prev</button>
+        <button class="find-next-btn" style="padding: 6px 12px; background: rgba(0, 255, 225, 0.1); border: 1px solid rgba(0, 255, 225, 0.3); border-radius: 4px; color: #00ffe1; cursor: pointer; font-size: 12px;">Next ↓</button>
+        <label style="display: flex; align-items: center; gap: 4px; color: #999; font-size: 12px; cursor: pointer;">
+          <input type="checkbox" class="case-sensitive-checkbox" style="cursor: pointer;">
+          Case
+        </label>
+        <span class="match-count" style="color: #999; font-size: 12px; min-width: 80px; text-align: right;">0 matches</span>
         <button class="find-close-btn" style="padding: 6px 12px; background: rgba(255, 95, 87, 0.1); border: 1px solid rgba(255, 95, 87, 0.3); border-radius: 4px; color: #ff5f57; cursor: pointer; font-size: 12px;">Close</button>
       </div>
       <div style="display: flex; gap: 8px;">
@@ -185,33 +191,99 @@ const TextEditApp = (function() {
       }
     });
     
-    // Mark as unsaved on edit
+    // Track content for undo/redo
+    let lastContent = initialContent;
+    let undoTimeout = null;
+    
+    // Mark as unsaved on edit and track for undo
     editor.addEventListener('input', () => {
       const activeTabId = tabSystem.getActiveTabId();
       const tab = tabSystem.getTab(activeTabId);
       if (tab && !tab.label.endsWith(' *')) {
         tabSystem.updateTabLabel(activeTabId, tab.label + ' *');
       }
+      
+      // Debounce undo tracking
+      clearTimeout(undoTimeout);
+      undoTimeout = setTimeout(() => {
+        const currentContent = editor.value;
+        if (currentContent !== lastContent && window.UndoRedoSystem) {
+          const previousContent = lastContent;
+          window.UndoRedoSystem.addAction({
+            undo: () => {
+              editor.value = previousContent;
+              lastContent = previousContent;
+              updateWordCount(previousContent, wordCount);
+            },
+            redo: () => {
+              editor.value = currentContent;
+              lastContent = currentContent;
+              updateWordCount(currentContent, wordCount);
+            }
+          });
+          lastContent = currentContent;
+        }
+      }, 500);
     });
+    
+    // Find/Replace state
+    let currentMatchIndex = -1;
+    let matches = [];
+    let caseSensitive = false;
     
     // Find/Replace
     findBtn.addEventListener('click', () => {
       if (findPanel.style.display === 'none') {
         findPanel.style.display = 'block';
         findPanel.querySelector('.find-input').focus();
+        // Update matches when opening
+        const searchText = findPanel.querySelector('.find-input').value;
+        if (searchText) {
+          updateMatches(editor, searchText, findPanel);
+        }
       } else {
         findPanel.style.display = 'none';
+        clearHighlights(editor);
       }
     });
     
     findPanel.querySelector('.find-close-btn').addEventListener('click', () => {
       findPanel.style.display = 'none';
+      clearHighlights(editor);
+    });
+    
+    // Case sensitive toggle
+    findPanel.querySelector('.case-sensitive-checkbox').addEventListener('change', (e) => {
+      caseSensitive = e.target.checked;
+      const searchText = findPanel.querySelector('.find-input').value;
+      if (searchText) {
+        updateMatches(editor, searchText, findPanel);
+      }
+    });
+    
+    // Find input - update matches as user types
+    findPanel.querySelector('.find-input').addEventListener('input', (e) => {
+      const searchText = e.target.value;
+      if (searchText) {
+        updateMatches(editor, searchText, findPanel);
+      } else {
+        clearHighlights(editor);
+        findPanel.querySelector('.match-count').textContent = '0 matches';
+        currentMatchIndex = -1;
+      }
+    });
+    
+    findPanel.querySelector('.find-prev-btn').addEventListener('click', () => {
+      const searchText = findPanel.querySelector('.find-input').value;
+      if (searchText) {
+        findPrevious(editor, searchText, findPanel);
+      }
     });
     
     findPanel.querySelector('.find-next-btn').addEventListener('click', () => {
       const searchText = findPanel.querySelector('.find-input').value;
       if (searchText) {
-        findNext(editor, searchText);
+        findNext(editor, searchText, findPanel);
       }
     });
     
@@ -219,7 +291,7 @@ const TextEditApp = (function() {
       const searchText = findPanel.querySelector('.find-input').value;
       const replaceText = findPanel.querySelector('.replace-input').value;
       if (searchText) {
-        replaceNext(editor, searchText, replaceText);
+        replaceNext(editor, searchText, replaceText, findPanel);
       }
     });
     
@@ -227,7 +299,18 @@ const TextEditApp = (function() {
       const searchText = findPanel.querySelector('.find-input').value;
       const replaceText = findPanel.querySelector('.replace-input').value;
       if (searchText) {
-        replaceAll(editor, searchText, replaceText);
+        replaceAll(editor, searchText, replaceText, findPanel);
+      }
+    });
+    
+    // Keyboard shortcuts in find input
+    findPanel.querySelector('.find-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        findPanel.querySelector('.find-next-btn').click();
+      } else if (e.key === 'Escape') {
+        findPanel.style.display = 'none';
+        clearHighlights(editor);
       }
     });
     
@@ -258,46 +341,128 @@ const TextEditApp = (function() {
         saveBtn.click();
       }
     });
-  }
-  
-  function findNext(editor, searchText) {
-    const content = editor.value;
-    const start = editor.selectionEnd;
-    const index = content.indexOf(searchText, start);
     
-    if (index !== -1) {
-      editor.focus();
-      editor.setSelectionRange(index, index + searchText.length);
-    } else {
-      // Wrap around
-      const wrapIndex = content.indexOf(searchText, 0);
-      if (wrapIndex !== -1) {
-        editor.focus();
-        editor.setSelectionRange(wrapIndex, wrapIndex + searchText.length);
+    // Find/Replace helper functions (defined inside to access scoped variables)
+    function updateMatches(editor, searchText, findPanel) {
+      const content = editor.value;
+      const flags = caseSensitive ? 'g' : 'gi';
+      const regex = new RegExp(searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+      
+      matches = [];
+      let match;
+      while ((match = regex.exec(content)) !== null) {
+        matches.push({ start: match.index, end: match.index + match[0].length });
+      }
+      
+      const matchCountEl = findPanel.querySelector('.match-count');
+      if (matches.length > 0) {
+        if (currentMatchIndex >= 0 && currentMatchIndex < matches.length) {
+          matchCountEl.textContent = `${currentMatchIndex + 1} of ${matches.length}`;
+        } else {
+          matchCountEl.textContent = `${matches.length} match${matches.length !== 1 ? 'es' : ''}`;
+        }
+        matchCountEl.style.color = '#00ffe1';
+      } else {
+        matchCountEl.textContent = '0 matches';
+        matchCountEl.style.color = '#999';
+        currentMatchIndex = -1;
       }
     }
-  }
-  
-  function replaceNext(editor, searchText, replaceText) {
-    const start = editor.selectionStart;
-    const end = editor.selectionEnd;
-    const selected = editor.value.substring(start, end);
     
-    if (selected === searchText) {
-      editor.value = editor.value.substring(0, start) + replaceText + editor.value.substring(end);
-      editor.setSelectionRange(start, start + replaceText.length);
-    } else {
-      findNext(editor, searchText);
+    function clearHighlights(editor) {
+      // Clear any visual indicators
+      editor.style.boxShadow = '';
     }
-  }
-  
-  function replaceAll(editor, searchText, replaceText) {
-    const newContent = editor.value.split(searchText).join(replaceText);
-    const count = (editor.value.split(searchText).length - 1);
-    editor.value = newContent;
     
-    if (count > 0) {
-      alert(`Replaced ${count} occurrence(s)`);
+    function findNext(editor, searchText, findPanel) {
+      if (matches.length === 0) {
+        updateMatches(editor, searchText, findPanel);
+      }
+      
+      if (matches.length === 0) return;
+      
+      currentMatchIndex = (currentMatchIndex + 1) % matches.length;
+      const match = matches[currentMatchIndex];
+      
+      editor.focus();
+      editor.setSelectionRange(match.start, match.end);
+      
+      // Scroll into view
+      const lineHeight = parseInt(getComputedStyle(editor).lineHeight) || 20;
+      const linesBefore = editor.value.substring(0, match.start).split('\n').length - 1;
+      editor.scrollTop = linesBefore * lineHeight - editor.clientHeight / 2;
+      
+      // Update match count
+      const matchCountEl = findPanel.querySelector('.match-count');
+      matchCountEl.textContent = `${currentMatchIndex + 1} of ${matches.length}`;
+      matchCountEl.style.color = '#00ffe1';
+    }
+    
+    function findPrevious(editor, searchText, findPanel) {
+      if (matches.length === 0) {
+        updateMatches(editor, searchText, findPanel);
+      }
+      
+      if (matches.length === 0) return;
+      
+      currentMatchIndex = currentMatchIndex <= 0 ? matches.length - 1 : currentMatchIndex - 1;
+      const match = matches[currentMatchIndex];
+      
+      editor.focus();
+      editor.setSelectionRange(match.start, match.end);
+      
+      // Scroll into view
+      const lineHeight = parseInt(getComputedStyle(editor).lineHeight) || 20;
+      const linesBefore = editor.value.substring(0, match.start).split('\n').length - 1;
+      editor.scrollTop = linesBefore * lineHeight - editor.clientHeight / 2;
+      
+      // Update match count
+      const matchCountEl = findPanel.querySelector('.match-count');
+      matchCountEl.textContent = `${currentMatchIndex + 1} of ${matches.length}`;
+      matchCountEl.style.color = '#00ffe1';
+    }
+    
+    function replaceNext(editor, searchText, replaceText, findPanel) {
+      const start = editor.selectionStart;
+      const end = editor.selectionEnd;
+      const selected = editor.value.substring(start, end);
+      
+      const compareText = caseSensitive ? searchText : searchText.toLowerCase();
+      const compareSelected = caseSensitive ? selected : selected.toLowerCase();
+      
+      if (compareSelected === compareText) {
+        editor.value = editor.value.substring(0, start) + replaceText + editor.value.substring(end);
+        editor.setSelectionRange(start, start + replaceText.length);
+        
+        // Update matches after replacement
+        updateMatches(editor, searchText, findPanel);
+        currentMatchIndex = Math.max(0, currentMatchIndex - 1);
+      } else {
+        findNext(editor, searchText, findPanel);
+      }
+    }
+    
+    function replaceAll(editor, searchText, replaceText, findPanel) {
+      const flags = caseSensitive ? 'g' : 'gi';
+      const regex = new RegExp(searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+      const newContent = editor.value.replace(regex, replaceText);
+      const count = (editor.value.match(regex) || []).length;
+      
+      editor.value = newContent;
+      
+      // Update matches
+      updateMatches(editor, searchText, findPanel);
+      currentMatchIndex = -1;
+      
+      if (count > 0) {
+        const matchCountEl = findPanel.querySelector('.match-count');
+        matchCountEl.textContent = `Replaced ${count}`;
+        matchCountEl.style.color = '#28ca42';
+        setTimeout(() => {
+          matchCountEl.textContent = '0 matches';
+          matchCountEl.style.color = '#999';
+        }, 2000);
+      }
     }
   }
   

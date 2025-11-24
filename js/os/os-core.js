@@ -26,6 +26,11 @@
   Dock.setup();
   console.log('Dock setup complete');
   
+  // Load saved preferences (theme, accent color, wallpaper)
+  if (window.SettingsApp && typeof window.SettingsApp.loadPreferences === 'function') {
+    window.SettingsApp.loadPreferences();
+  }
+  
   console.log('Portfolio OS ready!');
 })();
 
@@ -200,6 +205,24 @@ document.addEventListener('keydown', (e) => {
           file.style.background = 'rgba(0, 255, 225, 0.2)';
         });
       }
+    }
+    return;
+  }
+  
+  // Cmd/Ctrl + Z for undo
+  if ((e.metaKey || e.ctrlKey) && e.key === 'z' && !e.shiftKey) {
+    if (window.UndoRedoSystem) {
+      e.preventDefault();
+      window.UndoRedoSystem.undo();
+    }
+    return;
+  }
+  
+  // Cmd/Ctrl + Shift + Z for redo
+  if ((e.metaKey || e.ctrlKey) && e.key === 'z' && e.shiftKey) {
+    if (window.UndoRedoSystem) {
+      e.preventDefault();
+      window.UndoRedoSystem.redo();
     }
     return;
   }

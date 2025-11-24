@@ -1,3 +1,82 @@
+// Undo/Redo System
+const UndoRedoSystem = (function() {
+  const history = {
+    undo: [],
+    redo: []
+  };
+  const MAX_HISTORY = 50;
+  
+  function addAction(action) {
+    history.undo.push(action);
+    if (history.undo.length > MAX_HISTORY) {
+      history.undo.shift();
+    }
+    // Clear redo stack when new action is added
+    history.redo = [];
+    updateMenuItems();
+  }
+  
+  function undo() {
+    if (history.undo.length === 0) return false;
+    
+    const action = history.undo.pop();
+    history.redo.push(action);
+    
+    // Execute undo
+    if (action.undo) {
+      action.undo();
+    }
+    
+    updateMenuItems();
+    return true;
+  }
+  
+  function redo() {
+    if (history.redo.length === 0) return false;
+    
+    const action = history.redo.pop();
+    history.undo.push(action);
+    
+    // Execute redo
+    if (action.redo) {
+      action.redo();
+    }
+    
+    updateMenuItems();
+    return true;
+  }
+  
+  function canUndo() {
+    return history.undo.length > 0;
+  }
+  
+  function canRedo() {
+    return history.redo.length > 0;
+  }
+  
+  function updateMenuItems() {
+    // This will be called by menu bar to update menu state
+    // Menu items are dynamically generated, so this is handled in getEditMenuItems
+  }
+  
+  function clear() {
+    history.undo = [];
+    history.redo = [];
+    updateMenuItems();
+  }
+  
+  return {
+    addAction,
+    undo,
+    redo,
+    canUndo,
+    canRedo,
+    clear
+  };
+})();
+
+window.UndoRedoSystem = UndoRedoSystem;
+
 // Menu Bar Management
 const MenuBar = (function() {
   let activeMenu = null;
@@ -191,9 +270,12 @@ const MenuBar = (function() {
   }
   
   function getEditMenuItems() {
+    const canUndo = UndoRedoSystem.canUndo();
+    const canRedo = UndoRedoSystem.canRedo();
+    
     return [
-      { label: 'Undo', action: () => console.log('Undo'), shortcut: '⌘Z', disabled: true },
-      { label: 'Redo', action: () => console.log('Redo'), shortcut: '⇧⌘Z', disabled: true },
+      { label: 'Undo', action: () => UndoRedoSystem.undo(), shortcut: '⌘Z', disabled: !canUndo },
+      { label: 'Redo', action: () => UndoRedoSystem.redo(), shortcut: '⇧⌘Z', disabled: !canRedo },
       { separator: true },
       { label: 'Cut', action: () => {
         const activeWindow = OSState.getActiveWindow();
@@ -333,9 +415,10 @@ const MenuBar = (function() {
 })();
 
 // Menu functions called from HTML
-function toggleSystemMenu() {
-  // System menu functionality (not implemented in basic version)
-  console.log('System menu clicked');
+function toggleSystemMenu(e) {
+  const menuItem = e.target.closest('.os-menu-item');
+  const items = MenuBar.getSystemMenuItems();
+  MenuBar.showMenu('system', items, menuItem);
 }
 
 function showFileMenu(e) {
@@ -428,9 +511,12 @@ MenuBar.getFileMenuItems = function() {
 };
 
 MenuBar.getEditMenuItems = function() {
+  const canUndo = UndoRedoSystem.canUndo();
+  const canRedo = UndoRedoSystem.canRedo();
+  
   return [
-    { label: 'Undo', action: () => console.log('Undo'), shortcut: '⌘Z', disabled: true },
-    { label: 'Redo', action: () => console.log('Redo'), shortcut: '⇧⌘Z', disabled: true },
+    { label: 'Undo', action: () => UndoRedoSystem.undo(), shortcut: '⌘Z', disabled: !canUndo },
+    { label: 'Redo', action: () => UndoRedoSystem.redo(), shortcut: '⇧⌘Z', disabled: !canRedo },
     { separator: true },
     { label: 'Cut', action: () => {
       const activeWindow = OSState.getActiveWindow();
@@ -549,6 +635,22 @@ MenuBar.getWindowMenuItems = function() {
   });
   
   return items;
+};
+
+MenuBar.getSystemMenuItems = function() {
+  return [
+    { label: 'About Portfolio OS', action: () => {
+      AboutApp.open();
+    } },
+    { separator: true },
+    { label: 'System Preferences...', action: () => {
+      SettingsApp.open();
+    }, shortcut: '⌘,' },
+    { separator: true },
+    { label: 'Quit Portfolio OS', action: () => {
+      exitOS();
+    }, shortcut: '⌘Q' }
+  ];
 };
 
 window.MenuBar = MenuBar;
