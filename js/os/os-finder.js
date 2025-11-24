@@ -54,10 +54,44 @@ const FinderApp = (function() {
     main.className = 'finder-main';
     main.style.cssText = 'flex: 1; display: flex; flex-direction: column; overflow: hidden;';
     
-    // Toolbar with breadcrumb and view options
+    // Toolbar with buttons, breadcrumb and view options
     const toolbar = document.createElement('div');
     toolbar.className = 'finder-toolbar';
-    toolbar.style.cssText = 'padding: 12px 16px; background: rgba(20, 20, 20, 0.5); border-bottom: 1px solid rgba(0, 255, 225, 0.1); display: flex; justify-content: space-between; align-items: center;';
+    toolbar.style.cssText = 'padding: 12px 16px; background: rgba(20, 20, 20, 0.5); border-bottom: 1px solid rgba(0, 255, 225, 0.1); display: flex; align-items: center; gap: 12px;';
+    
+    // Toolbar buttons
+    const buttonGroup = document.createElement('div');
+    buttonGroup.className = 'finder-toolbar-buttons';
+    buttonGroup.style.cssText = 'display: flex; gap: 6px;';
+    
+    const buttons = [
+      { id: 'new-folder', label: '📁 New Folder', title: 'New Folder (Cmd+N)' },
+      { id: 'delete', label: '🗑️ Delete', title: 'Delete (Delete key)' },
+      { id: 'copy', label: '📋 Copy', title: 'Copy (Cmd+C)' },
+      { id: 'move', label: '✂️ Move', title: 'Move (Cmd+X)' },
+      { id: 'rename', label: '✏️ Rename', title: 'Rename' }
+    ];
+    
+    buttons.forEach(btn => {
+      const button = document.createElement('button');
+      button.id = btn.id;
+      button.className = 'finder-toolbar-btn';
+      button.textContent = btn.label;
+      button.title = btn.title;
+      button.style.cssText = 'padding: 6px 12px; background: rgba(0, 255, 225, 0.1); border: 1px solid rgba(0, 255, 225, 0.2); border-radius: 4px; color: #00ffe1; cursor: pointer; font-size: 12px; transition: all 0.2s;';
+      
+      button.addEventListener('mouseenter', () => {
+        button.style.background = 'rgba(0, 255, 225, 0.2)';
+        button.style.borderColor = 'rgba(0, 255, 225, 0.4)';
+      });
+      
+      button.addEventListener('mouseleave', () => {
+        button.style.background = 'rgba(0, 255, 225, 0.1)';
+        button.style.borderColor = 'rgba(0, 255, 225, 0.2)';
+      });
+      
+      buttonGroup.appendChild(button);
+    });
     
     const breadcrumb = document.createElement('div');
     breadcrumb.className = 'finder-breadcrumb';
@@ -70,6 +104,7 @@ const FinderApp = (function() {
       <button class="view-mode-btn" data-mode="list" style="padding: 6px 12px; background: rgba(0, 255, 225, 0.1); border: 1px solid rgba(0, 255, 225, 0.3); border-radius: 4px; color: #00ffe1; cursor: pointer; font-size: 12px;">List</button>
     `;
     
+    toolbar.appendChild(buttonGroup);
     toolbar.appendChild(breadcrumb);
     toolbar.appendChild(viewToggle);
     
@@ -128,10 +163,53 @@ const FinderApp = (function() {
         navigateToPath(currentPath, container);
       });
     });
+    
+    // Toolbar button handlers
+    const newFolderBtn = container.querySelector('#new-folder');
+    const deleteBtn = container.querySelector('#delete');
+    const copyBtn = container.querySelector('#copy');
+    const moveBtn = container.querySelector('#move');
+    const renameBtn = container.querySelector('#rename');
+    
+    newFolderBtn.addEventListener('click', () => createNewFolder(container));
+    deleteBtn.addEventListener('click', () => deleteSelectedFiles(container));
+    copyBtn.addEventListener('click', () => copySelectedFiles(container));
+    moveBtn.addEventListener('click', () => moveSelectedFiles(container));
+    renameBtn.addEventListener('click', () => renameSelectedFile(container));
+    
+    // Keyboard shortcuts
+    container.addEventListener('keydown', (e) => {
+      const activeWindow = OSState.getActiveWindow();
+      if (!activeWindow || activeWindow.appName !== 'finder') return;
+      
+      if ((e.metaKey || e.ctrlKey) && e.key === 'n') {
+        e.preventDefault();
+        createNewFolder(container);
+      } else if (e.key === 'Delete' || e.key === 'Backspace') {
+        if (selectedFiles.size > 0) {
+          e.preventDefault();
+          deleteSelectedFiles(container);
+        }
+      } else if ((e.metaKey || e.ctrlKey) && e.key === 'c') {
+        if (selectedFiles.size > 0) {
+          e.preventDefault();
+          copySelectedFiles(container);
+        }
+      } else if ((e.metaKey || e.ctrlKey) && e.key === 'x') {
+        if (selectedFiles.size > 0) {
+          e.preventDefault();
+          moveSelectedFiles(container);
+        }
+      } else if ((e.metaKey || e.ctrlKey) && e.key === 'v') {
+        e.preventDefault();
+        pasteFiles(container);
+      }
+    });
   }
   
   async function navigateToPath(path, container) {
     currentPath = path;
+    container.dataset.currentPath = path; // Store for menu access
     selectedFiles.clear();
     const breadcrumb = container.querySelector('.finder-breadcrumb');
     const fileGrid = container.querySelector('.finder-files');
@@ -325,8 +403,12 @@ const FinderApp = (function() {
         label: 'Delete',
         action: async () => {
           if (confirm(`Delete "${file.name}"?`)) {
-            await FileSystem.deleteFile(file.path);
-            navigateToPath(currentPath, container);
+            try {
+              await FileSystem.deleteFile(file.path);
+              navigateToPath(currentPath, container);
+            } catch (error) {
+              alert(`Error deleting file: ${error.message}`);
+            }
           }
         }
       },
@@ -340,14 +422,6 @@ const FinderApp = (function() {
     ContextMenu.show(x, y, menuItems);
   }
   
-  function renameFile(file, container) {
-    const newName = prompt('Rename file:', file.name);
-    if (newName && newName !== file.name) {
-      // Simplified rename - in production would use FileSystem API
-      console.log(`Rename ${file.name} to ${newName}`);
-      navigateToPath(currentPath, container);
-    }
-  }
   
   function showFileInfo(file) {
     const size = file.content ? `${file.content.length} bytes` : 'Unknown';
@@ -362,10 +436,177 @@ Size: ${size}
   }
   
   async function moveFileToFolder(filePath, targetFolder, container) {
-    console.log(`Moving ${filePath} to ${targetFolder}`);
-    // Simplified move - in production would use FileSystem API
-    // For now, just refresh the view
-    navigateToPath(currentPath, container);
+    try {
+      const file = await FileSystem.readFile(filePath);
+      if (!file) {
+        alert('File not found');
+        return;
+      }
+      
+      const newPath = targetFolder === '/' ? `/${file.name}` : `${targetFolder}/${file.name}`;
+      await FileSystem.moveFile(filePath, newPath);
+      navigateToPath(currentPath, container);
+    } catch (error) {
+      alert(`Error moving file: ${error.message}`);
+    }
+  }
+  
+  // Clipboard for copy/paste operations
+  let clipboard = null;
+  
+  async function createNewFolder(container) {
+    const name = prompt('Enter folder name:');
+    if (!name || name.trim() === '') return;
+    
+    try {
+      await FileSystem.createFolder(name.trim(), currentPath);
+      navigateToPath(currentPath, container);
+    } catch (error) {
+      alert(`Error creating folder: ${error.message}`);
+    }
+  }
+  
+  async function deleteSelectedFiles(container) {
+    if (selectedFiles.size === 0) {
+      alert('No files selected');
+      return;
+    }
+    
+    const count = selectedFiles.size;
+    if (!confirm(`Delete ${count} item(s)?`)) return;
+    
+    try {
+      for (const filePath of selectedFiles) {
+        await FileSystem.deleteFile(filePath);
+      }
+      selectedFiles.clear();
+      navigateToPath(currentPath, container);
+    } catch (error) {
+      alert(`Error deleting files: ${error.message}`);
+    }
+  }
+  
+  async function copySelectedFiles(container) {
+    if (selectedFiles.size === 0) {
+      alert('No files selected');
+      return;
+    }
+    
+    clipboard = {
+      operation: 'copy',
+      files: Array.from(selectedFiles)
+    };
+    
+    // Visual feedback
+    const copyBtn = container.querySelector('#copy');
+    const originalText = copyBtn.textContent;
+    copyBtn.textContent = '✓ Copied';
+    setTimeout(() => {
+      copyBtn.textContent = originalText;
+    }, 1000);
+  }
+  
+  async function moveSelectedFiles(container) {
+    if (selectedFiles.size === 0) {
+      alert('No files selected');
+      return;
+    }
+    
+    clipboard = {
+      operation: 'move',
+      files: Array.from(selectedFiles)
+    };
+    
+    // Visual feedback
+    const moveBtn = container.querySelector('#move');
+    const originalText = moveBtn.textContent;
+    moveBtn.textContent = '✓ Cut';
+    setTimeout(() => {
+      moveBtn.textContent = originalText;
+    }, 1000);
+  }
+  
+  async function pasteFiles(container) {
+    if (!clipboard || clipboard.files.length === 0) {
+      return;
+    }
+    
+    try {
+      for (const filePath of clipboard.files) {
+        const file = await FileSystem.readFile(filePath);
+        if (!file) continue;
+        
+        const newName = file.name;
+        const newPath = currentPath === '/' ? `/${newName}` : `${currentPath}/${newName}`;
+        
+        if (clipboard.operation === 'copy') {
+          // Generate unique name if file exists
+          let finalPath = newPath;
+          let counter = 1;
+          while (await FileSystem.readFile(finalPath)) {
+            const ext = file.name.includes('.') ? file.name.substring(file.name.lastIndexOf('.')) : '';
+            const baseName = file.name.includes('.') ? file.name.substring(0, file.name.lastIndexOf('.')) : file.name;
+            finalPath = currentPath === '/' 
+              ? `/${baseName} copy${counter}${ext}`
+              : `${currentPath}/${baseName} copy${counter}${ext}`;
+            counter++;
+          }
+          await FileSystem.copyFile(filePath, finalPath);
+        } else if (clipboard.operation === 'move') {
+          if (filePath !== newPath) {
+            await FileSystem.moveFile(filePath, newPath);
+          }
+        }
+      }
+      
+      clipboard = null;
+      selectedFiles.clear();
+      navigateToPath(currentPath, container);
+    } catch (error) {
+      alert(`Error pasting files: ${error.message}`);
+    }
+  }
+  
+  async function renameSelectedFile(container) {
+    if (selectedFiles.size === 0) {
+      alert('No file selected');
+      return;
+    }
+    
+    if (selectedFiles.size > 1) {
+      alert('Please select only one file to rename');
+      return;
+    }
+    
+    const filePath = Array.from(selectedFiles)[0];
+    const file = await FileSystem.readFile(filePath);
+    if (!file) {
+      alert('File not found');
+      return;
+    }
+    
+    const newName = prompt('Enter new name:', file.name);
+    if (!newName || newName.trim() === '' || newName === file.name) return;
+    
+    try {
+      await FileSystem.renameFile(filePath, newName.trim());
+      selectedFiles.clear();
+      navigateToPath(currentPath, container);
+    } catch (error) {
+      alert(`Error renaming file: ${error.message}`);
+    }
+  }
+  
+  async function renameFile(file, container) {
+    const newName = prompt('Rename file:', file.name);
+    if (!newName || newName.trim() === '' || newName === file.name) return;
+    
+    try {
+      await FileSystem.renameFile(file.path, newName.trim());
+      navigateToPath(currentPath, container);
+    } catch (error) {
+      alert(`Error renaming file: ${error.message}`);
+    }
   }
   
   function open() {

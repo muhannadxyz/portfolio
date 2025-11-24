@@ -132,6 +132,12 @@ function openApp(appName) {
     case 'music':
       MusicApp.open();
       break;
+    case 'calculator':
+      CalculatorApp.open();
+      break;
+    case 'weather':
+      WeatherApp.open();
+      break;
     default:
       console.error(`Unknown app: ${appName}`);
   }
@@ -139,12 +145,13 @@ function openApp(appName) {
 
 // Keyboard shortcuts
 document.addEventListener('keydown', (e) => {
+  const overlay = document.getElementById('os-overlay');
+  if (!overlay || overlay.style.display !== 'block') return;
+  
   // ESC to exit OS
   if (e.key === 'Escape') {
-    const overlay = document.getElementById('os-overlay');
-    if (overlay && overlay.style.display === 'block') {
-      exitOS();
-    }
+    exitOS();
+    return;
   }
   
   // Cmd/Ctrl + W to close active window
@@ -154,6 +161,47 @@ document.addEventListener('keydown', (e) => {
       e.preventDefault();
       WindowManager.closeWindow(activeWindow.id);
     }
+    return;
+  }
+  
+  // Cmd/Ctrl + M to minimize
+  if ((e.metaKey || e.ctrlKey) && e.key === 'm') {
+    const activeWindow = OSState.getActiveWindow();
+    if (activeWindow) {
+      e.preventDefault();
+      WindowManager.minimizeWindow(activeWindow.id);
+    }
+    return;
+  }
+  
+  // Cmd/Ctrl + N for new folder (Finder only)
+  if ((e.metaKey || e.ctrlKey) && e.key === 'n') {
+    const activeWindow = OSState.getActiveWindow();
+    if (activeWindow && activeWindow.appName === 'finder') {
+      e.preventDefault();
+      const container = activeWindow.contentElement.querySelector('.finder-container');
+      if (container) {
+        const btn = container.querySelector('#new-folder');
+        if (btn) btn.click();
+      }
+    }
+    return;
+  }
+  
+  // Cmd/Ctrl + A for select all (Finder only)
+  if ((e.metaKey || e.ctrlKey) && e.key === 'a') {
+    const activeWindow = OSState.getActiveWindow();
+    if (activeWindow && activeWindow.appName === 'finder') {
+      e.preventDefault();
+      const container = activeWindow.contentElement.querySelector('.finder-container');
+      if (container) {
+        const files = container.querySelectorAll('.finder-file-item');
+        files.forEach(file => {
+          file.style.background = 'rgba(0, 255, 225, 0.2)';
+        });
+      }
+    }
+    return;
   }
 });
 

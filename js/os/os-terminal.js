@@ -448,7 +448,38 @@ const TerminalApp = (function() {
       return;
     }
     
-    addOutput(output, 'mv: command not fully implemented yet', '#ffb000');
+    const cwd = OSState.getCurrentDirectory();
+    const srcPath = src.startsWith('/') ? src : `${cwd}/${src}`;
+    
+    // Check if source exists
+    const srcFile = await FileSystem.readFile(srcPath);
+    if (!srcFile) {
+      addOutput(output, `mv: ${src}: No such file or directory`, '#ff5f57');
+      return;
+    }
+    
+    // Resolve destination path
+    let dstPath;
+    if (dst.startsWith('/')) {
+      dstPath = dst;
+    } else {
+      // Check if destination is an existing directory
+      const dstFile = await FileSystem.readFile(`${cwd}/${dst}`);
+      if (dstFile && dstFile.type === 'folder') {
+        // Moving into a directory
+        dstPath = `${dstFile.path}/${srcFile.name}`;
+      } else {
+        // Renaming or moving to new location in current directory
+        dstPath = `${cwd}/${dst}`;
+      }
+    }
+    
+    try {
+      await FileSystem.moveFile(srcPath, dstPath);
+      addOutput(output, `Moved: ${src} -> ${dstPath}`, themes[theme].accent);
+    } catch (error) {
+      addOutput(output, `mv: ${error.message}`, '#ff5f57');
+    }
   }
   
   async function cmdCp(src, dst, output) {
@@ -457,7 +488,38 @@ const TerminalApp = (function() {
       return;
     }
     
-    addOutput(output, 'cp: command not fully implemented yet', '#ffb000');
+    const cwd = OSState.getCurrentDirectory();
+    const srcPath = src.startsWith('/') ? src : `${cwd}/${src}`;
+    
+    // Check if source exists
+    const srcFile = await FileSystem.readFile(srcPath);
+    if (!srcFile) {
+      addOutput(output, `cp: ${src}: No such file or directory`, '#ff5f57');
+      return;
+    }
+    
+    // Resolve destination path
+    let dstPath;
+    if (dst.startsWith('/')) {
+      dstPath = dst;
+    } else {
+      // Check if destination is an existing directory
+      const dstFile = await FileSystem.readFile(`${cwd}/${dst}`);
+      if (dstFile && dstFile.type === 'folder') {
+        // Copying into a directory
+        dstPath = `${dstFile.path}/${srcFile.name}`;
+      } else {
+        // Copying to new location in current directory
+        dstPath = `${cwd}/${dst}`;
+      }
+    }
+    
+    try {
+      await FileSystem.copyFile(srcPath, dstPath);
+      addOutput(output, `Copied: ${src} -> ${dstPath}`, themes[theme].accent);
+    } catch (error) {
+      addOutput(output, `cp: ${error.message}`, '#ff5f57');
+    }
   }
   
   async function cmdFind(pattern, output) {
@@ -466,7 +528,35 @@ const TerminalApp = (function() {
       return;
     }
     
-    addOutput(output, 'find: command not fully implemented yet', '#ffb000');
+    const cwd = OSState.getCurrentDirectory();
+    
+    try {
+      // Get all files and search recursively from current directory
+      const allFiles = await FileSystem.getAllFiles();
+      const cwdPath = cwd === '/' ? '' : cwd;
+      const matches = allFiles.filter(file => {
+        // Check if file is within current directory tree
+        if (cwdPath && !file.path.startsWith(cwdPath + '/') && file.path !== cwdPath) {
+          return false;
+        }
+        // Check if filename matches pattern
+        return file.name.toLowerCase().includes(pattern.toLowerCase());
+      });
+      
+      if (matches.length === 0) {
+        addOutput(output, 'No matches found', '#999');
+      } else {
+        matches.forEach(file => {
+          const relativePath = file.path.startsWith(cwd + '/') 
+            ? file.path.substring(cwd.length + 1)
+            : file.path;
+          addOutput(output, relativePath, themes[theme].accent);
+        });
+        addOutput(output, `Found ${matches.length} match(es)`, '#999');
+      }
+    } catch (error) {
+      addOutput(output, `find: ${error.message}`, '#ff5f57');
+    }
   }
   
   async function cmdGrep(pattern, filename, output) {
