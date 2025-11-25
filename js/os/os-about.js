@@ -336,10 +336,9 @@ const AboutApp = (function() {
     
     const content = createAboutContent();
     WindowManager.createWindow('about', 'About Me', content, {
-      width: 600,
-      height: 700,
-      left: 300,
-      top: 80
+      width: 800,
+      height: 800,
+      resizable: true
     });
   }
   

@@ -198,6 +198,12 @@ const BrowserApp = (function() {
       // Also open in new tab as fallback for user convenience
       try {
         window.open(url, '_blank');
+        // Track achievement for external links
+        if (url.startsWith('http://') || url.startsWith('https://')) {
+          if (window.AchievementTracker) {
+            window.AchievementTracker.trackExternalLink();
+          }
+        }
       } catch (e) {
         console.error('Failed to open URL:', e);
       }
@@ -371,6 +377,10 @@ const BrowserApp = (function() {
         const domain = url.replace(/^https?:\/\//, '').split('/')[0];
         tabSystem.updateTabLabel(tabId, domain);
         window.open(url, '_blank');
+        // Track achievement
+        if ((url.startsWith('http://') || url.startsWith('https://')) && window.AchievementTracker) {
+          window.AchievementTracker.trackExternalLink();
+        }
       });
       
       link.addEventListener('mouseenter', () => {
@@ -432,6 +442,10 @@ const BrowserApp = (function() {
           const domain = bookmark.url.replace(/^https?:\/\//, '').split('/')[0];
           tabSystem.updateTabLabel(tabId, domain);
           window.open(bookmark.url, '_blank');
+          // Track achievement
+          if ((bookmark.url.startsWith('http://') || bookmark.url.startsWith('https://')) && window.AchievementTracker) {
+            window.AchievementTracker.trackExternalLink();
+          }
         }
       });
       
@@ -547,6 +561,10 @@ const BrowserApp = (function() {
         const url = history[index].url;
         urlInput.value = url;
         window.open(url, '_blank');
+        // Track achievement
+        if ((url.startsWith('http://') || url.startsWith('https://')) && window.AchievementTracker) {
+          window.AchievementTracker.trackExternalLink();
+        }
       });
     });
   }
@@ -567,10 +585,8 @@ const BrowserApp = (function() {
     
     const content = createBrowserContent();
     WindowManager.createWindow('browser', 'Browser', content, {
-      width: 900,
-      height: 650,
-      left: 180,
-      top: 80
+      width: 1000,
+      height: 700
     });
   }
   

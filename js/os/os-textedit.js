@@ -134,6 +134,15 @@ const TextEditApp = (function() {
         }
       }, 30000);
       
+      // Store interval in window object for cleanup (find window by content element)
+      setTimeout(() => {
+        const allWindows = OSState.getAllWindows();
+        const textEditWindow = allWindows.find(w => w.appName === 'textedit' && w.contentElement === container);
+        if (textEditWindow) {
+          textEditWindow.autoSaveInterval = autoSaveInterval;
+        }
+      }, 100);
+      
       // Update word count on input
       editor.addEventListener('input', () => {
         updateWordCount(editor.value, wordCount);
@@ -344,7 +353,7 @@ const TextEditApp = (function() {
     
     // Find/Replace helper functions (defined inside to access scoped variables)
     function updateMatches(editor, searchText, findPanel) {
-      const content = editor.value;
+    const content = editor.value;
       const flags = caseSensitive ? 'g' : 'gi';
       const regex = new RegExp(searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
       
@@ -408,7 +417,7 @@ const TextEditApp = (function() {
       currentMatchIndex = currentMatchIndex <= 0 ? matches.length - 1 : currentMatchIndex - 1;
       const match = matches[currentMatchIndex];
       
-      editor.focus();
+        editor.focus();
       editor.setSelectionRange(match.start, match.end);
       
       // Scroll into view
@@ -420,41 +429,41 @@ const TextEditApp = (function() {
       const matchCountEl = findPanel.querySelector('.match-count');
       matchCountEl.textContent = `${currentMatchIndex + 1} of ${matches.length}`;
       matchCountEl.style.color = '#00ffe1';
-    }
-    
+  }
+  
     function replaceNext(editor, searchText, replaceText, findPanel) {
-      const start = editor.selectionStart;
-      const end = editor.selectionEnd;
-      const selected = editor.value.substring(start, end);
-      
+    const start = editor.selectionStart;
+    const end = editor.selectionEnd;
+    const selected = editor.value.substring(start, end);
+    
       const compareText = caseSensitive ? searchText : searchText.toLowerCase();
       const compareSelected = caseSensitive ? selected : selected.toLowerCase();
       
       if (compareSelected === compareText) {
-        editor.value = editor.value.substring(0, start) + replaceText + editor.value.substring(end);
-        editor.setSelectionRange(start, start + replaceText.length);
+      editor.value = editor.value.substring(0, start) + replaceText + editor.value.substring(end);
+      editor.setSelectionRange(start, start + replaceText.length);
         
         // Update matches after replacement
         updateMatches(editor, searchText, findPanel);
         currentMatchIndex = Math.max(0, currentMatchIndex - 1);
-      } else {
+    } else {
         findNext(editor, searchText, findPanel);
-      }
     }
-    
+  }
+  
     function replaceAll(editor, searchText, replaceText, findPanel) {
       const flags = caseSensitive ? 'g' : 'gi';
       const regex = new RegExp(searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
       const newContent = editor.value.replace(regex, replaceText);
       const count = (editor.value.match(regex) || []).length;
       
-      editor.value = newContent;
+    editor.value = newContent;
       
       // Update matches
       updateMatches(editor, searchText, findPanel);
       currentMatchIndex = -1;
-      
-      if (count > 0) {
+    
+    if (count > 0) {
         const matchCountEl = findPanel.querySelector('.match-count');
         matchCountEl.textContent = `Replaced ${count}`;
         matchCountEl.style.color = '#28ca42';
@@ -549,10 +558,8 @@ const TextEditApp = (function() {
     // Open in new window
     const contentEl = createTextEditContent(filename, content, filepath);
     WindowManager.createWindow('textedit', 'TextEdit', contentEl, {
-      width: 800,
-      height: 600,
-      left: 250,
-      top: 120
+      width: 900,
+      height: 700
     });
   }
   

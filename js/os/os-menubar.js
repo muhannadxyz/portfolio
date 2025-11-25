@@ -398,10 +398,27 @@ const MenuBar = (function() {
   // Start clock updates
   function startClock() {
     updateClock();
-    setInterval(updateClock, 1000);
+    // Use setInterval but debounce the actual DOM update
+    let lastUpdate = 0;
+    setInterval(() => {
+      const now = Date.now();
+      // Only update if at least 1 second has passed (debounce)
+      if (now - lastUpdate >= 1000) {
+        updateClock();
+        lastUpdate = now;
+      }
+    }, 1000);
     
-    // Update app name when window focus changes
-    setInterval(updateAppName, 500);
+    // Update app name when window focus changes (throttled)
+    let lastAppNameUpdate = 0;
+    setInterval(() => {
+      const now = Date.now();
+      // Only update if at least 500ms has passed
+      if (now - lastAppNameUpdate >= 500) {
+        updateAppName();
+        lastAppNameUpdate = now;
+      }
+    }, 500);
     updateAppName();
   }
   
@@ -449,7 +466,7 @@ function showWindowMenu(e) {
 document.addEventListener('click', (e) => {
   if (!e.target.closest('.os-menu-item') && !e.target.closest('.os-menu-dropdown')) {
     MenuBar.hideAllMenus();
-  }
+}
 });
 
 // Expose menu item getters
@@ -492,7 +509,7 @@ MenuBar.getFileMenuItems = function() {
           const selected = container.querySelectorAll('.finder-file-item[style*="rgba(0, 255, 225, 0.2)"]');
           if (selected.length > 0) {
             selected[0].dispatchEvent(new Event('dblclick'));
-          }
+}
         }
       }, shortcut: '⌘O' },
       { separator: true }

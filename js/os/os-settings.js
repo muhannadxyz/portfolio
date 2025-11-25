@@ -280,6 +280,23 @@ const SettingsApp = (function() {
         </div>
       </div>
       
+      <div style="margin-bottom: 24px;">
+        <h3 style="color: #e6e6e6; font-size: 16px; margin-bottom: 12px;">Performance</h3>
+        <div style="padding: 16px; background: rgba(30, 30, 30, 0.5); border-radius: 8px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <div>
+              <div style="color: #e6e6e6; font-weight: 600; margin-bottom: 4px;">Neural Network Animation</div>
+              <div style="color: #999; font-size: 13px;">Background visual effects (may impact performance)</div>
+            </div>
+            <label style="position: relative; width: 50px; height: 28px; cursor: pointer;">
+              <input type="checkbox" id="neural-network-toggle" ${localStorage.getItem('neural_network_enabled') !== 'false' ? 'checked' : ''} style="opacity: 0; width: 0; height: 0;">
+              <span style="position: absolute; inset: 0; background: ${localStorage.getItem('neural_network_enabled') !== 'false' ? '#00ffe1' : '#666'}; border-radius: 14px; transition: 0.3s;"></span>
+              <span style="position: absolute; left: ${localStorage.getItem('neural_network_enabled') !== 'false' ? '24px' : '4px'}; top: 4px; width: 20px; height: 20px; background: #fff; border-radius: 50%; transition: 0.3s;"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      
       <div>
         <h3 style="color: #e6e6e6; font-size: 16px; margin-bottom: 12px;">Maintenance</h3>
         <button id="clear-cache-btn" style="padding: 12px 24px; background: rgba(0, 255, 225, 0.1); border: 1px solid rgba(0, 255, 225, 0.3); border-radius: 8px; color: #00ffe1; cursor: pointer; font-size: 14px; font-weight: 600; margin-right: 12px; transition: all 0.2s;">
@@ -359,6 +376,33 @@ const SettingsApp = (function() {
     resetBtn.addEventListener('mouseleave', () => {
       resetBtn.style.background = 'rgba(255, 95, 87, 0.1)';
     });
+    
+    // Neural network toggle
+    const neuralToggle = content.querySelector('#neural-network-toggle');
+    if (neuralToggle) {
+      neuralToggle.addEventListener('change', (e) => {
+        const enabled = e.target.checked;
+        localStorage.setItem('neural_network_enabled', enabled.toString());
+        
+        // Apply immediately
+        if (window.neuralNet) {
+          if (enabled) {
+            window.neuralNet.resume();
+          } else {
+            window.neuralNet.pause();
+          }
+        }
+        
+        // Show notification
+        if (window.NotificationSystem) {
+          window.NotificationSystem.info(
+            'Neural Network',
+            enabled ? 'Neural network animation enabled' : 'Neural network animation disabled',
+            2000
+          );
+        }
+      });
+    }
   }
   
   function applyTheme(themeId) {
@@ -386,6 +430,11 @@ const SettingsApp = (function() {
     
     // Save preference
     OSState.setPreference('theme', themeId);
+    
+    // Track achievement
+    if (window.AchievementTracker) {
+      window.AchievementTracker.trackThemeChanged();
+    }
   }
   
   function applyAccentColor(color) {
@@ -464,10 +513,8 @@ const SettingsApp = (function() {
     
     const content = createSettingsContent();
     WindowManager.createWindow('settings', 'Settings', content, {
-      width: 750,
-      height: 550,
-      left: 220,
-      top: 130
+      width: 900,
+      height: 650
     });
   }
   

@@ -277,6 +277,9 @@ const FinderApp = (function() {
       }
     });
     
+    // Use DocumentFragment for batch DOM updates (performance optimization)
+    const fragment = document.createDocumentFragment();
+    
     files.forEach(file => {
       const fileEl = document.createElement('div');
       fileEl.className = 'finder-file-item';
@@ -374,8 +377,12 @@ const FinderApp = (function() {
         showContextMenu(e.clientX, e.clientY, file, container);
       });
       
-      fileGrid.appendChild(fileEl);
+      // Append to fragment for batch DOM update
+      fragment.appendChild(fileEl);
     });
+    
+    // Append fragment to grid in one operation (performance optimization)
+    fileGrid.appendChild(fragment);
   }
   
   async function handleFileOpen(file, container) {
@@ -404,8 +411,8 @@ const FinderApp = (function() {
         action: async () => {
           if (confirm(`Delete "${file.name}"?`)) {
             try {
-              await FileSystem.deleteFile(file.path);
-              navigateToPath(currentPath, container);
+            await FileSystem.deleteFile(file.path);
+            navigateToPath(currentPath, container);
             } catch (error) {
               alert(`Error deleting file: ${error.message}`);
             }
@@ -688,7 +695,7 @@ Size: ${size}
     
     try {
       await FileSystem.renameFile(file.path, newName.trim());
-      navigateToPath(currentPath, container);
+    navigateToPath(currentPath, container);
     } catch (error) {
       alert(`Error renaming file: ${error.message}`);
     }
@@ -704,10 +711,8 @@ Size: ${size}
     
     const content = createFinderContent();
     WindowManager.createWindow('finder', 'Finder', content, {
-      width: 900,
-      height: 600,
-      left: 150,
-      top: 100
+      width: 1000,
+      height: 700
     });
   }
   

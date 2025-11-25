@@ -504,10 +504,8 @@ const WeatherApp = (function() {
     
     const content = createWeatherContent();
     WindowManager.createWindow('weather', 'Weather', content, {
-      width: 500,
-      height: 600,
-      left: 350,
-      top: 100
+      width: 550,
+      height: 650
     });
   }
   

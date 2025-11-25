@@ -381,10 +381,8 @@ const MusicApp = (function() {
     
     const content = createMusicContent();
     WindowManager.createWindow('music', 'Music Player', content, {
-      width: 500,
-      height: 600,
-      left: 350,
-      top: 150
+      width: 550,
+      height: 650
     });
   }
   

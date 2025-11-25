@@ -627,10 +627,8 @@ const TerminalApp = (function() {
     
     const content = createTerminalContent();
     WindowManager.createWindow('terminal', 'Terminal', content, {
-      width: 700,
-      height: 500,
-      left: 200,
-      top: 150
+      width: 800,
+      height: 600
     });
   }
   

@@ -53,7 +53,13 @@ const FileSystem = (function() {
       const store = transaction.objectStore(STORE_NAME);
       const request = store.add(file);
       
-      request.onsuccess = () => resolve(file);
+      request.onsuccess = () => {
+        // Track achievement
+        if (window.AchievementTracker) {
+          window.AchievementTracker.trackFileCreated();
+        }
+        resolve(file);
+      };
       request.onerror = () => reject(request.error);
     });
   }

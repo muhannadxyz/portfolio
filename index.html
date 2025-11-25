@@ -1083,6 +1083,22 @@ void setup() {
             </svg>
             <div class="os-dock-label">Weather</div>
           </div>
+          <div class="os-dock-item" data-app="notes" onclick="openApp('notes')" title="Notes">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+              <rect width="48" height="48" rx="8" fill="url(#notes-gradient)"/>
+              <rect x="12" y="10" width="24" height="28" rx="2" fill="white" opacity="0.9"/>
+              <line x1="16" y1="16" x2="32" y2="16" stroke="#667eea" stroke-width="2" stroke-linecap="round"/>
+              <line x1="16" y1="22" x2="28" y2="22" stroke="#667eea" stroke-width="2" stroke-linecap="round"/>
+              <line x1="16" y1="28" x2="30" y2="28" stroke="#667eea" stroke-width="2" stroke-linecap="round"/>
+              <defs>
+                <linearGradient id="notes-gradient" x1="0" y1="0" x2="48" y2="48">
+                  <stop stop-color="#667eea"/>
+                  <stop offset="1" stop-color="#764ba2"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="os-dock-label">Notes</div>
+          </div>
         </div>
       </div>
 
@@ -1108,6 +1124,11 @@ void setup() {
   <script src="js/os/os-music.js"></script>
   <script src="js/os/os-calculator.js"></script>
   <script src="js/os/os-weather.js"></script>
+  <script src="js/os/os-achievements.js"></script>
+  <script src="js/os/os-notes.js"></script>
+  <script src="js/os/os-search.js"></script>
+  <script src="js/os/os-launcher.js"></script>
+  <script src="js/os/os-notifications.js"></script>
   <script src="js/os/os-core.js"></script>
 
 </body>

@@ -64,12 +64,40 @@ class NeuralNetwork {
     this.connections = [];
     this.isAnimating = true;
     this.animationId = null;
+    this.frameCount = 0;
+    this.lastFrameTime = 0;
+    this.targetFPS = 30; // Reduced from 60fps
+    this.frameInterval = 1000 / this.targetFPS;
+    this.isPageVisible = true;
     this.init();
   }
 
   init() {
     this.resize();
-    window.addEventListener('resize', () => this.resize());
+    
+    // Debounce resize handler
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => this.resize(), 250);
+    });
+    
+    // Page Visibility API - pause when tab is hidden
+    document.addEventListener('visibilitychange', () => {
+      this.isPageVisible = !document.hidden;
+      if (!this.isPageVisible) {
+        this.pause();
+      } else if (this.isAnimating) {
+        this.resume();
+      }
+    });
+    
+    // Check if neural network is disabled in settings
+    const neuralNetEnabled = localStorage.getItem('neural_network_enabled') !== 'false';
+    if (!neuralNetEnabled) {
+      this.isAnimating = false;
+      return;
+    }
     
     // Create network nodes at element positions
     this.createNetwork();
@@ -85,8 +113,9 @@ class NeuralNetwork {
   }
   
   resume() {
-    if (!this.isAnimating) {
+    if (!this.isAnimating && this.isPageVisible) {
       this.isAnimating = true;
+      this.lastFrameTime = performance.now();
       this.animate();
     }
   }
@@ -97,10 +126,12 @@ class NeuralNetwork {
   }
 
   createNetwork() {
-    // Find interactive elements to connect
-    const elements = document.querySelectorAll('.panel, .window, .skills-pills span, .hero-title');
+    // Find interactive elements to connect (limit to fewer elements for performance)
+    const elements = document.querySelectorAll('.panel, .window, .hero-title');
+    const maxNodes = 20; // Limit nodes for performance
+    const limitedElements = Array.from(elements).slice(0, maxNodes);
     
-    elements.forEach((el, i) => {
+    limitedElements.forEach((el, i) => {
       const rect = el.getBoundingClientRect();
       this.nodes.push({
         x: rect.left + rect.width / 2,
@@ -109,8 +140,8 @@ class NeuralNetwork {
         active: false
       });
 
-      // Create connections to nearby nodes
-      if (i > 0 && Math.random() > 0.7) {
+      // Create fewer connections for better performance
+      if (i > 0 && Math.random() > 0.85 && this.connections.length < 15) {
         const targetIndex = Math.floor(Math.random() * i);
         this.connections.push({
           from: i,
@@ -132,28 +163,44 @@ class NeuralNetwork {
   }
 
   animate() {
-    if (!this.isAnimating) return;
+    if (!this.isAnimating || !this.isPageVisible) return;
+    
+    const currentTime = performance.now();
+    const elapsed = currentTime - this.lastFrameTime;
+    
+    // Throttle to target FPS (30fps)
+    if (elapsed < this.frameInterval) {
+      this.animationId = requestAnimationFrame(() => this.animate());
+      return;
+    }
+    
+    this.lastFrameTime = currentTime - (elapsed % this.frameInterval);
     
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     
-    // Update node positions from elements
-    this.nodes.forEach((node, i) => {
-      if (node.element) {
-        const rect = node.element.getBoundingClientRect();
-        node.x = rect.left + rect.width / 2;
-        node.y = rect.top + rect.height / 2;
-      }
-    });
+    this.frameCount++;
+    
+    // Update node positions less frequently (every 2 frames at 30fps = ~15fps updates)
+    if (this.frameCount % 2 === 0) {
+      this.nodes.forEach((node, i) => {
+        if (node.element) {
+          // Cache rect to avoid multiple calls
+          const rect = node.element.getBoundingClientRect();
+          node.x = rect.left + rect.width / 2;
+          node.y = rect.top + rect.height / 2;
+        }
+      });
+    }
 
-    // Draw connections
+    // Draw connections (only active ones) - batch operations
+    this.ctx.beginPath();
     this.connections.forEach(conn => {
       const from = this.nodes[conn.from];
       const to = this.nodes[conn.to];
-      if (!from || !to) return;
+      if (!from || !to || (!from.active && !to.active)) return;
 
-      const opacity = (from.active || to.active) ? 0.4 : 0.1;
+      const opacity = (from.active || to.active) ? 0.3 : 0.05;
       
-      this.ctx.beginPath();
       this.ctx.moveTo(from.x, from.y);
       this.ctx.lineTo(to.x, to.y);
       this.ctx.strokeStyle = `rgba(42, 130, 255, ${opacity * conn.strength})`;
@@ -161,21 +208,14 @@ class NeuralNetwork {
       this.ctx.stroke();
     });
 
-    // Draw nodes
+    // Draw nodes (only active ones) - batch operations
+    this.ctx.beginPath();
     this.nodes.forEach(node => {
       if (!node.active) return;
-      
-      this.ctx.beginPath();
-      this.ctx.arc(node.x, node.y, 3, 0, Math.PI * 2);
-      this.ctx.fillStyle = `rgba(0, 255, 225, 0.6)`;
-      this.ctx.fill();
-      
-      // Glow
-      this.ctx.shadowBlur = 8;
-      this.ctx.shadowColor = 'rgba(0, 255, 225, 0.8)';
-      this.ctx.fill();
-      this.ctx.shadowBlur = 0;
+      this.ctx.arc(node.x, node.y, 2, 0, Math.PI * 2);
     });
+    this.ctx.fillStyle = `rgba(0, 255, 225, 0.5)`;
+    this.ctx.fill();
 
     this.animationId = requestAnimationFrame(() => this.animate());
   }

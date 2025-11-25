@@ -38,6 +38,12 @@ const WindowManager = (function() {
     
     const opts = { ...defaultOptions, ...options };
     
+    // Center window if left/top not explicitly set
+    if (options.left === undefined && options.top === undefined) {
+      opts.left = Math.max(0, (window.innerWidth - opts.width) / 2);
+      opts.top = Math.max(32, (window.innerHeight - opts.height) / 2);
+    }
+    
     // Create window element
     const windowEl = document.createElement('div');
     windowEl.className = 'os-window opening';
@@ -81,7 +87,7 @@ const WindowManager = (function() {
     container.appendChild(windowEl);
     
     // Setup event listeners
-    setupWindowEvents(windowEl, titlebar, appName);
+    const eventCleanup = setupWindowEvents(windowEl, titlebar, appName);
     
     // Store in state
     const windowObj = {
@@ -92,7 +98,9 @@ const WindowManager = (function() {
       contentElement: contentEl,
       isMaximized: false,
       isMinimized: false,
-      originalBounds: { ...opts }
+      originalBounds: { ...opts },
+      cleanup: eventCleanup,
+      eventListeners: []
     };
     
     OSState.addWindow(windowId, windowObj);
@@ -120,22 +128,27 @@ const WindowManager = (function() {
   // Setup window event listeners
   function setupWindowEvents(windowEl, titlebar, appName) {
     const windowId = windowEl.id;
+    const listeners = [];
     
     // Click to focus
-    windowEl.addEventListener('mousedown', (e) => {
+    const focusHandler = (e) => {
       if (!e.target.closest('.os-window-btn')) {
         focusWindow(windowId);
       }
-    });
+    };
+    windowEl.addEventListener('mousedown', focusHandler);
+    listeners.push({ element: windowEl, event: 'mousedown', handler: focusHandler });
     
     // Titlebar drag
-    titlebar.addEventListener('mousedown', (e) => {
+    const dragHandler = (e) => {
       if (e.target.closest('.os-window-btn')) return;
       startDrag(windowEl, e);
-    });
+    };
+    titlebar.addEventListener('mousedown', dragHandler);
+    listeners.push({ element: titlebar, event: 'mousedown', handler: dragHandler });
     
     // Window control buttons
-    windowEl.addEventListener('click', (e) => {
+    const clickHandler = (e) => {
       const btn = e.target.closest('.os-window-btn');
       if (!btn) return;
       
@@ -143,14 +156,26 @@ const WindowManager = (function() {
       if (action === 'close') closeWindow(windowId);
       else if (action === 'minimize') minimizeWindow(windowId);
       else if (action === 'maximize') toggleMaximize(windowId);
-    });
+    };
+    windowEl.addEventListener('click', clickHandler);
+    listeners.push({ element: windowEl, event: 'click', handler: clickHandler });
     
     // Resize handles
-    windowEl.querySelectorAll('.os-window-resize-handle').forEach(handle => {
-      handle.addEventListener('mousedown', (e) => {
+    const resizeHandles = windowEl.querySelectorAll('.os-window-resize-handle');
+    resizeHandles.forEach(handle => {
+      const resizeHandler = (e) => {
         startResize(windowEl, handle.dataset.handle, e);
-      });
+      };
+      handle.addEventListener('mousedown', resizeHandler);
+      listeners.push({ element: handle, event: 'mousedown', handler: resizeHandler });
     });
+    
+    // Return cleanup function
+    return () => {
+      listeners.forEach(({ element, event, handler }) => {
+        element.removeEventListener(event, handler);
+      });
+    };
   }
   
   // Drag functions
@@ -180,11 +205,37 @@ const WindowManager = (function() {
     let newLeft = dragState.startLeft + dx;
     let newTop = dragState.startTop + dy;
     
+    // Window snapping detection
+    const snapThreshold = 50; // pixels from edge to trigger snap
+    const windowWidth = dragState.currentWindow.offsetWidth;
+    const windowHeight = dragState.currentWindow.offsetHeight;
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    const menubarHeight = 32;
+    
+    // Left edge snap
+    if (newLeft < snapThreshold && newLeft > -snapThreshold) {
+      newLeft = 0;
+    }
+    // Right edge snap
+    else if (newLeft > viewportWidth - windowWidth - snapThreshold && newLeft < viewportWidth - windowWidth + snapThreshold) {
+      newLeft = viewportWidth - windowWidth;
+    }
+    
+    // Top edge snap
+    if (newTop < menubarHeight + snapThreshold && newTop > menubarHeight - snapThreshold) {
+      newTop = menubarHeight;
+    }
+    // Bottom edge snap
+    else if (newTop > viewportHeight - windowHeight - snapThreshold && newTop < viewportHeight - windowHeight + snapThreshold) {
+      newTop = viewportHeight - windowHeight;
+    }
+    
     // Constrain to viewport
-    const maxLeft = window.innerWidth - 100;
-    const maxTop = window.innerHeight - 100;
+    const maxLeft = viewportWidth - 100;
+    const maxTop = viewportHeight - 100;
     newLeft = Math.max(0, Math.min(newLeft, maxLeft));
-    newTop = Math.max(32, Math.min(newTop, maxTop)); // 32px for menubar
+    newTop = Math.max(menubarHeight, Math.min(newTop, maxTop));
     
     dragState.currentWindow.style.left = `${newLeft}px`;
     dragState.currentWindow.style.top = `${newTop}px`;
@@ -273,6 +324,28 @@ const WindowManager = (function() {
     // If closing music app, stop playback
     if (windowObj.appName === 'music' && window.MusicApp && typeof window.MusicApp.stop === 'function') {
       window.MusicApp.stop();
+    }
+    
+    // Clean up event listeners and intervals
+    if (windowObj.cleanup) {
+      windowObj.cleanup();
+    }
+    
+    // Clear any intervals stored in window object
+    if (windowObj.autoSaveInterval) {
+      clearInterval(windowObj.autoSaveInterval);
+      windowObj.autoSaveInterval = null;
+    }
+    
+    // Clear any timeouts stored in window object
+    if (windowObj.timeouts) {
+      windowObj.timeouts.forEach(timeout => clearTimeout(timeout));
+      windowObj.timeouts = [];
+    }
+    
+    // Remove resize observers if any
+    if (windowObj.resizeObserver) {
+      windowObj.resizeObserver.disconnect();
     }
     
     windowObj.element.classList.add('closing');

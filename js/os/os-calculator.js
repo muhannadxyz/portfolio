@@ -321,9 +321,7 @@ const CalculatorApp = (function() {
     const content = createCalculatorContent();
     WindowManager.createWindow('calculator', 'Calculator', content, {
       width: 320,
-      height: 480,
-      left: 400,
-      top: 150
+      height: 480
     });
   }
   
