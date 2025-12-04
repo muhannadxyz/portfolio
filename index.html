@@ -408,8 +408,10 @@ void setup() {
         };
         
         return `
-          <!-- Dev Updates Section -->
-          <div class="group" style="background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 40px; transition: all 0.4s; box-shadow: 0 4px 24px rgba(0,0,0,0.2);">
+          <!-- Dev Updates Section Wrapper -->
+          <div style="margin: 40px 0; padding: 20px 0;">
+            <!-- Dev Updates Section -->
+            <div class="group" style="background: rgba(0,0,0,0.6); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.15); border-radius: 24px; padding: 40px; transition: all 0.4s; box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05) inset;">
             <div class="flex items-center gap-3 mb-6">
               <div style="width: 40px; height: 40px; background: linear-gradient(135deg, ${brandColor} 0%, ${brandColor}dd 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">📝</div>
               <h3 class="text-3xl font-bold text-white">Dev Updates</h3>
@@ -448,6 +450,7 @@ void setup() {
                 `;
               }).join('')}
             </div>
+          </div>
           </div>
         `;
       }
@@ -495,7 +498,9 @@ void setup() {
           </div>
           
           <!-- Content Section -->
-          <div class="relative z-20 bg-gradient-to-b from-black to-neutral-950 px-6 md:px-12 py-16">
+          <div class="relative z-20 bg-gradient-to-b from-black via-black to-neutral-950 px-6 md:px-12 py-16">
+            <!-- Visual Separator -->
+            <div style="height: 120px; background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.3), rgba(0,0,0,0.6)); position: absolute; top: -120px; left: 0; right: 0; pointer-events: none;"></div>
             <div class="max-w-5xl mx-auto space-y-8">
               
               <!-- My Role Card -->
@@ -559,10 +564,19 @@ void setup() {
               </div>
               ` : ''}
               
-              <!-- Spacer -->
-              <div style="height: 80px;"></div>
+              <!-- Large Spacer before Dev Updates -->
+              <div style="height: 120px;"></div>
+              
+              <!-- Prominent Divider before Dev Updates -->
+              <div style="position: relative; margin: 80px 0; padding: 40px 0;">
+                <div style="height: 2px; background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), rgba(255,255,255,0.3), transparent); margin-bottom: 20px;"></div>
+                <div style="height: 1px; background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), rgba(255,255,255,0.1), transparent);"></div>
+              </div>
               
               ${devUpdatesHTML}
+              
+              <!-- Large Spacer after Dev Updates -->
+              <div style="height: 100px;"></div>
               
               <!-- The Challenge Card -->
               <div class="group" style="background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 40px; transition: all 0.4s; box-shadow: 0 4px 24px rgba(0,0,0,0.2);">
@@ -854,8 +868,10 @@ void setup() {
             };
             
             return `
-              <!-- Dev Updates Section -->
-              <div class="group" style="background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 40px; transition: all 0.4s; box-shadow: 0 4px 24px rgba(0,0,0,0.2);">
+              <!-- Dev Updates Section Wrapper -->
+              <div style="margin: 40px 0; padding: 20px 0;">
+                <!-- Dev Updates Section -->
+                <div class="group" style="background: rgba(0,0,0,0.6); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.15); border-radius: 24px; padding: 40px; transition: all 0.4s; box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05) inset;">
                 <div class="flex items-center gap-3 mb-6">
                   <div style="width: 40px; height: 40px; background: linear-gradient(135deg, ${p.brandColor} 0%, ${p.brandColor}dd 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">📝</div>
                   <h3 class="text-3xl font-bold text-white">Dev Updates</h3>
@@ -895,6 +911,7 @@ void setup() {
                   }).join('')}
                 </div>
               </div>
+              </div>
             `;
           })() : '';
           
@@ -925,7 +942,9 @@ void setup() {
               </div>
               
               <!-- Content Section -->
-              <div class="relative z-20 bg-gradient-to-b from-black to-neutral-950 px-6 md:px-12 py-16">
+              <div class="relative z-20 bg-gradient-to-b from-black via-black to-neutral-950 px-6 md:px-12 py-16">
+                <!-- Visual Separator -->
+                <div style="height: 120px; background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.3), rgba(0,0,0,0.6)); position: absolute; top: -120px; left: 0; right: 0; pointer-events: none;"></div>
                 <div class="max-w-5xl mx-auto space-y-8">
                   
                   <!-- My Role Card -->
@@ -989,10 +1008,19 @@ void setup() {
                   </div>
                   ` : ''}
                   
-                  <!-- Spacer -->
-                  <div style="height: 80px;"></div>
+                  <!-- Large Spacer before Dev Updates -->
+                  <div style="height: 120px;"></div>
+                  
+                  <!-- Prominent Divider before Dev Updates -->
+                  <div style="position: relative; margin: 80px 0; padding: 40px 0;">
+                    <div style="height: 2px; background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), rgba(255,255,255,0.3), transparent); margin-bottom: 20px;"></div>
+                    <div style="height: 1px; background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), rgba(255,255,255,0.1), transparent);"></div>
+                  </div>
                   
                   ${devUpdatesHTML}
+                  
+                  <!-- Large Spacer after Dev Updates -->
+                  <div style="height: 100px;"></div>
                   
                   <!-- The Challenge Card -->
                   <div class="group" style="background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 40px; transition: all 0.4s; box-shadow: 0 4px 24px rgba(0,0,0,0.2);">
