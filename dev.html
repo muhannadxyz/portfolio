@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Optical Illusions - Muhannad Abuzahrieh</title>
+  <title>Dev Updates - Muhannad Abuzahrieh</title>
 
   <!-- Fonts and Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
@@ -17,13 +17,13 @@
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/illusions.css">
+  <link rel="stylesheet" href="css/dev.css">
 </head>
 
-<body class="illusions-page">
+<body class="dev-page">
   <!-- Header with Navigation -->
-  <header class="illusions-header">
-    <div class="illusions-header-content">
+  <header class="dev-header">
+    <div class="dev-header-content">
       <a href="index.html" class="back-button">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
           <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -31,24 +31,38 @@
         <span>Back to Portfolio</span>
       </a>
       <div class="header-title">
-        <h1>Optical Illusions</h1>
-        <p>Scroll to experience infinite visual effects</p>
+        <h1>Dev Updates</h1>
+        <p>Project versions, upgrades, and changelogs</p>
       </div>
-      <div class="scroll-progress">
-        <div class="scroll-progress-bar" id="scroll-progress"></div>
+      <div class="header-controls">
+        <div class="filter-group">
+          <select id="project-filter" class="filter-select">
+            <option value="all">All Projects</option>
+          </select>
+          <select id="type-filter" class="filter-select">
+            <option value="all">All Types</option>
+            <option value="major">Major</option>
+            <option value="feature">Features</option>
+            <option value="enhancement">Enhancements</option>
+            <option value="bugfix">Bug Fixes</option>
+          </select>
+        </div>
+        <div class="search-box">
+          <input type="text" id="search-input" placeholder="Search updates..." class="search-input">
+        </div>
       </div>
     </div>
   </header>
 
   <!-- Main Content Container -->
-  <main class="illusions-container" id="illusions-container">
-    <!-- Illusion cards will be dynamically loaded here -->
+  <main class="dev-container" id="dev-container">
+    <!-- Update cards will be dynamically loaded here -->
   </main>
 
   <!-- Loading Indicator -->
   <div class="loading-indicator" id="loading-indicator">
     <div class="loading-spinner"></div>
-    <p>Loading more illusions...</p>
+    <p>Loading updates...</p>
   </div>
 
   <!-- Scroll to Top Button -->
@@ -59,7 +73,7 @@
   </button>
 
   <!-- JavaScript -->
-  <script src="js/illusions.js"></script>
+  <script src="js/dev.js"></script>
 </body>
 </html>
 
