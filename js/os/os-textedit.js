@@ -350,7 +350,7 @@ const TextEditApp = (function() {
         saveBtn.click();
       }
     });
-    
+  
     // Find/Replace helper functions (defined inside to access scoped variables)
     function updateMatches(editor, searchText, findPanel) {
     const content = editor.value;

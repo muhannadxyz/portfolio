@@ -182,14 +182,14 @@ class NeuralNetwork {
     
     // Update node positions less frequently (every 2 frames at 30fps = ~15fps updates)
     if (this.frameCount % 2 === 0) {
-      this.nodes.forEach((node, i) => {
-        if (node.element) {
+    this.nodes.forEach((node, i) => {
+      if (node.element) {
           // Cache rect to avoid multiple calls
-          const rect = node.element.getBoundingClientRect();
-          node.x = rect.left + rect.width / 2;
-          node.y = rect.top + rect.height / 2;
-        }
-      });
+        const rect = node.element.getBoundingClientRect();
+        node.x = rect.left + rect.width / 2;
+        node.y = rect.top + rect.height / 2;
+      }
+    });
     }
 
     // Draw connections (only active ones) - batch operations
@@ -215,7 +215,7 @@ class NeuralNetwork {
       this.ctx.arc(node.x, node.y, 2, 0, Math.PI * 2);
     });
     this.ctx.fillStyle = `rgba(0, 255, 225, 0.5)`;
-    this.ctx.fill();
+      this.ctx.fill();
 
     this.animationId = requestAnimationFrame(() => this.animate());
   }

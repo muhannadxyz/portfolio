@@ -136,6 +136,7 @@
 
   <!-- External JavaScript -->
   <script src="js/script.js"></script>
+  <script src="js/project-updates.js"></script>
   
   <!-- Projects Showcase Script -->
   <script>
@@ -385,6 +386,70 @@ void setup() {
         grid.appendChild(cardContainer);
       });
 
+      // Render Dev Updates Section
+      function renderDevUpdates(projectSlug, brandColor) {
+        if (!window.ProjectUpdates) return '';
+        
+        const updates = window.ProjectUpdates.getUpdatesBySlug(projectSlug);
+        if (!updates || updates.length === 0) return '';
+        
+        const typeColors = {
+          major: '#9333EA',
+          feature: '#10B981',
+          enhancement: '#3B82F6',
+          bugfix: '#EF4444'
+        };
+        
+        const typeLabels = {
+          major: 'Major',
+          feature: 'Feature',
+          enhancement: 'Enhancement',
+          bugfix: 'Bug Fix'
+        };
+        
+        return `
+          <!-- Dev Updates Section -->
+          <div class="group" style="background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 40px; transition: all 0.4s; box-shadow: 0 4px 24px rgba(0,0,0,0.2);">
+            <div class="flex items-center gap-3 mb-6">
+              <div style="width: 40px; height: 40px; background: linear-gradient(135deg, ${brandColor} 0%, ${brandColor}dd 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">📝</div>
+              <h3 class="text-3xl font-bold text-white">Dev Updates</h3>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 1.5rem; max-height: 600px; overflow-y: auto; padding-right: 8px;">
+              ${updates.map(update => {
+                const formattedDate = new Date(update.date).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                });
+                return `
+                  <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 24px; border-left: 4px solid ${brandColor};">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+                      <div>
+                        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                          <span style="padding: 6px 14px; background: ${brandColor}20; color: ${brandColor}; border: 1px solid ${brandColor}40; border-radius: 8px; font-size: 14px; font-weight: 600;">${update.version}</span>
+                          <span style="padding: 6px 14px; background: ${typeColors[update.type]}20; color: ${typeColors[update.type]}; border: 1px solid ${typeColors[update.type]}40; border-radius: 8px; font-size: 14px; font-weight: 600;">${typeLabels[update.type]}</span>
+                        </div>
+                        <div style="color: #9ca3af; font-size: 14px; margin-top: 8px;">${formattedDate}</div>
+                      </div>
+                    </div>
+                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px;">
+                      ${update.changes.map(change => `
+                        <li style="display: flex; align-items: flex-start; gap: 10px; color: #e5e7eb; font-size: 15px; line-height: 1.6;">
+                          <svg width="18" height="18" viewBox="0 0 16 16" fill="none" style="flex-shrink: 0; margin-top: 2px;">
+                            <path d="M6 8L7.5 9.5L10 7" stroke="${brandColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                          <span>${change}</span>
+                        </li>
+                      `).join('')}
+                    </ul>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      }
+
       // Open Project (Expands with Shared Animation)
       function openProject(p) {
         // Hide OS preview when project opens
@@ -397,6 +462,9 @@ void setup() {
         if (window.neuralNet) {
           window.neuralNet.pause();
         }
+        
+        // Get dev updates for this project
+        const devUpdatesHTML = renderDevUpdates(p.slug, p.brandColor);
         
         overlay.innerHTML = `
         <div class="min-h-screen relative bg-black">
@@ -491,6 +559,8 @@ void setup() {
               
               <!-- Spacer -->
               <div style="height: 80px;"></div>
+              
+              ${devUpdatesHTML}
               
               <!-- The Challenge Card -->
               <div class="group" style="background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 40px; transition: all 0.4s; box-shadow: 0 4px 24px rgba(0,0,0,0.2);">
@@ -762,6 +832,68 @@ void setup() {
             window.neuralNet.pause();
           }
           
+          // Get dev updates for this project
+          const devUpdatesHTML = window.ProjectUpdates ? (() => {
+            const updates = window.ProjectUpdates.getUpdatesBySlug(p.slug);
+            if (!updates || updates.length === 0) return '';
+            
+            const typeColors = {
+              major: '#9333EA',
+              feature: '#10B981',
+              enhancement: '#3B82F6',
+              bugfix: '#EF4444'
+            };
+            
+            const typeLabels = {
+              major: 'Major',
+              feature: 'Feature',
+              enhancement: 'Enhancement',
+              bugfix: 'Bug Fix'
+            };
+            
+            return `
+              <!-- Dev Updates Section -->
+              <div class="group" style="background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 40px; transition: all 0.4s; box-shadow: 0 4px 24px rgba(0,0,0,0.2);">
+                <div class="flex items-center gap-3 mb-6">
+                  <div style="width: 40px; height: 40px; background: linear-gradient(135deg, ${p.brandColor} 0%, ${p.brandColor}dd 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">📝</div>
+                  <h3 class="text-3xl font-bold text-white">Dev Updates</h3>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 1.5rem; max-height: 600px; overflow-y: auto; padding-right: 8px;">
+                  ${updates.map(update => {
+                    const formattedDate = new Date(update.date).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    });
+                    return `
+                      <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 24px; border-left: 4px solid ${p.brandColor};">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+                          <div>
+                            <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                              <span style="padding: 6px 14px; background: ${p.brandColor}20; color: ${p.brandColor}; border: 1px solid ${p.brandColor}40; border-radius: 8px; font-size: 14px; font-weight: 600;">${update.version}</span>
+                              <span style="padding: 6px 14px; background: ${typeColors[update.type]}20; color: ${typeColors[update.type]}; border: 1px solid ${typeColors[update.type]}40; border-radius: 8px; font-size: 14px; font-weight: 600;">${typeLabels[update.type]}</span>
+                            </div>
+                            <div style="color: #9ca3af; font-size: 14px; margin-top: 8px;">${formattedDate}</div>
+                          </div>
+                        </div>
+                        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px;">
+                          ${update.changes.map(change => `
+                            <li style="display: flex; align-items: flex-start; gap: 10px; color: #e5e7eb; font-size: 15px; line-height: 1.6;">
+                              <svg width="18" height="18" viewBox="0 0 16 16" fill="none" style="flex-shrink: 0; margin-top: 2px;">
+                                <path d="M6 8L7.5 9.5L10 7" stroke="${p.brandColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                              </svg>
+                              <span>${change}</span>
+                            </li>
+                          `).join('')}
+                        </ul>
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              </div>
+            `;
+          })() : '';
+          
           overlay.innerHTML = `
             <div class="min-h-screen relative bg-black">
               <!-- Parallax Hero Image with Overlay -->
@@ -855,6 +987,8 @@ void setup() {
                   
                   <!-- Spacer -->
                   <div style="height: 80px;"></div>
+                  
+                  ${devUpdatesHTML}
                   
                   <!-- The Challenge Card -->
                   <div class="group" style="background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 40px; transition: all 0.4s; box-shadow: 0 4px 24px rgba(0,0,0,0.2);">

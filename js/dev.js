@@ -5,8 +5,8 @@ let allUpdates = [];
 let filteredUpdates = [];
 let currentFilter = { project: 'all', type: 'all', search: '' };
 
-// Project data with updates
-const projectsData = [
+// Get project data from shared module
+const projectsData = window.ProjectUpdates ? window.ProjectUpdates.projectsData : [
   {
     slug: 'lucentir',
     name: 'Lucentir',
