@@ -6,7 +6,19 @@ let filteredUpdates = [];
 let currentFilter = { project: 'all', type: 'all', search: '' };
 
 // Get project data from shared module
-const projectsData = window.ProjectUpdates ? window.ProjectUpdates.projectsData : [
+// Wait for ProjectUpdates to be initialized
+let projectsData = [];
+
+function getProjectsData() {
+  if (window.ProjectUpdates && window.ProjectUpdates.projectsData && window.ProjectUpdates.projectsData.length > 0) {
+    return window.ProjectUpdates.projectsData;
+  }
+  // Fallback if ProjectUpdates not ready yet
+  return [];
+}
+
+// Fallback project data (only used if ProjectUpdates fails to load)
+const fallbackProjectsData = [
   {
     slug: 'lucentir',
     name: 'Lucentir',
@@ -326,12 +338,20 @@ const projectsData = window.ProjectUpdates ? window.ProjectUpdates.projectsData 
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-  initializeData();
-  setupFilters();
-  setupSearch();
-  setupScrollProgress();
-  setupScrollToTop();
-  renderUpdates();
+  // Wait a bit for ProjectUpdates to initialize
+  setTimeout(() => {
+    projectsData = getProjectsData();
+    if (projectsData.length === 0) {
+      // Use fallback data if ProjectUpdates not available
+      projectsData = fallbackProjectsData;
+    }
+    initializeData();
+    setupFilters();
+    setupSearch();
+    setupScrollProgress();
+    setupScrollToTop();
+    renderUpdates();
+  }, 100);
 });
 
 // Initialize data structure

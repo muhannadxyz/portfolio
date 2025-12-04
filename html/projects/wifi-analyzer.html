@@ -1,0 +1,77 @@
+<!-- Public Wi-Fi Risk Analyzer Project Template -->
+<div class="min-h-screen relative bg-black project-wifi-analyzer">
+  <!-- Parallax Hero Image with Overlay -->
+  <div class="fixed inset-0 z-0" style="transform-origin: center;">
+    <img src="{{thumb}}" alt="{{title}}" class="w-full h-full object-cover scale-105" style="filter: brightness(0.4) saturate(1.2);">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+  </div>
+  
+  <!-- Close Button -->
+  <button id="close" class="project-close-btn">✕</button>
+  
+  <!-- Hero Section -->
+  <div class="relative z-10 min-h-screen flex items-end pb-20 px-8 md:px-16">
+    <div class="max-w-6xl w-full">
+      <!-- Project Icon -->
+      <div class="mb-6 animate-float hero-icon" style="width: 120px; height: 120px; display: flex; align-items: center; justify-content: center;">{{logo}}</div>
+      
+      <!-- Title with Glass Effect -->
+      <div class="inline-block mb-6 project-title-glass">
+        <h1 class="text-5xl md:text-7xl font-bold text-white mb-2" style="line-height: 1.1;">{{title}}</h1>
+        <p class="text-xl md:text-2xl text-gray-300">{{company}}</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Content Section -->
+  <div class="relative z-20 bg-gradient-to-b from-black via-black to-neutral-950 px-6 md:px-12 py-16">
+    <!-- Visual Separator -->
+    <div class="visual-separator"></div>
+    <div class="max-w-5xl mx-auto space-y-8">
+      
+      <!-- My Role Card -->
+      <div class="project-card">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="card-icon role-icon">💼</div>
+          <h2 class="text-3xl font-bold text-white">My Role</h2>
+        </div>
+        <p class="text-lg text-gray-300 leading-relaxed">{{description}}</p>
+      </div>
+      
+      <!-- Code Snippets / Visual Showcase (injected dynamically) -->
+      <div id="code-snippets-container">{{codeSnippetsHTML}}</div>
+      
+      <!-- Large Spacer before Dev Updates -->
+      <div style="height: 120px;"></div>
+      
+      <!-- Prominent Divider before Dev Updates -->
+      <div class="dev-updates-divider"></div>
+      
+      <!-- Dev Updates Section (injected dynamically) -->
+      <div id="dev-updates-container">{{devUpdatesHTML}}</div>
+      
+      <!-- Large Spacer after Dev Updates -->
+      <div style="height: 100px;"></div>
+      
+      <!-- The Challenge Card -->
+      <div class="project-card">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="card-icon challenge-icon">🎯</div>
+          <h3 class="text-3xl font-bold text-white">The Challenge</h3>
+        </div>
+        <p class="text-lg text-gray-300 leading-relaxed">{{details}}</p>
+      </div>
+      
+      <!-- CTA Card -->
+      <div class="project-cta-card">
+        <h3 class="text-2xl font-bold text-white mb-6">Visit Project</h3>
+        <a href="{{link}}" target="_blank" class="project-cta-button">
+          View Live Site →
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
