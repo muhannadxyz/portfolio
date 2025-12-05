@@ -348,7 +348,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeData();
     setupFilters();
     setupSearch();
-    setupScrollProgress();
     setupScrollToTop();
     renderUpdates();
   }, 100);
@@ -527,17 +526,6 @@ function createUpdateCard(update, index) {
   `;
   
   return card;
-}
-
-// Setup scroll progress bar
-function setupScrollProgress() {
-  window.addEventListener('scroll', () => {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollPercent = (scrollTop / docHeight) * 100;
-    
-    // Note: scroll progress bar removed from header, but keeping function for potential future use
-  });
 }
 
 // Setup scroll to top button
