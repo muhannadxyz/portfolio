@@ -148,58 +148,69 @@ function openApp(appName) {
     window.SoundManager.play('dock_click', { throttleMs: 80 });
   }
   
-  // Track achievement
-  if (window.AchievementTracker) {
-    window.AchievementTracker.trackAppOpened(appName);
-  }
-  
-  switch (appName) {
-    case 'finder':
-      FinderApp.open();
-      break;
-    case 'terminal':
-      TerminalApp.open();
-      break;
-    case 'textedit':
-      TextEditApp.open('Untitled.txt', '');
-      break;
-    case 'browser':
-      BrowserApp.open();
-      break;
-    case 'about':
-      AboutApp.open();
-      break;
-    case 'settings':
-      SettingsApp.open();
-      break;
-    case 'music':
-      MusicApp.open();
-      break;
-    case 'calculator':
-      CalculatorApp.open();
-      break;
-    case 'weather':
-      WeatherApp.open();
-      break;
-    case 'notes':
-      NotesApp.open();
-      break;
-    case 'pet':
-      if (window.PetApp) PetApp.open();
-      else console.error('PetApp not available');
-      break;
-    case 'chip8':
-      if (window.Chip8App) Chip8App.open();
-      else console.error('Chip8App not available');
-      break;
-    case 'search':
-      SearchApp.open();
-      break;
-    case 'launcher':
-      LauncherApp.open();
-      break;
-    default:
-      console.error(`Unknown app: ${appName}`);
+  try {
+    // Track achievement (never block opening apps)
+    if (window.AchievementTracker && typeof window.AchievementTracker.trackAppOpened === 'function') {
+      try {
+        window.AchievementTracker.trackAppOpened(appName);
+      } catch (e) {
+        console.warn('AchievementTracker.trackAppOpened failed:', e);
+      }
+    }
+    
+    switch (appName) {
+      case 'finder':
+        FinderApp.open();
+        break;
+      case 'terminal':
+        TerminalApp.open();
+        break;
+      case 'textedit':
+        TextEditApp.open('Untitled.txt', '');
+        break;
+      case 'browser':
+        BrowserApp.open();
+        break;
+      case 'about':
+        AboutApp.open();
+        break;
+      case 'settings':
+        SettingsApp.open();
+        break;
+      case 'music':
+        MusicApp.open();
+        break;
+      case 'calculator':
+        CalculatorApp.open();
+        break;
+      case 'weather':
+        WeatherApp.open();
+        break;
+      case 'notes':
+        NotesApp.open();
+        break;
+      case 'pet':
+        if (window.PetApp && typeof window.PetApp.open === 'function') window.PetApp.open();
+        else throw new Error('PetApp not available (script failed to load?)');
+        break;
+      case 'chip8':
+        if (window.Chip8App && typeof window.Chip8App.open === 'function') window.Chip8App.open();
+        else throw new Error('Chip8App not available (script failed to load?)');
+        break;
+      case 'search':
+        SearchApp.open();
+        break;
+      case 'launcher':
+        LauncherApp.open();
+        break;
+      default:
+        throw new Error(`Unknown app: ${appName}`);
+    }
+  } catch (err) {
+    console.error(`Failed to open app "${appName}":`, err);
+    if (window.NotificationSystem && typeof window.NotificationSystem.error === 'function') {
+      window.NotificationSystem.error('App Launch Error', `${appName}: ${err && err.message ? err.message : err}`, 4500);
+    }
   }
 }
 
