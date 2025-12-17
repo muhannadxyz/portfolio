@@ -9,7 +9,9 @@ const OSState = (function() {
     preferences: {
       theme: 'dark',
       wallpaper: 'default',
-      dockPosition: 'bottom'
+      dockPosition: 'bottom',
+      soundEnabled: true,
+      soundVolume: 0.5
     }
   };
   

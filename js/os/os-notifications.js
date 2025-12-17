@@ -22,6 +22,17 @@ const NotificationSystem = (function() {
   
   function show(title, message, type = 'info', duration = 4000, icon = null) {
     if (!notificationContainer) init();
+
+    // Sound
+    if (window.SoundManager) {
+      const soundMap = {
+        info: 'notify_info',
+        success: 'notify_success',
+        warning: 'notify_warning',
+        error: 'notify_error'
+      };
+      window.SoundManager.play(soundMap[type] || 'notify_info', { throttleMs: 120 });
+    }
     
     const notification = document.createElement('div');
     const notificationId = `notification-${Date.now()}`;

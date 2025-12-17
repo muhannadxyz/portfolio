@@ -209,7 +209,7 @@ const SettingsApp = (function() {
   
   function renderSoundSection(content) {
     const soundEnabled = OSState.getPreference('soundEnabled') !== false;
-    const volume = OSState.getPreference('soundVolume') || 0.5;
+    const volume = OSState.getPreference('soundVolume') ?? 0.5;
     
     content.innerHTML = `
       <h2 style="color: #00ffe1; margin-bottom: 24px; font-size: 24px;">Sound</h2>
@@ -235,6 +235,11 @@ const SettingsApp = (function() {
           <input type="range" id="volume-slider" min="0" max="100" value="${volume * 100}" class="music-player-volume" style="flex: 1;">
           <span style="color: #00ffe1; font-weight: 600; min-width: 40px;">${Math.round(volume * 100)}%</span>
         </div>
+        <div style="margin-top: 16px;">
+          <button id="sound-test-btn" style="padding: 10px 18px; background: rgba(0, 255, 225, 0.1); border: 1px solid rgba(0, 255, 225, 0.3); border-radius: 8px; color: #00ffe1; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.2s;">
+            Test Sound
+          </button>
+        </div>
       </div>
     `;
     
@@ -242,6 +247,11 @@ const SettingsApp = (function() {
     const soundToggle = content.querySelector('#sound-toggle');
     soundToggle.addEventListener('change', (e) => {
       OSState.setPreference('soundEnabled', e.target.checked);
+      if (window.SoundManager) {
+        window.SoundManager.ensureStarted();
+        window.SoundManager.applyVolume();
+        window.SoundManager.play('menu_select', { throttleMs: 0 });
+      }
       renderSoundSection(content);
     });
     
@@ -250,8 +260,30 @@ const SettingsApp = (function() {
     volumeSlider.addEventListener('input', (e) => {
       const vol = e.target.value / 100;
       OSState.setPreference('soundVolume', vol);
+      if (window.SoundManager) {
+        window.SoundManager.ensureStarted();
+        window.SoundManager.applyVolume();
+      }
       renderSoundSection(content);
     });
+
+    // Test button
+    const testBtn = content.querySelector('#sound-test-btn');
+    if (testBtn) {
+      testBtn.addEventListener('click', () => {
+        if (window.SoundManager) {
+          window.SoundManager.ensureStarted();
+          window.SoundManager.applyVolume();
+          window.SoundManager.play('notify_info', { throttleMs: 0 });
+        }
+      });
+      testBtn.addEventListener('mouseenter', () => {
+        testBtn.style.background = 'rgba(0, 255, 225, 0.2)';
+      });
+      testBtn.addEventListener('mouseleave', () => {
+        testBtn.style.background = 'rgba(0, 255, 225, 0.1)';
+      });
+    }
   }
   
   function renderSystemSection(content) {

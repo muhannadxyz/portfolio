@@ -109,7 +109,12 @@ const MenuBar = (function() {
         'settings': 'Settings',
         'music': 'Music',
         'calculator': 'Calculator',
-        'weather': 'Weather'
+        'weather': 'Weather',
+        'notes': 'Notes',
+        'search': 'Search',
+        'launcher': 'Launcher',
+        'pet': 'Pet',
+        'chip8': 'CHIP-8'
       };
       appNameEl.textContent = appNames[activeWindow.appName] || 'Portfolio OS';
     } else {
@@ -174,6 +179,9 @@ const MenuBar = (function() {
           });
           
           menuItem.addEventListener('click', () => {
+            if (window.SoundManager) {
+              window.SoundManager.play('menu_select', { throttleMs: 40 });
+            }
             if (item.action) item.action();
             hideAllMenus();
           });
@@ -194,6 +202,9 @@ const MenuBar = (function() {
     
     const dropdown = createDropdown(menuId, items);
     activeMenu = menuId;
+    if (window.SoundManager) {
+      window.SoundManager.play('menu_open', { throttleMs: 50 });
+    }
     
     const rect = menuItemEl.getBoundingClientRect();
     dropdown.style.left = `${rect.left}px`;

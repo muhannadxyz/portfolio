@@ -85,6 +85,11 @@ const WindowManager = (function() {
     
     // Add to DOM
     container.appendChild(windowEl);
+
+    // Sound: window open
+    if (window.SoundManager) {
+      window.SoundManager.play('window_open', { throttleMs: 60 });
+    }
     
     // Setup event listeners
     const eventCleanup = setupWindowEvents(windowEl, titlebar, appName);
@@ -320,6 +325,11 @@ const WindowManager = (function() {
   function closeWindow(windowId) {
     const windowObj = OSState.getWindow(windowId);
     if (!windowObj) return;
+
+    // Sound: window close
+    if (window.SoundManager) {
+      window.SoundManager.play('window_close', { throttleMs: 60 });
+    }
     
     // If closing music app, stop playback
     if (windowObj.appName === 'music' && window.MusicApp && typeof window.MusicApp.stop === 'function') {
@@ -335,6 +345,12 @@ const WindowManager = (function() {
     if (windowObj.autoSaveInterval) {
       clearInterval(windowObj.autoSaveInterval);
       windowObj.autoSaveInterval = null;
+    }
+
+    // Clear any intervals stored in window object (generic)
+    if (windowObj.intervals) {
+      windowObj.intervals.forEach(i => clearInterval(i));
+      windowObj.intervals = [];
     }
     
     // Clear any timeouts stored in window object
@@ -365,6 +381,10 @@ const WindowManager = (function() {
   function minimizeWindow(windowId) {
     const windowObj = OSState.getWindow(windowId);
     if (!windowObj) return;
+
+    if (window.SoundManager) {
+      window.SoundManager.play('window_minimize', { throttleMs: 60 });
+    }
     
     windowObj.isMinimized = true;
     windowObj.element.style.display = 'none';
@@ -385,6 +405,9 @@ const WindowManager = (function() {
     
     if (windowObj.isMaximized) {
       // Restore
+      if (window.SoundManager) {
+        window.SoundManager.play('window_maximize', { throttleMs: 60 });
+      }
       const bounds = windowObj.originalBounds;
       windowObj.element.style.width = `${bounds.width}px`;
       windowObj.element.style.height = `${bounds.height}px`;
@@ -394,6 +417,9 @@ const WindowManager = (function() {
       windowObj.isMaximized = false;
     } else {
       // Maximize
+      if (window.SoundManager) {
+        window.SoundManager.play('window_maximize', { throttleMs: 60 });
+      }
       windowObj.originalBounds = {
         width: windowObj.element.offsetWidth,
         height: windowObj.element.offsetHeight,

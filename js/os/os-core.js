@@ -74,6 +74,12 @@ function launchOS() {
   
   // Show OS overlay
   overlay.style.display = 'block';
+
+  // Unlock audio on user gesture + play launch sound
+  if (window.SoundManager) {
+    window.SoundManager.ensureStarted();
+    window.SoundManager.play('os_launch', { throttleMs: 0 });
+  }
   
   // Auto-open Finder on launch
   setTimeout(() => {
@@ -92,6 +98,11 @@ function exitOS() {
   // Stop music playback before closing
   if (window.MusicApp && typeof window.MusicApp.stop === 'function') {
     window.MusicApp.stop();
+  }
+
+  // Play exit sound
+  if (window.SoundManager) {
+    window.SoundManager.play('os_exit', { throttleMs: 0 });
   }
   
   // Close all windows
@@ -131,6 +142,11 @@ function exitOS() {
 // Open app from dock
 function openApp(appName) {
   console.log(`Opening ${appName}...`);
+
+  // UI sound for app open (safe even if AudioContext isn't unlocked yet)
+  if (window.SoundManager) {
+    window.SoundManager.play('dock_click', { throttleMs: 80 });
+  }
   
   // Track achievement
   if (window.AchievementTracker) {
@@ -167,6 +183,14 @@ function openApp(appName) {
       break;
     case 'notes':
       NotesApp.open();
+      break;
+    case 'pet':
+      if (window.PetApp) PetApp.open();
+      else console.error('PetApp not available');
+      break;
+    case 'chip8':
+      if (window.Chip8App) Chip8App.open();
+      else console.error('Chip8App not available');
       break;
     case 'search':
       SearchApp.open();
