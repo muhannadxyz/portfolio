@@ -88,6 +88,29 @@
         </div>
       </div>
 
+      <div class="pos-os-embed-card">
+        <div class="pos-os-embed-head">
+          <div class="pos-os-embed-title">Live OS (interactive)</div>
+          <div class="pos-os-embed-actions">
+            <button class="pos-launch-btn" onclick="
+              try {
+                const overlay = document.getElementById('project-overlay');
+                if (overlay) { overlay.classList.add('hidden'); overlay.innerHTML=''; }
+                document.body.style.overflow = '';
+                const osPreview = document.getElementById('os-preview');
+                if (osPreview) osPreview.style.display = 'block';
+                if (window.neuralNet && window.neuralNet.resume) window.neuralNet.resume();
+              } catch(e) {}
+              try { if (typeof launchOS === 'function') launchOS(); } catch(e) {}
+            ">Open Fullscreen →</button>
+          </div>
+        </div>
+        <div class="pos-os-embed-wrap">
+          <iframe class="pos-os-iframe" src="os.html" title="Portfolio OS" loading="lazy" allow="fullscreen" allowfullscreen></iframe>
+        </div>
+        <div class="pos-os-embed-foot">Try dragging windows, opening apps, and the Pet + CHIP‑8 from the dock.</div>
+      </div>
+
       <div style="height: 120px;"></div>
       <div class="dev-updates-divider"></div>
       <div id="dev-updates-container">{{devUpdatesHTML}}</div>
