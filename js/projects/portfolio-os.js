@@ -12,7 +12,7 @@ window.PortfolioOSProject = {
   description: 'Built an in-browser “Portfolio OS” with a window manager, dock, settings, notifications, and apps. Focused on product-like UX: persistent state, delightful micro-interactions, and performance-minded canvas rendering.',
   details: 'The challenge was making it feel like a real desktop: window lifecycle + focus, app APIs, persistent preferences, canvas-based apps (a Tamagotchi pet + CHIP‑8 emulator), and subtle sound/notifications—without turning the page into a laggy toy.',
   brandColor: '#00ffe1',
-  link: '#',
+  link: 'os.html',
 
   // Dev Updates
   updates: [
