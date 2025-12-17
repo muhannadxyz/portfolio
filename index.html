@@ -1087,8 +1087,8 @@
         // Show loading state
         overlay.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; color: white; font-size: 24px;">Loading project...</div>';
         
-        // Get dev updates for this project
-        const devUpdatesHTML = renderDevUpdates(p.slug, p.brandColor);
+        // Projects render their own monochrome updates in the brutal template
+        const devUpdatesHTML = '';
         
         // Use project's renderTemplate method if available (now async)
         if (p.renderTemplate && typeof p.renderTemplate === 'function') {

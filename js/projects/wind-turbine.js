@@ -13,6 +13,22 @@ window.WindTurbineProject = {
   details: 'Created an embedded systems solution for renewable energy monitoring. The system uses interrupt-driven Hall-effect sensing for accurate RPM calculation, analog sensor integration for voltage/current measurement, and automatic power computation. Features include real-time clock synchronization for data integrity, efficient pulse counting algorithms, and serial data logging for performance analysis and optimization.',
   brandColor: '#059669',
   link: 'https://github.com/muhannadxyz/Turbine',
+  railText: 'WIND TURBINE MONITORING • IOT SYSTEM •',
+  links: [
+    { label: 'Repo', url: 'https://github.com/muhannadxyz/Turbine' }
+  ],
+  stack: [
+    'Arduino',
+    'Embedded C++',
+    'Sensors',
+    'Interrupts',
+    'Data Logging'
+  ],
+  highlights: [
+    'Implemented RPM measurement via Hall-effect sensor + interrupts.',
+    'Computed power metrics from voltage/current sensors with timestamps (RTC).',
+    'Built a logging pipeline for analysis and optimization.'
+  ],
   codeSnippets: [
     {
       title: 'RPM & Power Monitoring Loop',
@@ -138,32 +154,25 @@ void setup() {
   
   // HTML Template Function - loads from external HTML file
   async renderTemplate(devUpdatesHTML) {
-    // Load CSS
-    if (window.ProjectLoader) {
-      window.ProjectLoader.loadCSS(this.cssPath, this.slug);
-    }
-    
-    try {
-      if (window.ProjectLoader) {
-        const data = {
-          thumb: this.thumb,
-          title: this.title,
-          company: this.company,
-          logo: this.logo,
-          description: this.description,
-          details: this.details,
-          link: this.link,
-          codeSnippets: this.codeSnippets || [],
-          devUpdatesHTML: devUpdatesHTML || ''
-        };
-        return await window.ProjectLoader.loadTemplate(this.htmlTemplatePath, data);
-      } else {
-        throw new Error('ProjectLoader not available');
-      }
-    } catch (error) {
-      console.error(`Error loading template for ${this.name}:`, error);
-      return this.getFallbackTemplate(devUpdatesHTML);
-    }
+    if (!window.ProjectLoader) return this.getFallbackTemplate(devUpdatesHTML);
+    window.ProjectLoader.loadCSS('css/projects/brutal-project.css', 'brutal-project');
+    return window.ProjectLoader.renderBrutalProjectTemplate({
+      slug: this.slug,
+      thumb: this.thumb,
+      title: this.title,
+      company: this.company,
+      logo: this.logo,
+      tagline: this.tagline,
+      description: this.description,
+      details: this.details,
+      link: this.link,
+      links: this.links,
+      railText: this.railText,
+      stack: this.stack,
+      highlights: this.highlights,
+      codeSnippets: this.codeSnippets || [],
+      updates: this.updates || []
+    });
   },
   
   // Fallback template if HTML file fails to load

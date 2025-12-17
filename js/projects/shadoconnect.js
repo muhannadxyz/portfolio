@@ -13,6 +13,22 @@ window.ShadoconnectProject = {
   details: 'Created a comprehensive platform addressing the gap between aspiring healthcare students and professional mentors. Built features for student profile creation, healthcare professional discovery, application tracking, and automated scheduling. The platform serves both pre-med students seeking clinical exposure and healthcare facilities looking to mentor the next generation of medical professionals.',
   brandColor: '#6366F1',
   link: 'https://shadoconnect.com',
+  railText: 'SHADOCONNECT • HEALTHCARE / EDUCATION •',
+  links: [
+    { label: 'Live', url: 'https://shadoconnect.com' }
+  ],
+  stack: [
+    'Web Platform',
+    'Matching',
+    'Scheduling',
+    'Messaging',
+    'Dashboards'
+  ],
+  highlights: [
+    'Built matching logic to connect students with healthcare professionals.',
+    'Implemented scheduling + calendar workflows and notifications.',
+    'Shipped real-time messaging and application tracking.'
+  ],
   
   // Dev Updates
   updates: [
@@ -81,31 +97,24 @@ window.ShadoconnectProject = {
   
   // HTML Template Function - loads from external HTML file
   async renderTemplate(devUpdatesHTML) {
-    // Load CSS
-    if (window.ProjectLoader) {
-      window.ProjectLoader.loadCSS(this.cssPath, this.slug);
-    }
-    
-    try {
-      if (window.ProjectLoader) {
-        const data = {
-          thumb: this.thumb,
-          title: this.title,
-          company: this.company,
-          logo: this.logo,
-          description: this.description,
-          details: this.details,
-          link: this.link,
-          devUpdatesHTML: devUpdatesHTML || ''
-        };
-        return await window.ProjectLoader.loadTemplate(this.htmlTemplatePath, data);
-      } else {
-        throw new Error('ProjectLoader not available');
-      }
-    } catch (error) {
-      console.error(`Error loading template for ${this.name}:`, error);
-      return this.getFallbackTemplate(devUpdatesHTML);
-    }
+    if (!window.ProjectLoader) return this.getFallbackTemplate(devUpdatesHTML);
+    window.ProjectLoader.loadCSS('css/projects/brutal-project.css', 'brutal-project');
+    return window.ProjectLoader.renderBrutalProjectTemplate({
+      slug: this.slug,
+      thumb: this.thumb,
+      title: this.title,
+      company: this.company,
+      logo: this.logo,
+      tagline: this.tagline,
+      description: this.description,
+      details: this.details,
+      link: this.link,
+      links: this.links,
+      railText: this.railText,
+      stack: this.stack,
+      highlights: this.highlights,
+      updates: this.updates || []
+    });
   },
   
   // Fallback template if HTML file fails to load

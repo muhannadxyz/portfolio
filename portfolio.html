@@ -204,6 +204,45 @@
 
     hr { border: none; border-top: 1px solid rgba(255,255,255,0.16); margin: 2.5rem 0; }
 
+    /* Works grid (match index.html cards) */
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 24px;
+    }
+    @media (max-width: 1024px) { .works-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 640px) { .works-grid { grid-template-columns: 1fr; } }
+
+    .project-card {
+      position: relative;
+      background: #0a0a0a;
+      border: 1px solid #1a1a1a;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      animation: fadeInUp 0.6s ease forwards;
+      opacity: 0;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 0;
+      background: #fff;
+      transition: height 0.4s ease;
+      z-index: 2;
+    }
+
+    .project-card:hover::before { height: 100%; }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     /* Responsive */
     @media (max-width: 1024px) {
       .scroll-banner { display: none; }
@@ -314,22 +353,10 @@
     </div>
 
     <div class="section panel">
-      <div class="section-title">Projects</div>
-      <div class="project">
-        <strong>Lucentir — Privacy & Threat Intelligence Platform</strong>
-        <span>Built a privacy intelligence platform that scores 256 comparison cases across 5 pillars: minimization, control, security, sharing, transparency. Shipped VPN and Ad‑Blocker comparisons (10+ providers each) with privacy‑first toggles (Free/Open Source/No Telemetry), rich filters/sorting, and side‑by‑side comparison. Implemented a transparent scoring model with cited sources per city (privacy and transparency links on every profile) and methodology aligned to IR/SOC reporting.</span>
-      </div>
-      <div class="project">
-        <a href="https://shadoconnect.com" target="_blank" class="project-link"><strong>ShadoConnect</strong></a>
-        <span>AI‑powered hub for students to find shadowing opportunities and internships.</span>
-      </div>
-      <div class="project">
-        <strong>Advanced Vertical Axis Wind Turbine</strong>
-        <span>Developed performance data system; increased wind speed by 30% (repo on GitHub).</span>
-      </div>
-      <div class="project">
-        <strong>Public Wi‑Fi Risk Analyzer — Python GUI Security App</strong>
-        <span>Built a user‑friendly GUI with Tkinter to display risk results and save scan history. Analyzes public Wi‑Fi security using HTTPS, DNS, VPN, and firewall checks; logs SSIDs, timestamps, and risk scores to simulate IAM audit‑trail behavior.</span>
+      <div class="section-title">Selected Works</div>
+      <div id="projects-grid" class="works-grid"></div>
+      <div style="margin-top: 12px; font-size: 0.7rem; color: rgba(255,255,255,0.55); letter-spacing: 0.12em; text-transform: uppercase;">
+        Click a card to open the live project.
       </div>
     </div>
 
@@ -384,7 +411,104 @@
   </div>
 
   <script src="js/script.js"></script>
+
+  <!-- Project data (same set used on index.html) -->
+  <script src="js/projects/project-loader.js"></script>
+  <script src="js/projects/portfolio-os.js"></script>
+  <script src="js/projects/lucentir.js"></script>
+  <script src="js/projects/tonsor.js"></script>
+  <script src="js/projects/shadoconnect.js"></script>
+  <script src="js/projects/rentwise.js"></script>
+  <script src="js/projects/wifi-analyzer.js"></script>
+  <script src="js/projects/wind-turbine.js"></script>
+
   <script>
+    // Render the same brutal works cards as index.html
+    function renderWorks() {
+      const grid = document.getElementById('projects-grid');
+      if (!grid) return;
+
+      const projects = [
+        window.PortfolioOSProject,
+        window.LucentirProject,
+        window.TonsorProject,
+        window.ShadoconnectProject,
+        window.RentwiseProject,
+        window.WifiAnalyzerProject,
+        window.WindTurbineProject
+      ].filter(Boolean);
+
+      grid.innerHTML = '';
+
+      projects.forEach((p, index) => {
+        const card = document.createElement('div');
+        card.className = 'project-card';
+        card.style.animationDelay = `${0.1 + index * 0.08}s`;
+
+        card.innerHTML = `
+          <div style="position: relative; overflow: hidden;">
+            <div style="aspect-ratio: 16/10; position: relative; overflow: hidden;">
+              <img src="${p.thumb}" alt="${p.title}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease, filter 0.4s ease; filter: grayscale(30%);">
+            </div>
+            <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.9) 100%);"></div>
+            <div style="position: absolute; top: 12px; left: 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #555; letter-spacing: 0.1em;">[${String(index + 1).padStart(2, '0')}]</div>
+          </div>
+          <div style="padding: 1.25rem; border-top: 1px solid #1a1a1a;">
+            <div style="display: flex; align-items: flex-start; gap: 1rem;">
+              <div style="width: 36px; height: 36px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: #111; border: 1px solid #222;">${p.logo}</div>
+              <div style="flex: 1; min-width: 0;">
+                <h2 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: #fff; letter-spacing: 0.05em; margin: 0; line-height: 1.1;">${String(p.title || '').toUpperCase()}</h2>
+                <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #666; margin-top: 0.35rem; letter-spacing: 0.05em;">${p.company || ''}</p>
+              </div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.2rem; color: #333; transition: transform 0.3s ease, color 0.3s ease;">→</div>
+            </div>
+          </div>
+        `;
+
+        card.addEventListener('mouseenter', () => {
+          card.style.borderColor = '#333';
+          card.style.background = '#0f0f0f';
+          const img = card.querySelector('img');
+          if (img) {
+            img.style.transform = 'scale(1.05)';
+            img.style.filter = 'grayscale(0%)';
+          }
+          const arrow = card.querySelector('div[style*="font-size: 1.2rem"]');
+          if (arrow) {
+            arrow.style.transform = 'translateX(4px)';
+            arrow.style.color = '#fff';
+          }
+        });
+
+        card.addEventListener('mouseleave', () => {
+          card.style.borderColor = '#1a1a1a';
+          card.style.background = '#0a0a0a';
+          const img = card.querySelector('img');
+          if (img) {
+            img.style.transform = 'scale(1)';
+            img.style.filter = 'grayscale(30%)';
+          }
+          const arrow = card.querySelector('div[style*="font-size: 1.2rem"]');
+          if (arrow) {
+            arrow.style.transform = 'translateX(0)';
+            arrow.style.color = '#333';
+          }
+        });
+
+        card.addEventListener('click', () => {
+          const link = p.link;
+          if (!link) return;
+          if (/^https?:\/\//i.test(link)) {
+            window.open(link, '_blank', 'noopener,noreferrer');
+          } else {
+            window.location.href = link;
+          }
+        });
+
+        grid.appendChild(card);
+      });
+    }
+
     // Fill the right banner so it always reaches the bottom (no blank gaps)
     function fillScrollBanner() {
       const banner = document.querySelector('.scroll-banner');
@@ -414,10 +538,14 @@
     }
 
     window.addEventListener('load', () => {
+      renderWorks();
       fillScrollBanner();
       window.addEventListener('resize', () => {
         window.clearTimeout(window.__resumeBannerResizeT);
-        window.__resumeBannerResizeT = window.setTimeout(fillScrollBanner, 100);
+        window.__resumeBannerResizeT = window.setTimeout(() => {
+          fillScrollBanner();
+          renderWorks();
+        }, 100);
       });
     });
   </script>

@@ -13,6 +13,22 @@ window.RentwiseProject = {
   details: 'Created an all-in-one solution addressing the complexities of managing rental properties. Built tenant portals for rent payments and maintenance requests, landlord dashboards for property oversight, automated lease renewals, and financial analytics. The platform reduces administrative overhead and improves tenant satisfaction through real-time notifications and seamless communication.',
   brandColor: '#2563EB',
   link: 'https://rentwise.tech/',
+  railText: 'RENTWISE • PROPERTY MGMT •',
+  links: [
+    { label: 'Live', url: 'https://rentwise.tech/' }
+  ],
+  stack: [
+    'Web App',
+    'Dashboards',
+    'Tenant Portal',
+    'Payments',
+    'Reporting'
+  ],
+  highlights: [
+    'Built tenant portal for payments + maintenance request tracking.',
+    'Shipped landlord dashboard with reporting and property analytics.',
+    'Implemented document workflows for leases and operational ops.'
+  ],
   gallery: [
     'images/rentwise1.jpeg',
     'images/rentwise2.jpeg',
@@ -87,32 +103,25 @@ window.RentwiseProject = {
   
   // HTML Template Function - loads from external HTML file
   async renderTemplate(devUpdatesHTML) {
-    // Load CSS
-    if (window.ProjectLoader) {
-      window.ProjectLoader.loadCSS(this.cssPath, this.slug);
-    }
-    
-    try {
-      if (window.ProjectLoader) {
-        const data = {
-          thumb: this.thumb,
-          title: this.title,
-          company: this.company,
-          logo: this.logo,
-          description: this.description,
-          details: this.details,
-          link: this.link,
-          gallery: this.gallery || [],
-          devUpdatesHTML: devUpdatesHTML || ''
-        };
-        return await window.ProjectLoader.loadTemplate(this.htmlTemplatePath, data);
-      } else {
-        throw new Error('ProjectLoader not available');
-      }
-    } catch (error) {
-      console.error(`Error loading template for ${this.name}:`, error);
-      return this.getFallbackTemplate(devUpdatesHTML);
-    }
+    if (!window.ProjectLoader) return this.getFallbackTemplate(devUpdatesHTML);
+    window.ProjectLoader.loadCSS('css/projects/brutal-project.css', 'brutal-project');
+    return window.ProjectLoader.renderBrutalProjectTemplate({
+      slug: this.slug,
+      thumb: this.thumb,
+      title: this.title,
+      company: this.company,
+      logo: this.logo,
+      tagline: this.tagline,
+      description: this.description,
+      details: this.details,
+      link: this.link,
+      links: this.links,
+      railText: this.railText,
+      stack: this.stack,
+      highlights: this.highlights,
+      gallery: this.gallery || [],
+      updates: this.updates || []
+    });
   },
   
   // Fallback template if HTML file fails to load

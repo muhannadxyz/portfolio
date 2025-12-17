@@ -13,6 +13,22 @@ window.LucentirProject = {
   details: 'Implemented a transparent scoring model with cited sources per city (privacy and transparency links on every profile) and methodology aligned to IR/SOC reporting.',
   brandColor: '#10B981',
   link: 'https://lucentir.xyz/',
+  railText: 'LUCENTIR • PRIVACY INTELLIGENCE •',
+  links: [
+    { label: 'Live', url: 'https://lucentir.xyz/' }
+  ],
+  stack: [
+    'Web App',
+    'Scoring Model',
+    'Search + Filters',
+    'Data Sourcing',
+    'UI / UX'
+  ],
+  highlights: [
+    'Built a 5‑pillar scoring model for privacy comparison across vendors.',
+    'Shipped side‑by‑side comparison UX with rich filters and sorting.',
+    'Designed for transparency: citations and methodology visibility.'
+  ],
   
   // Dev Updates
   updates: [
@@ -81,34 +97,24 @@ window.LucentirProject = {
   
   // HTML Template Function - loads from external HTML file
   async renderTemplate(devUpdatesHTML) {
-    // Load CSS
-    if (window.ProjectLoader) {
-      window.ProjectLoader.loadCSS(this.cssPath, this.slug);
-    }
-    
-    try {
-      // Use ProjectLoader if available
-      if (window.ProjectLoader) {
-        const data = {
-          thumb: this.thumb,
-          title: this.title,
-          company: this.company,
-          logo: this.logo,
-          description: this.description,
-          details: this.details,
-          link: this.link,
-          devUpdatesHTML: devUpdatesHTML || ''
-        };
-        return await window.ProjectLoader.loadTemplate(this.htmlTemplatePath, data);
-      } else {
-        // Fallback if ProjectLoader not available
-        throw new Error('ProjectLoader not available');
-      }
-    } catch (error) {
-      console.error(`Error loading template for ${this.name}:`, error);
-      // Fallback to inline template
-      return this.getFallbackTemplate(devUpdatesHTML);
-    }
+    if (!window.ProjectLoader) return this.getFallbackTemplate(devUpdatesHTML);
+    window.ProjectLoader.loadCSS('css/projects/brutal-project.css', 'brutal-project');
+    return window.ProjectLoader.renderBrutalProjectTemplate({
+      slug: this.slug,
+      thumb: this.thumb,
+      title: this.title,
+      company: this.company,
+      logo: this.logo,
+      tagline: this.tagline,
+      description: this.description,
+      details: this.details,
+      link: this.link,
+      links: this.links,
+      railText: this.railText,
+      stack: this.stack,
+      highlights: this.highlights,
+      updates: this.updates || []
+    });
   },
   
   // Fallback template if HTML file fails to load

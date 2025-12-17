@@ -13,6 +13,22 @@ window.WifiAnalyzerProject = {
   details: 'Created a user-friendly desktop tool that helps users make informed decisions about public Wi-Fi security. The application performs multi-layered security assessments including SSL/TLS verification, network interface analysis, cross-platform firewall detection, and connectivity health checks. Features detailed logging and reporting to track network security over time.',
   brandColor: '#EF4444',
   link: 'https://github.com/muhannadxyz/PublicWiFiAnalyzer',
+  railText: 'PUBLIC WI‑FI RISK ANALYZER • SECURITY TOOL •',
+  links: [
+    { label: 'Repo', url: 'https://github.com/muhannadxyz/PublicWiFiAnalyzer' }
+  ],
+  stack: [
+    'Python',
+    'Tkinter',
+    'Networking',
+    'Security Checks',
+    'Logging'
+  ],
+  highlights: [
+    'Built multi-signal risk scoring (HTTPS/DNS/VPN/firewall) with audit-style logs.',
+    'Designed a desktop GUI with scan history and export workflows.',
+    'Made checks cross-platform (Windows/macOS/Linux) where possible.'
+  ],
   codeSnippets: [
     {
       title: 'HTTPS Security Check',
@@ -117,32 +133,25 @@ window.WifiAnalyzerProject = {
   
   // HTML Template Function - loads from external HTML file
   async renderTemplate(devUpdatesHTML) {
-    // Load CSS
-    if (window.ProjectLoader) {
-      window.ProjectLoader.loadCSS(this.cssPath, this.slug);
-    }
-    
-    try {
-      if (window.ProjectLoader) {
-        const data = {
-          thumb: this.thumb,
-          title: this.title,
-          company: this.company,
-          logo: this.logo,
-          description: this.description,
-          details: this.details,
-          link: this.link,
-          codeSnippets: this.codeSnippets || [],
-          devUpdatesHTML: devUpdatesHTML || ''
-        };
-        return await window.ProjectLoader.loadTemplate(this.htmlTemplatePath, data);
-      } else {
-        throw new Error('ProjectLoader not available');
-      }
-    } catch (error) {
-      console.error(`Error loading template for ${this.name}:`, error);
-      return this.getFallbackTemplate(devUpdatesHTML);
-    }
+    if (!window.ProjectLoader) return this.getFallbackTemplate(devUpdatesHTML);
+    window.ProjectLoader.loadCSS('css/projects/brutal-project.css', 'brutal-project');
+    return window.ProjectLoader.renderBrutalProjectTemplate({
+      slug: this.slug,
+      thumb: this.thumb,
+      title: this.title,
+      company: this.company,
+      logo: this.logo,
+      tagline: this.tagline,
+      description: this.description,
+      details: this.details,
+      link: this.link,
+      links: this.links,
+      railText: this.railText,
+      stack: this.stack,
+      highlights: this.highlights,
+      codeSnippets: this.codeSnippets || [],
+      updates: this.updates || []
+    });
   },
   
   // Fallback template if HTML file fails to load

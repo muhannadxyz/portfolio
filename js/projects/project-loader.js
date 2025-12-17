@@ -1,6 +1,16 @@
 // Shared helper function for loading project HTML templates and CSS
 
 window.ProjectLoader = {
+  // Basic HTML escape for text content
+  escapeHtml(str) {
+    return String(str ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  },
+
   // Load CSS dynamically
   loadCSS(cssPath, projectSlug) {
     const linkId = `css-${projectSlug}`;
@@ -11,6 +21,203 @@ window.ProjectLoader = {
       link.href = cssPath;
       document.head.appendChild(link);
     }
+  },
+
+  renderPills(items) {
+    if (!items || items.length === 0) return '';
+    return `
+      <div class="bp-pills">
+        ${items.map(x => `<span class="bp-pill">${this.escapeHtml(x)}</span>`).join('')}
+      </div>
+    `;
+  },
+
+  renderList(items) {
+    if (!items || items.length === 0) return '';
+    return `
+      <ul class="bp-list">
+        ${items.map(x => `<li>${this.escapeHtml(x)}</li>`).join('')}
+      </ul>
+    `;
+  },
+
+  renderCodeSnippets(codeSnippets) {
+    if (!codeSnippets || codeSnippets.length === 0) return '';
+    return `
+      <div class="bp-panel">
+        <div class="bp-panel-title">Code</div>
+        <div class="bp-code">
+          ${codeSnippets.map(snippet => `
+            <details class="bp-code-item">
+              <summary>
+                <span class="bp-code-title">${this.escapeHtml(snippet.title || 'Snippet')}</span>
+                <span class="bp-code-lang">${this.escapeHtml(snippet.language || '')}</span>
+              </summary>
+              <pre><code>${this.escapeHtml(snippet.code || '')}</code></pre>
+            </details>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  },
+
+  renderGallery(gallery) {
+    if (!gallery || gallery.length === 0) return '';
+    return `
+      <div class="bp-panel">
+        <div class="bp-panel-title">Gallery</div>
+        <div class="bp-gallery">
+          ${gallery.map(src => `
+            <a class="bp-gallery-item" href="${this.escapeHtml(src)}" target="_blank" rel="noreferrer">
+              <img src="${this.escapeHtml(src)}" alt="Project image" loading="lazy"/>
+            </a>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  },
+
+  renderLinks(links, primaryLink) {
+    const normalized = Array.isArray(links) ? links.slice() : [];
+    const primary = primaryLink ? String(primaryLink) : '';
+    if (primary && normalized.length === 0) {
+      const isGitHub = /github\.com/i.test(primary);
+      normalized.push({ label: isGitHub ? 'Repo' : 'Open', url: primary });
+    }
+    if (normalized.length === 0) return '';
+    return `
+      <div class="bp-links">
+        ${normalized.map(l => `
+          <a class="bp-link" href="${this.escapeHtml(l.url)}" target="${/^https?:\/\//i.test(String(l.url)) ? '_blank' : '_self'}" rel="noreferrer">
+            ${this.escapeHtml(l.label || 'Link')}
+          </a>
+        `).join('')}
+      </div>
+    `;
+  },
+
+  renderUpdatesMono(updates) {
+    if (!updates || updates.length === 0) return '';
+    return `
+      <div class="bp-panel">
+        <div class="bp-panel-title">Dev Updates</div>
+        <div class="bp-updates">
+          ${updates.map(u => {
+            const version = this.escapeHtml(u.version || '');
+            const date = this.escapeHtml(u.date || '');
+            const type = this.escapeHtml(u.type || '');
+            const changes = Array.isArray(u.changes) ? u.changes : [];
+            return `
+              <div class="bp-update">
+                <div class="bp-update-head">
+                  <div class="bp-update-version">${version}</div>
+                  <div class="bp-update-meta">
+                    ${type ? `<span class="bp-update-type">${type}</span>` : ''}
+                    ${date ? `<span class="bp-update-date">${date}</span>` : ''}
+                  </div>
+                </div>
+                ${changes.length ? this.renderList(changes) : ''}
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    `;
+  },
+
+  // Brutal project overlay template (matches index aesthetic)
+  renderBrutalProjectTemplate(data) {
+    const title = this.escapeHtml(data.title || '');
+    const company = this.escapeHtml(data.company || '');
+    const tagline = this.escapeHtml(data.tagline || '');
+    const description = this.escapeHtml(data.description || '');
+    const details = this.escapeHtml(data.details || '');
+    const logo = String(data.logo || '');
+    const thumb = this.escapeHtml(data.thumb || '');
+    const railText = this.escapeHtml(data.railText || `${data.title || ''} • ${data.company || ''}`.trim());
+
+    const highlights = this.renderList(data.highlights);
+    const stack = this.renderPills(data.stack);
+    const links = this.renderLinks(data.links, data.link);
+    const gallery = this.renderGallery(data.gallery);
+    const code = this.renderCodeSnippets(data.codeSnippets);
+    const devUpdates = data.devUpdatesHTML
+      ? `
+        <div class="bp-panel">
+          <div class="bp-panel-title">Dev Updates</div>
+          <div class="bp-dev">${data.devUpdatesHTML}</div>
+        </div>
+      `
+      : this.renderUpdatesMono(data.updates);
+
+    const media = (!gallery && thumb) ? `
+      <div class="bp-panel">
+        <div class="bp-panel-title">Screens</div>
+        <div class="bp-media">
+          <img src="${thumb}" alt="${title}" loading="lazy"/>
+        </div>
+      </div>
+    ` : '';
+
+    const railLine = this.escapeHtml(data.railText || `${data.title || ''} • ${data.company || ''}`.trim());
+    const railBlock = Array.from({ length: 120 }).map(() => `<span>${railLine}</span>`).join('');
+    const railHTML = `<div class="bp-rail-text"><div class="bp-rail-block">${railBlock}</div><div class="bp-rail-block">${railBlock}</div></div>`;
+
+    return `
+      <div class="bp-root" data-project="${this.escapeHtml(data.slug || '')}">
+        <div class="bp-bg"></div>
+        <div class="bp-scanlines"></div>
+        <div class="bp-rail" aria-hidden="true">
+          ${railHTML}
+        </div>
+
+        <button id="close" class="bp-close" aria-label="Close">✕</button>
+
+        <header class="bp-hero">
+          <div class="bp-kicker">[ PROJECT ]</div>
+          <div class="bp-hero-row">
+            <div class="bp-logo" aria-hidden="true">${logo}</div>
+            <div>
+              <h1 class="bp-title">${title}</h1>
+              <div class="bp-company">${company}</div>
+            </div>
+          </div>
+          ${tagline ? `<div class="bp-tagline">${tagline}</div>` : ''}
+          ${links}
+        </header>
+
+        <main class="bp-main">
+          <div class="bp-panel">
+            <div class="bp-panel-title">Overview</div>
+            <div class="bp-text">${description}</div>
+          </div>
+
+          <div class="bp-panel">
+            <div class="bp-panel-title">The Challenge</div>
+            <div class="bp-text">${details}</div>
+          </div>
+
+          ${highlights ? `
+            <div class="bp-panel">
+              <div class="bp-panel-title">Highlights</div>
+              ${highlights}
+            </div>
+          ` : ''}
+
+          ${stack ? `
+            <div class="bp-panel">
+              <div class="bp-panel-title">Tech</div>
+              ${stack}
+            </div>
+          ` : ''}
+
+          ${media}
+          ${gallery}
+          ${code}
+          ${devUpdates}
+        </main>
+      </div>
+    `;
   },
   
   // Load and process HTML template
