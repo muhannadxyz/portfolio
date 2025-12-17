@@ -104,18 +104,8 @@ window.PortfolioOSProject = {
             </div>
             <p class="text-lg text-gray-300 max-w-2xl">${this.tagline}</p>
             <div style="margin-top: 22px; display:flex; gap: 12px; flex-wrap: wrap;">
-              <button class="pos-launch-btn" onclick="
-                try {
-                  const overlay = document.getElementById('project-overlay');
-                  if (overlay) { overlay.classList.add('hidden'); overlay.innerHTML=''; }
-                  document.body.style.overflow = '';
-                  const osPreview = document.getElementById('os-preview');
-                  if (osPreview) osPreview.style.display = 'block';
-                  if (window.neuralNet && window.neuralNet.resume) window.neuralNet.resume();
-                } catch(e) {}
-                try { if (typeof launchOS === 'function') launchOS(); } catch(e) {}
-              ">Launch Portfolio OS →</button>
-              <div class="pos-hint">Tip: you can also click the “Portfolio OS” preview on the page.</div>
+              <button class="pos-launch-btn" onclick="window.open('os.html', '_blank')">Launch Portfolio OS →</button>
+              <div class="pos-hint">Opens in a new tab for the full experience.</div>
             </div>
           </div>
         </div>
@@ -159,17 +149,7 @@ window.PortfolioOSProject = {
               <div class="pos-os-embed-head">
                 <div class="pos-os-embed-title">Live OS (interactive)</div>
                 <div class="pos-os-embed-actions">
-                  <button class="pos-launch-btn" onclick="
-                    try {
-                      const overlay = document.getElementById('project-overlay');
-                      if (overlay) { overlay.classList.add('hidden'); overlay.innerHTML=''; }
-                      document.body.style.overflow = '';
-                      const osPreview = document.getElementById('os-preview');
-                      if (osPreview) osPreview.style.display = 'block';
-                      if (window.neuralNet && window.neuralNet.resume) window.neuralNet.resume();
-                    } catch(e) {}
-                    try { if (typeof launchOS === 'function') launchOS(); } catch(e) {}
-                  ">Open Fullscreen →</button>
+                  <button class="pos-launch-btn" onclick="window.open('os.html', '_blank')">Open Fullscreen →</button>
                 </div>
               </div>
               <div class="pos-os-embed-wrap">
@@ -193,17 +173,7 @@ window.PortfolioOSProject = {
 
             <div class="project-cta-card">
               <h3 class="text-2xl font-bold text-white mb-6">Try it live</h3>
-              <button class="project-cta-button" onclick="
-                try {
-                  const overlay = document.getElementById('project-overlay');
-                  if (overlay) { overlay.classList.add('hidden'); overlay.innerHTML=''; }
-                  document.body.style.overflow = '';
-                  const osPreview = document.getElementById('os-preview');
-                  if (osPreview) osPreview.style.display = 'block';
-                  if (window.neuralNet && window.neuralNet.resume) window.neuralNet.resume();
-                } catch(e) {}
-                try { if (typeof launchOS === 'function') launchOS(); } catch(e) {}
-              ">Launch Portfolio OS →</button>
+              <button class="project-cta-button" onclick="window.open('os.html', '_blank')">Launch Portfolio OS →</button>
             </div>
           </div>
         </div>
