@@ -11,6 +11,7 @@ const PetApp = (function() {
     energy: 80,       // 0..100
     cleanliness: 90,  // 0..100
     sleeping: false,
+    activity: null,   // { type: 'eat'|'play'|'clean'|'sleep', startedAt:number, until:number } | null
     lastTick: Date.now()
   };
 
@@ -18,6 +19,8 @@ const PetApp = (function() {
   let widgetCtx = null;
   let tickerInterval = null;
   let windowRenderHook = null;
+  let animRaf = null;
+  let liveState = null;
 
   function clamp01_100(n) {
     return Math.max(0, Math.min(100, Math.round(n)));
@@ -36,6 +39,21 @@ const PetApp = (function() {
 
   function saveState(state) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  function getState() {
+    if (!liveState) {
+      liveState = catchUpState(loadState());
+      saveState(liveState);
+    }
+    return liveState;
+  }
+
+  function setState(next) {
+    liveState = next;
+    saveState(liveState);
+    renderWidget(liveState);
+    if (typeof windowRenderHook === 'function') windowRenderHook(liveState);
   }
 
   function computeMood(state) {
@@ -128,90 +146,155 @@ const PetApp = (function() {
     return 'rgba(255,95,87,0.85)';
   }
 
-  function drawPetScreen(ctx, state) {
+  // --- Tamagotchi-style pixel sprite renderer ---
+  // Sprite maps are 16x16. Characters:
+  // 'X' outline, 'B' body, 'E' eye, 'M' mouth, 'F' food.
+  const SPRITES = {
+    idle1: [
+      '................',
+      '......XXXX......',
+      '....XXBBBBXX....',
+      '...XBBBBBBBBX...',
+      '..XBBBBBBBBBBX..',
+      '..XBBBEXXEBBBX..',
+      '..XBBBEXXEBBBX..',
+      '..XBBBBMMBBBBX..',
+      '..XBBBBBBBBBBX..',
+      '..XBBBBBBBBBBX..',
+      '...XBBBBBBBBX...',
+      '....XXBBBBXX....',
+      '......XXXX......',
+      '................',
+      '................',
+      '................'
+    ],
+    idle2: [
+      '................',
+      '......XXXX......',
+      '....XXBBBBXX....',
+      '...XBBBBBBBBX...',
+      '..XBBBBBBBBBBX..',
+      '..XBBBEXXEBBBX..',
+      '..XBBBEXXEBBBX..',
+      '..XBBBB..BBBBX..',
+      '..XBBBBMMBBBBX..',
+      '..XBBBBBBBBBBX..',
+      '...XBBBBBBBBX...',
+      '....XXBBBBXX....',
+      '......XXXX......',
+      '................',
+      '................',
+      '................'
+    ],
+    eat1: [
+      '................',
+      '......XXXX......',
+      '....XXBBBBXX....',
+      '...XBBBBBBBBX...',
+      '..XBBBBBBBBBBX..',
+      '..XBBBEXXEBBBX..',
+      '..XBBBEXXEBBBX..',
+      '..XBBBBMMBBBBX..',
+      '..XBBBBBBBBBBX..',
+      '..XBBBBBBBBBBX..',
+      '...XBBBBBBBBX...',
+      '....XXBBBBXX....',
+      '......XXXX......',
+      '.....FFF........',
+      '....FFFFF.......',
+      '.....FFF........'
+    ],
+    eat2: [
+      '................',
+      '......XXXX......',
+      '....XXBBBBXX....',
+      '...XBBBBBBBBX...',
+      '..XBBBBBBBBBBX..',
+      '..XBBBEXXEBBBX..',
+      '..XBBBEXXEBBBX..',
+      '..XBBBB..BBBBX..',
+      '..XBBBBMMBBBBX..',
+      '..XBBBBBBBBBBX..',
+      '...XBBBBBBBBX...',
+      '....XXBBBBXX....',
+      '......XXXX......',
+      '......FF........',
+      '.....FFFF.......',
+      '......FF........'
+    ]
+  };
+
+  function drawTamaBackground(ctx) {
+    const w = ctx.canvas.width;
+    const h = ctx.canvas.height;
+    // Pastel checker/diamond vibe
+    const colors = ['#c7ead9', '#f0c9d5', '#d4d4f7', '#d8f0e6'];
+    const step = Math.max(6, Math.floor(Math.min(w, h) / 8));
+    for (let y = 0; y < h; y += step) {
+      for (let x = 0; x < w; x += step) {
+        const idx = ((x / step) + (y / step)) % colors.length;
+        ctx.fillStyle = colors[idx];
+        ctx.fillRect(x, y, step, step);
+      }
+    }
+    ctx.fillStyle = 'rgba(0,0,0,0.18)';
+    for (let y = -h; y < h * 2; y += step * 2) {
+      ctx.fillRect(0, y, w, 2);
+    }
+  }
+
+  function drawSprite(ctx, sprite, x, y, scale, palette) {
+    for (let row = 0; row < sprite.length; row++) {
+      const line = sprite[row];
+      for (let col = 0; col < line.length; col++) {
+        const ch = line[col];
+        const color = palette[ch];
+        if (!color) continue;
+        ctx.fillStyle = color;
+        ctx.fillRect(x + col * scale, y + row * scale, scale, scale);
+      }
+    }
+  }
+
+  function getCurrentActivity(state, now) {
+    if (!state.activity) return null;
+    if (!state.activity.until || now >= state.activity.until) return null;
+    return state.activity;
+  }
+
+  function drawPetScreen(ctx, state, nowMs = Date.now()) {
     if (!ctx) return;
     const w = ctx.canvas.width;
     const h = ctx.canvas.height;
     ctx.imageSmoothingEnabled = false;
 
     ctx.clearRect(0, 0, w, h);
-    ctx.fillStyle = '#05070f';
-    ctx.fillRect(0, 0, w, h);
 
-    const mood = computeMood(state);
-    const accent = (() => {
-      switch (mood.mood) {
-        case 'happy': return '#38ef7d';
-        case 'ok': return '#00ffe1';
-        case 'meh': return '#74b9ff';
-        case 'sad': return '#ffbd2e';
-        case 'panic': return '#ff5f57';
-        case 'sleep': return '#a855f7';
-        default: return '#00ffe1';
-      }
-    })();
+    drawTamaBackground(ctx);
 
-    // Ground line
-    ctx.fillStyle = 'rgba(255,255,255,0.08)';
-    ctx.fillRect(0, h - 10, w, 1);
+    // Choose sprite frame
+    const activity = getCurrentActivity(state, nowMs);
+    const isEating = activity && activity.type === 'eat';
+    const frame = Math.floor(nowMs / 220) % 2;
+    const sprite = isEating ? (frame === 0 ? SPRITES.eat1 : SPRITES.eat2) : (frame === 0 ? SPRITES.idle1 : SPRITES.idle2);
 
-    // Pixel pet blob
-    const px = Math.floor(w / 2);
-    const py = Math.floor(h / 2) + 4;
-    const bodyW = 22;
-    const bodyH = 18;
-    const bx = px - Math.floor(bodyW / 2);
-    const by = py - Math.floor(bodyH / 2);
+    const palette = {
+      X: '#000000',
+      B: '#e8eef7',
+      E: '#000000',
+      M: '#000000',
+      F: '#ffbd2e'
+    };
 
-    // Shadow
-    ctx.fillStyle = 'rgba(0,0,0,0.35)';
-    ctx.fillRect(bx + 3, by + bodyH + 4, bodyW - 6, 2);
+    const scale = Math.max(2, Math.floor(Math.min(w, h) / 24));
+    const sx = Math.floor((w - 16 * scale) / 2);
+    const sy = Math.floor((h - 16 * scale) / 2);
 
-    // Body
-    ctx.fillStyle = 'rgba(255,255,255,0.14)';
-    ctx.fillRect(bx, by, bodyW, bodyH);
-    ctx.strokeStyle = `${accent}66`;
-    ctx.lineWidth = 1;
-    ctx.strokeRect(bx + 0.5, by + 0.5, bodyW - 1, bodyH - 1);
+    // Drop shadow
+    ctx.fillStyle = 'rgba(0,0,0,0.22)';
+    ctx.fillRect(sx + 6, sy + 16 * scale + 4, 16 * scale - 12, 3);
 
-    // Eyes
-    const eyeY = by + 6;
-    const eyeX1 = bx + 6;
-    const eyeX2 = bx + bodyW - 9;
-    ctx.fillStyle = '#e6e6e6';
-    ctx.fillRect(eyeX1, eyeY, 2, 2);
-    ctx.fillRect(eyeX2, eyeY, 2, 2);
-
-    // Mouth / expressions
-    ctx.fillStyle = accent;
-    if (mood.mood === 'sleep') {
-      // Zzz
-      ctx.fillRect(bx + 2, by - 6, 6, 1);
-      ctx.fillRect(bx + 4, by - 4, 4, 1);
-      ctx.fillRect(bx + 6, by - 2, 2, 1);
-      // sleepy eyes
-      ctx.fillStyle = '#cbd5e1';
-      ctx.fillRect(eyeX1, eyeY + 1, 2, 1);
-      ctx.fillRect(eyeX2, eyeY + 1, 2, 1);
-      // small mouth
-      ctx.fillStyle = '#9ca3af';
-      ctx.fillRect(bx + Math.floor(bodyW / 2) - 2, by + 12, 4, 1);
-    } else if (mood.mood === 'happy' || mood.mood === 'ok') {
-      ctx.fillRect(bx + Math.floor(bodyW / 2) - 3, by + 12, 6, 1);
-      ctx.fillRect(bx + Math.floor(bodyW / 2) - 2, by + 13, 4, 1);
-    } else if (mood.mood === 'meh') {
-      ctx.fillRect(bx + Math.floor(bodyW / 2) - 3, by + 12, 6, 1);
-    } else {
-      // sad/panic
-      ctx.fillRect(bx + Math.floor(bodyW / 2) - 3, by + 12, 6, 1);
-      ctx.fillRect(bx + Math.floor(bodyW / 2) - 2, by + 13, 4, 1);
-      ctx.fillStyle = 'rgba(255,255,255,0.12)';
-      ctx.fillRect(bx + 2, by + 2, 3, 1);
-    }
-
-    // Status pixel
-    ctx.fillStyle = `${accent}cc`;
-    ctx.fillRect(w - 4, 2, 2, 2);
+    drawSprite(ctx, sprite, sx, sy, scale, palette);
   }
 
   function createTamagotchiDevice({ width = 220, height = 170, screenW = 96, screenH = 72, forWidget = false } = {}) {
@@ -287,7 +370,7 @@ const PetApp = (function() {
 
   function renderWidget(stateArg) {
     if (!widgetEl || !widgetCtx) return;
-    const state = stateArg || catchUpState(loadState());
+    const state = stateArg || getState();
     const mood = computeMood(state);
     const nameEl = widgetEl.querySelector('.pet-device-name');
     const moodEl = widgetEl.querySelector('#pet-widget-mood');
@@ -303,18 +386,14 @@ const PetApp = (function() {
     if (dE) dE.style.background = dotColor(state.energy);
     if (dC) dC.style.background = dotColor(state.cleanliness);
 
-    drawPetScreen(widgetCtx, state);
+    drawPetScreen(widgetCtx, state, Date.now());
   }
 
   function startTicker() {
     if (tickerInterval) return;
     tickerInterval = setInterval(() => {
-      const state = catchUpState(loadState());
-      saveState(state);
-      renderWidget(state);
-      if (typeof windowRenderHook === 'function') {
-        windowRenderHook(state);
-      }
+      const state = catchUpState(getState());
+      setState(state);
       notifyIfNeeded(state);
     }, 30000);
   }
@@ -324,6 +403,37 @@ const PetApp = (function() {
       clearInterval(tickerInterval);
       tickerInterval = null;
     }
+  }
+
+  function startAnimLoop() {
+    if (animRaf) return;
+    const loop = () => {
+      if (!widgetEl) {
+        animRaf = null;
+        return;
+      }
+      const now = Date.now();
+      const state = getState();
+
+      // Clear activity when it ends
+      const act = state.activity;
+      if (act && act.until && now >= act.until) {
+        state.activity = null;
+        setState({ ...state });
+      } else {
+        // render without saving every frame
+        renderWidget(state);
+        if (typeof windowRenderHook === 'function') windowRenderHook(state);
+      }
+
+      animRaf = requestAnimationFrame(loop);
+    };
+    animRaf = requestAnimationFrame(loop);
+  }
+
+  function stopAnimLoop() {
+    if (animRaf) cancelAnimationFrame(animRaf);
+    animRaf = null;
   }
 
   function ensureWidget() {
@@ -423,10 +533,12 @@ const PetApp = (function() {
 
     startTicker();
     renderWidget();
+    startAnimLoop();
   }
 
   function destroyWidget() {
     stopTicker();
+    stopAnimLoop();
     if (widgetEl && widgetEl.parentNode) widgetEl.parentNode.removeChild(widgetEl);
     widgetEl = null;
     widgetCtx = null;
@@ -439,8 +551,8 @@ const PetApp = (function() {
       return;
     }
 
-    let state = catchUpState(loadState());
-    saveState(state);
+    let state = catchUpState(getState());
+    setState(state);
 
     const container = document.createElement('div');
     container.style.cssText = 'height: 100%; display:flex; flex-direction:column; padding: 18px; background: rgba(13, 13, 13, 0.9); font-family: -apple-system, sans-serif;';
@@ -518,7 +630,7 @@ const PetApp = (function() {
       if (nameInput && typeof nameInput.value === 'string') state.name = nameInput.value.trim() || 'Byte';
       if (sleepBtn) sleepBtn.textContent = `🛌 ${state.sleeping ? 'Wake' : 'Sleep'}`;
       if (device.nameEl) device.nameEl.textContent = state.name || 'Byte';
-      drawPetScreen(stageCtx, state);
+      drawPetScreen(stageCtx, state, Date.now());
 
       stats.innerHTML = `
         ${makeStatBar('Hunger', state.hunger, 'linear-gradient(90deg, #00ffe1, #2a82ff)')}
@@ -538,6 +650,8 @@ const PetApp = (function() {
       if (type === 'feed') {
         state.hunger = clamp01_100(state.hunger + 25);
         state.happiness = clamp01_100(state.happiness + 6);
+        // Trigger eating animation visible on desktop + in this window
+        state.activity = { type: 'eat', startedAt: now2, until: now2 + 2600 };
       } else if (type === 'play') {
         state.happiness = clamp01_100(state.happiness + 22);
         state.energy = clamp01_100(state.energy - 10);
@@ -549,7 +663,7 @@ const PetApp = (function() {
         state.sleeping = !state.sleeping;
       }
 
-      saveState(state);
+      setState({ ...state });
       render();
 
       if (window.SoundManager) {
@@ -575,7 +689,7 @@ const PetApp = (function() {
     const nameInput = header.querySelector('#pet-name');
     nameInput.addEventListener('input', () => {
       state.name = nameInput.value.trim() || 'Byte';
-      saveState(state);
+      setState({ ...state });
       render();
     });
 
