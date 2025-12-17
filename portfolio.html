@@ -4,14 +4,245 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Muhannad Abuzahrieh | Resume</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <style>
+    :root { --banner-w: 180px; }
+    body {
+      margin: 0;
+      background: #000;
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      overflow-x: hidden;
+    }
+
+    /* Background system (matches index) */
+    .resume-bg {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      z-index: 0;
+    }
+    .resume-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.08;
+      pointer-events: none;
+    }
+    .resume-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      opacity: 1;
+    }
+
+    .scanlines {
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.3) 2px,
+        rgba(0, 0, 0, 0.3) 4px
+      );
+      pointer-events: none;
+      z-index: 3;
+      animation: scanMove 8s linear infinite;
+    }
+    @keyframes scanMove { 0% { transform: translateY(0); } 100% { transform: translateY(8px); } }
+
+    /* Right banner rail */
+    .scroll-banner {
+      position: fixed;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: var(--banner-w);
+      overflow: hidden;
+      background: #000;
+      border-left: 2px solid #fff;
+      z-index: 5;
+    }
+    .scroll-text {
+      position: absolute;
+      width: 100%;
+      animation: scrollUp 25s linear infinite;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: #fff;
+      line-height: 1.8;
+      padding: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      opacity: 0.6;
+      will-change: transform;
+    }
+    .scroll-block { display: flex; flex-direction: column; }
+    .scroll-text span { display: block; white-space: nowrap; }
+    @keyframes scrollUp { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
+
+    /* Page shell */
+    .resume-shell {
+      position: relative;
+      z-index: 4;
+      padding: 2.5rem calc(3rem + var(--banner-w)) 4rem 3rem;
+      max-width: 1100px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      padding-bottom: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .topbar-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .kicker {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .page-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 10vw, 7rem);
+      letter-spacing: 0.1em;
+      line-height: 0.9;
+      margin: 0;
+    }
+
+    .topbar-right {
+      text-align: right;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+    }
+
+    .btn-back {
+      display: inline-block;
+      background: #fff;
+      color: #000;
+      text-decoration: none;
+      padding: 0.6rem 1.2rem;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: all 0.1s ease;
+    }
+    .btn-back:hover {
+      background: #000;
+      color: #fff;
+      outline: 1px solid #fff;
+    }
+
+    /* Brutal panels (reuse existing markup) */
+    .container { max-width: none; padding: 0; margin: 0; }
+    .section.panel {
+      border-left: none;
+      padding-left: 0;
+      margin-top: 0;
+      margin-bottom: 2rem;
+      background: #000;
+      border: 1px solid rgba(255,255,255,0.14);
+      padding: 1.5rem 1.5rem;
+    }
+
+    .section-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 1rem;
+    }
+
+    .panel p, .panel li, .panel span, .panel div {
+      color: rgba(255,255,255,0.75);
+    }
+
+    a.neon-link, a.project-link {
+      color: #fff;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.35);
+    }
+    a.neon-link:hover, a.project-link:hover { border-bottom-color: #fff; }
+
+    /* Job rows */
+    .job-header {
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 12px 14px;
+      background: rgba(255,255,255,0.03);
+    }
+    .job + .job { margin-top: 1rem; }
+    .arrow { color: rgba(255,255,255,0.75); }
+    .arrow.open { transform: rotate(90deg); }
+    .job-info strong { color: #fff; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700; }
+    .job-info span { color: rgba(255,255,255,0.55); }
+    .job-desc { border-left: 2px solid rgba(255,255,255,0.18); padding-left: 14px; margin-top: 10px; }
+
+    /* Logos go monochrome */
+    .logo-img { filter: grayscale(100%) contrast(1.2); background: #fff; }
+
+    hr { border: none; border-top: 1px solid rgba(255,255,255,0.16); margin: 2.5rem 0; }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .scroll-banner { display: none; }
+      .resume-shell { padding-right: 3rem; }
+      .topbar { flex-direction: column; align-items: flex-start; }
+      .topbar-right { text-align: left; }
+    }
+    @media (max-width: 640px) {
+      .resume-shell { padding: 1.5rem; }
+      .section.panel { padding: 1.25rem; }
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <header id="home">
-      <h1 class="gradient-title" style="text-shadow:none">Resume</h1>
-    </header>
+  <canvas id="neural-network"></canvas>
+  <div class="resume-bg"></div>
+  <div class="scanlines"></div>
+
+  <div class="scroll-banner">
+    <div class="scroll-text">
+      <span data-scroll-line>MUHANNAD • ABUZAHRIEH • RESUME</span>
+    </div>
+  </div>
+
+  <div class="resume-shell">
+    <div class="topbar">
+      <div class="topbar-left">
+        <div class="kicker">Resume / Directory</div>
+        <h1 class="page-title">RESUME</h1>
+      </div>
+      <div class="topbar-right">
+        <div>MUHANNAD ABUZAHRIEH</div>
+        <div style="margin-top: 0.75rem;">
+          <a class="btn-back" href="index.html">Back</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
 
     <div class="section panel">
       <div class="section-title">About</div>
@@ -145,13 +376,51 @@
     </div>
 
     <hr>
-    <div style="font-family:'Share Tech Mono',monospace; font-size:12px; color:#999; display:flex; justify-content:space-between; align-items:center">
-      <a href="index.html" style="color:#e6e6e6; text-decoration:none">← Back</a>
-      <a href="contact.html" style="color:#667eea; text-decoration:none; font-weight:600">Contact Me →</a>
+    <div style="font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; display:flex; justify-content:space-between; align-items:center; gap: 1rem; color: rgba(255,255,255,0.55); flex-wrap: wrap;">
+      <a href="index.html" class="neon-link" style="border-bottom-style: solid;">Back</a>
+      <a href="contact.html" class="neon-link" style="border-bottom-style: solid;">Contact</a>
     </div>
+  </div>
   </div>
 
   <script src="js/script.js"></script>
+  <script>
+    // Fill the right banner so it always reaches the bottom (no blank gaps)
+    function fillScrollBanner() {
+      const banner = document.querySelector('.scroll-banner');
+      const scroller = document.querySelector('.scroll-banner .scroll-text');
+      if (!banner || !scroller) return;
+
+      const template = scroller.querySelector('[data-scroll-line]');
+      const line = template ? template.textContent.trim() : 'MUHANNAD • ABUZAHRIEH • RESUME';
+      const computed = window.getComputedStyle(scroller);
+      const fontSize = parseFloat(computed.fontSize || '12');
+      const lineHeight = computed.lineHeight === 'normal'
+        ? fontSize * 1.8
+        : parseFloat(computed.lineHeight || String(fontSize * 1.8));
+
+      const paddingTop = parseFloat(computed.paddingTop || '0');
+      const paddingBottom = parseFloat(computed.paddingBottom || '0');
+      const usable = Math.max(0, banner.clientHeight - paddingTop - paddingBottom);
+      const linesNeeded = Math.ceil(usable / lineHeight) + 10;
+
+      const buildBlock = () => {
+        let html = '';
+        for (let i = 0; i < linesNeeded; i++) html += `<span>${line}</span>`;
+        return `<div class="scroll-block">${html}</div>`;
+      };
+
+      scroller.innerHTML = buildBlock() + buildBlock();
+    }
+
+    window.addEventListener('load', () => {
+      fillScrollBanner();
+      window.addEventListener('resize', () => {
+        window.clearTimeout(window.__resumeBannerResizeT);
+        window.__resumeBannerResizeT = window.setTimeout(fillScrollBanner, 100);
+      });
+    });
+  </script>
 </body>
 </html>
 

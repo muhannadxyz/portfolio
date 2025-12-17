@@ -92,7 +92,7 @@ body::before {
   height: 100%;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.3;
+  opacity: 0.08;
 }
 
 /* Scanline / CRT Effect */
@@ -532,40 +532,37 @@ html {
   justify-content: center;
   align-items: center;
   gap: 6px;
-  background: rgba(255, 255, 255, 0.95);
-  border: 2px solid rgba(255, 255, 255, 1);
-  border-radius: 12px;
+  background: transparent;
+  border: 1px solid #333;
+  border-radius: 0;
   padding: 12px;
   cursor: pointer;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 .hamburger:hover {
-  background: rgba(255, 255, 255, 1);
-  border-color: rgba(255, 255, 255, 1);
-  transform: scale(1.1);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  background: #111;
+  border-color: #555;
 }
 
 .hamburger span {
   display: block !important;
   width: 24px;
-  height: 3px;
-  background: #000000 !important;
-  border-radius: 2px;
+  height: 2px;
+  background: #fff !important;
+  border-radius: 0;
   transition: all 0.3s ease;
   box-shadow: none;
 }
 
 .hamburger.active {
-  background: rgba(255, 255, 255, 1);
+  background: #111;
 }
 
 .hamburger.active span:nth-child(1) {
-  transform: rotate(45deg) translate(7px, 7px);
-  background: #000000 !important;
+  transform: rotate(45deg) translate(6px, 6px);
+  background: #fff !important;
 }
 
 .hamburger.active span:nth-child(2) {
@@ -573,8 +570,8 @@ html {
 }
 
 .hamburger.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(7px, -7px);
-  background: #000000 !important;
+  transform: rotate(-45deg) translate(6px, -6px);
+  background: #fff !important;
 }
 
 .dropdown-nav {
@@ -595,14 +592,14 @@ html {
 }
 
 .dropdown-content {
-  background: rgba(0, 0, 0, 0.95);
+  background: #0a0a0a;
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  border: 1px solid #222;
+  border-radius: 0;
   padding: 20px 24px;
   min-width: 200px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  font-family: 'Share Tech Mono', monospace;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  font-family: 'JetBrains Mono', 'Share Tech Mono', monospace;
 }
 
 .dropdown-header {
@@ -709,22 +706,24 @@ html {
 .dropdown-links {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
 }
 
 .dropdown-links a {
-  color: rgba(255, 255, 255, 0.8);
+  color: #666;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 0.8rem;
   font-weight: 400;
   padding: 8px 0;
   transition: all 0.2s ease;
   display: block;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .dropdown-links a:hover {
   color: #ffffff;
-  padding-left: 8px;
+  padding-left: 12px;
 }
 
 /* -- Sleek Professional Hero Styles -- */

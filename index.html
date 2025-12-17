@@ -6,7 +6,7 @@
   <title>Muhannad Abuzahrieh</title>
 
   <!-- Fonts and Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
@@ -21,6 +21,685 @@
   <style>
     .prose img { border-radius: 1rem; margin: 2rem 0; }
     .group:hover img { transform: scale(1.05); }
+    
+    /* BRUTAL Hero Styles */
+    .brutalist-hero {
+      --banner-w: 180px;
+      min-height: 100vh;
+      background: #000;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      padding: 0;
+    }
+    
+    /* Raw concrete texture background */
+    .hero-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 0;
+      background: #000;
+    }
+    
+    /* Harsh noise grain */
+    .hero-background::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.08;
+      pointer-events: none;
+      z-index: 1;
+    }
+    
+    /* Aggressive grid lines */
+    .hero-background::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    
+    /* Brutal accent lines */
+    .brutal-line {
+      position: absolute;
+      background: #fff;
+      z-index: 3;
+    }
+    
+    .brutal-line-h1 {
+      height: 1px;
+      width: 100%;
+      top: 20%;
+      left: 0;
+      opacity: 0.1;
+    }
+    
+    .brutal-line-h2 {
+      height: 2px;
+      width: 40%;
+      top: 80%;
+      left: 0;
+      opacity: 0.2;
+    }
+    
+    .brutal-line-v1 {
+      width: 1px;
+      height: 100%;
+      left: 25%;
+      top: 0;
+      opacity: 0.05;
+    }
+    
+    .brutal-line-v2 {
+      width: 2px;
+      height: 100%;
+      right: var(--banner-w);
+      top: 0;
+      opacity: 0.12;
+    }
+    
+    /* Glitch blocks */
+    .glitch-block {
+      position: absolute;
+      background: #fff;
+      z-index: 4;
+    }
+    
+    .glitch-block-1 {
+      width: 200px;
+      height: 3px;
+      top: 35%;
+      right: 10%;
+      animation: glitchFlicker 0.3s infinite;
+    }
+    
+    .glitch-block-2 {
+      width: 80px;
+      height: 80px;
+      bottom: 20%;
+      left: 5%;
+      border: 2px solid #fff;
+      background: transparent;
+      animation: glitchRotate 10s linear infinite;
+    }
+    
+    .glitch-block-3 {
+      width: 4px;
+      height: 150px;
+      top: 15%;
+      left: 15%;
+      animation: glitchFlicker 0.5s infinite 0.1s;
+    }
+    
+    @keyframes glitchFlicker {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.1; }
+      75% { opacity: 0.5; }
+    }
+    
+    @keyframes glitchRotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* WHITE ACCENT LINES */
+    .brutal-accent {
+      position: absolute;
+      background: #fff;
+      z-index: 5;
+    }
+    
+    .brutal-accent-1 {
+      width: 100%;
+      height: 1px;
+      bottom: 0;
+      left: 0;
+      opacity: 0.3;
+    }
+    
+    .brutal-accent-2 {
+      width: 1px;
+      height: 30%;
+      top: 0;
+      left: 0;
+      opacity: 0.2;
+    }
+    
+    /* Scanlines */
+    .scanlines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.3) 2px,
+        rgba(0, 0, 0, 0.3) 4px
+      );
+      z-index: 6;
+      pointer-events: none;
+      animation: scanMove 8s linear infinite;
+    }
+    
+    @keyframes scanMove {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(8px); }
+    }
+    
+    /* Corner markers */
+    .corner-mark {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border: 2px solid #fff;
+      z-index: 7;
+    }
+    
+    .corner-mark.tl { top: 20px; left: 80px; border-right: none; border-bottom: none; }
+    .corner-mark.tr { top: 20px; right: 200px; border-left: none; border-bottom: none; }
+    .corner-mark.bl { bottom: 20px; left: 80px; border-right: none; border-top: none; }
+    .corner-mark.br { bottom: 20px; right: 200px; border-left: none; border-top: none; }
+    
+    .hero-main {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      /* Reserve space for the right banner so it never overlaps text */
+      padding: 2rem calc(4rem + var(--banner-w)) 2rem 4rem;
+      position: relative;
+      z-index: 20;
+      background: transparent;
+    }
+    
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    
+    .contact-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: #000;
+      text-decoration: none;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      transition: all 0.1s ease;
+      letter-spacing: 0.1em;
+      background: #fff;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    
+    .contact-btn:hover {
+      background: #000;
+      color: #fff;
+      outline: 1px solid #fff;
+    }
+    
+    .giant-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(8rem, 22vw, 32rem);
+      line-height: 0.85;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+      margin: 0;
+      padding: 0;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 20;
+    }
+    
+    .giant-name span {
+      display: block;
+    }
+    
+    .name-line-mixed {
+      display: flex;
+      align-items: baseline;
+    }
+    
+    .hero-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-bottom: 2rem;
+      background: transparent;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: auto;
+      padding-top: 2rem;
+    }
+    
+    .brand-mark {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: #fff;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+    
+    .directory-section {
+      display: flex;
+      gap: 4rem;
+    }
+    
+    .directory-col h4 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: #666;
+      margin-bottom: 1rem;
+      letter-spacing: 0.2em;
+      font-weight: 400;
+    }
+    
+    .directory-col ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .directory-col li {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: #888;
+      padding: 0.4rem 0;
+      cursor: pointer;
+      transition: all 0.1s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    
+    .directory-col li:hover {
+      color: #fff;
+    }
+    
+    .directory-col li.active {
+      color: #fff;
+      position: relative;
+    }
+    
+    .directory-col li.active::before {
+      content: '→';
+      position: absolute;
+      left: -1.5rem;
+      color: #fff;
+    }
+    
+    .external-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    
+    .external-link::after {
+      content: '↗';
+      font-size: 0.7em;
+    }
+    
+    .meta-section {
+      text-align: right;
+      position: relative;
+      z-index: 25;
+      /* Hard plate so lines never slash through the text */
+      background: #000;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      padding: 16px 18px;
+      display: inline-block;
+    }
+    
+    .roles {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.65);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    
+    .roles span {
+      display: block;
+    }
+    
+    .timestamp {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+      color: #fff;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+    
+    .tagline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: #666;
+      margin-top: 0.5rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    
+    /* Scrolling text banner - BRUTAL */
+    .scroll-banner {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: var(--banner-w);
+      overflow: hidden;
+      background: #000;
+      border-left: 2px solid #fff;
+      z-index: 15;
+    }
+    
+    .scroll-text {
+      position: absolute;
+      width: 100%;
+      animation: scrollUp 25s linear infinite;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: #fff;
+      line-height: 1.8;
+      writing-mode: horizontal-tb;
+      padding: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      opacity: 0.6;
+      will-change: transform;
+    }
+    
+    .scroll-block {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .scroll-text span {
+      display: block;
+      white-space: nowrap;
+    }
+    
+    @keyframes scrollUp {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-50%); }
+    }
+    
+    /* Geometric shape - BRUTAL */
+    .geo-shape {
+      position: absolute;
+      top: 15%;
+      right: 240px;
+      width: 100px;
+      height: 100px;
+      border: 3px solid #fff;
+      animation: brutalRotate 20s linear infinite;
+      z-index: 10;
+    }
+    
+    @keyframes brutalRotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Floating cross */
+    .floating-orb {
+      position: absolute;
+      right: 350px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      z-index: 10;
+    }
+    
+    .floating-orb::before {
+      content: '+';
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 80px;
+      color: #fff;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.15;
+    }
+    
+    /* Status indicator - BRUTAL B&W */
+    .status-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: #fff;
+      margin-bottom: 1rem;
+      /* Push right so it doesn't sit under the hamburger */
+      margin-left: 30px;
+      background: transparent;
+      padding: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-weight: 400;
+    }
+    
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      background: #22c55e;
+      box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.25), 0 0 14px rgba(34, 197, 94, 0.8);
+      animation: harshBlink 1s step-end infinite;
+    }
+    
+    @keyframes harshBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
+    
+    /* Projects section - BRUTAL B&W */
+    .projects-section {
+      background: #000;
+      padding: 5rem 4rem;
+      position: relative;
+      border-top: 1px solid #333;
+    }
+    
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3rem;
+      border-bottom: 1px solid #333;
+      padding-bottom: 1rem;
+    }
+    
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4rem;
+      color: #fff;
+      letter-spacing: 0.1em;
+      line-height: 0.9;
+    }
+    
+    .section-count {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      color: #666;
+      font-weight: 400;
+    }
+    
+    /* Hide neural network on hero for clean brutalist look */
+    .brutalist-hero ~ #neural-network,
+    .brutalist-hero #neural-network {
+      opacity: 0.05 !important;
+    }
+    
+    /* Override hamburger for brutalist theme */
+    .brutalist-hero ~ .hamburger,
+    body:has(.brutalist-hero) .hamburger {
+      background: transparent;
+      border: 1px solid #333;
+    }
+    
+    body:has(.brutalist-hero) .hamburger span {
+      background: #fff !important;
+    }
+    
+    body:has(.brutalist-hero) .hamburger:hover {
+      background: #111;
+      border-color: #555;
+    }
+    
+    /* Project card hover line effect */
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 0;
+      background: #fff;
+      transition: height 0.4s ease;
+    }
+    
+    .project-card:hover::before {
+      height: 100%;
+    }
+    
+    /* Staggered animation for cards */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .project-card {
+      animation: fadeInUp 0.6s ease forwards;
+      opacity: 0;
+    }
+    
+    .project-card:nth-child(1) { animation-delay: 0.1s; }
+    .project-card:nth-child(2) { animation-delay: 0.2s; }
+    .project-card:nth-child(3) { animation-delay: 0.3s; }
+    .project-card:nth-child(4) { animation-delay: 0.4s; }
+    .project-card:nth-child(5) { animation-delay: 0.5s; }
+    .project-card:nth-child(6) { animation-delay: 0.6s; }
+    .project-card:nth-child(7) { animation-delay: 0.7s; }
+    
+    /* NO soft vignettes - BRUTAL */
+    
+    /* Footer bar - BRUTAL BLACK */
+    .footer-bar {
+      background: #000;
+      border-top: 2px solid #fff;
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 400;
+    }
+    
+    .footer-bar a {
+      color: #888;
+      text-decoration: none;
+      transition: all 0.1s ease;
+    }
+    
+    .footer-bar a:hover {
+      color: #fff;
+    }
+    
+    /* Mobile responsive */
+    @media (max-width: 1024px) {
+      .brutalist-hero {
+        grid-template-columns: 1fr;
+      }
+      
+      .scroll-banner {
+        display: none;
+      }
+
+      .hero-main {
+        padding-right: 4rem;
+      }
+      
+      .geo-shape, .floating-orb {
+        display: none;
+      }
+      
+      .giant-name {
+        font-size: clamp(4rem, 15vw, 12rem);
+      }
+      
+      .directory-section {
+        flex-direction: column;
+        gap: 2rem;
+      }
+      
+      .hero-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2rem;
+      }
+      
+      .meta-section {
+        text-align: left;
+      }
+      
+      .footer-bar {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+    }
+    
+    @media (max-width: 640px) {
+      .hero-main {
+        padding: 1.5rem;
+      }
+      
+      .giant-name {
+        font-size: clamp(3rem, 18vw, 8rem);
+      }
+      
+      .projects-section {
+        padding: 2rem 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .status-indicator {
+        margin-left: 64px;
+      }
+    }
   </style>
 </head>
 
@@ -48,22 +727,167 @@
       </div>
     </nav>
     
-    <section class="hero">
-      <div class="hero-content">
-        <div class="hero-badge">Available for work</div>
-        <h1 class="hero-title">
-          <span class="hero-soft">Muhannad is making</span>
-          <span class="hero-underline">Software 2.0</span>
-        </h1>
+    <!-- BRUTAL Hero Section -->
+    <section class="brutalist-hero">
+      <!-- Raw Background -->
+      <div class="hero-background">
+        <!-- Brutal Lines -->
+        <div class="brutal-line brutal-line-h1"></div>
+        <div class="brutal-line brutal-line-h2"></div>
+        <div class="brutal-line brutal-line-v1"></div>
+        <div class="brutal-line brutal-line-v2"></div>
+        
+        <!-- Glitch Blocks -->
+        <div class="glitch-block glitch-block-1"></div>
+        <div class="glitch-block glitch-block-2"></div>
+        <div class="glitch-block glitch-block-3"></div>
+        
+        <!-- Red Accents -->
+        <div class="brutal-accent brutal-accent-1"></div>
+        <div class="brutal-accent brutal-accent-2"></div>
+        
+        <!-- Scanlines -->
+        <div class="scanlines"></div>
+        
+        <!-- Corner Marks -->
+        <div class="corner-mark tl"></div>
+        <div class="corner-mark tr"></div>
+        <div class="corner-mark bl"></div>
+        <div class="corner-mark br"></div>
+      </div>
+      
+      <div class="hero-main">
+        <div class="hero-top">
+          <div class="status-indicator">
+            <span class="status-dot"></span>
+            AVAILABLE FOR WORK
+          </div>
+          <a href="contact.html" class="contact-btn">CONTACT ↗</a>
         </div>
         
-      <!-- Projects Grid -->
-      <div id="projects" class="max-w-7xl mx-auto px-6 py-8">
-        <h2 class="text-2xl font-bold mb-6" style="color: var(--text);">Featured Projects</h2>
-        <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4"></div>
+        <div class="giant-name-container">
+          <h1 class="giant-name">MUHANNAD</h1>
+           <h1 class="giant-name">ABUZAHRIEH</h1>
+        </div>
+        
+        <div class="hero-bottom">
+          <div class="brand-mark">MUHANNAD ABUZAHRIEH ™</div>
+          
+          <div class="directory-section">
+            <div class="directory-col">
+              <h4>[ DIRECTORY ]</h4>
+              <ul>
+                <li class="active" onclick="scrollToProjects()">WORKS</li>
+                <li><a href="portfolio.html" style="color: inherit; text-decoration: none;">RESUME</a></li>
+                <li><a href="dev.html" style="color: inherit; text-decoration: none;">DEV LOG</a></li>
+                <li><a href="contact.html" style="color: inherit; text-decoration: none;">CONTACT</a></li>
+              </ul>
+            </div>
+            
+            <div class="directory-col">
+              <h4>[ CONNECT ]</h4>
+              <ul>
+                <li class="external-link"><a href="https://github.com/muhannadxyz" target="_blank" style="color: inherit; text-decoration: none;">GITHUB</a></li>
+                <li class="external-link"><a href="https://linkedin.com/in/muhannad" target="_blank" style="color: inherit; text-decoration: none;">LINKEDIN</a></li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="meta-section">
+            <div class="roles">
+              <span>SOFTWARE ENGINEER</span>
+              <span>UI/UX ENTHUSIAST</span>
+              <span>BUILDING THE FUTURE</span>
+            </div>
+            <div class="timestamp" id="live-timestamp">00:00:00:00:00</div>
+          </div>
+        </div>
       </div>
+      
+      <!-- Scrolling text banner -->
+      <div class="scroll-banner">
+        <div class="scroll-text">
+          <span data-scroll-line>MUHANNAD • ABUZAHRIEH</span>
+        </div>
+      </div>
+      
+      <!-- Geometric elements -->
+      <div class="geo-shape"></div>
+      <div class="floating-orb"></div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section class="projects-section" id="projects-section">
+      <div class="section-header">
+        <h2 class="section-title">SELECTED WORKS</h2>
+        <span class="section-count">[07]</span>
+      </div>
+      <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
     </section>
   </div> <!-- /main-content -->
+  
+  <script>
+    // Live timestamp
+    function updateTimestamp() {
+      const now = new Date();
+      const year = now.getFullYear().toString().slice(-2);
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      
+      document.getElementById('live-timestamp').textContent = 
+        `${year}:${month}:${day}:${hours}:${minutes}:${seconds}`;
+    }
+    
+    setInterval(updateTimestamp, 1000);
+    updateTimestamp();
+    
+    function scrollToProjects() {
+      document.getElementById('projects-section').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    // Fill the right banner so it always reaches the bottom (no blank gaps)
+    function fillScrollBanner() {
+      const banner = document.querySelector('.scroll-banner');
+      const scroller = document.querySelector('.scroll-banner .scroll-text');
+      if (!banner || !scroller) return;
+
+      const template = scroller.querySelector('[data-scroll-line]');
+      const line = template ? template.textContent.trim() : 'MUHANNAD • ABUZAHRIEH';
+      const computed = window.getComputedStyle(scroller);
+      const fontSize = parseFloat(computed.fontSize || '12');
+      const lineHeight = computed.lineHeight === 'normal'
+        ? fontSize * 1.8
+        : parseFloat(computed.lineHeight || String(fontSize * 1.8));
+
+      const paddingTop = parseFloat(computed.paddingTop || '0');
+      const paddingBottom = parseFloat(computed.paddingBottom || '0');
+      const usable = Math.max(0, banner.clientHeight - paddingTop - paddingBottom);
+      const linesNeeded = Math.ceil(usable / lineHeight) + 10; // overscan
+
+      const buildBlock = () => {
+        let html = '';
+        for (let i = 0; i < linesNeeded; i++) {
+          html += `<span>${line}</span>`;
+        }
+        return `<div class="scroll-block">${html}</div>`;
+      };
+
+      // Two identical blocks for seamless looping with translateY(-50%)
+      scroller.innerHTML = buildBlock() + buildBlock();
+    }
+
+    window.addEventListener('load', () => {
+      fillScrollBanner();
+      window.addEventListener('resize', () => {
+        // cheap debounce
+        window.clearTimeout(window.__bannerResizeT);
+        window.__bannerResizeT = window.setTimeout(fillScrollBanner, 100);
+      });
+    });
+  </script>
 
   <!-- Full-Screen Project Overlay -->
   <div id="project-overlay" class="fixed inset-0 hidden z-50 overflow-y-auto bg-white dark:bg-black"></div>
@@ -114,37 +938,71 @@
     const grid = document.getElementById("projects-grid");
     const overlay = document.getElementById("project-overlay");
 
-    // Generate Project Cards
-    projects.forEach(p => {
+    // Generate Project Cards with brutalist styling
+    projects.forEach((p, index) => {
       const cardContainer = document.createElement("div");
-      cardContainer.className = "cursor-pointer group";
+      cardContainer.className = "cursor-pointer group project-card";
+      cardContainer.style.cssText = `
+        background: #0a0a0a;
+        border: 1px solid #1a1a1a;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+      `;
       cardContainer.innerHTML = `
-        <motion.div 
-          layoutId="card-${p.slug}" 
-          class="bg-neutral-50 dark:bg-neutral-900 rounded-3xl overflow-hidden border border-neutral-200 dark:border-neutral-800 w-full"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          whileHover={{ y: -12 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-        >
-          <div class="aspect-[2/1] relative overflow-hidden">
-            <img src="${p.thumb}" alt="${p.title}" class="w-full h-full object-cover transition-transform duration-700">
+        <div style="position: relative; overflow: hidden;">
+          <div style="aspect-ratio: 16/10; position: relative; overflow: hidden;">
+            <img src="${p.thumb}" alt="${p.title}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease, filter 0.4s ease; filter: grayscale(30%);">
           </div>
-          <div class="p-3">
-            <div class="flex items-center gap-2">
-              <div class="w-8 h-8 text-xl flex items-center justify-center bg-neutral-100 dark:bg-neutral-800 rounded-lg flex-shrink-0">${p.logo}</div>
-              <div>
-                <h2 class="text-base font-semibold text-black dark:text-white">${p.title}</h2>
-                <p class="text-xs text-neutral-600 dark:text-neutral-400">${p.company}</p>
-              </div>
+          <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.9) 100%);"></div>
+          <div style="position: absolute; top: 12px; left: 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #555; letter-spacing: 0.1em;">[${String(index + 1).padStart(2, '0')}]</div>
+        </div>
+        <div style="padding: 1.25rem; border-top: 1px solid #1a1a1a;">
+          <div style="display: flex; align-items: flex-start; gap: 1rem;">
+            <div style="width: 36px; height: 36px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: #111; border: 1px solid #222;">${p.logo}</div>
+            <div style="flex: 1; min-width: 0;">
+              <h2 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: #fff; letter-spacing: 0.05em; margin: 0; line-height: 1.1;">${p.title.toUpperCase()}</h2>
+              <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #666; margin-top: 0.35rem; letter-spacing: 0.05em;">${p.company}</p>
             </div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.2rem; color: #333; transition: transform 0.3s ease, color 0.3s ease;">→</div>
           </div>
-        </motion.div>
+        </div>
       `;
       
-        cardContainer.addEventListener("click", () => openProject(p));
-        grid.appendChild(cardContainer);
+      // Hover effects
+      cardContainer.addEventListener('mouseenter', () => {
+        cardContainer.style.borderColor = '#333';
+        cardContainer.style.background = '#0f0f0f';
+        const img = cardContainer.querySelector('img');
+        if (img) {
+          img.style.transform = 'scale(1.05)';
+          img.style.filter = 'grayscale(0%)';
+        }
+        const arrow = cardContainer.querySelector('div[style*="font-size: 1.2rem"]');
+        if (arrow) {
+          arrow.style.transform = 'translateX(4px)';
+          arrow.style.color = '#fff';
+        }
       });
+      
+      cardContainer.addEventListener('mouseleave', () => {
+        cardContainer.style.borderColor = '#1a1a1a';
+        cardContainer.style.background = '#0a0a0a';
+        const img = cardContainer.querySelector('img');
+        if (img) {
+          img.style.transform = 'scale(1)';
+          img.style.filter = 'grayscale(30%)';
+        }
+        const arrow = cardContainer.querySelector('div[style*="font-size: 1.2rem"]');
+        if (arrow) {
+          arrow.style.transform = 'translateX(0)';
+          arrow.style.color = '#333';
+        }
+      });
+      
+      cardContainer.addEventListener("click", () => openProject(p));
+      grid.appendChild(cardContainer);
+    });
 
       // Render Dev Updates Section
       function renderDevUpdates(projectSlug, brandColor) {
@@ -513,23 +1371,67 @@ void setup() {
       const overlay = document.getElementById("project-overlay");
       if (!grid) return;
       
-      projects.forEach(p => {
+      projects.forEach((p, index) => {
         const card = document.createElement("div");
-        card.className = "cursor-pointer group bg-neutral-50 dark:bg-neutral-900 rounded-3xl overflow-hidden border border-neutral-200 dark:border-neutral-800 w-full hover:-translate-y-3 transition-transform";
+        card.className = "cursor-pointer group project-card";
+        card.style.cssText = `
+          background: #0a0a0a;
+          border: 1px solid #1a1a1a;
+          overflow: hidden;
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          position: relative;
+        `;
         card.innerHTML = `
-          <div class="aspect-[2/1] relative overflow-hidden">
-            <img src="${p.thumb}" alt="${p.title}" class="w-full h-full object-cover transition-transform duration-700">
+          <div style="position: relative; overflow: hidden;">
+            <div style="aspect-ratio: 16/10; position: relative; overflow: hidden;">
+              <img src="${p.thumb}" alt="${p.title}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease, filter 0.4s ease; filter: grayscale(30%);">
+            </div>
+            <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.9) 100%);"></div>
+            <div style="position: absolute; top: 12px; left: 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #555; letter-spacing: 0.1em;">[${String(index + 1).padStart(2, '0')}]</div>
           </div>
-          <div class="p-3">
-            <div class="flex items-center gap-2">
-              <div class="w-8 h-8 text-xl flex items-center justify-center bg-neutral-100 dark:bg-neutral-800 rounded-lg flex-shrink-0">${p.logo}</div>
-              <div>
-                <h2 class="text-base font-semibold text-black dark:text-white">${p.title}</h2>
-                <p class="text-xs text-neutral-600 dark:text-neutral-400">${p.company}</p>
+          <div style="padding: 1.25rem; border-top: 1px solid #1a1a1a;">
+            <div style="display: flex; align-items: flex-start; gap: 1rem;">
+              <div style="width: 36px; height: 36px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: #111; border: 1px solid #222;">${p.logo}</div>
+              <div style="flex: 1; min-width: 0;">
+                <h2 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: #fff; letter-spacing: 0.05em; margin: 0; line-height: 1.1;">${p.title.toUpperCase()}</h2>
+                <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #666; margin-top: 0.35rem; letter-spacing: 0.05em;">${p.company}</p>
               </div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.2rem; color: #333; transition: transform 0.3s ease, color 0.3s ease;">→</div>
             </div>
           </div>
         `;
+        
+        // Hover effects
+        card.addEventListener('mouseenter', () => {
+          card.style.borderColor = '#333';
+          card.style.background = '#0f0f0f';
+          const img = card.querySelector('img');
+          if (img) {
+            img.style.transform = 'scale(1.05)';
+            img.style.filter = 'grayscale(0%)';
+          }
+          const arrow = card.querySelector('div[style*="font-size: 1.2rem"]');
+          if (arrow) {
+            arrow.style.transform = 'translateX(4px)';
+            arrow.style.color = '#fff';
+          }
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          card.style.borderColor = '#1a1a1a';
+          card.style.background = '#0a0a0a';
+          const img = card.querySelector('img');
+          if (img) {
+            img.style.transform = 'scale(1)';
+            img.style.filter = 'grayscale(30%)';
+          }
+          const arrow = card.querySelector('div[style*="font-size: 1.2rem"]');
+          if (arrow) {
+            arrow.style.transform = 'translateX(0)';
+            arrow.style.color = '#333';
+          }
+        });
+        
         card.addEventListener("click", () => {
           // Pause neural network to improve performance
           if (window.neuralNet) {
@@ -773,6 +1675,17 @@ void setup() {
       waitForMainContent();
     }
   </script>
+  
+  <!-- Footer -->
+  <footer class="footer-bar">
+    <div>© 2024 MUHANNAD ABUZAHRIEH</div>
+    <div style="display: flex; gap: 2rem;">
+      <a href="https://github.com/muhannadxyz" target="_blank">GITHUB</a>
+      <a href="https://linkedin.com/in/muhannad" target="_blank">LINKEDIN</a>
+      <a href="contact.html">CONTACT</a>
+    </div>
+    <div>BUILDING THE FUTURE</div>
+  </footer>
 
 </body>
 </html>
