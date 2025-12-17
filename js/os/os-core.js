@@ -80,6 +80,11 @@ function launchOS() {
     window.SoundManager.ensureStarted();
     window.SoundManager.play('os_launch', { throttleMs: 0 });
   }
+
+  // Show Pet widget on the desktop
+  if (window.PetApp && typeof window.PetApp.ensureWidget === 'function') {
+    window.PetApp.ensureWidget();
+  }
   
   // Auto-open Finder on launch
   setTimeout(() => {
@@ -110,6 +115,11 @@ function exitOS() {
   windows.forEach(win => {
     WindowManager.closeWindow(win.id);
   });
+
+  // Remove desktop widgets
+  if (window.PetApp && typeof window.PetApp.destroyWidget === 'function') {
+    window.PetApp.destroyWidget();
+  }
   
   // Hide OS overlay
   if (overlay) {
