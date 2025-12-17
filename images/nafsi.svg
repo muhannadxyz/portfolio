@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#111827"/>
+      <stop offset="1" stop-color="#334155"/>
+    </linearGradient>
+  </defs>
+  <rect width="96" height="96" rx="20" fill="url(#g)"/>
+  <rect x="10" y="10" width="76" height="76" rx="16" fill="rgba(255,255,255,0.06)"/>
+  <text x="48" y="60" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Arial" font-size="40" font-weight="800" fill="#FFFFFF">N</text>
+</svg>
+
+

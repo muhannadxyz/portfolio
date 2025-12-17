@@ -31,12 +31,20 @@ Building privacy-first tools like Lucentir. I enjoy clean design, clear UX, and 
 
 ### Experience
 
-#### Outlier AI - AI Engineer
-*January 2024 – December 2024*
-- Validated and corrected logic, syntax, and performance issues across multiple languages
-- Applied model training and debugging techniques
-- Developed automated validation scripts using Python
-- Monitored application performance metrics
+#### Nafsi — Software Engineer (Part-time, Remote)
+*May 2025 – Present*
+- Built full-stack web applications using Laravel (PHP), Blade, Tailwind CSS, and Vite
+- Developed and launched a rental property platform and a barbershop booking & management system (1,000+ monthly users combined)
+- Implemented booking flows, property listings, and admin dashboards using Laravel Eloquent ORM and MySQL
+- Performed ongoing UI updates, performance tweaks, feature additions, and general maintenance
+- Communicated with clients to gather requirements, deliver updates, and keep sites reliable and up to date
+
+#### FOMO Social — Software Developer (Internship, Remote)
+*June 2024 – August 2024*
+- Developed a university events platform using Next.js, React, and AWS
+- Launched features that supported 300+ users in the first week and enabled 150+ events
+- Drove product design and user discovery, increasing engagement through partnerships with 20+ student organizations and local businesses
+- Built intuitive UI components, layouts, and user flows to improve usability and visual consistency
 
 #### Hubhyve - Software Systems Intern
 *June 2023 - August 2023*
