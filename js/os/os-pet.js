@@ -23,6 +23,11 @@ const PetApp = (function() {
   let roamVY = 1;
   let roamFrame = 0;
   let lastRoamTime = 0;
+  let roamDragging = false;
+  let roamDragMoved = false;
+  let roamDragOffsetX = 0;
+  let roamDragOffsetY = 0;
+  let roamPinned = false;
   const ROAM_SPEED = 1.5; // Faster movement speed
   const SPRITE_SIZE = 84; // Size of the roaming pet sprite (28 cols * 3 scale)
 
@@ -667,13 +672,33 @@ const PetApp = (function() {
   }
 
   function saveRoamPos() {
-    localStorage.setItem(ROAMING_POS_KEY, JSON.stringify({ x: roamX, y: roamY, vx: roamVX, vy: roamVY }));
+    localStorage.setItem(
+      ROAMING_POS_KEY,
+      JSON.stringify({ x: roamX, y: roamY, vx: roamVX, vy: roamVY, pinned: !!roamPinned })
+    );
   }
 
   function getCurrentActivity(state, now) {
     if (!state.activity) return null;
     if (!state.activity.until || now >= state.activity.until) return null;
     return state.activity;
+  }
+
+  function syncRoamPinnedFromStorage() {
+    const savedPos = loadRoamPos();
+    if (savedPos && typeof savedPos.pinned === 'boolean') {
+      roamPinned = savedPos.pinned;
+    }
+  }
+
+  function setRoamPinned(nextPinned) {
+    roamPinned = !!nextPinned;
+    saveRoamPos();
+  }
+
+  function toggleRoamPinned() {
+    setRoamPinned(!roamPinned);
+    return roamPinned;
   }
 
   function drawPetScreen(ctx, state, nowMs = Date.now()) {
@@ -869,7 +894,10 @@ const PetApp = (function() {
       roamY = savedPos.y || 200;
       roamVX = savedPos.vx || 1.5;
       roamVY = savedPos.vy || 0.8;
+      if (typeof savedPos.pinned === 'boolean') roamPinned = savedPos.pinned;
     }
+    // Ensure pinned is in sync even if only set in storage
+    syncRoamPinnedFromStorage();
 
     // Add shake animation CSS if not already added
     if (!document.getElementById('pet-animations-css')) {
@@ -897,8 +925,11 @@ const PetApp = (function() {
       height: 72px;
       z-index: 500;
       pointer-events: auto;
-      cursor: pointer;
+      cursor: grab;
       transition: transform 0.1s ease-out;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: none;
     `;
 
     roamingCanvas = document.createElement('canvas');
@@ -908,11 +939,149 @@ const PetApp = (function() {
     roamingCtx = roamingCanvas.getContext('2d');
 
     roamingPetEl.appendChild(roamingCanvas);
+
+    // Pin button (toggles roaming)
+    const pinBtn = document.createElement('button');
+    pinBtn.type = 'button';
+    pinBtn.setAttribute('aria-label', 'Pin pet');
+    pinBtn.style.cssText = `
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,105,180,0.35);
+      background: rgba(0,0,0,0.55);
+      color: ${roamPinned ? '#ff69b4' : 'rgba(255,255,255,0.75)'};
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+      backdrop-filter: blur(8px);
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.15s ease, transform 0.15s ease;
+      pointer-events: auto;
+    `;
+    pinBtn.textContent = '📌';
+    roamingPetEl.appendChild(pinBtn);
+
     desktop.appendChild(roamingPetEl);
+
+    // Show pin button on hover
+    roamingPetEl.addEventListener('mouseenter', () => {
+      if (!pinBtn) return;
+      pinBtn.style.opacity = '1';
+      pinBtn.style.transform = 'scale(1)';
+    });
+    roamingPetEl.addEventListener('mouseleave', () => {
+      if (!pinBtn) return;
+      pinBtn.style.opacity = '0';
+      pinBtn.style.transform = 'scale(0.95)';
+    });
+
+    pinBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const nextPinned = toggleRoamPinned();
+      pinBtn.style.color = nextPinned ? '#ff69b4' : 'rgba(255,255,255,0.75)';
+      if (window.NotificationSystem) {
+        window.NotificationSystem.info(
+          nextPinned ? 'Pet pinned' : 'Pet unpinned',
+          nextPinned ? 'Roaming paused.' : 'Roaming resumed.',
+          1200
+        );
+      }
+    });
+
+    // Drag to reposition (pauses roaming while dragging)
+    roamingPetEl.addEventListener('pointerdown', (e) => {
+      // Only primary pointer (left mouse / main touch)
+      if (typeof e.button === 'number' && e.button !== 0) return;
+      if (e.pointerType === 'mouse' && e.ctrlKey) return; // allow ctrl-click context
+
+      // Don't start drag when clicking the pin button
+      if (e.target === pinBtn) return;
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      roamDragging = true;
+      roamDragMoved = false;
+      roamingPetEl.dataset.dragging = 'true';
+      roamingPetEl.style.cursor = 'grabbing';
+
+      try {
+        roamingPetEl.setPointerCapture(e.pointerId);
+      } catch {
+        // ignore
+      }
+
+      const rect = roamingPetEl.getBoundingClientRect();
+      roamDragOffsetX = e.clientX - rect.left;
+      roamDragOffsetY = e.clientY - rect.top;
+    });
+
+    roamingPetEl.addEventListener('pointermove', (e) => {
+      if (!roamDragging) return;
+
+      const desktopRect = desktop.getBoundingClientRect();
+      const petWidth = 84;
+      const petHeight = 72;
+      const minX = 10;
+      const minY = 40; // below menubar
+      const maxX = Math.max(minX, desktopRect.width - petWidth - 10);
+      const maxY = Math.max(minY, desktopRect.height - petHeight - 80); // leave room for dock
+
+      const x = Math.max(minX, Math.min(maxX, e.clientX - desktopRect.left - roamDragOffsetX));
+      const y = Math.max(minY, Math.min(maxY, e.clientY - desktopRect.top - roamDragOffsetY));
+
+      // mark "moved" if beyond a small threshold
+      if (!roamDragMoved) {
+        const dx = Math.abs(x - roamX);
+        const dy = Math.abs(y - roamY);
+        if (dx + dy > 2) roamDragMoved = true;
+      }
+
+      roamX = x;
+      roamY = y;
+      roamingPetEl.style.left = `${roamX}px`;
+      roamingPetEl.style.top = `${roamY}px`;
+    });
+
+    const endDrag = (e) => {
+      if (!roamDragging) return;
+      roamDragging = false;
+      roamingPetEl.style.cursor = 'grab';
+
+      try {
+        roamingPetEl.releasePointerCapture(e.pointerId);
+      } catch {
+        // ignore
+      }
+
+      // Persist new position
+      saveRoamPos();
+      lastRoamTime = Date.now();
+
+      // Prevent click-open if it was a drag
+      setTimeout(() => {
+        if (roamingPetEl) roamingPetEl.dataset.dragging = 'false';
+        roamDragMoved = false;
+      }, 0);
+    };
+
+    roamingPetEl.addEventListener('pointerup', endDrag);
+    roamingPetEl.addEventListener('pointercancel', endDrag);
 
     // Click to open pet app
     roamingPetEl.addEventListener('click', (e) => {
       e.stopPropagation();
+      if (roamingPetEl && roamingPetEl.dataset.dragging === 'true') return;
+      if (roamDragMoved) return;
       // Little bounce animation
       roamingPetEl.style.transform = 'scale(1.2)';
       setTimeout(() => {
@@ -963,8 +1132,8 @@ const PetApp = (function() {
     const maxY = desktopRect.height - petHeight - 80; // Leave room for dock
     const minY = 40; // Below menubar
 
-    // Don't move if sleeping
-    if (!state.sleeping) {
+    // Don't move if sleeping, pinned, or user is dragging it
+    if (!state.sleeping && !roamPinned && !roamDragging) {
       // Update position
       roamX += roamVX * ROAM_SPEED;
       roamY += roamVY * ROAM_SPEED;
@@ -1058,7 +1227,7 @@ const PetApp = (function() {
     roamingCtx.fill();
 
     // Save position occasionally
-    if (nowMs - lastRoamTime > 5000) {
+    if (!roamDragging && (nowMs - lastRoamTime > 5000)) {
       saveRoamPos();
       lastRoamTime = nowMs;
     }
@@ -1210,6 +1379,31 @@ const PetApp = (function() {
       </div>
     `;
 
+    // Pin toggle (desktop roaming)
+    const pinRow = document.createElement('div');
+    pinRow.style.cssText = 'margin: 8px 0 12px; display:flex; gap:10px; align-items:center; justify-content:space-between;';
+    const pinBtn = document.createElement('button');
+    pinBtn.type = 'button';
+    pinBtn.className = 'pet-pin-btn';
+    pinBtn.style.cssText = 'padding: 10px 12px; border-radius: 12px; border: 1px solid rgba(255,105,180,0.3); background: rgba(255,105,180,0.10); color:#ff69b4; cursor:pointer; font-weight:800; font-size:13px; width: 100%;';
+    const renderPinBtn = () => {
+      pinBtn.textContent = roamPinned ? '📌 Pinned (roaming paused)' : '📌 Pin pet (pause roaming)';
+      pinBtn.style.background = roamPinned ? 'rgba(255,105,180,0.22)' : 'rgba(255,105,180,0.10)';
+    };
+    renderPinBtn();
+    pinBtn.addEventListener('click', () => {
+      const nextPinned = toggleRoamPinned();
+      renderPinBtn();
+      if (window.NotificationSystem) {
+        window.NotificationSystem.info(
+          nextPinned ? 'Pet pinned' : 'Pet unpinned',
+          nextPinned ? 'Roaming paused.' : 'Roaming resumed.',
+          1200
+        );
+      }
+    });
+    pinRow.appendChild(pinBtn);
+
     const stage = document.createElement('div');
     stage.style.cssText = 'display:flex; flex-direction: column; align-items:center; justify-content:center; gap: 12px; border-radius: 16px; border: 1px solid rgba(255,105,180,0.2); background: radial-gradient(circle at 30% 30%, rgba(255,105,180,0.1), transparent 55%), rgba(0,0,0,0.35); box-shadow: 0 12px 40px rgba(0,0,0,0.45); padding: 18px; margin-bottom: 14px;';
 
@@ -1253,6 +1447,7 @@ const PetApp = (function() {
     });
 
     container.appendChild(header);
+    container.appendChild(pinRow);
     container.appendChild(stage);
     container.appendChild(stats);
     container.appendChild(actions);

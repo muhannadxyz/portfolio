@@ -1,0 +1,123 @@
+<!-- Portfolio OS Project Template -->
+<div class="min-h-screen relative bg-black project-portfolio-os">
+  <!-- Hero Background -->
+  <div class="fixed inset-0 z-0" style="transform-origin: center;">
+    <div class="w-full h-full pos-hero-bg"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+  </div>
+
+  <!-- Close Button -->
+  <button id="close" class="project-close-btn">✕</button>
+
+  <!-- Hero Section -->
+  <div class="relative z-10 min-h-screen flex items-end pb-20 px-8 md:px-16">
+    <div class="max-w-6xl w-full">
+      <div class="mb-6 animate-float hero-icon" style="width: 120px; height: 120px; display:flex; align-items:center; justify-content:center;">{{logo}}</div>
+
+      <div class="inline-block mb-6 project-title-glass">
+        <h1 class="text-5xl md:text-7xl font-bold text-white mb-2" style="line-height: 1.1;">{{title}}</h1>
+        <p class="text-xl md:text-2xl text-gray-300">{{company}}</p>
+      </div>
+
+      <p class="text-lg text-gray-300 max-w-2xl">{{tagline}}</p>
+
+      <div class="pos-hero-actions">
+        <button class="pos-launch-btn" onclick="
+          try {
+            const overlay = document.getElementById('project-overlay');
+            if (overlay) { overlay.classList.add('hidden'); overlay.innerHTML=''; }
+            document.body.style.overflow = '';
+            const osPreview = document.getElementById('os-preview');
+            if (osPreview) osPreview.style.display = 'block';
+            if (window.neuralNet && window.neuralNet.resume) window.neuralNet.resume();
+          } catch(e) {}
+          try { if (typeof launchOS === 'function') launchOS(); } catch(e) {}
+        ">Launch Portfolio OS →</button>
+        <div class="pos-hint">Tip: you can also click the “Portfolio OS” preview on the page.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Section -->
+  <div class="relative z-20 bg-gradient-to-b from-black via-black to-neutral-950 px-6 md:px-12 py-16">
+    <div class="visual-separator"></div>
+    <div class="max-w-5xl mx-auto space-y-8">
+
+      <div class="project-card">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="card-icon role-icon">🖥️</div>
+          <h2 class="text-3xl font-bold text-white">What it is</h2>
+        </div>
+        <p class="text-lg text-gray-300 leading-relaxed">{{description}}</p>
+        <div class="pos-feature-grid">
+          <div class="pos-feature">
+            <div class="pos-pill">Window Manager</div>
+            <div class="pos-sub">Drag, focus, minimize/maximize.</div>
+          </div>
+          <div class="pos-feature">
+            <div class="pos-pill">Apps</div>
+            <div class="pos-sub">Pet + CHIP‑8 emulator + utilities.</div>
+          </div>
+          <div class="pos-feature">
+            <div class="pos-pill">Persistence</div>
+            <div class="pos-sub">Preferences + pet state saved.</div>
+          </div>
+          <div class="pos-feature">
+            <div class="pos-pill">Polish</div>
+            <div class="pos-sub">Sounds + notifications.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pos-preview-card">
+        <div class="pos-preview-top">
+          <div class="pos-dots"><span></span><span></span><span></span></div>
+          <div class="pos-preview-title">Portfolio OS</div>
+        </div>
+        <div class="pos-preview-body">
+          <img src="{{thumb}}" alt="{{title}}" class="pos-thumb" />
+          <div class="pos-preview-copy">
+            <div class="pos-kicker">Featured apps</div>
+            <div class="pos-lines">
+              <div><span class="pos-bullet">•</span> Tamagotchi pet (desktop roaming + animations)</div>
+              <div><span class="pos-bullet">•</span> CHIP‑8 emulator (demo ROM + upload)</div>
+              <div><span class="pos-bullet">•</span> Settings (sound toggle + volume)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="height: 120px;"></div>
+      <div class="dev-updates-divider"></div>
+      <div id="dev-updates-container">{{devUpdatesHTML}}</div>
+      <div style="height: 100px;"></div>
+
+      <div class="project-card">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="card-icon challenge-icon">🧠</div>
+          <h3 class="text-3xl font-bold text-white">The Challenge</h3>
+        </div>
+        <p class="text-lg text-gray-300 leading-relaxed">{{details}}</p>
+      </div>
+
+      <div class="project-cta-card">
+        <h3 class="text-2xl font-bold text-white mb-6">Try it live</h3>
+        <button class="project-cta-button" onclick="
+          try {
+            const overlay = document.getElementById('project-overlay');
+            if (overlay) { overlay.classList.add('hidden'); overlay.innerHTML=''; }
+            document.body.style.overflow = '';
+            const osPreview = document.getElementById('os-preview');
+            if (osPreview) osPreview.style.display = 'block';
+            if (window.neuralNet && window.neuralNet.resume) window.neuralNet.resume();
+          } catch(e) {}
+          try { if (typeof launchOS === 'function') launchOS(); } catch(e) {}
+        ">Launch Portfolio OS →</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+

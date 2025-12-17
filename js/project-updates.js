@@ -7,6 +7,7 @@ const ProjectUpdates = {
   // Initialize - collects all project data from individual files
   init() {
     this.projectsData = [
+      window.PortfolioOSProject,
       window.LucentirProject,
       window.TonsorProject,
       window.ShadoconnectProject,
@@ -39,6 +40,7 @@ const ProjectUpdates = {
   // Get full project object by slug (from individual project files)
   getFullProjectBySlug(slug) {
     const projectMap = {
+      'portfolio-os': window.PortfolioOSProject,
       'lucentir': window.LucentirProject,
       'tonsor': window.TonsorProject,
       'shadoconnect': window.ShadoconnectProject,
