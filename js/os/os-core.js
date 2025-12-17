@@ -121,6 +121,17 @@ function exitOS() {
     window.PetApp.destroyWidget();
   }
   
+  // Cleanup achievement tracking
+  if (window.AchievementTracker) {
+    window.AchievementTracker.cleanup();
+  }
+  
+  // If we're on the standalone os.html page, redirect to main page
+  if (window.location.pathname.endsWith('os.html') || !mainContent) {
+    window.location.href = 'index.html';
+    return;
+  }
+  
   // Hide OS overlay
   if (overlay) {
     overlay.style.display = 'none';
@@ -139,11 +150,6 @@ function exitOS() {
   // Resume neural network animation
   if (window.neuralNet) {
     window.neuralNet.resume();
-  }
-  
-  // Cleanup achievement tracking
-  if (window.AchievementTracker) {
-    window.AchievementTracker.cleanup();
   }
   
   console.log('OS exited');
