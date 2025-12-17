@@ -13,7 +13,8 @@ const ProjectUpdates = {
       window.ShadoconnectProject,
       window.RentwiseProject,
       window.WifiAnalyzerProject,
-      window.WindTurbineProject
+      window.WindTurbineProject,
+      window.PostNoteProject
     ].filter(p => p); // Filter out any undefined projects
     
     // Extract only the data needed for updates (slug, name, brandColor, updates)
@@ -46,7 +47,8 @@ const ProjectUpdates = {
       'shadoconnect': window.ShadoconnectProject,
       'rentwise': window.RentwiseProject,
       'wifi-analyzer': window.WifiAnalyzerProject,
-      'wind-turbine': window.WindTurbineProject
+      'wind-turbine': window.WindTurbineProject,
+      'postnote': window.PostNoteProject
     };
     return projectMap[slug] || null;
   }
