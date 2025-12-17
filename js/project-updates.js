@@ -8,6 +8,7 @@ const ProjectUpdates = {
   init() {
     this.projectsData = [
       window.LucentirProject,
+      window.TonsorProject,
       window.ShadoconnectProject,
       window.RentwiseProject,
       window.WifiAnalyzerProject,
@@ -39,6 +40,7 @@ const ProjectUpdates = {
   getFullProjectBySlug(slug) {
     const projectMap = {
       'lucentir': window.LucentirProject,
+      'tonsor': window.TonsorProject,
       'shadoconnect': window.ShadoconnectProject,
       'rentwise': window.RentwiseProject,
       'wifi-analyzer': window.WifiAnalyzerProject,
