@@ -188,25 +188,20 @@ window.ProjectLoader = {
 
         <main class="bp-main">
           <div class="bp-panel">
-            <div class="bp-panel-title">Overview</div>
+            <div class="bp-panel-title">What It Is</div>
             <div class="bp-text">${description}</div>
-          </div>
-
-          <div class="bp-panel">
-            <div class="bp-panel-title">The Challenge</div>
-            <div class="bp-text">${details}</div>
           </div>
 
           ${highlights ? `
             <div class="bp-panel">
-              <div class="bp-panel-title">Highlights</div>
+              <div class="bp-panel-title">Key Features</div>
               ${highlights}
             </div>
           ` : ''}
 
           ${stack ? `
             <div class="bp-panel">
-              <div class="bp-panel-title">Tech</div>
+              <div class="bp-panel-title">Tech Stack</div>
               ${stack}
             </div>
           ` : ''}
@@ -215,6 +210,13 @@ window.ProjectLoader = {
           ${gallery}
           ${code}
           ${devUpdates}
+
+          ${details ? `
+            <div class="bp-panel">
+              <div class="bp-panel-title">The Challenge</div>
+              <div class="bp-text">${details}</div>
+            </div>
+          ` : ''}
         </main>
       </div>
     `;
