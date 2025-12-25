@@ -9,8 +9,7 @@ window.PortfolioOSProject = {
   logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="url(#pos-gradient)"/><rect x="11" y="14" width="26" height="20" rx="3" fill="rgba(5,7,15,0.88)" stroke="rgba(255,255,255,0.18)"/><circle cx="16" cy="18" r="1.6" fill="#ff5f57"/><circle cx="21" cy="18" r="1.6" fill="#ffbd2e"/><circle cx="26" cy="18" r="1.6" fill="#28c840"/><path d="M18 30h12" stroke="rgba(0,255,225,0.9)" stroke-width="2" stroke-linecap="round"/><defs><linearGradient id="pos-gradient" x1="0" y1="0" x2="48" y2="48"><stop stop-color="#00ffe1"/><stop offset="1" stop-color="#ff69b4"/></linearGradient></defs></svg>',
   thumb: 'images/portfolio-os.svg',
   tagline: 'A playful OS inside my portfolio',
-  description: 'Portfolio OS is a fully functional desktop environment that runs entirely in your web browser. It includes a window manager where you can open, close, minimize, and resize windows just like a real operating system. Features include a dock with apps, a settings panel, notifications, and interactive applications like a Tamagotchi pet and a CHIP-8 emulator. All preferences and app state are saved locally so your setup persists between visits.',
-  details: 'Created a complete window management system with focus handling, z-index management, drag-and-resize functionality, and window controls. Built canvas-based applications including a desktop pet that roams around and a CHIP-8 emulator that can run retro games. Implemented persistent state using localStorage so your window positions, preferences, and pet status are saved. The challenge was making it feel like a real OS without performance issues or lag.',
+  description: 'Desktop environment running in your browser. Window manager with drag, resize, minimize, maximize. Dock with apps. Settings panel. Notifications. Canvas-based apps: Tamagotchi pet and CHIP-8 emulator. Persistent state via localStorage. Window positions and preferences saved.',
   brandColor: '#00ffe1',
   link: 'os.html',
   railText: 'PORTFOLIO OS • WEB DESKTOP •',
@@ -83,7 +82,6 @@ window.PortfolioOSProject = {
       logo: this.logo,
       tagline: this.tagline,
       description: this.description,
-      details: this.details,
       link: this.link,
       links: this.links,
       railText: this.railText,
@@ -125,8 +123,7 @@ window.PortfolioOSProject = {
           <div class="max-w-5xl mx-auto space-y-8">
             <div class="project-card">
               <div class="flex items-center gap-3 mb-4">
-                <div class="card-icon role-icon">🖥️</div>
-                <h2 class="text-3xl font-bold text-white">What it is</h2>
+                <h2 class="text-3xl font-bold text-white">What It Is</h2>
               </div>
               <p class="text-lg text-gray-300 leading-relaxed">${this.description}</p>
               <div class="pos-feature-grid">
@@ -173,13 +170,6 @@ window.PortfolioOSProject = {
             <div id="dev-updates-container">${devUpdatesHTML || ''}</div>
             <div style="height: 100px;"></div>
 
-            <div class="project-card">
-              <div class="flex items-center gap-3 mb-4">
-                <div class="card-icon challenge-icon">🧠</div>
-                <h3 class="text-3xl font-bold text-white">The Challenge</h3>
-              </div>
-              <p class="text-lg text-gray-300 leading-relaxed">${this.details}</p>
-            </div>
 
             <div class="project-cta-card">
               <h3 class="text-2xl font-bold text-white mb-6">Try it live</h3>

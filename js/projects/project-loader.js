@@ -210,13 +210,6 @@ window.ProjectLoader = {
           ${gallery}
           ${code}
           ${devUpdates}
-
-          ${details ? `
-            <div class="bp-panel">
-              <div class="bp-panel-title">The Challenge</div>
-              <div class="bp-text">${details}</div>
-            </div>
-          ` : ''}
         </main>
       </div>
     `;
@@ -260,11 +253,11 @@ window.ProjectLoader = {
                   <div class="flip-card-front">
                     <div style="border-radius: 24px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); position: relative;">
                       <img src="${data.thumb}" alt="Project showcase" class="w-full" style="display: block;">
-                      <div class="flip-hint">Click to see code 💻</div>
+                      <div class="flip-hint">Click to see code</div>
                     </div>
                   </div>
                   <div class="flip-card-back">
-                    <h3 class="text-2xl font-bold text-white mb-4" style="color: #10b981;">💻 Code Implementation</h3>
+                    <h3 class="text-2xl font-bold text-white mb-4" style="color: #10b981;">Code Implementation</h3>
                     <div style="max-height: 500px; overflow-y: auto;">
                       ${value.map(snippet => `
                         <div style="margin-bottom: 24px;">

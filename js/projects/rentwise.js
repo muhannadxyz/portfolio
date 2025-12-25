@@ -9,8 +9,7 @@ window.RentwiseProject = {
   logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#2563EB"/><rect x="18" y="14" width="12" height="20" rx="1" stroke="white" stroke-width="2"/><rect x="22" y="28" width="4" height="6" fill="white"/><rect x="20" y="18" width="2" height="2" fill="white"/><rect x="26" y="18" width="2" height="2" fill="white"/><rect x="20" y="22" width="2" height="2" fill="white"/><rect x="26" y="22" width="2" height="2" fill="white"/></svg>',
   thumb: 'images/rentwise1.jpeg',
   tagline: 'Streamline your rental operations',
-  description: 'Rentwise is a property management platform that helps landlords and property managers handle all aspects of rental operations in one place. Landlords can manage multiple properties, track leases, handle maintenance requests, and view financial reports. Tenants get their own portal to pay rent online, submit maintenance requests, and communicate with property managers. The platform automates lease renewals, sends notifications, and provides analytics to help optimize rental operations.',
-  details: 'Built a comprehensive system that replaces multiple tools and spreadsheets with a unified platform. The landlord dashboard provides property overview, tenant information, lease tracking, and financial analytics. The tenant portal enables online rent payments, maintenance request submission, and document access. Implemented automated workflows for lease renewals, payment reminders, and maintenance request routing. The challenge was creating an intuitive interface that serves both landlords and tenants while handling complex property management workflows.',
+  description: 'Property management platform. Landlord dashboard: manage properties, track leases, handle maintenance, view financial reports. Tenant portal: pay rent online, submit maintenance requests, access documents. Automated lease renewals. Payment reminders. Maintenance routing. Analytics and reporting.',
   brandColor: '#2563EB',
   link: 'https://rentwise.tech/',
   railText: 'RENTWISE • PROPERTY MGMT •',
@@ -113,7 +112,6 @@ window.RentwiseProject = {
       logo: this.logo,
       tagline: this.tagline,
       description: this.description,
-      details: this.details,
       link: this.link,
       links: this.links,
       railText: this.railText,
@@ -161,8 +159,7 @@ window.RentwiseProject = {
           <div class="max-w-5xl mx-auto space-y-8">
             <div class="project-card">
               <div class="flex items-center gap-3 mb-4">
-                <div class="card-icon role-icon">💼</div>
-                <h2 class="text-3xl font-bold text-white">My Role</h2>
+                <h2 class="text-3xl font-bold text-white">What It Is</h2>
               </div>
               <p class="text-lg text-gray-300 leading-relaxed">${this.description}</p>
             </div>
@@ -174,13 +171,6 @@ window.RentwiseProject = {
             <div class="dev-updates-divider"></div>
             <div id="dev-updates-container">${devUpdatesHTML || ''}</div>
             <div style="height: 100px;"></div>
-            <div class="project-card">
-              <div class="flex items-center gap-3 mb-4">
-                <div class="card-icon challenge-icon">🎯</div>
-                <h3 class="text-3xl font-bold text-white">The Challenge</h3>
-              </div>
-              <p class="text-lg text-gray-300 leading-relaxed">${this.details}</p>
-            </div>
             <div class="project-cta-card">
               <h3 class="text-2xl font-bold text-white mb-6">Visit Project</h3>
               <a href="${this.link}" target="_blank" class="project-cta-button">View Live Site →</a>

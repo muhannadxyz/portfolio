@@ -9,8 +9,7 @@ window.WifiAnalyzerProject = {
   logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#EF4444"/><path d="M24 18C29 18 33 22 33 27" stroke="white" stroke-width="2.5" stroke-linecap="round"/><path d="M24 22C26.5 22 29 24.5 29 27" stroke="white" stroke-width="2.5" stroke-linecap="round"/><circle cx="24" cy="27" r="2" fill="white"/><path d="M18 32L30 32" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M20 28L28 28" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2 2"/></svg>',
   thumb: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=800&h=600&fit=crop',
   tagline: 'Assess public Wi-Fi security risks',
-  description: 'Public Wi-Fi Risk Analyzer is a desktop application that helps you assess the security of public Wi-Fi networks before connecting. It checks multiple security factors including whether websites use HTTPS encryption, DNS resolution reliability, firewall status, and VPN activity. The tool provides a risk score and detailed logs so you can make informed decisions about network safety. Works on Windows, macOS, and Linux.',
-  details: 'Built a comprehensive security assessment tool that evaluates public Wi-Fi networks across multiple dimensions. The application tests HTTPS support by attempting connections to secure websites, verifies DNS resolution, checks system firewall status, and detects VPN connections. All checks are logged with timestamps for security audits. The challenge was creating cross-platform compatibility for firewall detection and network analysis while maintaining a simple, user-friendly interface.',
+  description: 'Desktop application for assessing public Wi-Fi security. Checks HTTPS encryption, DNS resolution, firewall status, VPN activity. Provides risk score. Detailed logs with timestamps. Cross-platform: Windows, macOS, Linux. Python with Tkinter GUI.',
   brandColor: '#EF4444',
   link: 'https://github.com/muhannadxyz/PublicWiFiAnalyzer',
   railText: 'PUBLIC WI‑FI RISK ANALYZER • SECURITY TOOL •',
@@ -143,7 +142,6 @@ window.WifiAnalyzerProject = {
       logo: this.logo,
       tagline: this.tagline,
       description: this.description,
-      details: this.details,
       link: this.link,
       links: this.links,
       railText: this.railText,
@@ -162,11 +160,11 @@ window.WifiAnalyzerProject = {
           <div class="flip-card-front">
             <div style="border-radius: 24px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); position: relative;">
               <img src="${this.thumb}" alt="Project showcase" class="w-full" style="display: block;">
-              <div class="flip-hint">Click to see code 💻</div>
+              <div class="flip-hint">Click to see code</div>
             </div>
           </div>
           <div class="flip-card-back">
-            <h3 class="text-2xl font-bold text-white mb-4" style="color: #10b981;">💻 Code Implementation</h3>
+            <h3 class="text-2xl font-bold text-white mb-4" style="color: #10b981;">Code Implementation</h3>
             <div style="max-height: 500px; overflow-y: auto;">
               ${this.codeSnippets.map(snippet => `
                 <div style="margin-bottom: 24px;">
@@ -212,8 +210,7 @@ window.WifiAnalyzerProject = {
           <div class="max-w-5xl mx-auto space-y-8">
             <div class="project-card">
               <div class="flex items-center gap-3 mb-4">
-                <div class="card-icon role-icon">💼</div>
-                <h2 class="text-3xl font-bold text-white">My Role</h2>
+                <h2 class="text-3xl font-bold text-white">What It Is</h2>
               </div>
               <p class="text-lg text-gray-300 leading-relaxed">${this.description}</p>
             </div>
@@ -222,13 +219,6 @@ window.WifiAnalyzerProject = {
             <div class="dev-updates-divider"></div>
             <div id="dev-updates-container">${devUpdatesHTML || ''}</div>
             <div style="height: 100px;"></div>
-            <div class="project-card">
-              <div class="flex items-center gap-3 mb-4">
-                <div class="card-icon challenge-icon">🎯</div>
-                <h3 class="text-3xl font-bold text-white">The Challenge</h3>
-              </div>
-              <p class="text-lg text-gray-300 leading-relaxed">${this.details}</p>
-            </div>
             <div class="project-cta-card">
               <h3 class="text-2xl font-bold text-white mb-6">Visit Project</h3>
               <a href="${this.link}" target="_blank" class="project-cta-button">View Live Site →</a>

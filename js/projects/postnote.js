@@ -9,8 +9,7 @@ window.PostNoteProject = {
   logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="8" fill="#FF6B35"/><circle cx="24" cy="12" r="3" fill="white"/><path d="M24 12L20 20L24 18L28 20L24 12Z" fill="white"/><rect x="16" y="22" width="16" height="12" rx="1" fill="white" opacity="0.9"/><path d="M18 26h12M18 30h10" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/></svg>',
   thumb: 'images/postnote.svg',
   tagline: 'Leave your mark on the board',
-  description: 'PostNote is a real-time anonymous note board where anyone can post sticky notes that appear instantly for all visitors. Think of it as a digital corkboard where people can leave messages, thoughts, or feedback anonymously. Notes are limited to 500 characters and appear in real-time using WebSocket connections. The interface mimics a physical corkboard with pushpins and rotated sticky notes for a warm, tactile experience.',
-  details: 'Built a real-time communication platform using WebSocket technology so notes appear instantly across all connected users without page refreshes. Implemented anonymous posting with no user accounts required, character validation to prevent spam, and live status indicators showing when the board is active. The challenge was balancing real-time performance with a playful, approachable UI that feels like a physical corkboard.',
+  description: 'Real-time anonymous note board. Post sticky notes up to 500 characters. Notes appear instantly for all visitors using WebSocket connections. No accounts required. Anonymous posting with character validation. Live status indicators. Corkboard UI with pushpins and rotated notes.',
   brandColor: '#FF6B35',
   link: 'https://post-note.vercel.app/',
   railText: 'POSTNOTE • REAL-TIME BOARD •',
@@ -64,7 +63,6 @@ window.PostNoteProject = {
       logo: this.logo,
       tagline: this.tagline,
       description: this.description,
-      details: this.details,
       link: this.link,
       links: this.links,
       railText: this.railText,
@@ -98,8 +96,7 @@ window.PostNoteProject = {
           <div class="max-w-5xl mx-auto space-y-8">
             <div class="project-card">
               <div class="flex items-center gap-3 mb-4">
-                <div class="card-icon role-icon">💼</div>
-                <h2 class="text-3xl font-bold text-white">My Role</h2>
+                <h2 class="text-3xl font-bold text-white">What It Is</h2>
               </div>
               <p class="text-lg text-gray-300 leading-relaxed">${this.description}</p>
             </div>
@@ -110,13 +107,6 @@ window.PostNoteProject = {
             <div class="dev-updates-divider"></div>
             <div id="dev-updates-container">${devUpdatesHTML || ''}</div>
             <div style="height: 100px;"></div>
-            <div class="project-card">
-              <div class="flex items-center gap-3 mb-4">
-                <div class="card-icon challenge-icon">🎯</div>
-                <h3 class="text-3xl font-bold text-white">The Challenge</h3>
-              </div>
-              <p class="text-lg text-gray-300 leading-relaxed">${this.details}</p>
-            </div>
             <div class="project-cta-card">
               <h3 class="text-2xl font-bold text-white mb-6">Visit Project</h3>
               <a href="${this.link}" target="_blank" class="project-cta-button">View Live Site →</a>

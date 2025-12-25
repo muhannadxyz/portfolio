@@ -9,8 +9,7 @@ window.WindTurbineProject = {
   logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#059669"/><circle cx="24" cy="20" r="3" fill="white"/><path d="M24 20L24 10M24 10L20 14M24 10L28 14" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M24 20L32 26M32 26L28 28M32 26L34 22" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M24 20L16 26M16 26L12 22M16 26L20 28" stroke="white" stroke-width="2" stroke-linecap="round"/><rect x="22" y="20" width="4" height="14" fill="white" rx="1"/></svg>',
   thumb: 'https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?w=800&h=600&fit=crop',
   tagline: 'Real-time renewable energy data collection',
-  description: 'Wind Turbine Monitoring System is an IoT device that tracks the performance of wind turbines in real-time. It measures rotational speed (RPM) using a Hall-effect sensor, monitors electrical output with voltage and current sensors, and calculates power generation. All data is logged with precise timestamps using a real-time clock. The system provides continuous monitoring to help optimize turbine efficiency and detect performance issues.',
-  details: 'Built an embedded monitoring solution using Arduino that collects real-time performance data from wind turbines. The Hall-effect sensor detects magnet rotations to calculate RPM, while analog sensors measure voltage and current to compute power output. Data is timestamped using an RTC module and logged via serial communication for analysis. The challenge was creating accurate measurements using interrupt-driven pulse counting while maintaining reliable sensor readings and efficient data logging.',
+  description: 'IoT monitoring system for wind turbines. Measures RPM via Hall-effect sensor. Monitors voltage and current. Calculates power generation. Real-time clock for timestamps. Serial data logging. Arduino-based. Interrupt-driven pulse counting. Continuous performance tracking.',
   brandColor: '#059669',
   link: 'https://github.com/muhannadxyz/Turbine',
   railText: 'WIND TURBINE MONITORING • IOT SYSTEM •',
@@ -164,7 +163,6 @@ void setup() {
       logo: this.logo,
       tagline: this.tagline,
       description: this.description,
-      details: this.details,
       link: this.link,
       links: this.links,
       railText: this.railText,
@@ -183,11 +181,11 @@ void setup() {
           <div class="flip-card-front">
             <div style="border-radius: 24px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); position: relative;">
               <img src="${this.thumb}" alt="Project showcase" class="w-full" style="display: block;">
-              <div class="flip-hint">Click to see code 💻</div>
+              <div class="flip-hint">Click to see code</div>
             </div>
           </div>
           <div class="flip-card-back">
-            <h3 class="text-2xl font-bold text-white mb-4" style="color: #10b981;">💻 Code Implementation</h3>
+            <h3 class="text-2xl font-bold text-white mb-4" style="color: #10b981;">Code Implementation</h3>
             <div style="max-height: 500px; overflow-y: auto;">
               ${this.codeSnippets.map(snippet => `
                 <div style="margin-bottom: 24px;">
@@ -233,8 +231,7 @@ void setup() {
           <div class="max-w-5xl mx-auto space-y-8">
             <div class="project-card">
               <div class="flex items-center gap-3 mb-4">
-                <div class="card-icon role-icon">💼</div>
-                <h2 class="text-3xl font-bold text-white">My Role</h2>
+                <h2 class="text-3xl font-bold text-white">What It Is</h2>
               </div>
               <p class="text-lg text-gray-300 leading-relaxed">${this.description}</p>
             </div>
@@ -243,13 +240,6 @@ void setup() {
             <div class="dev-updates-divider"></div>
             <div id="dev-updates-container">${devUpdatesHTML || ''}</div>
             <div style="height: 100px;"></div>
-            <div class="project-card">
-              <div class="flex items-center gap-3 mb-4">
-                <div class="card-icon challenge-icon">🎯</div>
-                <h3 class="text-3xl font-bold text-white">The Challenge</h3>
-              </div>
-              <p class="text-lg text-gray-300 leading-relaxed">${this.details}</p>
-            </div>
             <div class="project-cta-card">
               <h3 class="text-2xl font-bold text-white mb-6">Visit Project</h3>
               <a href="${this.link}" target="_blank" class="project-cta-button">View Live Site →</a>

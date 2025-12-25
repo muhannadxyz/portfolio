@@ -9,8 +9,7 @@ window.TonsorProject = {
   logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#F7F2E8"/><text x="24" y="30" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#1F2A4A">tän</text><path d="M14 34h20" stroke="#C9B27D" stroke-width="2" stroke-linecap="round"/></svg>',
   thumb: 'images/tonsor.svg',
   tagline: "World's dopest barbershop experience",
-  description: 'Tonsor is a luxury barbershop website that combines editorial design with e-commerce functionality. The site showcases barbershop services and sells premium grooming products through an elegant, magazine-style layout. Features include strong typography, curated product displays, category navigation, and smooth animations. The design balances a high-end aesthetic with practical shopping functionality, ensuring fast load times and accessibility across all devices.',
-  details: 'Created a premium brand experience that feels like a luxury magazine while maintaining e-commerce functionality. The challenge was combining editorial design elements with practical shopping features like product categories, clear navigation, and strong call-to-action buttons. Optimized image loading and layout to prevent shifts during page load, ensuring a smooth experience on mobile and desktop. Focused on performance and accessibility without sacrificing the premium aesthetic.',
+  description: 'Luxury barbershop website. Editorial design with e-commerce. Showcases services and sells grooming products. Magazine-style layout. Strong typography. Curated product displays. Category navigation. Optimized performance. Responsive across devices.',
   brandColor: '#C9B27D',
   link: 'https://www.thetonsor.com/',
   railText: 'TONSOR • LUXURY E‑COMMERCE •',
@@ -83,7 +82,6 @@ window.TonsorProject = {
       logo: this.logo,
       tagline: this.tagline,
       description: this.description,
-      details: this.details,
       link: this.link,
       links: this.links,
       railText: this.railText,
@@ -117,8 +115,7 @@ window.TonsorProject = {
           <div class="max-w-5xl mx-auto space-y-8">
             <div class="project-card">
               <div class="flex items-center gap-3 mb-4">
-                <div class="card-icon role-icon">💼</div>
-                <h2 class="text-3xl font-bold text-white">My Role</h2>
+                <h2 class="text-3xl font-bold text-white">What It Is</h2>
               </div>
               <p class="text-lg text-gray-300 leading-relaxed">${this.description}</p>
             </div>
@@ -129,13 +126,6 @@ window.TonsorProject = {
             <div class="dev-updates-divider"></div>
             <div id="dev-updates-container">${devUpdatesHTML || ''}</div>
             <div style="height: 100px;"></div>
-            <div class="project-card">
-              <div class="flex items-center gap-3 mb-4">
-                <div class="card-icon challenge-icon">🎯</div>
-                <h3 class="text-3xl font-bold text-white">The Challenge</h3>
-              </div>
-              <p class="text-lg text-gray-300 leading-relaxed">${this.details}</p>
-            </div>
             <div class="project-cta-card">
               <h3 class="text-2xl font-bold text-white mb-6">Visit Project</h3>
               <a href="${this.link}" target="_blank" class="project-cta-button">View Live Site →</a>

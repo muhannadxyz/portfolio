@@ -9,8 +9,7 @@ window.LucentirProject = {
   logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="24" fill="url(#lucentir-gradient)"/><path d="M24 12C19 12 16 14 16 14V24C16 29 19.5 33 24 36C28.5 33 32 29 32 24V14C32 14 29 12 24 12Z" fill="white"/><defs><linearGradient id="lucentir-gradient" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop stop-color="#10B981"/><stop offset="1" stop-color="#059669"/></linearGradient></defs></svg>',
   thumb: 'images/lucentir.png',
   tagline: 'See clearly. Stay private.',
-  description: 'Lucentir is a privacy intelligence platform that helps you compare and choose privacy-focused services like VPNs and Ad-Blockers. It scores 256 different products across 5 key privacy pillars: data minimization, user control, security practices, data sharing, and transparency. You can filter by free options, open-source software, or services with no telemetry. The platform includes side-by-side comparisons, detailed scoring methodology, and cited sources for every claim.',
-  details: 'Built a comprehensive scoring system that evaluates privacy practices across multiple dimensions. Each product profile includes detailed breakdowns of privacy policies, data collection practices, and security measures. All claims are backed by cited sources and the methodology follows industry-standard IR/SOC reporting practices. The challenge was creating an objective, transparent scoring system that helps users make informed privacy decisions.',
+  description: 'Privacy intelligence platform. Compares VPNs and Ad-Blockers. Scores 256 products across 5 pillars: minimization, control, security, sharing, transparency. Filter by free, open-source, or no telemetry. Side-by-side comparisons. Scoring methodology with cited sources. Transparent evaluation system.',
   brandColor: '#10B981',
   link: 'https://lucentir.xyz/',
   railText: 'LUCENTIR • PRIVACY INTELLIGENCE •',
@@ -107,7 +106,6 @@ window.LucentirProject = {
       logo: this.logo,
       tagline: this.tagline,
       description: this.description,
-      details: this.details,
       link: this.link,
       links: this.links,
       railText: this.railText,
@@ -141,8 +139,7 @@ window.LucentirProject = {
           <div class="max-w-5xl mx-auto space-y-8">
             <div class="project-card">
               <div class="flex items-center gap-3 mb-4">
-                <div class="card-icon role-icon">💼</div>
-                <h2 class="text-3xl font-bold text-white">My Role</h2>
+                <h2 class="text-3xl font-bold text-white">What It Is</h2>
               </div>
               <p class="text-lg text-gray-300 leading-relaxed">${this.description}</p>
             </div>
@@ -153,13 +150,6 @@ window.LucentirProject = {
             <div class="dev-updates-divider"></div>
             <div id="dev-updates-container">${devUpdatesHTML || ''}</div>
             <div style="height: 100px;"></div>
-            <div class="project-card">
-              <div class="flex items-center gap-3 mb-4">
-                <div class="card-icon challenge-icon">🎯</div>
-                <h3 class="text-3xl font-bold text-white">The Challenge</h3>
-              </div>
-              <p class="text-lg text-gray-300 leading-relaxed">${this.details}</p>
-            </div>
             <div class="project-cta-card">
               <h3 class="text-2xl font-bold text-white mb-6">Visit Project</h3>
               <a href="${this.link}" target="_blank" class="project-cta-button">View Live Site →</a>

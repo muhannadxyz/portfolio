@@ -9,8 +9,7 @@ window.ShadoconnectProject = {
   logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#6366F1"/><circle cx="16" cy="18" r="4" fill="white"/><path d="M12 28C12 25 14 23 16 23C18 23 20 25 20 28" stroke="white" stroke-width="2" stroke-linecap="round"/><circle cx="32" cy="18" r="4" fill="white"/><path d="M28 28C28 25 30 23 32 23C34 23 36 25 36 28" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M20 24H28" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>',
   thumb: 'images/shadoconnect.png',
   tagline: 'Shape your future career with real experience',
-  description: 'ShadoConnect is a platform that connects students pursuing healthcare careers with professionals who offer shadowing opportunities, internships, and mentorship. Students create profiles with their interests and goals, and the AI-powered matching system pairs them with healthcare providers based on medical specialty, location, availability, and career alignment. The platform includes real-time scheduling, messaging, and application tracking to streamline the entire process.',
-  details: 'Built a two-sided marketplace serving both students seeking clinical experience and healthcare professionals looking to mentor. The matching algorithm considers multiple factors including specialty preferences, geographic proximity, schedule compatibility, and career goals. Implemented calendar integration, automated notifications, and a messaging system for communication. The challenge was creating a system that efficiently matches students with relevant opportunities while maintaining quality and preventing spam.',
+  description: 'Platform connecting healthcare students with professionals for shadowing, internships, mentorship. AI matching based on specialty, location, availability, career goals. Real-time scheduling. Messaging system. Application tracking. Student profiles and provider discovery. Calendar integration.',
   brandColor: '#6366F1',
   link: 'https://shadoconnect.com',
   railText: 'SHADOCONNECT • HEALTHCARE / EDUCATION •',
@@ -107,7 +106,6 @@ window.ShadoconnectProject = {
       logo: this.logo,
       tagline: this.tagline,
       description: this.description,
-      details: this.details,
       link: this.link,
       links: this.links,
       railText: this.railText,
@@ -141,8 +139,7 @@ window.ShadoconnectProject = {
           <div class="max-w-5xl mx-auto space-y-8">
             <div class="project-card">
               <div class="flex items-center gap-3 mb-4">
-                <div class="card-icon role-icon">💼</div>
-                <h2 class="text-3xl font-bold text-white">My Role</h2>
+                <h2 class="text-3xl font-bold text-white">What It Is</h2>
               </div>
               <p class="text-lg text-gray-300 leading-relaxed">${this.description}</p>
             </div>
@@ -153,13 +150,6 @@ window.ShadoconnectProject = {
             <div class="dev-updates-divider"></div>
             <div id="dev-updates-container">${devUpdatesHTML || ''}</div>
             <div style="height: 100px;"></div>
-            <div class="project-card">
-              <div class="flex items-center gap-3 mb-4">
-                <div class="card-icon challenge-icon">🎯</div>
-                <h3 class="text-3xl font-bold text-white">The Challenge</h3>
-              </div>
-              <p class="text-lg text-gray-300 leading-relaxed">${this.details}</p>
-            </div>
             <div class="project-cta-card">
               <h3 class="text-2xl font-bold text-white mb-6">Visit Project</h3>
               <a href="${this.link}" target="_blank" class="project-cta-button">View Live Site →</a>
