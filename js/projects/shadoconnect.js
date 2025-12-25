@@ -9,7 +9,7 @@ window.ShadoconnectProject = {
   logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#6366F1"/><circle cx="16" cy="18" r="4" fill="white"/><path d="M12 28C12 25 14 23 16 23C18 23 20 25 20 28" stroke="white" stroke-width="2" stroke-linecap="round"/><circle cx="32" cy="18" r="4" fill="white"/><path d="M28 28C28 25 30 23 32 23C34 23 36 25 36 28" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M20 24H28" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>',
   thumb: 'images/shadoconnect.png',
   tagline: 'Shape your future career with real experience',
-  description: 'Platform connecting healthcare students with professionals for shadowing, internships, mentorship. AI matching based on specialty, location, availability, career goals. Real-time scheduling. Messaging system. Application tracking. Student profiles and provider discovery. Calendar integration.',
+  description: 'ShadoConnect is a platform that connects students pursuing healthcare careers with professionals who offer shadowing opportunities, internships, and mentorship. Students create profiles with their interests, goals, and career aspirations, while healthcare professionals list their specialties, availability, and mentoring preferences. The AI-powered matching system pairs students with providers based on medical specialty alignment, geographic proximity, schedule compatibility, and career goal alignment. The platform includes real-time scheduling functionality that integrates with calendar systems, a messaging system for direct communication, and application tracking to monitor the status of shadowing requests. The matching algorithm considers multiple factors including specialty preferences, location, availability windows, and career trajectory to create optimal pairings. Automated notifications keep both students and professionals informed about new matches, schedule changes, and application updates.',
   brandColor: '#6366F1',
   link: 'https://shadoconnect.com',
   railText: 'SHADOCONNECT • HEALTHCARE / EDUCATION •',
@@ -121,8 +121,7 @@ window.ShadoconnectProject = {
       <div class="min-h-screen relative bg-black project-shadoconnect">
         <div class="fixed inset-0 z-0" style="transform-origin: center;">
           <img src="${this.thumb}" alt="${this.title}" class="w-full h-full object-cover scale-105" style="filter: brightness(0.4) saturate(1.2);">
-          <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
-          <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+          <div class="absolute inset-0 bg-black"></div>
         </div>
         <button id="close" class="project-close-btn">✕</button>
         <div class="relative z-10 min-h-screen flex items-end pb-20 px-8 md:px-16">
@@ -134,7 +133,7 @@ window.ShadoconnectProject = {
             </div>
           </div>
         </div>
-        <div class="relative z-20 bg-gradient-to-b from-black via-black to-neutral-950 px-6 md:px-12 py-16">
+        <div class="relative z-20 bg-black px-6 md:px-12 py-16">
           <div class="visual-separator"></div>
           <div class="max-w-5xl mx-auto space-y-8">
             <div class="project-card">
@@ -150,10 +149,6 @@ window.ShadoconnectProject = {
             <div class="dev-updates-divider"></div>
             <div id="dev-updates-container">${devUpdatesHTML || ''}</div>
             <div style="height: 100px;"></div>
-            <div class="project-cta-card">
-              <h3 class="text-2xl font-bold text-white mb-6">Visit Project</h3>
-              <a href="${this.link}" target="_blank" class="project-cta-button">View Live Site →</a>
-            </div>
           </div>
         </div>
       </div>

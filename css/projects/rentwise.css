@@ -18,50 +18,39 @@
   top: 24px;
   right: 24px;
   z-index: 9999;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  color: white;
-  border-radius: 50%;
-  width: 56px;
-  height: 56px;
+  background: #fff;
+  color: #000;
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
-  font-weight: 300;
+  font-size: 18px;
+  font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.3s;
+  border: 2px solid #fff;
+  transition: all 0.1s ease;
 }
 
 .project-rentwise .project-close-btn:hover {
-  background: rgba(37, 99, 235, 0.2);
-  transform: rotate(90deg);
+  background: #000;
+  color: #fff;
 }
 
 .project-rentwise .project-title-glass {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #000;
+  border: 1px solid #fff;
   padding: 24px 32px;
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .project-rentwise .project-card {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 24px;
+  background: #000;
+  border: 1px solid #fff;
   padding: 40px;
-  transition: all 0.4s;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
 }
 
 .project-rentwise .project-card:hover {
-  border-color: rgba(37, 99, 235, 0.3);
-  box-shadow: 0 8px 32px rgba(37, 99, 235, 0.1);
+  border-color: #fff;
 }
 
 .project-rentwise .card-icon {
@@ -83,17 +72,12 @@
 }
 
 .project-rentwise .project-showcase {
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid #fff;
 }
 
 .project-rentwise .project-gallery {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 24px;
+  background: #000;
+  border: 1px solid #fff;
   padding: 40px;
 }
 
@@ -111,10 +95,7 @@
 }
 
 .project-rentwise .gallery-item {
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid #fff;
 }
 
 .project-rentwise .gallery-item img {
@@ -125,13 +106,7 @@
 }
 
 .project-rentwise .visual-separator {
-  height: 120px;
-  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6));
-  position: absolute;
-  top: -120px;
-  left: 0;
-  right: 0;
-  pointer-events: none;
+  display: none;
 }
 
 .project-rentwise .dev-updates-divider {
@@ -143,42 +118,12 @@
 .project-rentwise .dev-updates-divider::before {
   content: '';
   display: block;
-  height: 2px;
-  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3), transparent);
+  height: 1px;
+  background: #fff;
   margin-bottom: 20px;
 }
 
 .project-rentwise .dev-updates-divider::after {
-  content: '';
-  display: block;
-  height: 1px;
-  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1), transparent);
-}
-
-.project-rentwise .project-cta-card {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(139, 92, 246, 0.3);
-  border-radius: 24px;
-  padding: 40px;
-  text-align: center;
-}
-
-.project-rentwise .project-cta-button {
-  display: inline-block;
-  padding: 16px 40px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border-radius: 16px;
-  font-size: 18px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s;
-  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
-}
-
-.project-rentwise .project-cta-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6);
+  display: none;
 }
 

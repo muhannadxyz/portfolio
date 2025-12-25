@@ -6,10 +6,10 @@ window.WindTurbineProject = {
   name: 'Wind Turbine Monitoring System',
   title: 'Wind Turbine Monitoring System',
   company: 'IoT & Renewable Energy',
-  logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#059669"/><circle cx="24" cy="20" r="3" fill="white"/><path d="M24 20L24 10M24 10L20 14M24 10L28 14" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M24 20L32 26M32 26L28 28M32 26L34 22" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M24 20L16 26M16 26L12 22M16 26L20 28" stroke="white" stroke-width="2" stroke-linecap="round"/><rect x="22" y="20" width="4" height="14" fill="white" rx="1"/></svg>',
+  logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" fill="#000" stroke="#fff" stroke-width="1"/><rect x="20" y="30" width="8" height="14" fill="#fff"/><rect x="21" y="20" width="6" height="10" fill="#fff"/><circle cx="24" cy="20" r="2.5" fill="#000" stroke="#fff" stroke-width="1"/><path d="M24 20L24 10M24 20L32 14M24 20L16 14M24 20L32 26M24 20L16 26" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   thumb: 'https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?w=800&h=600&fit=crop',
   tagline: 'Real-time renewable energy data collection',
-  description: 'IoT monitoring system for wind turbines. Measures RPM via Hall-effect sensor. Monitors voltage and current. Calculates power generation. Real-time clock for timestamps. Serial data logging. Arduino-based. Interrupt-driven pulse counting. Continuous performance tracking.',
+  description: 'Wind Turbine Monitoring System is an IoT device that tracks the performance of wind turbines in real-time using Arduino and multiple sensors. It measures rotational speed (RPM) using a Hall-effect sensor that detects magnet rotations, monitors electrical output with voltage and current sensors, and automatically calculates power generation. All data is logged with precise timestamps using a real-time clock module, and the system outputs data via serial communication for analysis and optimization. The monitoring system uses interrupt-driven pulse counting for accurate RPM measurement, ensuring that every rotation is captured even during high-speed operation. The Hall-effect sensor triggers interrupts on each magnet pass, allowing precise calculation of rotational speed. Voltage and current sensors provide analog readings that are converted to actual values and used to compute power output. The real-time clock ensures all logged data includes accurate timestamps for performance analysis over time. The system provides continuous monitoring to help optimize turbine efficiency, detect performance issues, and track power generation patterns.',
   brandColor: '#059669',
   link: 'https://github.com/muhannadxyz/Turbine',
   railText: 'WIND TURBINE MONITORING • IOT SYSTEM •',
@@ -179,7 +179,7 @@ void setup() {
       <div class="flip-card-container" onclick="this.querySelector('.flip-card').classList.toggle('flipped')">
         <div class="flip-card">
           <div class="flip-card-front">
-            <div style="border-radius: 24px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); position: relative;">
+            <div style="border: 1px solid #fff; position: relative;">
               <img src="${this.thumb}" alt="Project showcase" class="w-full" style="display: block;">
               <div class="flip-hint">Click to see code</div>
             </div>
@@ -189,13 +189,13 @@ void setup() {
             <div style="max-height: 500px; overflow-y: auto;">
               ${this.codeSnippets.map(snippet => `
                 <div style="margin-bottom: 24px;">
-                  <div style="background: rgba(255,255,255,0.05); padding: 12px 20px; border-radius: 12px 12px 0 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                  <div style="background: #000; padding: 12px 20px; border-bottom: 1px solid #fff;">
                     <div style="display: flex; align-items: center; justify-content: space-between;">
                       <span style="color: #10b981; font-weight: 600; font-size: 16px;">${snippet.title}</span>
                       <span style="color: #9ca3af; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">${snippet.language}</span>
                     </div>
                   </div>
-                  <pre style="margin: 0; padding: 20px; background: rgba(0,0,0,0.5); border-radius: 0 0 12px 12px; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.5; color: #e5e7eb;"><code>${snippet.code}</code></pre>
+                  <pre style="margin: 0; padding: 20px; background: #000; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.5; color: #fff; border-top: 1px solid #fff;"><code>${snippet.code}</code></pre>
                 </div>
               `).join('')}
             </div>
@@ -213,8 +213,7 @@ void setup() {
       <div class="min-h-screen relative bg-black project-wind-turbine">
         <div class="fixed inset-0 z-0" style="transform-origin: center;">
           <img src="${this.thumb}" alt="${this.title}" class="w-full h-full object-cover scale-105" style="filter: brightness(0.4) saturate(1.2);">
-          <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
-          <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+          <div class="absolute inset-0 bg-black"></div>
         </div>
         <button id="close" class="project-close-btn">✕</button>
         <div class="relative z-10 min-h-screen flex items-end pb-20 px-8 md:px-16">
@@ -226,7 +225,7 @@ void setup() {
             </div>
           </div>
         </div>
-        <div class="relative z-20 bg-gradient-to-b from-black via-black to-neutral-950 px-6 md:px-12 py-16">
+        <div class="relative z-20 bg-black px-6 md:px-12 py-16">
           <div class="visual-separator"></div>
           <div class="max-w-5xl mx-auto space-y-8">
             <div class="project-card">
@@ -240,10 +239,6 @@ void setup() {
             <div class="dev-updates-divider"></div>
             <div id="dev-updates-container">${devUpdatesHTML || ''}</div>
             <div style="height: 100px;"></div>
-            <div class="project-cta-card">
-              <h3 class="text-2xl font-bold text-white mb-6">Visit Project</h3>
-              <a href="${this.link}" target="_blank" class="project-cta-button">View Live Site →</a>
-            </div>
           </div>
         </div>
       </div>

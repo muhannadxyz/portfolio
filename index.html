@@ -1570,28 +1570,23 @@
             <div class="min-h-screen relative bg-black">
               <div class="fixed inset-0 z-0" style="transform-origin: center;">
                 <img src="${p.thumb}" alt="${p.title}" class="w-full h-full object-cover scale-105" style="filter: brightness(0.4) saturate(1.2);">
-                <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                <div class="absolute inset-0 bg-black"></div>
               </div>
-              <button id="close" style="position: fixed; top: 24px; right: 24px; z-index: 9999; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); color: white; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 300; cursor: pointer; box-shadow: 0 8px 32px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s;">✕</button>
+              <button id="close" style="position: fixed; top: 24px; right: 24px; z-index: 9999; background: #fff; color: #000; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; cursor: pointer; border: 2px solid #fff; transition: all 0.1s ease;">✕</button>
               <div class="relative z-10 min-h-screen flex items-end pb-20 px-8 md:px-16">
                 <div class="max-w-6xl w-full">
                   <div class="mb-6 animate-float" style="width: 120px; height: 120px; display: flex; align-items: center; justify-content: center;">${p.logo}</div>
-                  <div class="inline-block mb-6" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); padding: 24px 32px; border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">
+                  <div class="inline-block mb-6" style="background: #000; border: 1px solid #fff; padding: 24px 32px;">
                     <h1 class="text-5xl md:text-7xl font-bold text-white mb-2" style="line-height: 1.1;">${p.title}</h1>
-                    <p class="text-xl md:text-2xl text-gray-300">${p.company}</p>
+                    <p class="text-xl md:text-2xl text-white">${p.company}</p>
                   </div>
                 </div>
               </div>
-              <div class="relative z-20 bg-gradient-to-b from-black via-black to-neutral-950 px-6 md:px-12 py-16">
-                <div style="height: 120px; background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.3), rgba(0,0,0,0.6)); position: absolute; top: -120px; left: 0; right: 0; pointer-events: none;"></div>
+              <div class="relative z-20 bg-black px-6 md:px-12 py-16">
                 <div class="max-w-5xl mx-auto space-y-8">
-                  <div class="group" style="background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 40px; transition: all 0.4s; box-shadow: 0 4px 24px rgba(0,0,0,0.2);">
-                    <div class="flex items-center gap-3 mb-4">
-                      <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">💼</div>
-                      <h2 class="text-3xl font-bold text-white">My Role</h2>
-                    </div>
-                    <p class="text-lg text-gray-300 leading-relaxed">${p.description}</p>
+                  <div class="group" style="background: #000; border: 1px solid #fff; padding: 40px;">
+                    <p class="text-lg text-white leading-relaxed mb-6">${p.description}</p>
+                    ${p.link ? `<a href="${p.link}" target="_blank" style="display: inline-block; padding: 16px 32px; background: #000; color: #fff; border: 2px solid #fff; font-size: 18px; font-weight: 700; text-decoration: none; text-transform: uppercase; letter-spacing: 0.1em; transition: all 0.1s ease;">Visit Site →</a>` : ''}
                   </div>
                   ${devUpdatesHTML}
                 </div>
@@ -1973,12 +1968,11 @@ void setup() {
               <!-- Parallax Hero Image with Overlay -->
               <div class="fixed inset-0 z-0" style="transform-origin: center;">
                 <img src="${p.thumb}" alt="${p.title}" class="w-full h-full object-cover scale-105" style="filter: brightness(0.4) saturate(1.2);">
-                <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                <div class="absolute inset-0 bg-black"></div>
               </div>
               
               <!-- Close Button -->
-              <button id="close" style="position: fixed; top: 24px; right: 24px; z-index: 9999; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); color: white; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 300; cursor: pointer; box-shadow: 0 8px 32px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s;">✕</button>
+              <button id="close" style="position: fixed; top: 24px; right: 24px; z-index: 9999; background: #fff; color: #000; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; cursor: pointer; border: 2px solid #fff; transition: all 0.1s ease;">✕</button>
               
               <!-- Hero Section -->
               <div class="relative z-10 min-h-screen flex items-end pb-20 px-8 md:px-16">
@@ -1987,7 +1981,7 @@ void setup() {
                   <div class="mb-6" style="width: 120px; height: 120px; display: flex; align-items: center; justify-content: center;">${p.logo}</div>
                   
                   <!-- Title with Glass Effect -->
-                  <div class="inline-block mb-6" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); padding: 24px 32px; border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">
+                  <div class="inline-block mb-6" style="background: #000; border: 1px solid #fff; padding: 24px 32px;">
                     <h1 class="text-5xl md:text-7xl font-bold text-white mb-2" style="line-height: 1.1;">${p.title}</h1>
                     <p class="text-xl md:text-2xl text-gray-300">${p.company}</p>
                   </div>
@@ -1995,18 +1989,13 @@ void setup() {
               </div>
               
               <!-- Content Section -->
-              <div class="relative z-20 bg-gradient-to-b from-black via-black to-neutral-950 px-6 md:px-12 py-16">
-                <!-- Visual Separator -->
-                <div style="height: 120px; background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.3), rgba(0,0,0,0.6)); position: absolute; top: -120px; left: 0; right: 0; pointer-events: none;"></div>
+              <div class="relative z-20 bg-black px-6 md:px-12 py-16">
                 <div class="max-w-5xl mx-auto space-y-8">
                   
-                  <!-- My Role Card -->
-                  <div class="group" style="background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 40px; transition: all 0.4s; box-shadow: 0 4px 24px rgba(0,0,0,0.2);">
-                    <div class="flex items-center gap-3 mb-4">
-                      <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">💼</div>
-                      <h2 class="text-3xl font-bold text-white">My Role</h2>
-                    </div>
-                    <p class="text-lg text-gray-300 leading-relaxed">${p.description}</p>
+                  <!-- Description Card -->
+                  <div class="group" style="background: #000; border: 1px solid #fff; padding: 40px;">
+                    <p class="text-lg text-white leading-relaxed mb-6">${p.description}</p>
+                    ${p.link ? `<a href="${p.link}" target="_blank" style="display: inline-block; padding: 16px 32px; background: #000; color: #fff; border: 2px solid #fff; font-size: 18px; font-weight: 700; text-decoration: none; text-transform: uppercase; letter-spacing: 0.1em; transition: all 0.1s ease;">Visit Site →</a>` : ''}
                   </div>
                   
                   <!-- Visual Showcase / Code Flip Card -->
@@ -2015,7 +2004,7 @@ void setup() {
                     <div class="flip-card">
                       <!-- Front: Image -->
                       <div class="flip-card-front">
-                        <div style="border-radius: 24px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); position: relative;">
+                        <div style="border: 1px solid #fff; position: relative;">
                           <img src="${p.thumb}" alt="Project showcase" class="w-full" style="display: block;">
                           <div class="flip-hint">Click to see code 💻</div>
                         </div>
@@ -2075,22 +2064,6 @@ void setup() {
                   <!-- Large Spacer after Dev Updates -->
                   <div style="height: 100px;"></div>
                   
-                  <!-- The Challenge Card -->
-                  <div class="group" style="background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 40px; transition: all 0.4s; box-shadow: 0 4px 24px rgba(0,0,0,0.2);">
-                    <div class="flex items-center gap-3 mb-4">
-                      <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">🎯</div>
-                      <h3 class="text-3xl font-bold text-white">The Challenge</h3>
-                    </div>
-                    <p class="text-lg text-gray-300 leading-relaxed">${p.details}</p>
-                  </div>
-                  
-                  <!-- CTA Card -->
-                  <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%); backdrop-filter: blur(20px); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 24px; padding: 40px; text-align: center;">
-                    <h3 class="text-2xl font-bold text-white mb-6">Visit Project</h3>
-                    <a href="${p.link}" target="_blank" style="display: inline-block; padding: 16px 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 16px; font-size: 18px; font-weight: 600; text-decoration: none; transition: all 0.3s; box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);">
-                      View Live Site →
-                    </a>
-                  </div>
                   
                 </div>
               </div>

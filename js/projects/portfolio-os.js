@@ -9,7 +9,7 @@ window.PortfolioOSProject = {
   logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="url(#pos-gradient)"/><rect x="11" y="14" width="26" height="20" rx="3" fill="rgba(5,7,15,0.88)" stroke="rgba(255,255,255,0.18)"/><circle cx="16" cy="18" r="1.6" fill="#ff5f57"/><circle cx="21" cy="18" r="1.6" fill="#ffbd2e"/><circle cx="26" cy="18" r="1.6" fill="#28c840"/><path d="M18 30h12" stroke="rgba(0,255,225,0.9)" stroke-width="2" stroke-linecap="round"/><defs><linearGradient id="pos-gradient" x1="0" y1="0" x2="48" y2="48"><stop stop-color="#00ffe1"/><stop offset="1" stop-color="#ff69b4"/></linearGradient></defs></svg>',
   thumb: 'images/portfolio-os.svg',
   tagline: 'A playful OS inside my portfolio',
-  description: 'Desktop environment running in your browser. Window manager with drag, resize, minimize, maximize. Dock with apps. Settings panel. Notifications. Canvas-based apps: Tamagotchi pet and CHIP-8 emulator. Persistent state via localStorage. Window positions and preferences saved.',
+  description: 'Portfolio OS is a fully functional desktop environment that runs entirely in your web browser. It includes a complete window manager where you can open, close, minimize, maximize, drag, and resize windows just like a real operating system. The dock contains applications that can be launched, and there is a settings panel for preferences and a notification system. Canvas-based applications include a Tamagotchi pet that roams around the desktop and a CHIP-8 emulator capable of running retro games. All window positions, preferences, and application state are saved using localStorage, so your setup persists between visits. The system handles window focus, z-index management, and window lifecycle events to create an authentic desktop experience without requiring any server-side components or external dependencies.',
   brandColor: '#00ffe1',
   link: 'os.html',
   railText: 'PORTFOLIO OS • WEB DESKTOP •',
@@ -73,7 +73,30 @@ window.PortfolioOSProject = {
   // HTML Template Function - loads from external HTML file
   async renderTemplate(devUpdatesHTML) {
     if (!window.ProjectLoader) return this.getFallbackTemplate(devUpdatesHTML);
+    
+    // Load CSS
+    window.ProjectLoader.loadCSS(this.cssPath, this.slug);
     window.ProjectLoader.loadCSS('css/projects/brutal-project.css', 'brutal-project');
+    
+    // Try to load HTML template first
+    if (this.htmlTemplatePath && window.ProjectLoader.loadTemplate) {
+      try {
+        const templateData = {
+          logo: this.logo,
+          title: this.title,
+          company: this.company,
+          tagline: this.tagline,
+          description: this.description,
+          thumb: this.thumb,
+          devUpdatesHTML: devUpdatesHTML || ''
+        };
+        return await window.ProjectLoader.loadTemplate(this.htmlTemplatePath, templateData);
+      } catch (error) {
+        console.warn('Failed to load HTML template, using brutal template:', error);
+      }
+    }
+    
+    // Fallback to brutal template
     return window.ProjectLoader.renderBrutalProjectTemplate({
       slug: this.slug,
       thumb: this.thumb,
@@ -97,8 +120,8 @@ window.PortfolioOSProject = {
     return `
       <div class="min-h-screen relative bg-black project-portfolio-os">
         <div class="fixed inset-0 z-0" style="transform-origin: center;">
-          <div class="w-full h-full" style="background: radial-gradient(circle at 20% 20%, rgba(0,255,225,0.18), transparent 55%), radial-gradient(circle at 80% 30%, rgba(255,105,180,0.16), transparent 55%), linear-gradient(135deg, rgba(5,7,15,1), rgba(10,10,20,1));"></div>
-          <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
+          <div class="w-full h-full bg-black"></div>
+          <div class="absolute inset-0 bg-black"></div>
         </div>
 
         <button id="close" class="project-close-btn">✕</button>
@@ -106,6 +129,19 @@ window.PortfolioOSProject = {
         <div class="relative z-10 min-h-screen flex items-end pb-20 px-8 md:px-16">
           <div class="max-w-6xl w-full">
             <div class="mb-6 animate-float hero-icon" style="width: 120px; height: 120px; display:flex; align-items:center; justify-content:center;">${this.logo}</div>
+            
+            <!-- Interactive Sticky Note -->
+            <div class="pos-sticky-note" id="pos-sticky-note" onclick="openNotesApp()">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="48" height="48" rx="8" fill="#FF6B35"/>
+                <circle cx="24" cy="12" r="3" fill="white"/>
+                <path d="M24 12L20 20L24 18L28 20L24 12Z" fill="white"/>
+                <rect x="16" y="22" width="16" height="12" rx="1" fill="white" opacity="0.9"/>
+                <path d="M18 26h12M18 30h10" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+              <div class="pos-note-hint">Click to open Notes</div>
+            </div>
+            
             <div class="inline-block mb-6 project-title-glass">
               <h1 class="text-5xl md:text-7xl font-bold text-white mb-2" style="line-height: 1.1;">${this.title}</h1>
               <p class="text-xl md:text-2xl text-gray-300">${this.company}</p>
@@ -118,7 +154,7 @@ window.PortfolioOSProject = {
           </div>
         </div>
 
-        <div class="relative z-20 bg-gradient-to-b from-black via-black to-neutral-950 px-6 md:px-12 py-16">
+        <div class="relative z-20 bg-black px-6 md:px-12 py-16">
           <div class="visual-separator"></div>
           <div class="max-w-5xl mx-auto space-y-8">
             <div class="project-card">
@@ -171,10 +207,6 @@ window.PortfolioOSProject = {
             <div style="height: 100px;"></div>
 
 
-            <div class="project-cta-card">
-              <h3 class="text-2xl font-bold text-white mb-6">Try it live</h3>
-              <button class="project-cta-button" onclick="window.open('os.html', '_blank')">Launch Portfolio OS →</button>
-            </div>
           </div>
         </div>
       </div>
@@ -182,4 +214,22 @@ window.PortfolioOSProject = {
   }
 };
 
+// Function to open Notes app - available globally for onclick handlers
+window.openNotesApp = function() {
+  // Try to communicate with the iframe first
+  const iframe = document.querySelector('.pos-os-iframe');
+  if (iframe && iframe.contentWindow) {
+    try {
+      // Send message to iframe to open Notes app
+      iframe.contentWindow.postMessage({ type: 'openApp', app: 'notes' }, '*');
+      return;
+    } catch (e) {
+      console.log('Could not communicate with iframe, opening in new tab');
+    }
+  }
+  
+  // Fallback: open OS in new tab with hash to trigger Notes app
+  // The OS can listen for hash changes and open the app
+  window.open('os.html#openApp=notes', '_blank');
+};
 

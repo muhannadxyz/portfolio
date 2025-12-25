@@ -15,6 +15,18 @@
     <div class="max-w-6xl w-full">
       <div class="mb-6 animate-float hero-icon" style="width: 120px; height: 120px; display:flex; align-items:center; justify-content:center;">{{logo}}</div>
 
+      <!-- Interactive Sticky Note -->
+      <div class="pos-sticky-note" id="pos-sticky-note" onclick="openNotesApp()">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="8" fill="#FF6B35"/>
+          <circle cx="24" cy="12" r="3" fill="white"/>
+          <path d="M24 12L20 20L24 18L28 20L24 12Z" fill="white"/>
+          <rect x="16" y="22" width="16" height="12" rx="1" fill="white" opacity="0.9"/>
+          <path d="M18 26h12M18 30h10" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div class="pos-note-hint">Click to open Notes</div>
+      </div>
+
       <div class="inline-block mb-6 project-title-glass">
         <h1 class="text-5xl md:text-7xl font-bold text-white mb-2" style="line-height: 1.1;">{{title}}</h1>
         <p class="text-xl md:text-2xl text-gray-300">{{company}}</p>

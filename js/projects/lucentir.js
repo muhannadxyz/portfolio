@@ -9,7 +9,7 @@ window.LucentirProject = {
   logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="24" fill="url(#lucentir-gradient)"/><path d="M24 12C19 12 16 14 16 14V24C16 29 19.5 33 24 36C28.5 33 32 29 32 24V14C32 14 29 12 24 12Z" fill="white"/><defs><linearGradient id="lucentir-gradient" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop stop-color="#10B981"/><stop offset="1" stop-color="#059669"/></linearGradient></defs></svg>',
   thumb: 'images/lucentir.png',
   tagline: 'See clearly. Stay private.',
-  description: 'Privacy intelligence platform. Compares VPNs and Ad-Blockers. Scores 256 products across 5 pillars: minimization, control, security, sharing, transparency. Filter by free, open-source, or no telemetry. Side-by-side comparisons. Scoring methodology with cited sources. Transparent evaluation system.',
+  description: 'Lucentir is a privacy intelligence platform that helps users compare and choose privacy-focused services like VPNs and Ad-Blockers. It scores 256 different products across 5 key privacy pillars: data minimization, user control, security practices, data sharing, and transparency. Users can filter by free options, open-source software, or services with no telemetry. The platform includes side-by-side comparisons, detailed scoring methodology, and cited sources for every privacy claim. Each product profile includes detailed breakdowns of privacy policies, data collection practices, and security measures. The scoring system follows industry-standard IR/SOC reporting practices and provides transparent evaluation criteria so users can make informed privacy decisions. All claims are backed by cited sources, and the methodology is clearly documented for verification.',
   brandColor: '#10B981',
   link: 'https://lucentir.xyz/',
   railText: 'LUCENTIR • PRIVACY INTELLIGENCE •',
@@ -121,8 +121,7 @@ window.LucentirProject = {
       <div class="min-h-screen relative bg-black project-lucentir">
         <div class="fixed inset-0 z-0" style="transform-origin: center;">
           <img src="${this.thumb}" alt="${this.title}" class="w-full h-full object-cover scale-105" style="filter: brightness(0.4) saturate(1.2);">
-          <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
-          <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+          <div class="absolute inset-0 bg-black"></div>
         </div>
         <button id="close" class="project-close-btn">✕</button>
         <div class="relative z-10 min-h-screen flex items-end pb-20 px-8 md:px-16">
@@ -134,7 +133,7 @@ window.LucentirProject = {
             </div>
           </div>
         </div>
-        <div class="relative z-20 bg-gradient-to-b from-black via-black to-neutral-950 px-6 md:px-12 py-16">
+        <div class="relative z-20 bg-black px-6 md:px-12 py-16">
           <div class="visual-separator"></div>
           <div class="max-w-5xl mx-auto space-y-8">
             <div class="project-card">
@@ -150,10 +149,6 @@ window.LucentirProject = {
             <div class="dev-updates-divider"></div>
             <div id="dev-updates-container">${devUpdatesHTML || ''}</div>
             <div style="height: 100px;"></div>
-            <div class="project-cta-card">
-              <h3 class="text-2xl font-bold text-white mb-6">Visit Project</h3>
-              <a href="${this.link}" target="_blank" class="project-cta-button">View Live Site →</a>
-            </div>
           </div>
         </div>
       </div>

@@ -9,7 +9,7 @@ window.TonsorProject = {
   logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#F7F2E8"/><text x="24" y="30" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#1F2A4A">tän</text><path d="M14 34h20" stroke="#C9B27D" stroke-width="2" stroke-linecap="round"/></svg>',
   thumb: 'images/tonsor.svg',
   tagline: "World's dopest barbershop experience",
-  description: 'Luxury barbershop website. Editorial design with e-commerce. Showcases services and sells grooming products. Magazine-style layout. Strong typography. Curated product displays. Category navigation. Optimized performance. Responsive across devices.',
+  description: 'Tonsor is a luxury barbershop website that combines editorial magazine-style design with e-commerce functionality. The site showcases barbershop services and sells premium grooming products through an elegant, curated layout that emphasizes strong typography and visual hierarchy. The design balances a high-end aesthetic with practical shopping functionality, featuring curated product displays, clear category navigation, and smooth animations that enhance the premium brand experience. The layout is optimized for performance with efficient image loading and minimal layout shift during page load. The site is fully responsive across all devices, maintaining the editorial aesthetic on mobile while ensuring fast load times and accessibility. Product pages feature high-quality imagery, detailed descriptions, and clear call-to-action buttons that guide users through the purchase process without compromising the luxury brand identity.',
   brandColor: '#C9B27D',
   link: 'https://www.thetonsor.com/',
   railText: 'TONSOR • LUXURY E‑COMMERCE •',
@@ -97,8 +97,7 @@ window.TonsorProject = {
       <div class="min-h-screen relative bg-black project-tonsor">
         <div class="fixed inset-0 z-0" style="transform-origin: center;">
           <img src="${this.thumb}" alt="${this.title}" class="w-full h-full object-cover scale-105" style="filter: brightness(0.55) saturate(1.1);">
-          <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
-          <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+          <div class="absolute inset-0 bg-black"></div>
         </div>
         <button id="close" class="project-close-btn">✕</button>
         <div class="relative z-10 min-h-screen flex items-end pb-20 px-8 md:px-16">
@@ -110,7 +109,7 @@ window.TonsorProject = {
             </div>
           </div>
         </div>
-        <div class="relative z-20 bg-gradient-to-b from-black via-black to-neutral-950 px-6 md:px-12 py-16">
+        <div class="relative z-20 bg-black px-6 md:px-12 py-16">
           <div class="visual-separator"></div>
           <div class="max-w-5xl mx-auto space-y-8">
             <div class="project-card">
@@ -126,10 +125,6 @@ window.TonsorProject = {
             <div class="dev-updates-divider"></div>
             <div id="dev-updates-container">${devUpdatesHTML || ''}</div>
             <div style="height: 100px;"></div>
-            <div class="project-cta-card">
-              <h3 class="text-2xl font-bold text-white mb-6">Visit Project</h3>
-              <a href="${this.link}" target="_blank" class="project-cta-button">View Live Site →</a>
-            </div>
           </div>
         </div>
       </div>

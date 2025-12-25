@@ -43,6 +43,31 @@
     window.SettingsApp.loadPreferences();
   }
   
+  // Listen for postMessage to open apps from parent page
+  window.addEventListener('message', (event) => {
+    // Accept messages from any origin (since it's our own portfolio page)
+    if (event.data && event.data.type === 'openApp' && event.data.app) {
+      // Small delay to ensure OS is fully initialized
+      setTimeout(() => {
+        openApp(event.data.app);
+      }, 100);
+    }
+  });
+  
+  // Check URL hash for app opening (e.g., os.html#openApp=notes)
+  if (window.location.hash) {
+    const hashMatch = window.location.hash.match(/openApp=(\w+)/);
+    if (hashMatch) {
+      const appName = hashMatch[1];
+      // Wait for OS to be ready, then open the app
+      setTimeout(() => {
+        if (typeof openApp === 'function') {
+          openApp(appName);
+        }
+      }, 500);
+    }
+  }
+  
   console.log('Portfolio OS ready!');
 })();
 

@@ -9,7 +9,7 @@ window.RentwiseProject = {
   logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#2563EB"/><rect x="18" y="14" width="12" height="20" rx="1" stroke="white" stroke-width="2"/><rect x="22" y="28" width="4" height="6" fill="white"/><rect x="20" y="18" width="2" height="2" fill="white"/><rect x="26" y="18" width="2" height="2" fill="white"/><rect x="20" y="22" width="2" height="2" fill="white"/><rect x="26" y="22" width="2" height="2" fill="white"/></svg>',
   thumb: 'images/rentwise1.jpeg',
   tagline: 'Streamline your rental operations',
-  description: 'Property management platform. Landlord dashboard: manage properties, track leases, handle maintenance, view financial reports. Tenant portal: pay rent online, submit maintenance requests, access documents. Automated lease renewals. Payment reminders. Maintenance routing. Analytics and reporting.',
+  description: 'Rentwise is a comprehensive property management platform that helps landlords and property managers handle all aspects of rental operations in one unified system. The landlord dashboard provides property overview, tenant information management, lease tracking with expiration dates, maintenance request handling, and financial reporting with analytics. Landlords can manage multiple properties, view tenant payment history, track lease terms, and generate reports for accounting purposes. The tenant portal enables online rent payments through secure payment processing, maintenance request submission with photo uploads, document access for leases and receipts, and direct communication with property managers. The platform automates lease renewal reminders, sends payment notifications, routes maintenance requests to appropriate vendors, and provides analytics to help optimize rental operations. Automated workflows handle routine tasks like payment reminders, lease expiration alerts, and maintenance request routing to reduce administrative overhead.',
   brandColor: '#2563EB',
   link: 'https://rentwise.tech/',
   railText: 'RENTWISE • PROPERTY MGMT •',
@@ -141,8 +141,7 @@ window.RentwiseProject = {
       <div class="min-h-screen relative bg-black project-rentwise">
         <div class="fixed inset-0 z-0" style="transform-origin: center;">
           <img src="${this.thumb}" alt="${this.title}" class="w-full h-full object-cover scale-105" style="filter: brightness(0.4) saturate(1.2);">
-          <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
-          <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+          <div class="absolute inset-0 bg-black"></div>
         </div>
         <button id="close" class="project-close-btn">✕</button>
         <div class="relative z-10 min-h-screen flex items-end pb-20 px-8 md:px-16">
@@ -154,7 +153,7 @@ window.RentwiseProject = {
             </div>
           </div>
         </div>
-        <div class="relative z-20 bg-gradient-to-b from-black via-black to-neutral-950 px-6 md:px-12 py-16">
+        <div class="relative z-20 bg-black px-6 md:px-12 py-16">
           <div class="visual-separator"></div>
           <div class="max-w-5xl mx-auto space-y-8">
             <div class="project-card">
@@ -171,10 +170,6 @@ window.RentwiseProject = {
             <div class="dev-updates-divider"></div>
             <div id="dev-updates-container">${devUpdatesHTML || ''}</div>
             <div style="height: 100px;"></div>
-            <div class="project-cta-card">
-              <h3 class="text-2xl font-bold text-white mb-6">Visit Project</h3>
-              <a href="${this.link}" target="_blank" class="project-cta-button">View Live Site →</a>
-            </div>
           </div>
         </div>
       </div>

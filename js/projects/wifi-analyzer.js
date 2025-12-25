@@ -6,10 +6,10 @@ window.WifiAnalyzerProject = {
   name: 'Public Wi-Fi Risk Analyzer',
   title: 'Public Wi-Fi Risk Analyzer',
   company: 'Security & Network Tool',
-  logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#EF4444"/><path d="M24 18C29 18 33 22 33 27" stroke="white" stroke-width="2.5" stroke-linecap="round"/><path d="M24 22C26.5 22 29 24.5 29 27" stroke="white" stroke-width="2.5" stroke-linecap="round"/><circle cx="24" cy="27" r="2" fill="white"/><path d="M18 32L30 32" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M20 28L28 28" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2 2"/></svg>',
+  logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" fill="#000" stroke="#fff" stroke-width="1"/><path d="M24 12C16 12 10 18 10 26" stroke="#fff" stroke-width="2.5" stroke-linecap="round" fill="none"/><path d="M24 16C19 16 15 20 15 25" stroke="#fff" stroke-width="2.5" stroke-linecap="round" fill="none"/><path d="M24 20C21 20 19 22 19 25" stroke="#fff" stroke-width="2.5" stroke-linecap="round" fill="none"/><circle cx="24" cy="25" r="2.5" fill="#fff"/><rect x="18" y="30" width="12" height="4" rx="1" fill="#fff"/></svg>',
   thumb: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=800&h=600&fit=crop',
   tagline: 'Assess public Wi-Fi security risks',
-  description: 'Desktop application for assessing public Wi-Fi security. Checks HTTPS encryption, DNS resolution, firewall status, VPN activity. Provides risk score. Detailed logs with timestamps. Cross-platform: Windows, macOS, Linux. Python with Tkinter GUI.',
+  description: 'Public Wi-Fi Risk Analyzer is a desktop application that helps users assess the security of public Wi-Fi networks before connecting. It performs comprehensive security checks including HTTPS encryption verification by testing connections to secure websites, DNS resolution reliability testing, system firewall status detection, and VPN activity monitoring. The tool provides a risk score based on multiple security factors and generates detailed logs with timestamps for security audits. The application works cross-platform on Windows, macOS, and Linux, using Python with a Tkinter GUI for the user interface. The security assessment includes testing HTTPS support by attempting connections to multiple secure domains, verifying DNS resolution capabilities, checking system firewall status using platform-specific commands, and detecting active VPN connections. All checks are logged with precise timestamps, and the application maintains a history of network scans for comparison and analysis. The risk scoring algorithm weights different security factors to provide an overall assessment of network safety.',
   brandColor: '#EF4444',
   link: 'https://github.com/muhannadxyz/PublicWiFiAnalyzer',
   railText: 'PUBLIC WI‑FI RISK ANALYZER • SECURITY TOOL •',
@@ -158,7 +158,7 @@ window.WifiAnalyzerProject = {
       <div class="flip-card-container" onclick="this.querySelector('.flip-card').classList.toggle('flipped')">
         <div class="flip-card">
           <div class="flip-card-front">
-            <div style="border-radius: 24px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); position: relative;">
+            <div style="border: 1px solid #fff; position: relative;">
               <img src="${this.thumb}" alt="Project showcase" class="w-full" style="display: block;">
               <div class="flip-hint">Click to see code</div>
             </div>
@@ -168,13 +168,13 @@ window.WifiAnalyzerProject = {
             <div style="max-height: 500px; overflow-y: auto;">
               ${this.codeSnippets.map(snippet => `
                 <div style="margin-bottom: 24px;">
-                  <div style="background: rgba(255,255,255,0.05); padding: 12px 20px; border-radius: 12px 12px 0 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                  <div style="background: #000; padding: 12px 20px; border-bottom: 1px solid #fff;">
                     <div style="display: flex; align-items: center; justify-content: space-between;">
                       <span style="color: #10b981; font-weight: 600; font-size: 16px;">${snippet.title}</span>
                       <span style="color: #9ca3af; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">${snippet.language}</span>
                     </div>
                   </div>
-                  <pre style="margin: 0; padding: 20px; background: rgba(0,0,0,0.5); border-radius: 0 0 12px 12px; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.5; color: #e5e7eb;"><code>${snippet.code}</code></pre>
+                  <pre style="margin: 0; padding: 20px; background: #000; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.5; color: #fff; border-top: 1px solid #fff;"><code>${snippet.code}</code></pre>
                 </div>
               `).join('')}
             </div>
@@ -192,8 +192,7 @@ window.WifiAnalyzerProject = {
       <div class="min-h-screen relative bg-black project-wifi-analyzer">
         <div class="fixed inset-0 z-0" style="transform-origin: center;">
           <img src="${this.thumb}" alt="${this.title}" class="w-full h-full object-cover scale-105" style="filter: brightness(0.4) saturate(1.2);">
-          <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
-          <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+          <div class="absolute inset-0 bg-black"></div>
         </div>
         <button id="close" class="project-close-btn">✕</button>
         <div class="relative z-10 min-h-screen flex items-end pb-20 px-8 md:px-16">
@@ -205,7 +204,7 @@ window.WifiAnalyzerProject = {
             </div>
           </div>
         </div>
-        <div class="relative z-20 bg-gradient-to-b from-black via-black to-neutral-950 px-6 md:px-12 py-16">
+        <div class="relative z-20 bg-black px-6 md:px-12 py-16">
           <div class="visual-separator"></div>
           <div class="max-w-5xl mx-auto space-y-8">
             <div class="project-card">
@@ -219,10 +218,6 @@ window.WifiAnalyzerProject = {
             <div class="dev-updates-divider"></div>
             <div id="dev-updates-container">${devUpdatesHTML || ''}</div>
             <div style="height: 100px;"></div>
-            <div class="project-cta-card">
-              <h3 class="text-2xl font-bold text-white mb-6">Visit Project</h3>
-              <a href="${this.link}" target="_blank" class="project-cta-button">View Live Site →</a>
-            </div>
           </div>
         </div>
       </div>
