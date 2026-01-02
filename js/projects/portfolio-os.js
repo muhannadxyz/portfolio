@@ -7,7 +7,7 @@ window.PortfolioOSProject = {
   title: 'Portfolio OS',
   company: 'Web-based Desktop Environment',
   logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="url(#pos-gradient)"/><rect x="11" y="14" width="26" height="20" rx="3" fill="rgba(5,7,15,0.88)" stroke="rgba(255,255,255,0.18)"/><circle cx="16" cy="18" r="1.6" fill="#ff5f57"/><circle cx="21" cy="18" r="1.6" fill="#ffbd2e"/><circle cx="26" cy="18" r="1.6" fill="#28c840"/><path d="M18 30h12" stroke="rgba(0,255,225,0.9)" stroke-width="2" stroke-linecap="round"/><defs><linearGradient id="pos-gradient" x1="0" y1="0" x2="48" y2="48"><stop stop-color="#00ffe1"/><stop offset="1" stop-color="#ff69b4"/></linearGradient></defs></svg>',
-  thumb: 'images/portfolio-os.svg',
+  thumb: 'images/os.png',
   tagline: 'A playful OS inside my portfolio',
   description: 'Portfolio OS is a fully functional desktop environment that runs entirely in your web browser. It includes a complete window manager where you can open, close, minimize, maximize, drag, and resize windows just like a real operating system. The dock contains applications that can be launched, and there is a settings panel for preferences and a notification system. Canvas-based applications include a Tamagotchi pet that roams around the desktop and a CHIP-8 emulator capable of running retro games. All window positions, preferences, and application state are saved using localStorage, so your setup persists between visits. The system handles window focus, z-index management, and window lifecycle events to create an authentic desktop experience without requiring any server-side components or external dependencies.',
   brandColor: '#00ffe1',
