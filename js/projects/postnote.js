@@ -7,7 +7,7 @@ window.PostNoteProject = {
   title: 'PostNote',
   company: 'Real-Time Anonymous Note Board',
   logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="8" fill="#FF6B35"/><rect x="16" y="22" width="16" height="12" rx="1" fill="white" opacity="0.9"/><path d="M18 26h12M18 30h10" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/></svg>',
-  thumb: 'images/postnote.svg',
+  thumb: 'images/postnote.png',
   tagline: 'Leave your mark on the board',
   description: 'PostNote is a real-time anonymous note board where anyone can post sticky notes that appear instantly for all visitors. Notes are limited to 500 characters and use WebSocket connections for instant updates across all connected clients. No user accounts are required - posting is completely anonymous. The interface mimics a physical corkboard with pushpins and rotated sticky notes for a tactile, approachable experience. Live status indicators show when the board is active, and character validation prevents spam while maintaining the anonymous nature of the platform. The system handles real-time synchronization without page refreshes, creating a seamless experience where notes appear immediately for everyone viewing the board.',
   brandColor: '#FF6B35',
@@ -55,6 +55,7 @@ window.PostNoteProject = {
   async renderTemplate(devUpdatesHTML) {
     if (!window.ProjectLoader) return this.getFallbackTemplate(devUpdatesHTML);
     window.ProjectLoader.loadCSS('css/projects/brutal-project.css', 'brutal-project');
+    window.ProjectLoader.loadCSS(this.cssPath, this.slug);
     return window.ProjectLoader.renderBrutalProjectTemplate({
       slug: this.slug,
       thumb: this.thumb,
