@@ -163,9 +163,14 @@ window.ProjectLoader = {
     const railBlock = Array.from({ length: 120 }).map(() => `<span>${railLine}</span>`).join('');
     const railHTML = `<div class="bp-rail-text"><div class="bp-rail-block">${railBlock}</div><div class="bp-rail-block">${railBlock}</div></div>`;
 
+    const backgroundImage = data.backgroundImage ? this.escapeHtml(data.backgroundImage) : '';
+    const bgStyle = backgroundImage 
+      ? `style="background-image: url('${backgroundImage}'); background-size: cover; background-position: center; background-repeat: no-repeat; opacity: 0.4; filter: brightness(0.4) contrast(1.1);"`
+      : '';
+
     return `
       <div class="bp-root" data-project="${this.escapeHtml(data.slug || '')}">
-        <div class="bp-bg"></div>
+        <div class="bp-bg" ${bgStyle}></div>
         <div class="bp-scanlines"></div>
         <div class="bp-rail" aria-hidden="true">
           ${railHTML}

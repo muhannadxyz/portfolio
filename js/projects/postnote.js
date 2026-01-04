@@ -6,8 +6,9 @@ window.PostNoteProject = {
   name: 'PostNote',
   title: 'PostNote',
   company: 'Real-Time Anonymous Note Board',
-  logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="8" fill="#FF6B35"/><circle cx="24" cy="12" r="3" fill="white"/><path d="M24 12L20 20L24 18L28 20L24 12Z" fill="white"/><rect x="16" y="22" width="16" height="12" rx="1" fill="white" opacity="0.9"/><path d="M18 26h12M18 30h10" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/></svg>',
-  thumb: 'images/postnote.svg',
+  logo: '<img src="images/postednote.png" alt="PostNote" style="width: 100%; height: 100%; object-fit: contain;">',
+  thumb: 'images/postnoteweb.png',
+  backgroundImage: 'images/postnoteweb.png',
   tagline: 'Leave your mark on the board',
   description: 'Built a real-time shared anonymous note board with a corkboard UI. Users can post sticky notes (up to 500 characters) that appear instantly for all visitors. Features fully anonymous posting, live status indicators, and a character counter. Designed with a warm, tactile aesthetic that mimics a physical corkboard with pushpins and rotated sticky notes.',
   details: 'The challenge was creating a seamless real-time experience where notes appear instantly across all connected clients without page refreshes, while maintaining anonymity and preventing abuse. Implemented WebSocket connections for live updates, character validation, and a clean UI that balances the playful corkboard aesthetic with functional UX.',
@@ -59,6 +60,7 @@ window.PostNoteProject = {
     return window.ProjectLoader.renderBrutalProjectTemplate({
       slug: this.slug,
       thumb: this.thumb,
+      backgroundImage: this.backgroundImage,
       title: this.title,
       company: this.company,
       logo: this.logo,
@@ -79,7 +81,7 @@ window.PostNoteProject = {
     return `
       <div class="min-h-screen relative bg-black project-postnote">
         <div class="fixed inset-0 z-0" style="transform-origin: center;">
-          <img src="${this.thumb}" alt="${this.title}" class="w-full h-full object-cover scale-105" style="filter: brightness(0.55) saturate(1.1);">
+          <img src="${this.backgroundImage || this.thumb}" alt="${this.title}" class="w-full h-full object-cover scale-105" style="filter: brightness(0.55) saturate(1.1);">
           <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
           <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
         </div>
