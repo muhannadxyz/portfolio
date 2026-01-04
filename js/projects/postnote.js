@@ -6,10 +6,11 @@ window.PostNoteProject = {
   name: 'PostNote',
   title: 'PostNote',
   company: 'Real-Time Anonymous Note Board',
-  logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="8" fill="#FF6B35"/><rect x="16" y="22" width="16" height="12" rx="1" fill="white" opacity="0.9"/><path d="M18 26h12M18 30h10" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/></svg>',
-  thumb: 'images/postnote.png',
+  logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="8" fill="#FF6B35"/><circle cx="24" cy="12" r="3" fill="white"/><path d="M24 12L20 20L24 18L28 20L24 12Z" fill="white"/><rect x="16" y="22" width="16" height="12" rx="1" fill="white" opacity="0.9"/><path d="M18 26h12M18 30h10" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/></svg>',
+  thumb: 'images/postnote.svg',
   tagline: 'Leave your mark on the board',
-  description: 'PostNote is a real-time anonymous note board where anyone can post sticky notes that appear instantly for all visitors. Notes are limited to 500 characters and use WebSocket connections for instant updates across all connected clients. No user accounts are required - posting is completely anonymous. The interface mimics a physical corkboard with pushpins and rotated sticky notes for a tactile, approachable experience. Live status indicators show when the board is active, and character validation prevents spam while maintaining the anonymous nature of the platform. The system handles real-time synchronization without page refreshes, creating a seamless experience where notes appear immediately for everyone viewing the board.',
+  description: 'Built a real-time shared anonymous note board with a corkboard UI. Users can post sticky notes (up to 500 characters) that appear instantly for all visitors. Features fully anonymous posting, live status indicators, and a character counter. Designed with a warm, tactile aesthetic that mimics a physical corkboard with pushpins and rotated sticky notes.',
+  details: 'The challenge was creating a seamless real-time experience where notes appear instantly across all connected clients without page refreshes, while maintaining anonymity and preventing abuse. Implemented WebSocket connections for live updates, character validation, and a clean UI that balances the playful corkboard aesthetic with functional UX.',
   brandColor: '#FF6B35',
   link: 'https://post-note.vercel.app/',
   railText: 'POSTNOTE • REAL-TIME BOARD •',
@@ -55,7 +56,6 @@ window.PostNoteProject = {
   async renderTemplate(devUpdatesHTML) {
     if (!window.ProjectLoader) return this.getFallbackTemplate(devUpdatesHTML);
     window.ProjectLoader.loadCSS('css/projects/brutal-project.css', 'brutal-project');
-    window.ProjectLoader.loadCSS(this.cssPath, this.slug);
     return window.ProjectLoader.renderBrutalProjectTemplate({
       slug: this.slug,
       thumb: this.thumb,
@@ -64,6 +64,7 @@ window.PostNoteProject = {
       logo: this.logo,
       tagline: this.tagline,
       description: this.description,
+      details: this.details,
       link: this.link,
       links: this.links,
       railText: this.railText,
@@ -79,7 +80,8 @@ window.PostNoteProject = {
       <div class="min-h-screen relative bg-black project-postnote">
         <div class="fixed inset-0 z-0" style="transform-origin: center;">
           <img src="${this.thumb}" alt="${this.title}" class="w-full h-full object-cover scale-105" style="filter: brightness(0.55) saturate(1.1);">
-          <div class="absolute inset-0 bg-black"></div>
+          <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
         </div>
         <button id="close" class="project-close-btn">✕</button>
         <div class="relative z-10 min-h-screen flex items-end pb-20 px-8 md:px-16">
@@ -91,12 +93,13 @@ window.PostNoteProject = {
             </div>
           </div>
         </div>
-        <div class="relative z-20 bg-black px-6 md:px-12 py-16">
+        <div class="relative z-20 bg-gradient-to-b from-black via-black to-neutral-950 px-6 md:px-12 py-16">
           <div class="visual-separator"></div>
           <div class="max-w-5xl mx-auto space-y-8">
             <div class="project-card">
               <div class="flex items-center gap-3 mb-4">
-                <h2 class="text-3xl font-bold text-white">What It Is</h2>
+                <div class="card-icon role-icon">💼</div>
+                <h2 class="text-3xl font-bold text-white">My Role</h2>
               </div>
               <p class="text-lg text-gray-300 leading-relaxed">${this.description}</p>
             </div>
@@ -107,6 +110,17 @@ window.PostNoteProject = {
             <div class="dev-updates-divider"></div>
             <div id="dev-updates-container">${devUpdatesHTML || ''}</div>
             <div style="height: 100px;"></div>
+            <div class="project-card">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="card-icon challenge-icon">🎯</div>
+                <h3 class="text-3xl font-bold text-white">The Challenge</h3>
+              </div>
+              <p class="text-lg text-gray-300 leading-relaxed">${this.details}</p>
+            </div>
+            <div class="project-cta-card">
+              <h3 class="text-2xl font-bold text-white mb-6">Visit Project</h3>
+              <a href="${this.link}" target="_blank" class="project-cta-button">View Live Site →</a>
+            </div>
           </div>
         </div>
       </div>

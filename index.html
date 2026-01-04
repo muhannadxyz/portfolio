@@ -130,16 +130,6 @@
       animation: glitchFlicker 0.3s infinite;
     }
     
-    .glitch-block-2 {
-      width: 80px;
-      height: 80px;
-      bottom: 20%;
-      left: 5%;
-      border: 2px solid #fff;
-      background: transparent;
-      animation: glitchRotate 10s linear infinite;
-    }
-    
     .glitch-block-3 {
       width: 4px;
       height: 150px;
@@ -152,11 +142,6 @@
       0%, 100% { opacity: 0.3; }
       50% { opacity: 0.1; }
       75% { opacity: 0.5; }
-    }
-    
-    @keyframes glitchRotate {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
     }
     
     /* WHITE ACCENT LINES */
@@ -268,6 +253,160 @@
       text-transform: uppercase;
       position: relative;
       z-index: 20;
+      will-change: transform, text-shadow;
+      cursor: pointer;
+      transition: none;
+    }
+    
+    .giant-name::before,
+    .giant-name::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      opacity: 0;
+      pointer-events: none;
+    }
+    
+    .giant-name::before {
+      left: -2px;
+      text-shadow: 2px 0 #ff0000, -2px 0 #00ffff;
+      clip: rect(0, 900px, 0, 0);
+      z-index: -1;
+    }
+    
+    .giant-name::after {
+      left: 2px;
+      text-shadow: -2px 0 #00ffff, 2px 0 #ff0000;
+      clip: rect(0, 900px, 0, 0);
+      z-index: -2;
+    }
+    
+    .giant-name:hover {
+      animation: brutalGlitch 1.5s infinite;
+    }
+    
+    .giant-name:hover::before {
+      opacity: 0.6;
+      animation: brutalGlitchClip1 1.2s infinite linear alternate-reverse;
+    }
+    
+    .giant-name:hover::after {
+      opacity: 0.6;
+      animation: brutalGlitchClip2 1s infinite linear alternate-reverse;
+    }
+    
+    @keyframes brutalGlitchClip1 {
+      0% { clip: rect(0px, 9999px, 50px, 0); transform: skew(0deg); }
+      25% { clip: rect(20px, 9999px, 70px, 0); transform: skew(0.3deg); }
+      50% { clip: rect(10px, 9999px, 60px, 0); transform: skew(-0.3deg); }
+      75% { clip: rect(30px, 9999px, 80px, 0); transform: skew(0.2deg); }
+      100% { clip: rect(15px, 9999px, 65px, 0); transform: skew(-0.2deg); }
+    }
+    
+    @keyframes brutalGlitchClip2 {
+      0% { clip: rect(50px, 9999px, 100px, 0); transform: skew(0deg); }
+      25% { clip: rect(30px, 9999px, 80px, 0); transform: skew(-0.3deg); }
+      50% { clip: rect(40px, 9999px, 90px, 0); transform: skew(0.3deg); }
+      75% { clip: rect(20px, 9999px, 70px, 0); transform: skew(-0.2deg); }
+      100% { clip: rect(35px, 9999px, 85px, 0); transform: skew(0.2deg); }
+    }
+    
+    @keyframes brutalGlitch {
+      0%, 100% {
+        text-shadow: 
+          0 0 0 #fff,
+          0 0 0 #fff;
+        transform: translate(0) skew(0deg);
+        opacity: 1;
+      }
+      8% {
+        text-shadow: 
+          -3px 0 0 #ff0000,
+          3px 0 0 #00ffff;
+        transform: translate(-2px, 1px) skew(0.5deg);
+        opacity: 0.98;
+      }
+      8.2% {
+        text-shadow: 
+          3px 0 0 #ff0000,
+          -3px 0 0 #00ffff;
+        transform: translate(2px, -1px) skew(-0.5deg);
+        opacity: 0.99;
+      }
+      8.4% {
+        text-shadow: 
+          0 0 0 #fff,
+          0 0 0 #fff;
+        transform: translate(0) skew(0deg);
+        opacity: 1;
+      }
+      25% {
+        text-shadow: 
+          -2px 0 0 #ff0000,
+          2px 0 0 #00ffff;
+        transform: translate(-1px, 1px) skew(0.3deg);
+        opacity: 0.99;
+      }
+      25.1% {
+        text-shadow: 
+          2px 0 0 #ff0000,
+          -2px 0 0 #00ffff;
+        transform: translate(1px, -1px) skew(-0.3deg);
+        opacity: 1;
+      }
+      25.2% {
+        text-shadow: 
+          0 0 0 #fff,
+          0 0 0 #fff;
+        transform: translate(0) skew(0deg);
+        opacity: 1;
+      }
+      50% {
+        text-shadow: 
+          -4px 0 0 #ff0000,
+          4px 0 0 #00ffff;
+        transform: translate(-2px, 1px) skew(0.6deg);
+        opacity: 0.97;
+      }
+      50.1% {
+        text-shadow: 
+          4px 0 0 #ff0000,
+          -4px 0 0 #00ffff;
+        transform: translate(2px, -1px) skew(-0.6deg);
+        opacity: 0.98;
+      }
+      50.2% {
+        text-shadow: 
+          0 0 0 #fff,
+          0 0 0 #fff;
+        transform: translate(0) skew(0deg);
+        opacity: 1;
+      }
+      75% {
+        text-shadow: 
+          -2px 0 0 #ff0000,
+          2px 0 0 #00ffff;
+        transform: translate(-1px, 0.5px) skew(0.4deg);
+        opacity: 0.99;
+      }
+      75.1% {
+        text-shadow: 
+          2px 0 0 #ff0000,
+          -2px 0 0 #00ffff;
+        transform: translate(1px, -0.5px) skew(-0.4deg);
+        opacity: 1;
+      }
+      75.2% {
+        text-shadow: 
+          0 0 0 #fff,
+          0 0 0 #fff;
+        transform: translate(0) skew(0deg);
+        opacity: 1;
+      }
     }
     
     .giant-name span {
@@ -442,23 +581,6 @@
     @keyframes scrollUp {
       0% { transform: translateY(0); }
       100% { transform: translateY(-50%); }
-    }
-    
-    /* Geometric shape - BRUTAL */
-    .geo-shape {
-      position: absolute;
-      top: 15%;
-      right: 240px;
-      width: 100px;
-      height: 100px;
-      border: 3px solid #fff;
-      animation: brutalRotate 20s linear infinite;
-      z-index: 10;
-    }
-    
-    @keyframes brutalRotate {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
     }
     
     /* Floating cross */
@@ -679,7 +801,7 @@
         display: none;
       }
       
-      .geo-shape, .floating-orb {
+      .floating-orb {
         display: none;
       }
       
@@ -1201,7 +1323,6 @@
         
         <!-- Glitch Blocks -->
         <div class="glitch-block glitch-block-1"></div>
-        <div class="glitch-block glitch-block-2"></div>
         <div class="glitch-block glitch-block-3"></div>
         
         <!-- Red Accents -->
@@ -1228,8 +1349,8 @@
         </div>
         
         <div class="giant-name-container">
-          <h1 class="giant-name">MUHANNAD</h1>
-           <h1 class="giant-name">ABUZAHRIEH</h1>
+          <h1 class="giant-name" data-text="MUHANNAD">MUHANNAD</h1>
+           <h1 class="giant-name" data-text="ABUZAHRIEH">ABUZAHRIEH</h1>
         </div>
         
         <div class="hero-bottom">
@@ -1274,7 +1395,6 @@
       </div>
       
       <!-- Geometric elements -->
-      <div class="geo-shape"></div>
       <div class="floating-orb"></div>
     </section>
     

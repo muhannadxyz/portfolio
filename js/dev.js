@@ -211,7 +211,7 @@ const fallbackProjectsData = [
   {
     slug: 'wifi-analyzer',
     name: 'Public Wi-Fi Risk Analyzer',
-    logo: '<img src="images/wifi-symbol.webp" alt="Wi-Fi Analyzer" style="width: 100%; height: 100%; object-fit: contain;">',
+    logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#EF4444"/><path d="M24 18C29 18 33 22 33 27" stroke="white" stroke-width="2.5" stroke-linecap="round"/><path d="M24 22C26.5 22 29 24.5 29 27" stroke="white" stroke-width="2.5" stroke-linecap="round"/><circle cx="24" cy="27" r="2" fill="white"/><path d="M18 32L30 32" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M20 28L28 28" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2 2"/></svg>',
     brandColor: '#EF4444',
     updates: [
       {
@@ -274,7 +274,7 @@ const fallbackProjectsData = [
   {
     slug: 'wind-turbine',
     name: 'Wind Turbine Monitoring System',
-    logo: '<img src="images/turbine.png" alt="Wind Turbine" style="width: 100%; height: 100%; object-fit: contain;">',
+    logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#059669"/><circle cx="24" cy="20" r="3" fill="white"/><path d="M24 20L24 10M24 10L20 14M24 10L28 14" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M24 20L32 26M32 26L28 28M32 26L34 22" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M24 20L16 26M16 26L12 22M16 26L20 28" stroke="white" stroke-width="2" stroke-linecap="round"/><rect x="22" y="20" width="4" height="14" fill="white" rx="1"/></svg>',
     brandColor: '#059669',
     updates: [
       {
