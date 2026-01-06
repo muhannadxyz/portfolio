@@ -424,9 +424,9 @@
       align-items: flex-end;
       padding-bottom: 2rem;
       background: transparent;
-      border-top: 1px solid rgba(255,255,255,0.1);
       margin-top: auto;
       padding-top: 2rem;
+      position: relative;
     }
     
     .brand-mark {
@@ -444,39 +444,50 @@
       gap: 4rem;
     }
     
+    .directory-section:has(.directory-col:only-child) {
+      gap: 0;
+    }
+    
     .directory-col h4 {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem;
-      color: #666;
-      margin-bottom: 1rem;
+      font-size: 0.75rem;
+      color: #aaa;
+      margin-bottom: 1.25rem;
       letter-spacing: 0.2em;
-      font-weight: 400;
+      font-weight: 500;
+      text-transform: uppercase;
     }
     
     .directory-col ul {
       list-style: none;
       padding: 0;
       margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
     }
     
     .directory-col li {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-      color: #888;
-      padding: 0.4rem 0;
+      font-size: 0.9rem;
+      color: #bbb;
+      padding: 0.5rem 0;
       cursor: pointer;
-      transition: all 0.1s ease;
+      transition: all 0.2s ease;
       text-transform: uppercase;
       letter-spacing: 0.1em;
+      line-height: 1.4;
     }
     
     .directory-col li:hover {
       color: #fff;
+      transform: translateX(4px);
     }
     
     .directory-col li.active {
       color: #fff;
       position: relative;
+      font-weight: 600;
     }
     
     .directory-col li.active::before {
@@ -484,10 +495,11 @@
       position: absolute;
       left: -1.5rem;
       color: #fff;
+      font-weight: 600;
     }
     
-    .external-link {
-      display: inline-flex;
+    .directory-col li.external-link {
+      display: block;
       align-items: center;
       gap: 0.3rem;
     }
@@ -499,7 +511,9 @@
     
     .meta-section {
       text-align: right;
-      position: relative;
+      position: absolute;
+      bottom: 2rem;
+      right: -1.5rem;
       z-index: 25;
       /* Hard plate so lines never slash through the text */
       background: #000;
@@ -1294,6 +1308,26 @@
 
   <!-- Site Content -->
   <div id="main-content">
+    <!-- Hamburger Menu -->
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    
+    <nav class="dropdown-nav" id="dropdown-nav">
+      <div class="dropdown-content">
+        <div class="dropdown-links">
+          <a href="#" onclick="scrollToProjects(); toggleMenu(); return false;">WORKS</a>
+          <a href="portfolio.html" onclick="toggleMenu()">RESUME</a>
+          <a href="dev.html" onclick="toggleMenu()">DEV LOG</a>
+          <a href="contact.html" onclick="toggleMenu()">CONTACT</a>
+          <a href="https://github.com/muhannadxyz" target="_blank" rel="noreferrer" onclick="toggleMenu()">GITHUB</a>
+          <a href="https://www.linkedin.com/in/muhannad-abuzahrieh-0b7330265/" target="_blank" rel="noreferrer" onclick="toggleMenu()">LINKEDIN</a>
+        </div>
+      </div>
+    </nav>
+    
     <!-- BRUTAL Hero Section -->
     <section class="brutalist-hero">
       <!-- Raw Background -->
@@ -1337,28 +1371,6 @@
         </div>
         
         <div class="hero-bottom">
-          <div class="brand-mark">MUHANNAD ABUZAHRIEH ™</div>
-          
-          <div class="directory-section">
-            <div class="directory-col">
-              <h4>[ DIRECTORY ]</h4>
-              <ul>
-                <li class="active" onclick="scrollToProjects()">WORKS</li>
-                <li><a href="portfolio.html" style="color: inherit; text-decoration: none;">RESUME</a></li>
-                <li><a href="dev.html" style="color: inherit; text-decoration: none;">DEV LOG</a></li>
-                <li><a href="contact.html" style="color: inherit; text-decoration: none;">CONTACT</a></li>
-              </ul>
-            </div>
-            
-            <div class="directory-col">
-              <h4>[ CONNECT ]</h4>
-              <ul>
-                <li class="external-link"><a href="https://github.com/muhannadxyz" target="_blank" style="color: inherit; text-decoration: none;">GITHUB</a></li>
-                <li class="external-link"><a href="https://linkedin.com/in/muhannad" target="_blank" style="color: inherit; text-decoration: none;">LINKEDIN</a></li>
-              </ul>
-            </div>
-          </div>
-          
           <div class="meta-section">
             <div class="roles">
               <span>SOFTWARE ENGINEER</span>
@@ -2216,12 +2228,7 @@ void setup() {
   <!-- Footer -->
   <footer class="footer-bar">
     <div>© 2026 MUHANNAD ABUZAHRIEH</div>
-    <div style="display: flex; gap: 2rem;">
-      <a href="https://github.com/muhannadxyz" target="_blank">GITHUB</a>
-      <a href="https://linkedin.com/in/muhannad" target="_blank">LINKEDIN</a>
-      <a href="contact.html">CONTACT</a>
-      <a href = "portfolio.html">RESUME</a>
-    </div>
+    <div style="display: flex; gap: 2rem;"></div>
     <div>BUILDING THE FUTURE</div>
   </footer>
 
