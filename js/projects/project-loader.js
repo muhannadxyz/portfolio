@@ -163,14 +163,9 @@ window.ProjectLoader = {
     const railBlock = Array.from({ length: 120 }).map(() => `<span>${railLine}</span>`).join('');
     const railHTML = `<div class="bp-rail-text"><div class="bp-rail-block">${railBlock}</div><div class="bp-rail-block">${railBlock}</div></div>`;
 
-    const backgroundImage = data.backgroundImage ? this.escapeHtml(data.backgroundImage) : '';
-    const bgStyle = backgroundImage 
-      ? `style="background-image: url('${backgroundImage}'); background-size: cover; background-position: center; background-repeat: no-repeat; opacity: 0.4; filter: brightness(0.4) contrast(1.1);"`
-      : '';
-
     return `
       <div class="bp-root" data-project="${this.escapeHtml(data.slug || '')}">
-        <div class="bp-bg" ${bgStyle}></div>
+        <div class="bp-bg"></div>
         <div class="bp-scanlines"></div>
         <div class="bp-rail" aria-hidden="true">
           ${railHTML}
@@ -193,21 +188,25 @@ window.ProjectLoader = {
 
         <main class="bp-main">
           <div class="bp-panel">
-            <div class="bp-panel-title">What It Is</div>
+            <div class="bp-panel-title">Overview</div>
             <div class="bp-text">${description}</div>
-            ${data.link ? `<div style="margin-top: 24px;"><a href="${this.escapeHtml(data.link)}" target="_blank" style="display: inline-block; padding: 16px 32px; background: #000; color: #fff; border: 2px solid #fff; font-size: 18px; font-weight: 700; text-decoration: none; text-transform: uppercase; letter-spacing: 0.1em; transition: all 0.1s ease;">Visit Site →</a></div>` : ''}
+          </div>
+
+          <div class="bp-panel">
+            <div class="bp-panel-title">The Challenge</div>
+            <div class="bp-text">${details}</div>
           </div>
 
           ${highlights ? `
             <div class="bp-panel">
-              <div class="bp-panel-title">Key Features</div>
+              <div class="bp-panel-title">Highlights</div>
               ${highlights}
             </div>
           ` : ''}
 
           ${stack ? `
             <div class="bp-panel">
-              <div class="bp-panel-title">Tech Stack</div>
+              <div class="bp-panel-title">Tech</div>
               ${stack}
             </div>
           ` : ''}
@@ -257,23 +256,23 @@ window.ProjectLoader = {
               <div class="flip-card-container" onclick="this.querySelector('.flip-card').classList.toggle('flipped')">
                 <div class="flip-card">
                   <div class="flip-card-front">
-                    <div style="border: 1px solid #fff; position: relative;">
+                    <div style="border-radius: 24px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); position: relative;">
                       <img src="${data.thumb}" alt="Project showcase" class="w-full" style="display: block;">
-                      <div class="flip-hint">Click to see code</div>
+                      <div class="flip-hint">Click to see code 💻</div>
                     </div>
                   </div>
                   <div class="flip-card-back">
-                    <h3 class="text-2xl font-bold text-white mb-4" style="color: #10b981;">Code Implementation</h3>
+                    <h3 class="text-2xl font-bold text-white mb-4" style="color: #10b981;">💻 Code Implementation</h3>
                     <div style="max-height: 500px; overflow-y: auto;">
                       ${value.map(snippet => `
                         <div style="margin-bottom: 24px;">
-                          <div style="background: #000; padding: 12px 20px; border-bottom: 1px solid #fff;">
+                          <div style="background: rgba(255,255,255,0.05); padding: 12px 20px; border-radius: 12px 12px 0 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
                             <div style="display: flex; align-items: center; justify-content: space-between;">
                               <span style="color: #10b981; font-weight: 600; font-size: 16px;">${snippet.title}</span>
                               <span style="color: #9ca3af; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">${snippet.language}</span>
                             </div>
                           </div>
-                          <pre style="margin: 0; padding: 20px; background: #000; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.5; color: #fff; border-top: 1px solid #fff;"><code>${snippet.code}</code></pre>
+                          <pre style="margin: 0; padding: 20px; background: rgba(0,0,0,0.5); border-radius: 0 0 12px 12px; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.5; color: #e5e7eb;"><code>${snippet.code}</code></pre>
                         </div>
                       `).join('')}
                     </div>

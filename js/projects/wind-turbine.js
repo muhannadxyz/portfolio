@@ -6,9 +6,8 @@ window.WindTurbineProject = {
   name: 'Wind Turbine Monitoring System',
   title: 'Wind Turbine Monitoring System',
   company: 'IoT & Renewable Energy',
-  logo: '<img src="images/turbine.png" alt="Wind Turbine" style="width: 100%; height: 100%; object-fit: contain;">',
-  thumb: 'images/turbine.png',
-  backgroundImage: 'images/turbine.png',
+  logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#059669"/><circle cx="24" cy="20" r="3" fill="white"/><path d="M24 20L24 10M24 10L20 14M24 10L28 14" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M24 20L32 26M32 26L28 28M32 26L34 22" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M24 20L16 26M16 26L12 22M16 26L20 28" stroke="white" stroke-width="2" stroke-linecap="round"/><rect x="22" y="20" width="4" height="14" fill="white" rx="1"/></svg>',
+  thumb: 'https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?w=800&h=600&fit=crop',
   tagline: 'Real-time renewable energy data collection',
   description: 'Developed an advanced IoT monitoring system for wind turbines using Arduino and real-time sensors. Implemented Hall-effect sensors for RPM measurement, voltage and current sensors for power analysis, and RTC integration for precise timestamping. Built a comprehensive data logging system that tracks turbine performance metrics including rotational speed, electrical output, and power generation in real-time.',
   details: 'Created an embedded systems solution for renewable energy monitoring. The system uses interrupt-driven Hall-effect sensing for accurate RPM calculation, analog sensor integration for voltage/current measurement, and automatic power computation. Features include real-time clock synchronization for data integrity, efficient pulse counting algorithms, and serial data logging for performance analysis and optimization.',
@@ -160,7 +159,6 @@ void setup() {
     return window.ProjectLoader.renderBrutalProjectTemplate({
       slug: this.slug,
       thumb: this.thumb,
-      backgroundImage: this.backgroundImage,
       title: this.title,
       company: this.company,
       logo: this.logo,
@@ -216,7 +214,7 @@ void setup() {
     return `
       <div class="min-h-screen relative bg-black project-wind-turbine">
         <div class="fixed inset-0 z-0" style="transform-origin: center;">
-          <img src="${this.backgroundImage || this.thumb}" alt="${this.title}" class="w-full h-full object-cover scale-105" style="filter: brightness(0.4) saturate(1.2);">
+          <img src="${this.thumb}" alt="${this.title}" class="w-full h-full object-cover scale-105" style="filter: brightness(0.4) saturate(1.2);">
           <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
           <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
         </div>
