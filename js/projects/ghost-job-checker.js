@@ -1,60 +1,57 @@
-// PostNote Project Data, Template, and Styles
+// Ghost Job Checker Project Data, Template, and Styles
 
-window.PostNoteProject = {
+window.GhostJobCheckerProject = {
   // Project Data
-  slug: 'postnote',
-  name: 'PostNote',
-  title: 'PostNote',
-  company: 'Real-Time Anonymous Note Board',
-  logo: '<img src="images/postednote.png" alt="PostNote" style="width: 100%; height: 100%; object-fit: contain;">',
-  thumb: 'images/postnote.png',
-  tagline: 'Leave your mark on the board',
-  description: 'Built a real-time shared anonymous note board with a corkboard UI. Users can post sticky notes (up to 500 characters) that appear instantly for all visitors. Features fully anonymous posting, live status indicators, and a character counter. Designed with a warm, tactile aesthetic that mimics a physical corkboard with pushpins and rotated sticky notes.',
-  details: 'The challenge was creating a seamless real-time experience where notes appear instantly across all connected clients without page refreshes, while maintaining anonymity and preventing abuse. Implemented WebSocket connections for live updates, character validation, and a clean UI that balances the playful corkboard aesthetic with functional UX.',
+  slug: 'ghost-job-checker',
+  name: 'Ghost Job Checker',
+  title: 'Ghost Job Checker',
+  company: 'Job Posting Analysis Tool',
+  logo: '<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 48px;">👻</div>',
+  thumb: 'images/ghostchecker.png',
+  tagline: 'Detect fake & phantom job postings before wasting your time',
+  description: 'Ghost Job Checker is an AI-powered tool that helps job seekers identify fake and phantom job postings before applying. The tool analyzes job descriptions using multiple risk factors including stale risk (reposting patterns, age, applicant count), pipeline risk (evergreen/talent pool language), and vague risk (short text, vague requirements, buzzwords). It provides a comprehensive risk score from 0-100, hiring likelihood assessment, and detailed analysis with red flags and positive signals. The platform accepts both job URLs and full job descriptions, with intelligent text analysis that detects common patterns in ghost job postings.',
+  details: 'Built to solve the problem of job seekers wasting time on fake job postings that companies keep up to collect resumes or maintain an appearance of growth. The tool uses heuristic analysis to detect multiple risk factors and provides transparent scoring with confidence levels. Features include URL fetching for LinkedIn/Indeed posts, manual description input, and detailed breakdowns of why a job might be a ghost posting.',
   brandColor: '#FF6B35',
-  link: 'https://post-note.vercel.app/',
-  railText: 'POSTNOTE • REAL-TIME BOARD •',
+  link: 'https://ghost-job-checker.vercel.app/',
+  railText: 'GHOST JOB CHECKER • JOB ANALYSIS •',
   links: [
-    { label: 'Live', url: 'https://post-note.vercel.app/' }
+    { label: 'Live', url: 'https://ghost-job-checker.vercel.app/' }
   ],
   stack: [
-    'Real-Time WebSockets',
-    'Anonymous Posting',
-    'UI / UX Design',
-    'Character Validation',
-    'Live Status'
+    'AI Text Analysis',
+    'Risk Scoring Model',
+    'URL Fetching',
+    'Heuristic Detection',
+    'UI / UX Design'
   ],
   highlights: [
-    'Built real-time note sharing with WebSocket connections for instant updates.',
-    'Designed a corkboard UI with rotated sticky notes and pushpin details.',
-    'Implemented anonymous posting with character limits and live status indicators.'
-  ],
-  gallery: [
-    'images/postnote.png',
-    'images/postednote.png'
+    'Built multi-factor risk analysis system detecting stale, pipeline, and vague job patterns.',
+    'Implemented intelligent text analysis for ghost job detection with confidence scoring.',
+    'Created transparent scoring model with detailed breakdowns and actionable insights.'
   ],
 
   // Dev Updates
   updates: [
     {
       version: 'v1.0.0',
-      date: '2025-12-17',
+      date: '2025-01-02',
       type: 'major',
       changes: [
-        'Initial release of PostNote real-time note board',
-        'Implemented WebSocket connections for live updates',
-        'Built corkboard UI with sticky note styling',
-        'Added anonymous posting with 500 character limit',
-        'Created live status indicator and note counter'
+        'Initial release of Ghost Job Checker',
+        'Implemented multi-factor risk analysis (stale, pipeline, vague)',
+        'Built URL fetching for LinkedIn/Indeed job postings',
+        'Created heuristic detection system for ghost job patterns',
+        'Added comprehensive scoring with confidence levels',
+        'Designed transparent UI with detailed risk breakdowns'
       ]
     }
   ],
 
   // HTML Template Path
-  htmlTemplatePath: 'html/projects/postnote.html',
+  htmlTemplatePath: 'html/projects/ghost-job-checker.html',
 
   // CSS Styles Path
-  cssPath: 'css/projects/postnote.css',
+  cssPath: 'css/projects/ghost-job-checker.css',
 
   // HTML Template Function - loads from external HTML file
   async renderTemplate(devUpdatesHTML) {
@@ -74,7 +71,6 @@ window.PostNoteProject = {
       railText: this.railText,
       stack: this.stack,
       highlights: this.highlights,
-      gallery: this.gallery,
       updates: this.updates || []
     });
   },
@@ -82,7 +78,7 @@ window.PostNoteProject = {
   // Fallback template if HTML file fails to load
   getFallbackTemplate(devUpdatesHTML) {
     return `
-      <div class="min-h-screen relative bg-black project-postnote">
+      <div class="min-h-screen relative bg-black project-ghost-job-checker">
         <div class="fixed inset-0 z-0" style="transform-origin: center;">
           <img src="${this.thumb}" alt="${this.title}" class="w-full h-full object-cover scale-105" style="filter: brightness(0.55) saturate(1.1);">
           <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
@@ -104,7 +100,7 @@ window.PostNoteProject = {
             <div class="project-card">
               <div class="flex items-center gap-3 mb-4">
                 <div class="card-icon role-icon">💼</div>
-                <h2 class="text-3xl font-bold text-white">My Role</h2>
+                <h2 class="text-3xl font-bold text-white">What It Is</h2>
               </div>
               <p class="text-lg text-gray-300 leading-relaxed">${this.description}</p>
             </div>
@@ -132,9 +128,3 @@ window.PostNoteProject = {
     `;
   }
 };
-
-
-
-
-
-
