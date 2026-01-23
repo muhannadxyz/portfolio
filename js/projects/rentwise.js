@@ -9,7 +9,7 @@ window.RentwiseProject = {
   logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#2563EB"/><rect x="18" y="14" width="12" height="20" rx="1" stroke="white" stroke-width="2"/><rect x="22" y="28" width="4" height="6" fill="white"/><rect x="20" y="18" width="2" height="2" fill="white"/><rect x="26" y="18" width="2" height="2" fill="white"/><rect x="20" y="22" width="2" height="2" fill="white"/><rect x="26" y="22" width="2" height="2" fill="white"/></svg>',
   thumb: 'images/rentwise1.jpeg',
   tagline: 'Streamline your rental operations',
-  description: 'Rentwise is a comprehensive property management platform that helps landlords and property managers handle all aspects of rental operations in one unified system. The landlord dashboard provides property overview, tenant information management, lease tracking with expiration dates, maintenance request handling, and financial reporting with analytics. Landlords can manage multiple properties, view tenant payment history, track lease terms, and generate reports for accounting purposes. The tenant portal enables online rent payments through secure payment processing, maintenance request submission with photo uploads, document access for leases and receipts, and direct communication with property managers. The platform automates lease renewal reminders, sends payment notifications, routes maintenance requests to appropriate vendors, and provides analytics to help optimize rental operations. Automated workflows handle routine tasks like payment reminders, lease expiration alerts, and maintenance request routing to reduce administrative overhead.',
+  description: 'Rentwise is a comprehensive property management platform built as a full-stack web application using Laravel (PHP), Blade templating, Tailwind CSS, and Vite for fast and responsive development. The backend and database are powered by WordPress, providing a robust foundation for data management with reliable content management capabilities and extensible plugin architecture. The platform represents a complete digital transformation of rental property operations, consolidating multiple tools and processes into a single, intuitive interface that serves both property owners and tenants. The landlord dashboard serves as a command center for property management operations, offering comprehensive property overviews with visual analytics, detailed tenant information management systems, sophisticated lease tracking with automated expiration date monitoring, streamlined maintenance request handling with priority routing, and advanced financial reporting with customizable analytics dashboards. Landlords can efficiently manage portfolios of multiple properties simultaneously, accessing real-time tenant payment history, tracking lease terms and renewals, generating comprehensive reports for accounting and tax purposes, and monitoring property performance metrics. The tenant portal revolutionizes the rental experience by enabling seamless online rent payments through secure, PCI-compliant payment processing systems, intuitive maintenance request submission with photo uploads and detailed descriptions, comprehensive document access for leases, receipts, and important communications, and direct messaging channels with property managers for instant communication. The platform\'s automation engine handles complex workflows including lease renewal reminders sent via email and SMS, automated payment notifications and late fee calculations, intelligent maintenance request routing to appropriate vendors based on issue type and urgency, and comprehensive analytics that help optimize rental operations by identifying trends, predicting maintenance needs, and maximizing property value. Advanced features include automated workflows that handle routine administrative tasks like payment reminders, lease expiration alerts with renewal prompts, maintenance request routing with vendor assignment, and comprehensive reporting that reduces administrative overhead while improving tenant satisfaction and property profitability.',
   brandColor: '#2563EB',
   link: 'https://rentwise.tech/',
   railText: 'RENTWISE • PROPERTY MGMT •',
@@ -17,7 +17,12 @@ window.RentwiseProject = {
     { label: 'Live', url: 'https://rentwise.tech/' }
   ],
   stack: [
-    'Web App',
+    'Laravel (PHP)',
+    'Blade',
+    'Tailwind CSS',
+    'Vite',
+    'WordPress',
+    'Full-Stack Web App',
     'Dashboards',
     'Tenant Portal',
     'Payments',

@@ -9,7 +9,7 @@ window.PostNoteProject = {
   logo: '<img src="images/postednote.png" alt="PostNote" style="width: 100%; height: 100%; object-fit: contain;">',
   thumb: 'images/postnote.png',
   tagline: 'Leave your mark on the board',
-  description: 'Built a real-time shared anonymous note board with a corkboard UI. Users can post sticky notes (up to 500 characters) that appear instantly for all visitors. Features fully anonymous posting, live status indicators, and a character counter. Designed with a warm, tactile aesthetic that mimics a physical corkboard with pushpins and rotated sticky notes.',
+  description: 'Built a real-time shared anonymous note board using plain JavaScript for client-side interactivity, WebSocket communication, and dynamic DOM manipulation without framework dependencies, semantic HTML for accessible, well-structured markup, and CSS for responsive styling, animations, and visual design that creates an immersive user experience. The application features an innovative corkboard UI that recreates the nostalgic experience of a physical bulletin board in a digital environment, where users can post colorful sticky notes (up to 500 characters) that appear instantly for all visitors through real-time synchronization. The system implements fully anonymous posting with no user accounts, registration, or personal information collection, ensuring complete privacy and freedom of expression. Live status indicators provide real-time feedback showing active user count, recent posting activity, and system health status, creating a sense of community and engagement. A character counter with visual feedback helps users stay within the 500-character limit, providing clear indication of remaining characters and warning when approaching the limit. The design philosophy emphasizes a warm, tactile aesthetic that meticulously mimics a physical corkboard experience with realistic texture rendering, authentic pushpin graphics positioned at note corners, randomly rotated sticky notes that create an organic, hand-placed appearance, subtle shadows and depth effects that enhance the three-dimensional illusion, and color variations that add visual interest and help distinguish between different notes. Advanced features include smooth animations when notes are added or removed, responsive design that adapts to various screen sizes while maintaining the corkboard aesthetic, efficient WebSocket connection management for reliable real-time updates, and graceful error handling that maintains user experience even during network interruptions.',
   details: 'The challenge was creating a seamless real-time experience where notes appear instantly across all connected clients without page refreshes, while maintaining anonymity and preventing abuse. Implemented WebSocket connections for live updates, character validation, and a clean UI that balances the playful corkboard aesthetic with functional UX.',
   brandColor: '#FF6B35',
   link: 'https://post-note.vercel.app/',
@@ -18,6 +18,9 @@ window.PostNoteProject = {
     { label: 'Live', url: 'https://post-note.vercel.app/' }
   ],
   stack: [
+    'JavaScript',
+    'HTML',
+    'CSS',
     'Real-Time WebSockets',
     'Anonymous Posting',
     'UI / UX Design',

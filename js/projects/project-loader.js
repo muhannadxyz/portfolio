@@ -133,7 +133,33 @@ window.ProjectLoader = {
     const description = this.escapeHtml(data.description || '');
     const details = this.escapeHtml(data.details || '');
     const logo = String(data.logo || '');
-    const thumb = this.escapeHtml(data.thumb || '');
+    let thumb = data.thumb || '';
+    
+    // Resolve thumb path to absolute URL if needed
+    if (thumb) {
+      // Debug: log original thumb value
+      console.log('[ProjectLoader] Original thumb:', thumb);
+      
+      // If it's already an absolute URL (http/https), use as-is
+      if (thumb.startsWith('http://') || thumb.startsWith('https://')) {
+        // Already absolute, use as-is
+      }
+      // If it starts with '/', it's already absolute from root
+      else if (thumb.startsWith('/')) {
+        // Already absolute, use as-is
+      }
+      // Otherwise, make it absolute from root
+      else {
+        // Remove leading './' if present
+        thumb = thumb.startsWith('./') ? thumb.substring(2) : thumb;
+        // Ensure it starts with '/'
+        thumb = thumb.startsWith('/') ? thumb : '/' + thumb;
+      }
+      
+      console.log('[ProjectLoader] Resolved thumb:', thumb);
+    }
+    
+    const escapedThumb = this.escapeHtml(thumb);
     const railText = this.escapeHtml(data.railText || `${data.title || ''} • ${data.company || ''}`.trim());
 
     const highlights = this.renderList(data.highlights);
@@ -150,11 +176,11 @@ window.ProjectLoader = {
       `
       : this.renderUpdatesMono(data.updates);
 
-    const media = (!gallery && thumb) ? `
+    const media = (!gallery && escapedThumb) ? `
       <div class="bp-panel">
         <div class="bp-panel-title">Screens</div>
         <div class="bp-media">
-          <img src="${thumb}" alt="${title}" loading="lazy"/>
+          <img src="${escapedThumb}" alt="${title}" loading="lazy"/>
         </div>
       </div>
     ` : '';
@@ -163,9 +189,24 @@ window.ProjectLoader = {
     const railBlock = Array.from({ length: 120 }).map(() => `<span>${railLine}</span>`).join('');
     const railHTML = `<div class="bp-rail-text"><div class="bp-rail-block">${railBlock}</div><div class="bp-rail-block">${railBlock}</div></div>`;
 
+    // Generate unique ID for this instance to avoid conflicts
+    const bgContainerId = `bp-bg-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const bgImageId = `bp-img-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    
     return `
-      <div class="bp-root" data-project="${this.escapeHtml(data.slug || '')}">
-        <div class="bp-bg"></div>
+      <div class="bp-root ${escapedThumb ? 'bp-has-bg-image' : ''}" data-project="${this.escapeHtml(data.slug || '')}" ${escapedThumb ? 'style="background: transparent !important;"' : ''}>
+        ${escapedThumb ? `
+        <div id="${bgContainerId}" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 0; transform-origin: center; pointer-events: none; overflow: hidden; background: transparent;">
+          <img 
+            id="${bgImageId}" 
+            src="${escapedThumb}" 
+            alt="${title}" 
+            style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.05); filter: brightness(0.7) saturate(1.2); display: block;"
+            onload="const img = this; console.log('[ProjectLoader] BG LOADED', '${escapedThumb}', img.naturalWidth, img.naturalHeight); const root = document.querySelector('.bp-has-bg-image'); if (root) root.style.background = 'transparent';"
+            onerror="console.error('[ProjectLoader] BG FAILED', '${escapedThumb}'); const container = document.getElementById('${bgContainerId}'); if (container) { container.innerHTML = '<div class=\\'bp-bg\\'></div>'; }">
+          <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.3), transparent 50%, rgba(0,0,0,0.5)); pointer-events: none;"></div>
+        </div>
+        ` : '<div class="bp-bg"></div>'}
         <div class="bp-scanlines"></div>
         <div class="bp-rail" aria-hidden="true">
           ${railHTML}

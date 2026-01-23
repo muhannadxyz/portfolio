@@ -9,7 +9,7 @@ window.TonsorProject = {
   logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#F7F2E8"/><text x="24" y="30" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#1F2A4A">tän</text><path d="M14 34h20" stroke="#C9B27D" stroke-width="2" stroke-linecap="round"/></svg>',
   thumb: 'images/tonsor.svg',
   tagline: "World's dopest barbershop experience",
-  description: 'Tonsor is a luxury barbershop website that combines editorial magazine-style design with e-commerce functionality. The site showcases barbershop services and sells premium grooming products through an elegant, curated layout that emphasizes strong typography and visual hierarchy. The design balances a high-end aesthetic with practical shopping functionality, featuring curated product displays, clear category navigation, and smooth animations that enhance the premium brand experience. The layout is optimized for performance with efficient image loading and minimal layout shift during page load. The site is fully responsive across all devices, maintaining the editorial aesthetic on mobile while ensuring fast load times and accessibility. Product pages feature high-quality imagery, detailed descriptions, and clear call-to-action buttons that guide users through the purchase process without compromising the luxury brand identity.',
+  description: 'Tonsor is a luxury barbershop website built as a full-stack web application using Laravel (PHP) for robust server-side logic and API development, Blade templating for dynamic, reusable component-based views, Tailwind CSS for rapid, utility-first styling that ensures consistent design patterns, and Vite for lightning-fast development builds and optimized production asset bundling. The backend and database are powered by WordPress, providing a robust foundation for e-commerce functionality with extensive plugin ecosystem support, secure content management, and reliable data persistence. The site represents a sophisticated fusion of editorial magazine-style design aesthetics with comprehensive e-commerce functionality, creating an immersive digital experience that showcases barbershop services and sells premium grooming products through an elegant, meticulously curated layout that emphasizes strong typography, thoughtful visual hierarchy, and intentional white space. The design philosophy balances a high-end, luxury aesthetic with practical, conversion-optimized shopping functionality, featuring carefully curated product displays with high-resolution imagery, intuitive category navigation with filtering and search capabilities, and smooth, performant animations that enhance the premium brand experience without compromising usability. The layout architecture is optimized for performance with advanced image loading strategies including lazy loading and responsive image sets, minimal layout shift during page load through careful dimension management, and efficient resource prioritization that ensures critical content loads first. The site is fully responsive across all devices from mobile phones to large desktop displays, maintaining the sophisticated editorial aesthetic on smaller screens through adaptive typography scaling, touch-optimized navigation patterns, and mobile-first interaction design while ensuring fast load times, excellent accessibility standards compliance, and seamless cross-device user experience continuity. Product pages feature stunning high-quality imagery with zoom capabilities and multiple angle views, comprehensive detailed descriptions with ingredient lists and usage instructions, clear call-to-action buttons with strategic placement and visual hierarchy, and related product recommendations that guide users through the purchase process without compromising the luxury brand identity or overwhelming users with aggressive sales tactics.',
   brandColor: '#C9B27D',
   link: 'https://www.thetonsor.com/',
   railText: 'TONSOR • LUXURY E‑COMMERCE •',
@@ -17,6 +17,12 @@ window.TonsorProject = {
     { label: 'Live', url: 'https://www.thetonsor.com/' }
   ],
   stack: [
+    'Laravel (PHP)',
+    'Blade',
+    'Tailwind CSS',
+    'Vite',
+    'WordPress',
+    'Full-Stack Web App',
     'Marketing Site',
     'E‑commerce UX',
     'Responsive Layout',

@@ -9,7 +9,7 @@ window.WindTurbineProject = {
   logo: '<img src="images/turbine.png" alt="Wind Turbine" style="width: 100%; height: 100%; object-fit: contain;">',
   thumb: 'https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?w=800&h=600&fit=crop',
   tagline: 'Real-time renewable energy data collection',
-  description: 'Developed an advanced IoT monitoring system for wind turbines using Arduino and real-time sensors. Implemented Hall-effect sensors for RPM measurement, voltage and current sensors for power analysis, and RTC integration for precise timestamping. Built a comprehensive data logging system that tracks turbine performance metrics including rotational speed, electrical output, and power generation in real-time.',
+  description: 'Developed an advanced IoT monitoring system for wind turbines using C programming language for low-level embedded software development that provides direct hardware control, memory-efficient execution, and real-time performance guarantees, integrated with Arduino microcontroller platform for reliable hardware abstraction and sensor interfacing, and comprehensive real-time sensor networks. The system implements sophisticated Hall-effect sensors strategically positioned on the turbine rotor for highly accurate RPM measurement with interrupt-driven pulse counting that captures every rotation, precision voltage and current sensors connected to the electrical output for comprehensive power analysis including instantaneous power calculations, cumulative energy generation tracking, and power quality assessment. Real-time clock (RTC) integration provides precise timestamping for every data point with millisecond accuracy, enabling temporal analysis of performance patterns, correlation with weather conditions, and long-term trend identification. Built a comprehensive, robust data logging system that continuously tracks extensive turbine performance metrics including real-time rotational speed with frequency analysis, detailed electrical output measurements with voltage, current, and power factor monitoring, comprehensive power generation statistics with efficiency calculations, temperature monitoring for component health assessment, vibration analysis for mechanical condition evaluation, and wind speed correlation for performance optimization. The system features advanced data processing capabilities including statistical analysis of performance trends, anomaly detection for early warning of potential failures, automated alert generation for threshold violations, and data export functionality for external analysis tools. The embedded software architecture employs interrupt-driven programming for responsive sensor data capture, efficient memory management for long-term data storage, and optimized algorithms for real-time calculations that ensure accurate performance monitoring without system lag or data loss.',
   details: 'Created an embedded systems solution for renewable energy monitoring. The system uses interrupt-driven Hall-effect sensing for accurate RPM calculation, analog sensor integration for voltage/current measurement, and automatic power computation. Features include real-time clock synchronization for data integrity, efficient pulse counting algorithms, and serial data logging for performance analysis and optimization.',
   brandColor: '#059669',
   link: 'https://github.com/muhannadxyz/Turbine',
@@ -18,8 +18,9 @@ window.WindTurbineProject = {
     { label: 'Repo', url: 'https://github.com/muhannadxyz/Turbine' }
   ],
   stack: [
+    'C',
     'Arduino',
-    'Embedded C++',
+    'Embedded Software',
     'Sensors',
     'Interrupts',
     'Data Logging'

@@ -16,6 +16,12 @@
   font-family: 'JetBrains Mono', monospace;
 }
 
+.bp-root[style*="background: transparent"],
+.bp-root[style*="background:transparent"],
+.bp-root.bp-has-bg-image {
+  background: transparent !important;
+}
+
 .bp-bg {
   position: fixed;
   inset: 0;
@@ -54,7 +60,7 @@
     rgba(0, 0, 0, 0.3) 4px
   );
   pointer-events: none;
-  z-index: 2;
+  z-index: 1;
   animation: bpScanMove 8s linear infinite;
 }
 
@@ -133,6 +139,7 @@
   z-index: 5;
   padding: 2.25rem calc(3rem + var(--bp-banner-w)) 1.5rem 3rem;
   border-bottom: 1px solid #fff;
+  background: rgba(0, 0, 0, 0.35);
 }
 
 .bp-kicker {
@@ -214,12 +221,13 @@
   padding: 2rem calc(3rem + var(--bp-banner-w)) 4rem 3rem;
   display: grid;
   grid-template-columns: 1fr;
+  background: rgba(0, 0, 0, 0.35);
   gap: 18px;
   max-width: 1100px;
 }
 
 .bp-panel {
-  background: #000;
+  background: rgba(0, 0, 0, 0.5);
   border: 1px solid #fff;
   padding: 18px 18px;
 }
