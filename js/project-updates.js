@@ -14,7 +14,9 @@ const ProjectUpdates = {
       window.RentwiseProject,
       window.WifiAnalyzerProject,
       window.WindTurbineProject,
-      window.PostNoteProject
+      window.PostNoteProject,
+      window.GhostJobCheckerProject,
+      window.FluxdeskProject
     ].filter(p => p); // Filter out any undefined projects
     
     // Extract only the data needed for updates (slug, name, brandColor, updates)
@@ -48,7 +50,9 @@ const ProjectUpdates = {
       'rentwise': window.RentwiseProject,
       'wifi-analyzer': window.WifiAnalyzerProject,
       'wind-turbine': window.WindTurbineProject,
-      'postnote': window.PostNoteProject
+      'postnote': window.PostNoteProject,
+      'ghost-job-checker': window.GhostJobCheckerProject,
+      'fluxdesk': window.FluxdeskProject
     };
     return projectMap[slug] || null;
   }

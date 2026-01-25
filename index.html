@@ -1397,7 +1397,7 @@
     <section class="projects-section" id="projects-section">
       <div class="section-header">
         <h2 class="section-title">SELECTED WORKS</h2>
-        <span class="section-count">[09]</span>
+        <span class="section-count">[10]</span>
       </div>
       <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
     </section>
@@ -1482,7 +1482,8 @@
   <script src="js/projects/wind-turbine.js"></script>
   <script src="js/projects/postnote.js"></script>
   <script src="js/projects/ghost-job-checker.js"></script>
-  
+  <script src="js/projects/fluxdesk.js"></script>
+
   <!-- Load project updates module (combines all projects) -->
   <script src="js/project-updates.js"></script>
   
@@ -1509,7 +1510,8 @@
         window.WifiAnalyzerProject,
         window.WindTurbineProject,
         window.PostNoteProject,
-        window.GhostJobCheckerProject
+        window.GhostJobCheckerProject,
+        window.FluxdeskProject
       ].filter(p => p); // Filter out any undefined projects
 
     // Elements
@@ -1776,7 +1778,8 @@
         window.WifiAnalyzerProject,
         window.WindTurbineProject,
         window.PostNoteProject,
-        window.GhostJobCheckerProject
+        window.GhostJobCheckerProject,
+        window.FluxdeskProject
       ].filter(p => p); // Filter out any undefined projects
       
       // Fallback project data (if project files not loaded)
