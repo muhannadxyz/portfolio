@@ -1,77 +1,211 @@
-<!-- Wind Turbine Monitoring System Project Template -->
-<div class="min-h-screen relative bg-black project-wind-turbine">
-  <!-- Parallax Hero Image with Overlay -->
-  <div class="fixed inset-0 z-0" style="transform-origin: center;">
-    <img src="{{thumb}}" alt="{{title}}" class="w-full h-full object-cover scale-105" style="filter: brightness(0.4) saturate(1.2);">
-    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
-    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-  </div>
-  
-  <!-- Close Button -->
-  <button id="close" class="project-close-btn">✕</button>
-  
-  <!-- Hero Section -->
-  <div class="relative z-10 min-h-screen flex items-end pb-20 px-8 md:px-16">
-    <div class="max-w-6xl w-full">
-      <!-- Project Icon -->
-      <div class="mb-6 animate-float hero-icon" style="width: 120px; height: 120px; display: flex; align-items: center; justify-content: center;">{{logo}}</div>
-      
-      <!-- Title with Glass Effect -->
-      <div class="inline-block mb-6 project-title-glass">
-        <h1 class="text-5xl md:text-7xl font-bold text-white mb-2" style="line-height: 1.1;">{{title}}</h1>
-        <p class="text-xl md:text-2xl text-gray-300">{{company}}</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wind Turbine Monitoring System - IoT & Renewable Energy</title>
+  <link rel="stylesheet" href="../../css/project-page.css?v=2">
+</head>
+<body>
+  <div class="project-page-container">
+    <button class="project-close-btn" onclick="window.history.back()">✕</button>
+    
+    <!-- Logo Section -->
+    <div class="project-logo">
+      <img src="../../images/turbine.png" alt="Wind Turbine" style="width: 120px; height: 120px; object-fit: contain;">
+    </div>
+
+    <!-- Title Section -->
+    <div class="project-title-section">
+      <h1>Wind Turbine Monitoring System</h1>
+      <div class="project-metadata">
+        <div><span>Type</span> <span>IoT & Renewable Energy</span></div>
+        <div><span>Tagline</span> <span>Real-time renewable energy data collection</span></div>
       </div>
     </div>
-  </div>
-  
-  <!-- Content Section -->
-  <div class="relative z-20 bg-gradient-to-b from-black via-black to-neutral-950 px-6 md:px-12 py-16">
-    <!-- Visual Separator -->
-    <div class="visual-separator"></div>
-    <div class="max-w-5xl mx-auto space-y-8">
-      
-      <!-- My Role Card -->
-      <div class="project-card">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="card-icon role-icon">💼</div>
-          <h2 class="text-3xl font-bold text-white">My Role</h2>
-        </div>
-        <p class="text-lg text-gray-300 leading-relaxed">{{description}}</p>
+
+    <!-- Separator -->
+    <div class="project-separator"></div>
+
+    <!-- Description Card -->
+    <div class="project-card">
+      <p>Developed an advanced IoT monitoring system for wind turbines using C programming language for low-level embedded software development that provides direct hardware control, memory-efficient execution, and real-time performance guarantees, integrated with Arduino microcontroller platform for reliable hardware abstraction and sensor interfacing, and comprehensive real-time sensor networks. The system implements sophisticated Hall-effect sensors strategically positioned on the turbine rotor for highly accurate RPM measurement with interrupt-driven pulse counting that captures every rotation, precision voltage and current sensors connected to the electrical output for comprehensive power analysis including instantaneous power calculations, cumulative energy generation tracking, and power quality assessment. Real-time clock (RTC) integration provides precise timestamping for every data point with millisecond accuracy, enabling temporal analysis of performance patterns, correlation with weather conditions, and long-term trend identification. Built a comprehensive, robust data logging system that continuously tracks extensive turbine performance metrics including real-time rotational speed with frequency analysis, detailed electrical output measurements with voltage, current, and power factor monitoring, comprehensive power generation statistics with efficiency calculations, temperature monitoring for component health assessment, vibration analysis for mechanical condition evaluation, and wind speed correlation for performance optimization. The system features advanced data processing capabilities including statistical analysis of performance trends, anomaly detection for early warning of potential failures, automated alert generation for threshold violations, and data export functionality for external analysis tools. The embedded software architecture employs interrupt-driven programming for responsive sensor data capture, efficient memory management for long-term data storage, and optimized algorithms for real-time calculations that ensure accurate performance monitoring without system lag or data loss.</p>
+    </div>
+
+    <!-- Links Card -->
+    <div class="project-card project-card-grey">
+      <a href="https://github.com/muhannadxyz/Turbine" target="_blank" rel="noreferrer" class="project-link">
+        <span class="project-link-icon"></span>
+        Repo
+      </a>
+    </div>
+
+    <!-- Highlights Card -->
+    <div class="project-card">
+      <h2>Highlights</h2>
+      <ul class="project-list">
+        <li>Implemented RPM measurement via Hall-effect sensor + interrupts.</li>
+        <li>Computed power metrics from voltage/current sensors with timestamps (RTC).</li>
+        <li>Built a logging pipeline for analysis and optimization.</li>
+      </ul>
+    </div>
+
+    <!-- Tech Stack Card -->
+    <div class="project-card">
+      <h2>Tech Stack</h2>
+      <div class="project-pills">
+        <span class="project-pill">C</span>
+        <span class="project-pill">Arduino</span>
+        <span class="project-pill">Embedded Software</span>
+        <span class="project-pill">Sensors</span>
+        <span class="project-pill">Interrupts</span>
+        <span class="project-pill">Data Logging</span>
       </div>
-      
-      <!-- Code Snippets / Visual Showcase (injected dynamically) -->
-      <div id="code-snippets-container">{{codeSnippetsHTML}}</div>
-      
-      <!-- Large Spacer before Dev Updates -->
-      <div style="height: 120px;"></div>
-      
-      <!-- Prominent Divider before Dev Updates -->
-      <div class="dev-updates-divider"></div>
-      
-      <!-- Dev Updates Section (injected dynamically) -->
-      <div id="dev-updates-container">{{devUpdatesHTML}}</div>
-      
-      <!-- Large Spacer after Dev Updates -->
-      <div style="height: 100px;"></div>
-      
-      <!-- The Challenge Card -->
-      <div class="project-card">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="card-icon challenge-icon">🎯</div>
-          <h3 class="text-3xl font-bold text-white">The Challenge</h3>
-        </div>
-        <p class="text-lg text-gray-300 leading-relaxed">{{details}}</p>
-      </div>
-      
-      <!-- CTA Card -->
-      <div class="project-cta-card">
-        <h3 class="text-2xl font-bold text-white mb-6">Visit Project</h3>
-        <a href="{{link}}" target="_blank" class="project-cta-button">
-          View Live Site →
+    </div>
+
+    <!-- Code Card -->
+    <div class="project-card">
+      <h2>Code</h2>
+      <details class="project-code-details">
+        <summary class="project-code-summary">
+          <span>RPM & Power Monitoring Loop</span>
+          <span>c++</span>
+        </summary>
+        <pre class="project-code-pre"><code>void loop() {
+    unsigned long currentTime = millis();
+    
+    // Calculate RPM every second
+    if (currentTime - lastTime >= 1000) {
+        int rpm = (pulseCount * 60); // Convert pulses to RPM
+        pulseCount = 0;              // Reset counter
+        lastTime = currentTime;
+
+        // Read voltage and current sensor values
+        voltage = analogRead(VOLTAGE_SENSOR) * (5.0 / 1023.0) * 10;
+        current = analogRead(CURRENT_SENSOR) * (5.0 / 1023.0) / 0.185;
+        power = voltage * current;
+
+        // Get current time
+        DateTime now = rtc.now();
+        
+        // Log data with timestamp
+        Serial.print("Timestamp: ");
+        Serial.print(now.year()); Serial.print("-");
+        Serial.print(now.month()); Serial.print("-");
+        Serial.print(now.day());
+        Serial.print(" | RPM: "); Serial.print(rpm);
+        Serial.print(" | Voltage: "); Serial.print(voltage);
+        Serial.print("V | Current: "); Serial.print(current);
+        Serial.print("A | Power: "); Serial.print(power);
+        Serial.println("W");
+    }
+}</code></pre>
+      </details>
+      <details class="project-code-details">
+        <summary class="project-code-summary">
+          <span>Interrupt-Driven Hall Sensor</span>
+          <span>c++</span>
+        </summary>
+        <pre class="project-code-pre"><code>// Interrupt service routine for hall sensor
+void countPulse() {
+    pulseCount++;  
+}
+
+void setup() {
+    Serial.begin(9600);
+    pinMode(HALL_SENSOR_PIN, INPUT);
+    
+    // Attach interrupt for accurate pulse counting
+    attachInterrupt(digitalPinToInterrupt(HALL_SENSOR_PIN), countPulse, RISING);
+    
+    // Initialize RTC
+    if (!rtc.begin()) {
+        Serial.println("Couldn't find RTC");
+        while (1);
+    }
+}</code></pre>
+      </details>
+    </div>
+
+    <!-- Gallery Card -->
+    <div class="project-card">
+      <h2>Gallery</h2>
+      <div class="project-gallery">
+        <a href="https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?w=800&h=600&fit=crop" target="_blank" rel="noreferrer" class="project-gallery-item">
+          <img src="https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?w=800&h=600&fit=crop" alt="Wind Turbine screenshot" loading="lazy">
         </a>
       </div>
-      
+    </div>
+
+    <!-- Releases Card -->
+    <div class="project-card">
+      <h2>Releases</h2>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v2.5.0</span>
+          <span class="project-update-type">feature</span>
+          <span class="project-update-date">2025-05-31</span>
+        </div>
+        <ul class="project-list">
+          <li>Added web dashboard for remote monitoring</li>
+          <li>Implemented data visualization with charts</li>
+          <li>Added email alerts for performance thresholds</li>
+          <li>Integrated cloud data storage</li>
+        </ul>
+      </div>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v2.4.0</span>
+          <span class="project-update-type">enhancement</span>
+          <span class="project-update-date">2025-05-20</span>
+        </div>
+        <ul class="project-list">
+          <li>Improved sensor calibration accuracy</li>
+          <li>Enhanced RPM calculation algorithm</li>
+          <li>Added data export to JSON format</li>
+          <li>Optimized interrupt handling for better performance</li>
+        </ul>
+      </div>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v2.3.0</span>
+          <span class="project-update-type">feature</span>
+          <span class="project-update-date">2025-05-15</span>
+        </div>
+        <ul class="project-list">
+          <li>Added real-time clock synchronization</li>
+          <li>Implemented automatic data logging</li>
+          <li>Added power efficiency calculations</li>
+          <li>Enhanced serial communication protocol</li>
+        </ul>
+      </div>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v2.0.0</span>
+          <span class="project-update-type">major</span>
+          <span class="project-update-date">2025-05-10</span>
+        </div>
+        <ul class="project-list">
+          <li>Complete system redesign</li>
+          <li>Added Hall-effect sensor for RPM measurement</li>
+          <li>Implemented voltage and current sensors</li>
+          <li>Added RTC integration for timestamping</li>
+        </ul>
+      </div>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v1.0.0</span>
+          <span class="project-update-type">major</span>
+          <span class="project-update-date">2025-05-01</span>
+        </div>
+        <ul class="project-list">
+          <li>Initial prototype release</li>
+          <li>Basic Arduino-based monitoring</li>
+          <li>Simple data collection system</li>
+          <li>Serial output for data logging</li>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
-
+</body>
+</html>

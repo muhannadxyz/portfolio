@@ -1,77 +1,189 @@
-<!-- Public Wi-Fi Risk Analyzer Project Template -->
-<div class="min-h-screen relative bg-black project-wifi-analyzer">
-  <!-- Parallax Hero Image with Overlay -->
-  <div class="fixed inset-0 z-0" style="transform-origin: center;">
-    <img src="{{thumb}}" alt="{{title}}" class="w-full h-full object-cover scale-105" style="filter: brightness(0.4) saturate(1.2);">
-    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
-    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-  </div>
-  
-  <!-- Close Button -->
-  <button id="close" class="project-close-btn">✕</button>
-  
-  <!-- Hero Section -->
-  <div class="relative z-10 min-h-screen flex items-end pb-20 px-8 md:px-16">
-    <div class="max-w-6xl w-full">
-      <!-- Project Icon -->
-      <div class="mb-6 animate-float hero-icon" style="width: 120px; height: 120px; display: flex; align-items: center; justify-content: center;">{{logo}}</div>
-      
-      <!-- Title with Glass Effect -->
-      <div class="inline-block mb-6 project-title-glass">
-        <h1 class="text-5xl md:text-7xl font-bold text-white mb-2" style="line-height: 1.1;">{{title}}</h1>
-        <p class="text-xl md:text-2xl text-gray-300">{{company}}</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Public Wi-Fi Risk Analyzer - Security & Network Tool</title>
+  <link rel="stylesheet" href="../../css/project-page.css?v=2">
+</head>
+<body>
+  <div class="project-page-container">
+    <button class="project-close-btn" onclick="window.history.back()">✕</button>
+    
+    <!-- Logo Section -->
+    <div class="project-logo">
+      <img src="../../images/wifi-symbol.webp" alt="Wi-Fi Analyzer" style="width: 120px; height: 120px; object-fit: contain;">
+    </div>
+
+    <!-- Title Section -->
+    <div class="project-title-section">
+      <h1>Public Wi-Fi Risk Analyzer</h1>
+      <div class="project-metadata">
+        <div><span>Type</span> <span>Security & Network Tool</span></div>
+        <div><span>Tagline</span> <span>Assess public Wi-Fi security risks</span></div>
       </div>
     </div>
-  </div>
-  
-  <!-- Content Section -->
-  <div class="relative z-20 bg-gradient-to-b from-black via-black to-neutral-950 px-6 md:px-12 py-16">
-    <!-- Visual Separator -->
-    <div class="visual-separator"></div>
-    <div class="max-w-5xl mx-auto space-y-8">
-      
-      <!-- My Role Card -->
-      <div class="project-card">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="card-icon role-icon">💼</div>
-          <h2 class="text-3xl font-bold text-white">My Role</h2>
-        </div>
-        <p class="text-lg text-gray-300 leading-relaxed">{{description}}</p>
+
+    <!-- Separator -->
+    <div class="project-separator"></div>
+
+    <!-- Description Card -->
+    <div class="project-card">
+      <p>Public Wi-Fi Risk Analyzer is a comprehensive desktop application built with Python for robust cross-platform compatibility and extensive library ecosystem, and Python GUI using Tkinter for native-looking interface components, event-driven programming, and platform-consistent user experience. The application addresses a critical security need by helping users assess the security posture of public Wi-Fi networks before connecting, enabling informed decisions about network safety and data protection. It performs extensive, multi-layered security checks including HTTPS encryption verification by systematically testing connections to multiple secure websites with various certificate authorities, DNS resolution reliability testing that evaluates response times, checks for DNS hijacking or poisoning attempts, and verifies DNS-over-HTTPS support, comprehensive system firewall status detection using platform-specific system commands and API calls, and active VPN activity monitoring that detects VPN connections and assesses their effectiveness. The tool provides a sophisticated, weighted risk score based on multiple security factors with detailed explanations of each contributing element, and generates comprehensive, audit-ready logs with precise timestamps, detailed test results, and actionable recommendations for security improvement. The application works seamlessly cross-platform on Windows with native system integration, macOS with proper permission handling, and Linux with distribution-agnostic compatibility, ensuring consistent functionality regardless of operating system. The security assessment methodology includes systematic HTTPS support testing by attempting connections to multiple secure domains with various protocols and cipher suites, comprehensive DNS resolution capability verification that tests multiple DNS servers and evaluates response consistency, thorough system firewall status checking using platform-specific commands that provide accurate detection across different security configurations, and intelligent active VPN connection detection that identifies VPN usage and assesses connection quality. All security checks are meticulously logged with precise timestamps including millisecond accuracy, detailed test parameters, and comprehensive result data, and the application maintains an extensive history of network scans with searchable records, comparison tools, and trend analysis capabilities that enable users to track network security over time. The risk scoring algorithm employs sophisticated weighting of different security factors including encryption strength, DNS reliability, firewall protection level, and VPN effectiveness to provide an accurate, nuanced overall assessment of network safety that helps users make informed security decisions.</p>
+    </div>
+
+    <!-- Links Card -->
+    <div class="project-card project-card-grey">
+      <a href="https://github.com/muhannadxyz/PublicWiFiAnalyzer" target="_blank" rel="noreferrer" class="project-link">
+        <span class="project-link-icon"></span>
+        Repo
+      </a>
+    </div>
+
+    <!-- Highlights Card -->
+    <div class="project-card">
+      <h2>Highlights</h2>
+      <ul class="project-list">
+        <li>Built multi-signal risk scoring (HTTPS/DNS/VPN/firewall) with audit-style logs.</li>
+        <li>Designed a desktop GUI with scan history and export workflows.</li>
+        <li>Made checks cross-platform (Windows/macOS/Linux) where possible.</li>
+      </ul>
+    </div>
+
+    <!-- Tech Stack Card -->
+    <div class="project-card">
+      <h2>Tech Stack</h2>
+      <div class="project-pills">
+        <span class="project-pill">Python</span>
+        <span class="project-pill">Python GUI (Tkinter)</span>
+        <span class="project-pill">Networking</span>
+        <span class="project-pill">Security Checks</span>
+        <span class="project-pill">Logging</span>
       </div>
-      
-      <!-- Code Snippets / Visual Showcase (injected dynamically) -->
-      <div id="code-snippets-container">{{codeSnippetsHTML}}</div>
-      
-      <!-- Large Spacer before Dev Updates -->
-      <div style="height: 120px;"></div>
-      
-      <!-- Prominent Divider before Dev Updates -->
-      <div class="dev-updates-divider"></div>
-      
-      <!-- Dev Updates Section (injected dynamically) -->
-      <div id="dev-updates-container">{{devUpdatesHTML}}</div>
-      
-      <!-- Large Spacer after Dev Updates -->
-      <div style="height: 100px;"></div>
-      
-      <!-- The Challenge Card -->
-      <div class="project-card">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="card-icon challenge-icon">🎯</div>
-          <h3 class="text-3xl font-bold text-white">The Challenge</h3>
-        </div>
-        <p class="text-lg text-gray-300 leading-relaxed">{{details}}</p>
-      </div>
-      
-      <!-- CTA Card -->
-      <div class="project-cta-card">
-        <h3 class="text-2xl font-bold text-white mb-6">Visit Project</h3>
-        <a href="{{link}}" target="_blank" class="project-cta-button">
-          View Live Site →
+    </div>
+
+    <!-- Code Card -->
+    <div class="project-card">
+      <h2>Code</h2>
+      <details class="project-code-details">
+        <summary class="project-code-summary">
+          <span>HTTPS Security Check</span>
+          <span>python</span>
+        </summary>
+        <pre class="project-code-pre"><code>def check_https_multiple():
+    test_domains = ["https://google.com", "https://example.com", "https://cloudflare.com"]
+    successes = 0
+    for domain in test_domains:
+        try:
+            response = requests.get(domain, timeout=5)
+            if response.url.startswith("https://"):
+                successes += 1
+        except:
+            continue
+    return successes >= 2</code></pre>
+      </details>
+      <details class="project-code-details">
+        <summary class="project-code-summary">
+          <span>Firewall Detection</span>
+          <span>python</span>
+        </summary>
+        <pre class="project-code-pre"><code>def check_firewall():
+    system = platform.system()
+    try:
+        if system == "Windows":
+            output = subprocess.getoutput("netsh advfirewall show allprofiles")
+            return "ON" in output
+        elif system == "Darwin":  # macOS
+            output = subprocess.getoutput("/usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate")
+            return "enabled" in output.lower()
+        elif system == "Linux":
+            output = subprocess.getoutput("sudo ufw status")
+            return "active" in output.lower()
+    except:
+        pass
+    return False</code></pre>
+      </details>
+    </div>
+
+    <!-- Gallery Card -->
+    <div class="project-card">
+      <h2>Gallery</h2>
+      <div class="project-gallery">
+        <a href="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=800&h=600&fit=crop" target="_blank" rel="noreferrer" class="project-gallery-item">
+          <img src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=800&h=600&fit=crop" alt="Wi-Fi Analyzer screenshot" loading="lazy">
         </a>
       </div>
-      
+    </div>
+
+    <!-- Releases Card -->
+    <div class="project-card">
+      <h2>Releases</h2>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v3.2.0</span>
+          <span class="project-update-type">feature</span>
+          <span class="project-update-date">2025-10-01</span>
+        </div>
+        <ul class="project-list">
+          <li>Added network history export to CSV</li>
+          <li>Implemented risk score visualization charts</li>
+          <li>Added custom risk threshold settings</li>
+          <li>Enhanced GUI with dark mode support</li>
+        </ul>
+      </div>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v3.1.1</span>
+          <span class="project-update-type">bugfix</span>
+          <span class="project-update-date">2025-09-15</span>
+        </div>
+        <ul class="project-list">
+          <li>Fixed firewall detection on Linux systems</li>
+          <li>Resolved DNS resolution timeout issues</li>
+          <li>Fixed GUI layout on high-DPI displays</li>
+          <li>Corrected timestamp formatting in logs</li>
+        </ul>
+      </div>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v3.1.0</span>
+          <span class="project-update-type">enhancement</span>
+          <span class="project-update-date">2025-08-25</span>
+        </div>
+        <ul class="project-list">
+          <li>Improved HTTPS check reliability</li>
+          <li>Enhanced logging system with detailed timestamps</li>
+          <li>Added network interface selection</li>
+          <li>Optimized scan performance</li>
+        </ul>
+      </div>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v3.0.0</span>
+          <span class="project-update-type">major</span>
+          <span class="project-update-date">2025-07-15</span>
+        </div>
+        <ul class="project-list">
+          <li>Complete GUI redesign with Tkinter</li>
+          <li>Added scan history with persistent storage</li>
+          <li>Implemented risk scoring algorithm</li>
+          <li>Added cross-platform firewall detection</li>
+        </ul>
+      </div>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v2.0.0</span>
+          <span class="project-update-type">major</span>
+          <span class="project-update-date">2025-06-10</span>
+        </div>
+        <ul class="project-list">
+          <li>Initial release with command-line interface</li>
+          <li>HTTPS, DNS, VPN, and firewall checks</li>
+          <li>Basic security analysis</li>
+          <li>SSID logging functionality</li>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
-
+</body>
+</html>

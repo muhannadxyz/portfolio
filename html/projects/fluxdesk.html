@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FluxDesk - Helpdesk Ticket Management</title>
+  <link rel="stylesheet" href="../../css/project-page.css?v=2">
+</head>
+<body>
+  <div class="project-page-container">
+    <button class="project-close-btn" onclick="window.history.back()">✕</button>
+    
+    <!-- Logo Section -->
+    <div class="project-logo">
+      <div style="width: 120px; height: 120px; display: flex; align-items: center; justify-content: center; font-size: 48px; font-weight: 700; color: #fff; font-family: 'JetBrains Mono', monospace; background: #6366f1; border-radius: 16px;">FD</div>
+    </div>
+
+    <!-- Title Section -->
+    <div class="project-title-section">
+      <h1>FluxDesk</h1>
+      <div class="project-metadata">
+        <div><span>Type</span> <span>Helpdesk Ticket Management</span></div>
+        <div><span>Tagline</span> <span>A polished helpdesk ticket management interface built with Laravel 12, Livewire v3, and Tailwind CSS.</span></div>
+      </div>
+    </div>
+
+    <!-- Separator -->
+    <div class="project-separator"></div>
+
+    <!-- Description Card -->
+    <div class="project-card">
+      <p>FluxDesk is a helpdesk ticket management interface built with Laravel 12, Livewire v3, and Tailwind CSS. The Ticket Inbox at /tickets offers real-time search by subject or customer via wire:model.live, status and tag filters, and sorting by newest, oldest, or last activity. Ticket cards show subject, customer name, last activity, color-coded status badges (open, pending, solved, closed), priority badges (high, medium, low), assignee badges with shield icons, and tag badges, with skeleton loaders and clear empty states. The Ticket Detail page at /tickets/{id} includes a header with subject, customer info, timestamps, and live-updating badges; a conversation timeline with distinct styling for agents (blue) vs customers (gray), internal notes with dashed borders and yellow styling, avatar initials, and timestamps; a reply form with validation, internal-note checkbox, and loading states; and an action sidebar for status, assignee, and tag management with toast notifications. The app is responsive, accessible (ARIA, semantic HTML, keyboard navigation), and uses Livewire for a reactive UI with loading and error states.</p>
+    </div>
+
+    <!-- Links Card -->
+    <div class="project-card project-card-grey">
+      <a href="https://github.com/muhannadxyz/fluxdesk" target="_blank" rel="noreferrer" class="project-link">
+        <span class="project-link-icon"></span>
+        GitHub
+      </a>
+    </div>
+
+    <!-- Highlights Card -->
+    <div class="project-card">
+      <h2>Highlights</h2>
+      <ul class="project-list">
+        <li>Ticket inbox with real-time search, filters, sorting, status/priority/assignee/tag badges, and skeleton loaders.</li>
+        <li>Ticket detail page with agent vs customer conversation timeline, internal notes, reply form, and action sidebar.</li>
+        <li>Livewire-powered reactive UI with validation, loading states, toasts, and accessibility (ARIA, keyboard).</li>
+      </ul>
+    </div>
+
+    <!-- Tech Stack Card -->
+    <div class="project-card">
+      <h2>Tech Stack</h2>
+      <div class="project-pills">
+        <span class="project-pill">Laravel 12</span>
+        <span class="project-pill">Livewire v3</span>
+        <span class="project-pill">Tailwind CSS</span>
+        <span class="project-pill">PHP</span>
+        <span class="project-pill">Blade</span>
+        <span class="project-pill">Reactive UI</span>
+        <span class="project-pill">Real-time Search</span>
+        <span class="project-pill">UI / UX Design</span>
+      </div>
+    </div>
+
+    <!-- Gallery Card -->
+    <div class="project-card">
+      <h2>Screens</h2>
+      <div class="project-gallery">
+        <a href="../../images/fluxdesk1.png" target="_blank" rel="noreferrer" class="project-gallery-item">
+          <img src="../../images/fluxdesk1.png" alt="FluxDesk screenshot 1" loading="lazy">
+        </a>
+        <a href="../../images/fluxdesk2.png" target="_blank" rel="noreferrer" class="project-gallery-item">
+          <img src="../../images/fluxdesk2.png" alt="FluxDesk screenshot 2" loading="lazy">
+        </a>
+        <a href="../../images/fluxdesk3.png" target="_blank" rel="noreferrer" class="project-gallery-item">
+          <img src="../../images/fluxdesk3.png" alt="FluxDesk screenshot 3" loading="lazy">
+        </a>
+      </div>
+    </div>
+
+    <!-- Releases Card -->
+    <div class="project-card">
+      <h2>Releases</h2>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v1.0.0</span>
+          <span class="project-update-type">major</span>
+          <span class="project-update-date">2025-01-23</span>
+        </div>
+        <ul class="project-list">
+          <li>Ticket Inbox: search, status/tag filters, sort by newest/oldest/last activity</li>
+          <li>Ticket cards with status, priority, assignee, and tag badges</li>
+          <li>Ticket Detail: conversation timeline, reply form, internal notes, action sidebar</li>
+          <li>Livewire v3 reactive UI with loading and empty states</li>
+          <li>Responsive layout and accessibility improvements</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

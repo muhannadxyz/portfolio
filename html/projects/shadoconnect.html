@@ -1,80 +1,155 @@
-<!-- ShadoConnect Project Template -->
-<div class="min-h-screen relative bg-black project-shadoconnect">
-  <!-- Parallax Hero Image with Overlay -->
-  <div class="fixed inset-0 z-0" style="transform-origin: center;">
-    <img src="{{thumb}}" alt="{{title}}" class="w-full h-full object-cover scale-105" style="filter: brightness(0.6) saturate(1.2);">
-    <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/70"></div>
-  </div>
-  
-  <!-- Close Button -->
-  <button id="close" class="project-close-btn">✕</button>
-  
-  <!-- Hero Section -->
-  <div class="relative z-10 min-h-screen flex items-end pb-20 px-8 md:px-16">
-    <div class="max-w-6xl w-full">
-      <!-- Project Icon -->
-      <div class="mb-6 animate-float hero-icon" style="width: 120px; height: 120px; display: flex; align-items: center; justify-content: center;">{{logo}}</div>
-      
-      <!-- Title with Glass Effect -->
-      <div class="inline-block mb-6 project-title-glass">
-        <h1 class="text-5xl md:text-7xl font-bold text-white mb-2" style="line-height: 1.1;">{{title}}</h1>
-        <p class="text-xl md:text-2xl text-gray-300">{{company}}</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShadoConnect - Healthcare & Education Platform</title>
+  <link rel="stylesheet" href="../../css/project-page.css?v=2">
+</head>
+<body>
+  <div class="project-page-container">
+    <button class="project-close-btn" onclick="window.history.back()">✕</button>
+    
+    <!-- Logo Section -->
+    <div class="project-logo">
+      <svg width="120" height="120" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="48" height="48" rx="10" fill="#6366F1"/>
+        <circle cx="16" cy="18" r="4" fill="white"/>
+        <path d="M12 28C12 25 14 23 16 23C18 23 20 25 20 28" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="32" cy="18" r="4" fill="white"/>
+        <path d="M28 28C28 25 30 23 32 23C34 23 36 25 36 28" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <path d="M20 24H28" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <!-- Title Section -->
+    <div class="project-title-section">
+      <h1>ShadoConnect</h1>
+      <div class="project-metadata">
+        <div><span>Type</span> <span>Healthcare & Education Platform</span></div>
+        <div><span>Tagline</span> <span>Shape your future career with real experience</span></div>
       </div>
     </div>
-  </div>
-  
-  <!-- Content Section -->
-  <div class="relative z-20 bg-gradient-to-b from-black via-black to-neutral-950 px-6 md:px-12 py-16">
-    <!-- Visual Separator -->
-    <div class="visual-separator"></div>
-    <div class="max-w-5xl mx-auto space-y-8">
-      
-      <!-- My Role Card -->
-      <div class="project-card">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="card-icon role-icon">💼</div>
-          <h2 class="text-3xl font-bold text-white">My Role</h2>
-        </div>
-        <p class="text-lg text-gray-300 leading-relaxed">{{description}}</p>
+
+    <!-- Separator -->
+    <div class="project-separator"></div>
+
+    <!-- Description Card -->
+    <div class="project-card">
+      <p>ShadoConnect is a comprehensive healthcare career development platform built using Lovable frameworks for rapid, component-driven development, React for building interactive, stateful user interfaces with efficient rendering and component reusability, and other modern web development tools including state management libraries, routing solutions, and API integration frameworks. The platform serves as a sophisticated digital bridge connecting ambitious students pursuing healthcare careers with experienced professionals who offer valuable shadowing opportunities, structured internships, and personalized mentorship relationships. Students create detailed, comprehensive profiles showcasing their academic interests, professional goals, career aspirations, relevant coursework, volunteer experiences, and specific areas of medical interest, while healthcare professionals list their medical specialties, clinical availability, mentoring preferences, preferred student backgrounds, and commitment levels. The AI-powered matching system employs advanced algorithms to intelligently pair students with providers based on multiple weighted factors including precise medical specialty alignment, geographic proximity with distance calculations, schedule compatibility analysis, and deep career goal alignment assessment. The platform includes sophisticated real-time scheduling functionality that seamlessly integrates with popular calendar systems like Google Calendar, Outlook, and Apple Calendar, enabling automatic availability synchronization and conflict detection. A comprehensive messaging system facilitates direct, secure communication between students and professionals with support for file attachments, read receipts, and message threading. Advanced application tracking provides detailed status monitoring for shadowing requests with workflow states including pending, under review, accepted, declined, and completed, along with timeline tracking and automated status update notifications. The matching algorithm employs machine learning techniques to continuously improve pairing quality by considering specialty preferences with weighted importance, precise location data with radius-based filtering, availability windows with time zone handling, and career trajectory analysis that predicts long-term compatibility. Automated notification systems keep both students and professionals informed about new matches with personalized recommendations, schedule changes with conflict alerts, application updates with detailed status explanations, and milestone celebrations that encourage continued engagement and relationship building.</p>
+    </div>
+
+    <!-- Links Card -->
+    <div class="project-card project-card-grey">
+      <a href="https://shadoconnect.com" target="_blank" rel="noreferrer" class="project-link">
+        <span class="project-link-icon"></span>
+        Live
+      </a>
+    </div>
+
+    <!-- Highlights Card -->
+    <div class="project-card">
+      <h2>Highlights</h2>
+      <ul class="project-list">
+        <li>Built matching logic to connect students with healthcare professionals.</li>
+        <li>Implemented scheduling + calendar workflows and notifications.</li>
+        <li>Shipped real-time messaging and application tracking.</li>
+      </ul>
+    </div>
+
+    <!-- Tech Stack Card -->
+    <div class="project-card">
+      <h2>Tech Stack</h2>
+      <div class="project-pills">
+        <span class="project-pill">Lovable</span>
+        <span class="project-pill">React</span>
+        <span class="project-pill">Web Platform</span>
+        <span class="project-pill">Matching</span>
+        <span class="project-pill">Scheduling</span>
+        <span class="project-pill">Messaging</span>
+        <span class="project-pill">Dashboards</span>
       </div>
-      
-      <!-- Visual Showcase / Code Snippets (injected dynamically) -->
-      <div id="showcase-container">
-        <div class="project-showcase">
-          <img src="{{thumb}}" alt="Project showcase" class="w-full" style="display: block;">
-        </div>
-      </div>
-      
-      <!-- Large Spacer before Dev Updates -->
-      <div style="height: 120px;"></div>
-      
-      <!-- Prominent Divider before Dev Updates -->
-      <div class="dev-updates-divider"></div>
-      
-      <!-- Dev Updates Section (injected dynamically) -->
-      <div id="dev-updates-container">{{devUpdatesHTML}}</div>
-      
-      <!-- Large Spacer after Dev Updates -->
-      <div style="height: 100px;"></div>
-      
-      <!-- The Challenge Card -->
-      <div class="project-card">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="card-icon challenge-icon">🎯</div>
-          <h3 class="text-3xl font-bold text-white">The Challenge</h3>
-        </div>
-        <p class="text-lg text-gray-300 leading-relaxed">{{details}}</p>
-      </div>
-      
-      <!-- CTA Card -->
-      <div class="project-cta-card">
-        <h3 class="text-2xl font-bold text-white mb-6">Visit Project</h3>
-        <a href="{{link}}" target="_blank" class="project-cta-button">
-          View Live Site →
+    </div>
+
+    <!-- Gallery Card -->
+    <div class="project-card">
+      <h2>Gallery</h2>
+      <div class="project-gallery">
+        <a href="../../images/shadoconnect.png" target="_blank" rel="noreferrer" class="project-gallery-item">
+          <img src="../../images/shadoconnect.png" alt="ShadoConnect screenshot" loading="lazy">
         </a>
       </div>
-      
+    </div>
+
+    <!-- Releases Card -->
+    <div class="project-card">
+      <h2>Releases</h2>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v1.5.2</span>
+          <span class="project-update-type">bugfix</span>
+          <span class="project-update-date">2025-11-15</span>
+        </div>
+        <ul class="project-list">
+          <li>Fixed scheduling conflict detection</li>
+          <li>Resolved notification delivery issues</li>
+          <li>Fixed profile image upload bug</li>
+          <li>Corrected timezone handling in calendar</li>
+        </ul>
+      </div>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v1.5.0</span>
+          <span class="project-update-type">feature</span>
+          <span class="project-update-date">2025-10-25</span>
+        </div>
+        <ul class="project-list">
+          <li>Added automated scheduling system</li>
+          <li>Implemented calendar integration</li>
+          <li>Added email notification system</li>
+          <li>Enhanced matching algorithm with ML improvements</li>
+        </ul>
+      </div>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v1.4.0</span>
+          <span class="project-update-type">enhancement</span>
+          <span class="project-update-date">2025-09-15</span>
+        </div>
+        <ul class="project-list">
+          <li>Improved AI matching accuracy by 30%</li>
+          <li>Redesigned student dashboard</li>
+          <li>Added application tracking system</li>
+          <li>Enhanced search and filter capabilities</li>
+        </ul>
+      </div>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v1.3.0</span>
+          <span class="project-update-type">feature</span>
+          <span class="project-update-date">2025-08-20</span>
+        </div>
+        <ul class="project-list">
+          <li>Launched real-time messaging system</li>
+          <li>Added profile verification badges</li>
+          <li>Implemented review and rating system</li>
+          <li>Added shadowing opportunity recommendations</li>
+        </ul>
+      </div>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v1.0.0</span>
+          <span class="project-update-type">major</span>
+          <span class="project-update-date">2025-07-15</span>
+        </div>
+        <ul class="project-list">
+          <li>Initial platform launch</li>
+          <li>Student and healthcare professional registration</li>
+          <li>AI-powered matching system</li>
+          <li>Basic profile management and discovery</li>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
-
+</body>
+</html>

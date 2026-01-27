@@ -1,128 +1,155 @@
-<!-- Portfolio OS Project Template -->
-<div class="min-h-screen relative bg-black project-portfolio-os">
-  <!-- Hero Background -->
-  <div class="fixed inset-0 z-0" style="transform-origin: center;">
-    <div class="w-full h-full pos-hero-bg"></div>
-    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
-    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-  </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio OS - Web-based Desktop Environment</title>
+  <link rel="stylesheet" href="../../css/project-page.css?v=2">
+</head>
+<body>
+  <div class="project-page-container">
+    <button class="project-close-btn" onclick="window.history.back()">✕</button>
+    
+    <!-- Logo Section -->
+    <div class="project-logo">
+      <svg width="120" height="120" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="48" height="48" rx="10" fill="url(#pos-gradient)"/>
+        <rect x="11" y="14" width="26" height="20" rx="3" fill="rgba(5,7,15,0.88)" stroke="rgba(255,255,255,0.18)"/>
+        <circle cx="16" cy="18" r="1.6" fill="#ff5f57"/>
+        <circle cx="21" cy="18" r="1.6" fill="#ffbd2e"/>
+        <circle cx="26" cy="18" r="1.6" fill="#28c840"/>
+        <path d="M18 30h12" stroke="rgba(0,255,225,0.9)" stroke-width="2" stroke-linecap="round"/>
+        <defs>
+          <linearGradient id="pos-gradient" x1="0" y1="0" x2="48" y2="48">
+            <stop stop-color="#00ffe1"/>
+            <stop offset="1" stop-color="#ff69b4"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
 
-  <!-- Close Button -->
-  <button id="close" class="project-close-btn">✕</button>
-
-  <!-- Hero Section -->
-  <div class="relative z-10 min-h-screen flex items-end pb-20 px-8 md:px-16">
-    <div class="max-w-6xl w-full">
-      <div class="mb-6 animate-float hero-icon" style="width: 120px; height: 120px; display:flex; align-items:center; justify-content:center;">{{logo}}</div>
-
-      <!-- Interactive Sticky Note -->
-      <div class="pos-sticky-note" id="pos-sticky-note" onclick="openNotesApp()">
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="48" height="48" rx="8" fill="#FF6B35"/>
-          <circle cx="24" cy="12" r="3" fill="white"/>
-          <path d="M24 12L20 20L24 18L28 20L24 12Z" fill="white"/>
-          <rect x="16" y="22" width="16" height="12" rx="1" fill="white" opacity="0.9"/>
-          <path d="M18 26h12M18 30h10" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-        <div class="pos-note-hint">Click to open Notes</div>
+    <!-- Title Section -->
+    <div class="project-title-section">
+      <h1>Portfolio OS</h1>
+      <div class="project-metadata">
+        <div><span>Type</span> <span>Web-based Desktop Environment</span></div>
+        <div><span>Tagline</span> <span>A playful OS inside my portfolio</span></div>
       </div>
+    </div>
 
-      <div class="inline-block mb-6 project-title-glass">
-        <h1 class="text-5xl md:text-7xl font-bold text-white mb-2" style="line-height: 1.1;">{{title}}</h1>
-        <p class="text-xl md:text-2xl text-gray-300">{{company}}</p>
+    <!-- Separator -->
+    <div class="project-separator"></div>
+
+    <!-- Description Card -->
+    <div class="project-card">
+      <p>Portfolio OS is a fully functional desktop environment that runs entirely in your web browser. It includes a complete window manager where you can open, close, minimize, maximize, drag, and resize windows just like a real operating system. The dock contains applications that can be launched, and there is a settings panel for preferences and a notification system. Canvas-based applications include a Tamagotchi pet that roams around the desktop and a CHIP-8 emulator capable of running retro games. All window positions, preferences, and application state are saved using localStorage, so your setup persists between visits. The system handles window focus, z-index management, and window lifecycle events to create an authentic desktop experience without requiring any server-side components or external dependencies.</p>
+    </div>
+
+    <!-- Links Card -->
+    <div class="project-card project-card-grey">
+      <a href="../../os.html" target="_blank" rel="noreferrer" class="project-link">
+        <span class="project-link-icon"></span>
+        Open
+      </a>
+    </div>
+
+    <!-- Highlights Card -->
+    <div class="project-card">
+      <h2>Highlights</h2>
+      <ul class="project-list">
+        <li>Built window manager: focus, z-index, drag/resize, minimize/maximize.</li>
+        <li>Implemented persistent preferences and app state with localStorage.</li>
+        <li>Canvas-based apps (pet + emulator) with performance-minded rendering.</li>
+      </ul>
+    </div>
+
+    <!-- Tech Stack Card -->
+    <div class="project-card">
+      <h2>Tech Stack</h2>
+      <div class="project-pills">
+        <span class="project-pill">Vanilla JS</span>
+        <span class="project-pill">HTML</span>
+        <span class="project-pill">CSS</span>
+        <span class="project-pill">Canvas</span>
+        <span class="project-pill">LocalStorage</span>
+        <span class="project-pill">UX / Micro-interactions</span>
       </div>
+    </div>
 
-      <p class="text-lg text-gray-300 max-w-2xl">{{tagline}}</p>
+    <!-- Features Card -->
+    <div class="project-card">
+      <h2>Features</h2>
+      <ul class="project-list">
+        <li><strong>Window Manager:</strong> Drag, focus, minimize/maximize.</li>
+        <li><strong>Apps:</strong> Pet + CHIP‑8 emulator + utilities.</li>
+        <li><strong>Persistence:</strong> Preferences + pet state saved.</li>
+        <li><strong>Polish:</strong> Sounds + notifications.</li>
+      </ul>
+    </div>
 
-      <div class="pos-hero-actions">
-        <button class="pos-launch-btn" onclick="window.open('os.html', '_blank')">Launch Portfolio OS →</button>
-        <div class="pos-hint">Opens in a new tab for the full experience.</div>
+    <!-- Live OS Embed Card -->
+    <div class="portfolio-os-embed">
+      <div class="portfolio-os-embed-header">
+        <div class="portfolio-os-embed-title">Live OS (interactive)</div>
+        <a href="../../os.html" target="_blank" class="portfolio-os-launch-btn">
+          <span class="project-link-icon"></span>
+          Open Fullscreen →
+        </a>
+      </div>
+      <iframe class="portfolio-os-embed-iframe" src="../../os.html" title="Portfolio OS" loading="lazy" allow="fullscreen" allowfullscreen></iframe>
+      <div class="portfolio-os-embed-footer">Try dragging windows, opening apps, and the Pet + CHIP‑8 from the dock.</div>
+    </div>
+
+    <!-- Gallery Card -->
+    <div class="project-card">
+      <h2>Screens</h2>
+      <div class="project-gallery">
+        <a href="../../images/OSPIC.png" target="_blank" rel="noreferrer" class="project-gallery-item">
+          <img src="../../images/OSPIC.png" alt="Portfolio OS screenshot" loading="lazy">
+        </a>
+      </div>
+    </div>
+
+    <!-- Releases Card -->
+    <div class="project-card">
+      <h2>Releases</h2>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v0.4.0</span>
+          <span class="project-update-type">feature</span>
+          <span class="project-update-date">2025-12-17</span>
+        </div>
+        <ul class="project-list">
+          <li>Added on-desktop Tamagotchi pet widget with roaming + activity animations</li>
+          <li>Added pin mode + drag-to-place for the desktop pet</li>
+          <li>Enforced one-action-at-a-time interactions (eat/play/clean/sleep)</li>
+        </ul>
+      </div>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v0.3.0</span>
+          <span class="project-update-type">feature</span>
+          <span class="project-update-date">2025-12-16</span>
+        </div>
+        <ul class="project-list">
+          <li>Shipped CHIP‑8 emulator app window with demo ROM + ROM upload</li>
+          <li>Added UI sound effects with settings toggle + volume</li>
+          <li>Improved notifications + app launch error handling</li>
+        </ul>
+      </div>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v0.2.0</span>
+          <span class="project-update-type">enhancement</span>
+          <span class="project-update-date">2025-12-15</span>
+        </div>
+        <ul class="project-list">
+          <li>Dock + window polish (open/close/minimize/maximize sounds)</li>
+          <li>Persistent preferences via localStorage</li>
+          <li>Performance improvements for OS interactions</li>
+        </ul>
       </div>
     </div>
   </div>
-
-  <!-- Content Section -->
-  <div class="relative z-20 bg-gradient-to-b from-black via-black to-neutral-950 px-6 md:px-12 py-16">
-    <div class="visual-separator"></div>
-    <div class="max-w-5xl mx-auto space-y-8">
-
-      <div class="project-card">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="card-icon role-icon">🖥️</div>
-          <h2 class="text-3xl font-bold text-white">What it is</h2>
-        </div>
-        <p class="text-lg text-gray-300 leading-relaxed">{{description}}</p>
-        <div class="pos-feature-grid">
-          <div class="pos-feature">
-            <div class="pos-pill">Window Manager</div>
-            <div class="pos-sub">Drag, focus, minimize/maximize.</div>
-          </div>
-          <div class="pos-feature">
-            <div class="pos-pill">Apps</div>
-            <div class="pos-sub">Pet + CHIP‑8 emulator + utilities.</div>
-          </div>
-          <div class="pos-feature">
-            <div class="pos-pill">Persistence</div>
-            <div class="pos-sub">Preferences + pet state saved.</div>
-          </div>
-          <div class="pos-feature">
-            <div class="pos-pill">Polish</div>
-            <div class="pos-sub">Sounds + notifications.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="pos-preview-card">
-        <div class="pos-preview-top">
-          <div class="pos-dots"><span></span><span></span><span></span></div>
-          <div class="pos-preview-title">Portfolio OS</div>
-        </div>
-        <div class="pos-preview-body">
-          <img src="{{thumb}}" alt="{{title}}" class="pos-thumb" />
-          <div class="pos-preview-copy">
-            <div class="pos-kicker">Featured apps</div>
-            <div class="pos-lines">
-              <div><span class="pos-bullet">•</span> Tamagotchi pet (desktop roaming + animations)</div>
-              <div><span class="pos-bullet">•</span> CHIP‑8 emulator (demo ROM + upload)</div>
-              <div><span class="pos-bullet">•</span> Settings (sound toggle + volume)</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="pos-os-embed-card">
-        <div class="pos-os-embed-head">
-          <div class="pos-os-embed-title">Live OS (interactive)</div>
-          <div class="pos-os-embed-actions">
-            <button class="pos-launch-btn" onclick="window.open('os.html', '_blank')">Open Fullscreen →</button>
-          </div>
-        </div>
-        <div class="pos-os-embed-wrap">
-          <iframe class="pos-os-iframe" src="os.html" title="Portfolio OS" loading="lazy" allow="fullscreen" allowfullscreen></iframe>
-        </div>
-        <div class="pos-os-embed-foot">Try dragging windows, opening apps, and the Pet + CHIP‑8 from the dock.</div>
-      </div>
-
-      <div style="height: 120px;"></div>
-      <div class="dev-updates-divider"></div>
-      <div id="dev-updates-container">{{devUpdatesHTML}}</div>
-      <div style="height: 100px;"></div>
-
-      <div class="project-card">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="card-icon challenge-icon">🧠</div>
-          <h3 class="text-3xl font-bold text-white">The Challenge</h3>
-        </div>
-        <p class="text-lg text-gray-300 leading-relaxed">{{details}}</p>
-      </div>
-
-      <div class="project-cta-card">
-        <h3 class="text-2xl font-bold text-white mb-6">Try it live</h3>
-        <button class="project-cta-button" onclick="window.open('os.html', '_blank')">Launch Portfolio OS →</button>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-
+</body>
+</html>

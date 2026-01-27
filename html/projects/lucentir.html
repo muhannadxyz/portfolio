@@ -1,81 +1,132 @@
-<!-- Lucentir Project Template -->
-<div class="min-h-screen relative bg-black project-lucentir">
-  <!-- Parallax Hero Image with Overlay -->
-  <div class="fixed inset-0 z-0" style="transform-origin: center;">
-    <img src="{{thumb}}" alt="{{title}}" class="w-full h-full object-cover scale-105" style="filter: brightness(0.4) saturate(1.2);">
-    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
-    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-  </div>
-  
-  <!-- Close Button -->
-  <button id="close" class="project-close-btn">✕</button>
-  
-  <!-- Hero Section -->
-  <div class="relative z-10 min-h-screen flex items-end pb-20 px-8 md:px-16">
-    <div class="max-w-6xl w-full">
-      <!-- Project Icon -->
-      <div class="mb-6 animate-float hero-icon" style="width: 120px; height: 120px; display: flex; align-items: center; justify-content: center;">{{logo}}</div>
-      
-      <!-- Title with Glass Effect -->
-      <div class="inline-block mb-6 project-title-glass">
-        <h1 class="text-5xl md:text-7xl font-bold text-white mb-2" style="line-height: 1.1;">{{title}}</h1>
-        <p class="text-xl md:text-2xl text-gray-300">{{company}}</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lucentir - Privacy & Threat Intelligence</title>
+  <link rel="stylesheet" href="../../css/project-page.css?v=2">
+</head>
+<body>
+  <div class="project-page-container">
+    <button class="project-close-btn" onclick="window.history.back()">✕</button>
+    
+    <!-- Logo Section -->
+    <div class="project-logo">
+      <svg width="120" height="120" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="24" cy="24" r="24" fill="url(#lucentir-gradient)"/>
+        <path d="M24 12C19 12 16 14 16 14V24C16 29 19.5 33 24 36C28.5 33 32 29 32 24V14C32 14 29 12 24 12Z" fill="white"/>
+        <defs>
+          <linearGradient id="lucentir-gradient" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#10B981"/>
+            <stop offset="1" stop-color="#059669"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <!-- Title Section -->
+    <div class="project-title-section">
+      <h1>Lucentir</h1>
+      <div class="project-metadata">
+        <div><span>Type</span> <span>Privacy Intelligence Platform</span></div>
+        <div><span>Tagline</span> <span>See clearly. Stay private.</span></div>
       </div>
     </div>
-  </div>
-  
-  <!-- Content Section -->
-  <div class="relative z-20 bg-gradient-to-b from-black via-black to-neutral-950 px-6 md:px-12 py-16">
-    <!-- Visual Separator -->
-    <div class="visual-separator"></div>
-    <div class="max-w-5xl mx-auto space-y-8">
-      
-      <!-- My Role Card -->
-      <div class="project-card">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="card-icon role-icon">💼</div>
-          <h2 class="text-3xl font-bold text-white">My Role</h2>
-        </div>
-        <p class="text-lg text-gray-300 leading-relaxed">{{description}}</p>
+
+    <!-- Separator -->
+    <div class="project-separator"></div>
+
+    <!-- Description Card -->
+    <div class="project-card">
+      <p>Lucentir is a comprehensive privacy intelligence platform built with React for building dynamic, component-based user interfaces with efficient state management and interactive features, Next.js for server-side rendering, optimized routing, and performance enhancements including automatic code splitting and image optimization, and deployed on Vercel for global edge network distribution, automatic SSL certificates, and seamless CI/CD integration. The platform serves as an authoritative resource helping users make informed decisions by comparing and choosing privacy-focused services like VPNs, Ad-Blockers, password managers, and other privacy-critical tools. It maintains an extensive database scoring 256 different products across 5 key privacy pillars: data minimization evaluating how little data services collect, user control assessing the level of user agency over personal information, security practices examining encryption standards and security protocols, data sharing analyzing third-party data sharing practices, and transparency measuring how openly companies communicate their privacy practices.</p>
+    </div>
+
+    <!-- Links Card -->
+    <div class="project-card project-card-grey">
+      <a href="https://lucentir.xyz/" target="_blank" rel="noreferrer" class="project-link">
+        <span class="project-link-icon"></span>
+        Live
+      </a>
+    </div>
+
+    <!-- Highlights Card -->
+    <div class="project-card">
+      <h2>Highlights</h2>
+      <ul class="project-list">
+        <li>Built a 5‑pillar scoring model for privacy comparison across vendors.</li>
+        <li>Shipped side‑by‑side comparison UX with rich filters and sorting.</li>
+        <li>Designed for transparency: citations and methodology visibility.</li>
+      </ul>
+    </div>
+
+    <!-- Tech Stack Card -->
+    <div class="project-card">
+      <h2>Tech Stack</h2>
+      <div class="project-pills">
+        <span class="project-pill">React</span>
+        <span class="project-pill">Next.js</span>
+        <span class="project-pill">Vercel</span>
+        <span class="project-pill">Web App</span>
+        <span class="project-pill">Scoring Model</span>
+        <span class="project-pill">Search + Filters</span>
+        <span class="project-pill">Data Sourcing</span>
+        <span class="project-pill">UI / UX</span>
       </div>
-      
-      <!-- Visual Showcase / Code Snippets (injected dynamically) -->
-      <div id="showcase-container">
-        <div class="project-showcase">
-          <img src="{{thumb}}" alt="Project showcase" class="w-full" style="display: block;">
-        </div>
-      </div>
-      
-      <!-- Large Spacer before Dev Updates -->
-      <div style="height: 120px;"></div>
-      
-      <!-- Prominent Divider before Dev Updates -->
-      <div class="dev-updates-divider"></div>
-      
-      <!-- Dev Updates Section (injected dynamically) -->
-      <div id="dev-updates-container">{{devUpdatesHTML}}</div>
-      
-      <!-- Large Spacer after Dev Updates -->
-      <div style="height: 100px;"></div>
-      
-      <!-- The Challenge Card -->
-      <div class="project-card">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="card-icon challenge-icon">🎯</div>
-          <h3 class="text-3xl font-bold text-white">The Challenge</h3>
-        </div>
-        <p class="text-lg text-gray-300 leading-relaxed">{{details}}</p>
-      </div>
-      
-      <!-- CTA Card -->
-      <div class="project-cta-card">
-        <h3 class="text-2xl font-bold text-white mb-6">Visit Project</h3>
-        <a href="{{link}}" target="_blank" class="project-cta-button">
-          View Live Site →
+    </div>
+
+    <!-- Gallery Card -->
+    <div class="project-card">
+      <h2>Screens</h2>
+      <div class="project-gallery">
+        <a href="../../images/lucentir.png" target="_blank" rel="noreferrer" class="project-gallery-item">
+          <img src="../../images/lucentir.png" alt="Lucentir screenshot" loading="lazy">
         </a>
       </div>
-      
+    </div>
+
+    <!-- Releases Card -->
+    <div class="project-card">
+      <h2>Releases</h2>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v2.3.0</span>
+          <span class="project-update-type">feature</span>
+          <span class="project-update-date">2025-12-02</span>
+        </div>
+        <ul class="project-list">
+          <li>Added real-time privacy score updates</li>
+          <li>Implemented advanced filtering by privacy pillars</li>
+          <li>Enhanced comparison view with side-by-side metrics</li>
+          <li>Added export functionality for comparison reports</li>
+        </ul>
+      </div>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v2.2.1</span>
+          <span class="project-update-type">enhancement</span>
+          <span class="project-update-date">2025-11-20</span>
+        </div>
+        <ul class="project-list">
+          <li>Improved scoring algorithm accuracy</li>
+          <li>Updated privacy policy data sources</li>
+          <li>Optimized comparison loading performance</li>
+          <li>Enhanced mobile responsiveness</li>
+        </ul>
+      </div>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v2.2.0</span>
+          <span class="project-update-type">feature</span>
+          <span class="project-update-date">2025-10-10</span>
+        </div>
+        <ul class="project-list">
+          <li>Launched Ad-Blocker comparison section</li>
+          <li>Added privacy-first toggle filters</li>
+          <li>Implemented transparent scoring methodology</li>
+          <li>Added citation links for all privacy claims</li>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
-
+</body>
+</html>

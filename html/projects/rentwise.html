@@ -1,82 +1,168 @@
-<!-- RentWise Project Template -->
-<div class="min-h-screen relative bg-black project-rentwise">
-  <!-- Parallax Hero Image with Overlay -->
-  <div class="fixed inset-0 z-0" style="transform-origin: center;">
-    <img src="{{thumb}}" alt="{{title}}" class="w-full h-full object-cover scale-105" style="filter: brightness(0.4) saturate(1.2);">
-    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
-    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-  </div>
-  
-  <!-- Close Button -->
-  <button id="close" class="project-close-btn">✕</button>
-  
-  <!-- Hero Section -->
-  <div class="relative z-10 min-h-screen flex items-end pb-20 px-8 md:px-16">
-    <div class="max-w-6xl w-full">
-      <!-- Project Icon -->
-      <div class="mb-6 animate-float hero-icon" style="width: 120px; height: 120px; display: flex; align-items: center; justify-content: center;">{{logo}}</div>
-      
-      <!-- Title with Glass Effect -->
-      <div class="inline-block mb-6 project-title-glass">
-        <h1 class="text-5xl md:text-7xl font-bold text-white mb-2" style="line-height: 1.1;">{{title}}</h1>
-        <p class="text-xl md:text-2xl text-gray-300">{{company}}</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rentwise - Property Management Platform</title>
+  <link rel="stylesheet" href="../../css/project-page.css?v=2">
+</head>
+<body>
+  <div class="project-page-container">
+    <button class="project-close-btn" onclick="window.history.back()">✕</button>
+    
+    <!-- Logo Section -->
+    <div class="project-logo">
+      <svg width="120" height="120" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="48" height="48" rx="10" fill="#2563EB"/>
+        <rect x="18" y="14" width="12" height="20" rx="1" stroke="white" stroke-width="2"/>
+        <rect x="22" y="28" width="4" height="6" fill="white"/>
+        <rect x="20" y="18" width="2" height="2" fill="white"/>
+        <rect x="26" y="18" width="2" height="2" fill="white"/>
+        <rect x="20" y="22" width="2" height="2" fill="white"/>
+        <rect x="26" y="22" width="2" height="2" fill="white"/>
+      </svg>
+    </div>
+
+    <!-- Title Section -->
+    <div class="project-title-section">
+      <h1>Rentwise</h1>
+      <div class="project-metadata">
+        <div><span>Type</span> <span>Property Management Platform</span></div>
+        <div><span>Tagline</span> <span>Streamline your rental operations</span></div>
       </div>
     </div>
-  </div>
-  
-  <!-- Content Section -->
-  <div class="relative z-20 bg-gradient-to-b from-black via-black to-neutral-950 px-6 md:px-12 py-16">
-    <!-- Visual Separator -->
-    <div class="visual-separator"></div>
-    <div class="max-w-5xl mx-auto space-y-8">
-      
-      <!-- My Role Card -->
-      <div class="project-card">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="card-icon role-icon">💼</div>
-          <h2 class="text-3xl font-bold text-white">My Role</h2>
-        </div>
-        <p class="text-lg text-gray-300 leading-relaxed">{{description}}</p>
+
+    <!-- Separator -->
+    <div class="project-separator"></div>
+
+    <!-- Description Card -->
+    <div class="project-card">
+      <p>Rentwise is a comprehensive property management platform built as a full-stack web application using Laravel (PHP), Blade templating, Tailwind CSS, and Vite for fast and responsive development. The backend and database are powered by WordPress, providing a robust foundation for data management with reliable content management capabilities and extensible plugin architecture. The platform represents a complete digital transformation of rental property operations, consolidating multiple tools and processes into a single, intuitive interface that serves both property owners and tenants. The landlord dashboard serves as a command center for property management operations, offering comprehensive property overviews with visual analytics, detailed tenant information management systems, sophisticated lease tracking with automated expiration date monitoring, streamlined maintenance request handling with priority routing, and advanced financial reporting with customizable analytics dashboards. Landlords can efficiently manage portfolios of multiple properties simultaneously, accessing real-time tenant payment history, tracking lease terms and renewals, generating comprehensive reports for accounting and tax purposes, and monitoring property performance metrics. The tenant portal revolutionizes the rental experience by enabling seamless online rent payments through secure, PCI-compliant payment processing systems, intuitive maintenance request submission with photo uploads and detailed descriptions, comprehensive document access for leases, receipts, and important communications, and direct messaging channels with property managers for instant communication. The platform's automation engine handles complex workflows including lease renewal reminders sent via email and SMS, automated payment notifications and late fee calculations, intelligent maintenance request routing to appropriate vendors based on issue type and urgency, and comprehensive analytics that help optimize rental operations by identifying trends, predicting maintenance needs, and maximizing property value. Advanced features include automated workflows that handle routine administrative tasks like payment reminders, lease expiration alerts with renewal prompts, maintenance request routing with vendor assignment, and comprehensive reporting that reduces administrative overhead while improving tenant satisfaction and property profitability.</p>
+    </div>
+
+    <!-- Links Card -->
+    <div class="project-card project-card-grey">
+      <a href="https://rentwise.tech/" target="_blank" rel="noreferrer" class="project-link">
+        <span class="project-link-icon"></span>
+        Live
+      </a>
+    </div>
+
+    <!-- Highlights Card -->
+    <div class="project-card">
+      <h2>Highlights</h2>
+      <ul class="project-list">
+        <li>Built tenant portal for payments + maintenance request tracking.</li>
+        <li>Shipped landlord dashboard with reporting and property analytics.</li>
+        <li>Implemented document workflows for leases and operational ops.</li>
+      </ul>
+    </div>
+
+    <!-- Tech Stack Card -->
+    <div class="project-card">
+      <h2>Tech Stack</h2>
+      <div class="project-pills">
+        <span class="project-pill">Laravel (PHP)</span>
+        <span class="project-pill">Blade</span>
+        <span class="project-pill">Tailwind CSS</span>
+        <span class="project-pill">Vite</span>
+        <span class="project-pill">WordPress</span>
+        <span class="project-pill">Full-Stack Web App</span>
+        <span class="project-pill">Dashboards</span>
+        <span class="project-pill">Tenant Portal</span>
+        <span class="project-pill">Payments</span>
+        <span class="project-pill">Reporting</span>
       </div>
-      
-      <!-- Visual Showcase (shown if no gallery) -->
-      <div id="showcase-container" class="project-showcase">
-        <img src="{{thumb}}" alt="Project showcase" class="w-full" style="display: block;">
-      </div>
-      
-      <!-- Photo Gallery (if available, replaces showcase) -->
-      <div id="gallery-container">{{galleryHTML}}</div>
-      
-      <!-- Large Spacer before Dev Updates -->
-      <div style="height: 120px;"></div>
-      
-      <!-- Prominent Divider before Dev Updates -->
-      <div class="dev-updates-divider"></div>
-      
-      <!-- Dev Updates Section (injected dynamically) -->
-      <div id="dev-updates-container">{{devUpdatesHTML}}</div>
-      
-      <!-- Large Spacer after Dev Updates -->
-      <div style="height: 100px;"></div>
-      
-      <!-- The Challenge Card -->
-      <div class="project-card">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="card-icon challenge-icon">🎯</div>
-          <h3 class="text-3xl font-bold text-white">The Challenge</h3>
-        </div>
-        <p class="text-lg text-gray-300 leading-relaxed">{{details}}</p>
-      </div>
-      
-      <!-- CTA Card -->
-      <div class="project-cta-card">
-        <h3 class="text-2xl font-bold text-white mb-6">Visit Project</h3>
-        <a href="{{link}}" target="_blank" class="project-cta-button">
-          View Live Site →
+    </div>
+
+    <!-- Gallery Card -->
+    <div class="project-card">
+      <h2>Gallery</h2>
+      <div class="project-gallery">
+        <a href="../../images/rentwise1.jpeg" target="_blank" rel="noreferrer" class="project-gallery-item">
+          <img src="../../images/rentwise1.jpeg" alt="Rentwise screenshot 1" loading="lazy">
+        </a>
+        <a href="../../images/rentwise2.jpeg" target="_blank" rel="noreferrer" class="project-gallery-item">
+          <img src="../../images/rentwise2.jpeg" alt="Rentwise screenshot 2" loading="lazy">
+        </a>
+        <a href="../../images/rentwise3.jpeg" target="_blank" rel="noreferrer" class="project-gallery-item">
+          <img src="../../images/rentwise3.jpeg" alt="Rentwise screenshot 3" loading="lazy">
+        </a>
+        <a href="../../images/rentwise4.jpeg" target="_blank" rel="noreferrer" class="project-gallery-item">
+          <img src="../../images/rentwise4.jpeg" alt="Rentwise screenshot 4" loading="lazy">
         </a>
       </div>
-      
+    </div>
+
+    <!-- Releases Card -->
+    <div class="project-card">
+      <h2>Releases</h2>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v1.8.0</span>
+          <span class="project-update-type">feature</span>
+          <span class="project-update-date">2025-12-15</span>
+        </div>
+        <ul class="project-list">
+          <li>Added financial analytics dashboard</li>
+          <li>Implemented automated rent collection</li>
+          <li>Added lease document templates</li>
+          <li>Launched tenant portal mobile app</li>
+        </ul>
+      </div>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v1.7.1</span>
+          <span class="project-update-type">enhancement</span>
+          <span class="project-update-date">2025-11-12</span>
+        </div>
+        <ul class="project-list">
+          <li>Improved maintenance request workflow</li>
+          <li>Enhanced document management system</li>
+          <li>Optimized database queries for faster loading</li>
+          <li>Added bulk operations for property management</li>
+        </ul>
+      </div>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v1.7.0</span>
+          <span class="project-update-type">feature</span>
+          <span class="project-update-date">2025-10-20</span>
+        </div>
+        <ul class="project-list">
+          <li>Launched tenant portal</li>
+          <li>Added online rent payment system</li>
+          <li>Implemented maintenance request tracking</li>
+          <li>Added document upload and storage</li>
+        </ul>
+      </div>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v1.6.0</span>
+          <span class="project-update-type">enhancement</span>
+          <span class="project-update-date">2025-09-10</span>
+        </div>
+        <ul class="project-list">
+          <li>Redesigned landlord dashboard</li>
+          <li>Added property analytics and insights</li>
+          <li>Implemented automated lease renewal reminders</li>
+          <li>Enhanced communication tools</li>
+        </ul>
+      </div>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v1.0.0</span>
+          <span class="project-update-type">major</span>
+          <span class="project-update-date">2025-08-01</span>
+        </div>
+        <ul class="project-list">
+          <li>Initial platform release</li>
+          <li>Property and tenant management</li>
+          <li>Lease tracking system</li>
+          <li>Basic financial reporting</li>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
-
+</body>
+</html>

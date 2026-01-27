@@ -1,82 +1,128 @@
-<!-- Tonsor Project Template -->
-<div class="min-h-screen relative bg-black project-tonsor">
-  <!-- Parallax Hero Image with Overlay -->
-  <div class="fixed inset-0 z-0" style="transform-origin: center;">
-    <img src="{{thumb}}" alt="{{title}}" class="w-full h-full object-cover scale-105" style="filter: brightness(0.55) saturate(1.1);">
-    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
-    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-  </div>
-  
-  <!-- Close Button -->
-  <button id="close" class="project-close-btn">✕</button>
-  
-  <!-- Hero Section -->
-  <div class="relative z-10 min-h-screen flex items-end pb-20 px-8 md:px-16">
-    <div class="max-w-6xl w-full">
-      <!-- Project Icon -->
-      <div class="mb-6 animate-float hero-icon" style="width: 120px; height: 120px; display: flex; align-items: center; justify-content: center;">{{logo}}</div>
-      
-      <!-- Title with Glass Effect -->
-      <div class="inline-block mb-6 project-title-glass">
-        <h1 class="text-5xl md:text-7xl font-bold text-white mb-2" style="line-height: 1.1;">{{title}}</h1>
-        <p class="text-xl md:text-2xl text-gray-300">{{company}}</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tonsor - Luxury Barbershop + E‑Commerce</title>
+  <link rel="stylesheet" href="../../css/project-page.css?v=2">
+</head>
+<body>
+  <div class="project-page-container">
+    <button class="project-close-btn" onclick="window.history.back()">✕</button>
+    
+    <!-- Logo Section -->
+    <div class="project-logo">
+      <svg width="120" height="120" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="48" height="48" rx="10" fill="#F7F2E8"/>
+        <text x="24" y="30" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#1F2A4A">tän</text>
+        <path d="M14 34h20" stroke="#C9B27D" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <!-- Title Section -->
+    <div class="project-title-section">
+      <h1>Tonsor</h1>
+      <div class="project-metadata">
+        <div><span>Type</span> <span>Luxury Barbershop + E‑Commerce</span></div>
+        <div><span>Tagline</span> <span>World's dopest barbershop experience</span></div>
       </div>
     </div>
-  </div>
-  
-  <!-- Content Section -->
-  <div class="relative z-20 bg-gradient-to-b from-black via-black to-neutral-950 px-6 md:px-12 py-16">
-    <!-- Visual Separator -->
-    <div class="visual-separator"></div>
-    <div class="max-w-5xl mx-auto space-y-8">
-      
-      <!-- My Role Card -->
-      <div class="project-card">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="card-icon role-icon">💼</div>
-          <h2 class="text-3xl font-bold text-white">My Role</h2>
-        </div>
-        <p class="text-lg text-gray-300 leading-relaxed">{{description}}</p>
+
+    <!-- Separator -->
+    <div class="project-separator"></div>
+
+    <!-- Description Card -->
+    <div class="project-card">
+      <p>Tonsor is a luxury barbershop website built as a full-stack web application using Laravel (PHP) for robust server-side logic and API development, Blade templating for dynamic, reusable component-based views, Tailwind CSS for rapid, utility-first styling that ensures consistent design patterns, and Vite for lightning-fast development builds and optimized production asset bundling. The backend and database are powered by WordPress, providing a robust foundation for e-commerce functionality with extensive plugin ecosystem support, secure content management, and reliable data persistence. The site represents a sophisticated fusion of editorial magazine-style design aesthetics with comprehensive e-commerce functionality, creating an immersive digital experience that showcases barbershop services and sells premium grooming products through an elegant, meticulously curated layout that emphasizes strong typography, thoughtful visual hierarchy, and intentional white space. The design philosophy balances a high-end, luxury aesthetic with practical, conversion-optimized shopping functionality, featuring carefully curated product displays with high-resolution imagery, intuitive category navigation with filtering and search capabilities, and smooth, performant animations that enhance the premium brand experience without compromising usability. The layout architecture is optimized for performance with advanced image loading strategies including lazy loading and responsive image sets, minimal layout shift during page load through careful dimension management, and efficient resource prioritization that ensures critical content loads first. The site is fully responsive across all devices from mobile phones to large desktop displays, maintaining the sophisticated editorial aesthetic on smaller screens through adaptive typography scaling, touch-optimized navigation patterns, and mobile-first interaction design while ensuring fast load times, excellent accessibility standards compliance, and seamless cross-device user experience continuity. Product pages feature stunning high-quality imagery with zoom capabilities and multiple angle views, comprehensive detailed descriptions with ingredient lists and usage instructions, clear call-to-action buttons with strategic placement and visual hierarchy, and related product recommendations that guide users through the purchase process without compromising the luxury brand identity or overwhelming users with aggressive sales tactics.</p>
+    </div>
+
+    <!-- Links Card -->
+    <div class="project-card project-card-grey">
+      <a href="https://www.thetonsor.com/" target="_blank" rel="noreferrer" class="project-link">
+        <span class="project-link-icon"></span>
+        Live
+      </a>
+    </div>
+
+    <!-- Highlights Card -->
+    <div class="project-card">
+      <h2>Highlights</h2>
+      <ul class="project-list">
+        <li>Designed an editorial layout with premium typography and merchandising.</li>
+        <li>Optimized image loading and reduced layout shift across breakpoints.</li>
+        <li>Improved mobile navigation tap targets and readability.</li>
+      </ul>
+    </div>
+
+    <!-- Tech Stack Card -->
+    <div class="project-card">
+      <h2>Tech Stack</h2>
+      <div class="project-pills">
+        <span class="project-pill">Laravel (PHP)</span>
+        <span class="project-pill">Blade</span>
+        <span class="project-pill">Tailwind CSS</span>
+        <span class="project-pill">Vite</span>
+        <span class="project-pill">WordPress</span>
+        <span class="project-pill">Full-Stack Web App</span>
+        <span class="project-pill">Marketing Site</span>
+        <span class="project-pill">E‑commerce UX</span>
+        <span class="project-pill">Responsive Layout</span>
+        <span class="project-pill">Performance</span>
+        <span class="project-pill">Accessibility</span>
       </div>
-      
-      <!-- Visual Showcase -->
-      <div id="showcase-container">
-        <div class="project-showcase">
-          <img src="{{thumb}}" alt="Project showcase" class="w-full" style="display: block;">
-        </div>
-      </div>
-      
-      <!-- Large Spacer before Dev Updates -->
-      <div style="height: 120px;"></div>
-      
-      <!-- Prominent Divider before Dev Updates -->
-      <div class="dev-updates-divider"></div>
-      
-      <!-- Dev Updates Section (injected dynamically) -->
-      <div id="dev-updates-container">{{devUpdatesHTML}}</div>
-      
-      <!-- Large Spacer after Dev Updates -->
-      <div style="height: 100px;"></div>
-      
-      <!-- The Challenge Card -->
-      <div class="project-card">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="card-icon challenge-icon">🎯</div>
-          <h3 class="text-3xl font-bold text-white">The Challenge</h3>
-        </div>
-        <p class="text-lg text-gray-300 leading-relaxed">{{details}}</p>
-      </div>
-      
-      <!-- CTA Card -->
-      <div class="project-cta-card">
-        <h3 class="text-2xl font-bold text-white mb-6">Visit Project</h3>
-        <a href="{{link}}" target="_blank" class="project-cta-button">
-          View Live Site →
+    </div>
+
+    <!-- Gallery Card -->
+    <div class="project-card">
+      <h2>Screens</h2>
+      <div class="project-gallery">
+        <a href="../../images/tonsor.svg" target="_blank" rel="noreferrer" class="project-gallery-item">
+          <img src="../../images/tonsor.svg" alt="Tonsor screenshot" loading="lazy">
         </a>
       </div>
-      
+    </div>
+
+    <!-- Releases Card -->
+    <div class="project-card">
+      <h2>Releases</h2>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v1.2.0</span>
+          <span class="project-update-type">feature</span>
+          <span class="project-update-date">2025-12-10</span>
+        </div>
+        <ul class="project-list">
+          <li>Added new product/category card layout with stronger hover states</li>
+          <li>Improved mobile navigation spacing and tap targets</li>
+          <li>Refined hero typography for better readability</li>
+          <li>Polished micro-interactions and transitions</li>
+        </ul>
+      </div>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v1.1.0</span>
+          <span class="project-update-type">enhancement</span>
+          <span class="project-update-date">2025-11-18</span>
+        </div>
+        <ul class="project-list">
+          <li>Optimized image loading and reduced layout shift</li>
+          <li>Improved contrast and focus styles for accessibility</li>
+          <li>Tuned spacing scale across sections for consistency</li>
+        </ul>
+      </div>
+      <div class="project-update">
+        <div class="project-update-header">
+          <span class="project-update-version">v1.0.0</span>
+          <span class="project-update-type">major</span>
+          <span class="project-update-date">2025-10-29</span>
+        </div>
+        <ul class="project-list">
+          <li>Initial release of the Tonsor site experience</li>
+          <li>Built premium hero + category grid layout</li>
+          <li>Implemented responsive structure for desktop → mobile</li>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
-
-
+</body>
+</html>

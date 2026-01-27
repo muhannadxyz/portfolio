@@ -712,10 +712,11 @@
       width: 100%;
     }
     
-    /* Project card touch improvements */
+    /* Project card touch improvements - Wii style */
     .project-card {
-      -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
+      -webkit-tap-highlight-color: rgba(0, 102, 255, 0.2);
       cursor: pointer;
+      border-radius: 24px !important;
     }
     
     /* Improve touch targets for links */
@@ -723,22 +724,6 @@
     .contact-btn,
     .footer-bar a {
       -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
-    }
-    
-    /* Project card hover line effect */
-    .project-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 3px;
-      height: 0;
-      background: #fff;
-      transition: height 0.4s ease;
-    }
-    
-    .project-card:hover::before {
-      height: 100%;
     }
     
     /* Staggered animation for cards */
@@ -1107,6 +1092,7 @@
       
       .project-card {
         border-width: 1px;
+        border-radius: 28px !important;
       }
       
       .footer-bar {
@@ -1260,6 +1246,7 @@
       /* Project card improvements for mobile */
       .project-card {
         min-height: auto;
+        border-radius: 28px !important;
       }
       
       .project-card > div:first-child {
@@ -1518,19 +1505,21 @@
     const grid = document.getElementById("projects-grid");
     const overlay = document.getElementById("project-overlay");
 
-    // Generate Project Cards with brutalist styling
+    // Generate Project Cards with Wii-style styling
     projects.forEach((p, index) => {
       const cardContainer = document.createElement("div");
       cardContainer.className = "cursor-pointer group project-card";
       cardContainer.style.cssText = `
         background: #0a0a0a;
         border: 1px solid #1a1a1a;
+        border-radius: 28px !important;
         overflow: hidden;
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
       `;
       cardContainer.innerHTML = `
-        <div style="position: relative; overflow: hidden;">
+        <div style="position: relative; overflow: hidden; border-radius: 28px 28px 0 0;">
           <div style="aspect-ratio: 16/10; position: relative; overflow: hidden;">
             <img src="${p.thumb}" alt="${p.title}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease, filter 0.4s ease; filter: grayscale(30%);">
           </div>
@@ -1539,7 +1528,7 @@
         </div>
         <div style="padding: 1.25rem; border-top: 1px solid #1a1a1a;">
           <div style="display: flex; align-items: flex-start; gap: 1rem;">
-            <div style="width: 36px; height: 36px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: #111; border: 1px solid #222;">${p.logo}</div>
+            <div style="width: 36px; height: 36px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: #111; border: 1px solid #222; border-radius: 8px;">${p.logo}</div>
             <div style="flex: 1; min-width: 0;">
               <h2 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: #fff; letter-spacing: 0.05em; margin: 0; line-height: 1.1;">${p.title.toUpperCase()}</h2>
               <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #666; margin-top: 0.35rem; letter-spacing: 0.05em;">${p.company}</p>
@@ -1549,10 +1538,12 @@
         </div>
       `;
       
-      // Hover effects
+      // Wii-style hover effects with blue glow
       cardContainer.addEventListener('mouseenter', () => {
-        cardContainer.style.borderColor = '#333';
+        cardContainer.style.borderColor = '#0066FF';
         cardContainer.style.background = '#0f0f0f';
+        cardContainer.style.boxShadow = '0 8px 24px rgba(0, 102, 255, 0.4), 0 0 0 2px rgba(0, 102, 255, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05) inset';
+        cardContainer.style.transform = 'translateY(-4px)';
         const img = cardContainer.querySelector('img');
         if (img) {
           img.style.transform = 'scale(1.05)';
@@ -1561,13 +1552,15 @@
         const arrow = cardContainer.querySelector('div[style*="font-size: 1.2rem"]');
         if (arrow) {
           arrow.style.transform = 'translateX(4px)';
-          arrow.style.color = '#fff';
+          arrow.style.color = '#0066FF';
         }
       });
       
       cardContainer.addEventListener('mouseleave', () => {
         cardContainer.style.borderColor = '#1a1a1a';
         cardContainer.style.background = '#0a0a0a';
+        cardContainer.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05) inset';
+        cardContainer.style.transform = 'translateY(0)';
         const img = cardContainer.querySelector('img');
         if (img) {
           img.style.transform = 'scale(1)';
@@ -1580,7 +1573,19 @@
         }
       });
       
-      cardContainer.addEventListener("click", () => openProject(p));
+      cardContainer.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Card clicked, project:', p);
+        if (p && p.slug) {
+          // Use absolute path from root
+          const url = `/html/projects/${p.slug}.html`;
+          console.log('Navigating to:', url);
+          window.location.href = url;
+        } else {
+          console.error('Project missing slug:', p);
+        }
+      });
       grid.appendChild(cardContainer);
     });
 
@@ -1653,110 +1658,17 @@
         `;
       }
 
-      // Open Project (Expands with Shared Animation)
-      async function openProject(p) {
-        // Show overlay immediately
-        overlay.classList.remove("hidden");
-        document.body.style.overflow = "hidden";
-        
-        // Pause neural network to improve performance
-        if (window.neuralNet) {
-          window.neuralNet.pause();
-        }
-        
-        // Show loading state
-        overlay.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; color: white; font-size: 24px;">Loading project...</div>';
-        
-        // Projects render their own monochrome updates in the brutal template
-        const devUpdatesHTML = '';
-        
-        // Use project's renderTemplate method if available (now async)
-        if (p.renderTemplate && typeof p.renderTemplate === 'function') {
-          try {
-            const html = await p.renderTemplate(devUpdatesHTML);
-            overlay.innerHTML = html;
-            setupCloseEvents();
-          } catch (error) {
-            console.error('Error rendering project template:', error);
-            // Fallback to inline template
-            overlay.innerHTML = p.getFallbackTemplate ? p.getFallbackTemplate(devUpdatesHTML) : `<div style="padding: 40px; color: white;">Error loading project template. Please try again.</div>`;
-            setupCloseEvents();
-          }
+      // Open Project - Navigate to project HTML page
+      function openProject(p) {
+        console.log('openProject called with:', p);
+        if (p && p.slug) {
+          const url = `html/projects/${p.slug}.html`;
+          console.log('Navigating to:', url);
+          window.location.href = url;
         } else {
-          // Fallback for projects without renderTemplate method
-          overlay.innerHTML = `
-            <div class="min-h-screen relative bg-black">
-              <div class="fixed inset-0 z-0" style="transform-origin: center;">
-                <img src="${p.thumb}" alt="${p.title}" class="w-full h-full object-cover scale-105" style="filter: brightness(0.4) saturate(1.2);">
-                <div class="absolute inset-0 bg-black"></div>
-              </div>
-              <button id="close" style="position: fixed; top: 24px; right: 24px; z-index: 9999; background: #fff; color: #000; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; cursor: pointer; border: 2px solid #fff; transition: all 0.1s ease;">✕</button>
-              <div class="relative z-10 min-h-screen flex items-end pb-20 px-8 md:px-16">
-                <div class="max-w-6xl w-full">
-                  <div class="mb-6 animate-float" style="width: 120px; height: 120px; display: flex; align-items: center; justify-content: center;">${p.logo}</div>
-                  <div class="inline-block mb-6" style="background: #000; border: 1px solid #fff; padding: 24px 32px;">
-                    <h1 class="text-5xl md:text-7xl font-bold text-white mb-2" style="line-height: 1.1;">${p.title}</h1>
-                    <p class="text-xl md:text-2xl text-white">${p.company}</p>
-                  </div>
-                </div>
-              </div>
-              <div class="relative z-20 bg-black px-6 md:px-12 py-16">
-                <div class="max-w-5xl mx-auto space-y-8">
-                  <div class="group" style="background: #000; border: 1px solid #fff; padding: 40px;">
-                    <p class="text-lg text-white leading-relaxed mb-6">${p.description}</p>
-                    ${p.link ? `<a href="${p.link}" target="_blank" style="display: inline-block; padding: 16px 32px; background: #000; color: #fff; border: 2px solid #fff; font-size: 18px; font-weight: 700; text-decoration: none; text-transform: uppercase; letter-spacing: 0.1em; transition: all 0.1s ease;">Visit Site →</a>` : ''}
-                  </div>
-                  ${devUpdatesHTML}
-                </div>
-              </div>
-            </div>
-          `;
-          setupCloseEvents();
+          console.error('Project missing slug:', p);
         }
       }
-      
-      // Setup close events helper function
-      function setupCloseEvents() {
-        const closeBtn = overlay.querySelector("#close");
-        
-        if (closeBtn) {
-          // Remove existing listeners to avoid duplicates
-          const newCloseBtn = closeBtn.cloneNode(true);
-          closeBtn.parentNode.replaceChild(newCloseBtn, closeBtn);
-          
-          newCloseBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            closeOverlay();
-          });
-        }
-        
-        // Remove existing overlay click listener and add new one
-        overlay.removeEventListener("click", handleOverlayClick);
-        overlay.addEventListener("click", handleOverlayClick);
-      }
-      
-      function handleOverlayClick(e) {
-        if (e.target === overlay) closeOverlay();
-      }
-
-      // Close Overlay (Collapses Back)
-      function closeOverlay() {
-        overlay.classList.add("hidden");
-        document.body.style.overflow = "";
-        // Resume neural network animation
-        if (window.neuralNet) {
-          window.neuralNet.resume();
-        }
-        // Scroll back to top smoothly
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-      
-      // ESC key to close
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !overlay.classList.contains('hidden')) {
-          closeOverlay();
-        }
-      });
 
       // Stagger Grid Animation on Load
       grid.style.opacity = "0";
