@@ -15,7 +15,6 @@
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/framer-motion@11/dist/framer-motion.min.js"></script>
 
   <!-- Main stylesheet -->
   <link rel="stylesheet" href="css/styles.css">
@@ -1450,8 +1449,82 @@
     });
   </script>
 
-  <!-- Full-Screen Project Overlay -->
-  <div id="project-overlay" class="fixed inset-0 hidden z-50 overflow-y-auto bg-white dark:bg-black"></div>
+  <!-- Ryo-style Project Modal -->
+  <div id="project-overlay" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Project details" data-close="true">
+    <div class="modalCard" role="document">
+      <button class="modalClose" type="button" data-close="true" aria-label="Close">✕</button>
+
+      <div class="modalMedia" id="modalMedia">
+        <button class="expandMediaBtn" id="expandMediaBtn" type="button" aria-label="Expand preview">
+          <span class="expandIcon">⛶</span>
+        </button>
+      </div>
+      
+      <!-- Expanded Media Overlay -->
+      <div class="expandedMediaOverlay" id="expandedMediaOverlay" style="display: none;">
+        <button class="collapseMediaBtn" id="collapseMediaBtn" type="button" aria-label="Collapse preview">
+          <span class="collapseIcon">✕</span>
+        </button>
+        <div class="expandedMediaContent" id="expandedMediaContent"></div>
+      </div>
+
+      <div class="modalBody">
+        <div class="detailHeader">
+          <div class="detailIcon" id="detailIcon">⌘</div>
+          <div>
+            <h2 class="detailTitle" id="detailTitle">Project Title</h2>
+
+            <div class="detailMetaRow">
+              <div class="metaBlock">
+                <div class="metaLabel">Location</div>
+                <div class="metaValue" id="detailLocation">—</div>
+              </div>
+
+              <div class="metaBlock">
+                <div class="metaLabel">Date</div>
+                <div class="metaValue" id="detailDate">—</div>
+              </div>
+            </div>
+
+            <div class="chips" id="detailChips"></div>
+          </div>
+        </div>
+
+        <section class="detailSection">
+          <h3 class="sectionTitle">Project Overview</h3>
+          <div class="overviewCard" id="detailOverview"></div>
+          <div class="overviewLink" id="detailOverviewLink" style="display: none;">
+            <a href="#" id="projectLink" target="_blank" rel="noopener noreferrer" class="projectLink">
+              <span>View Project</span>
+              <span class="linkArrow">↗</span>
+            </a>
+          </div>
+        </section>
+
+        <section class="detailSection" id="releasesSection" hidden>
+          <h3 class="sectionTitle">Releases</h3>
+          <div class="list" id="detailReleases"></div>
+        </section>
+
+        <section class="detailSection" id="tweetsSection" hidden>
+          <h3 class="sectionTitle">Popular on Twitter</h3>
+          <div class="tweetGrid" id="detailTweets"></div>
+        </section>
+
+        <section class="detailSection" id="highlightsSection" hidden>
+          <h3 class="sectionTitle">Highlights</h3>
+          <ul class="bullets" id="detailHighlights"></ul>
+        </section>
+        
+        <div class="expandPageContainer" id="expandPageContainer" style="display: none;">
+          <a href="#" id="expandPageLink" class="expandPageButton">
+            <span>Expand Page</span>
+            <span class="linkArrow">↗</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- External JavaScript -->
   <script src="js/script.js"></script>
@@ -1476,17 +1549,316 @@
   
   <!-- Projects Showcase Script -->
   <script>
-    function initProjects() {
-      // Check if Framer Motion is available
-      if (!window.framerMotion || !window.framerMotion.motion) {
-        console.error('Framer Motion not available');
-        // Fallback: render without animations
-        renderProjectsWithoutMotion();
-        return;
+    // Helper functions for Ryo-style modal (must be defined before initProjects)
+    function formatDateLong(iso) {
+      if (!iso) return "—";
+      const d = new Date(iso + "T00:00:00");
+      return d.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+    }
+
+    function setSectionVisible(sectionId, visible) {
+      const el = document.getElementById(sectionId);
+      if (!el) return;
+      if (visible) el.removeAttribute("hidden");
+      else el.setAttribute("hidden", "");
+    }
+
+    function closeModal() {
+      const overlay = document.getElementById("project-overlay");
+      if (overlay) {
+        overlay.setAttribute("aria-hidden", "true");
+        document.documentElement.style.overflow = "";
+      }
+      // Also collapse expanded media if open
+      collapseExpandedMedia();
+    }
+    
+    function setupMediaExpand(project) {
+      const expandBtn = document.getElementById("expandMediaBtn");
+      const collapseBtn = document.getElementById("collapseMediaBtn");
+      const expandedOverlay = document.getElementById("expandedMediaOverlay");
+      const expandedContent = document.getElementById("expandedMediaContent");
+      const modalMedia = document.getElementById("modalMedia");
+      
+      if (!expandBtn || !collapseBtn || !expandedOverlay || !expandedContent || !modalMedia) return;
+      
+      // Remove existing listeners to avoid duplicates
+      const newExpandBtn = expandBtn.cloneNode(true);
+      expandBtn.parentNode.replaceChild(newExpandBtn, expandBtn);
+      
+      newExpandBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        expandMedia(project, modalMedia, expandedContent, expandedOverlay);
+      });
+      
+      collapseBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        collapseExpandedMedia(expandedOverlay);
+      });
+      
+      // Close on overlay click
+      expandedOverlay.addEventListener("click", (e) => {
+        if (e.target === expandedOverlay) {
+          collapseExpandedMedia(expandedOverlay);
+        }
+      });
+      
+      // Close on ESC key (use a named function to avoid duplicates)
+      function handleExpandedEsc(e) {
+        if (e.key === "Escape" && expandedOverlay.style.display !== "none" && expandedOverlay.style.display !== "") {
+          e.stopPropagation(); // Prevent modal from closing
+          collapseExpandedMedia(expandedOverlay);
+        }
+      }
+      // Remove old listener if exists (using capture phase to catch it early)
+      document.removeEventListener("keydown", handleExpandedEsc, true);
+      document.addEventListener("keydown", handleExpandedEsc, true);
+    }
+    
+    function expandMedia(project, modalMedia, expandedContent, expandedOverlay) {
+      // Clone the media content (image or iframe)
+      const mediaClone = modalMedia.querySelector("img, iframe");
+      if (!mediaClone) return;
+      
+      // Create expanded version
+      const expandedMedia = mediaClone.cloneNode(true);
+      if (expandedMedia.tagName === "IMG") {
+        expandedMedia.style.width = "100%";
+        expandedMedia.style.height = "100%";
+        expandedMedia.style.objectFit = "contain";
+      } else if (expandedMedia.tagName === "IFRAME") {
+        expandedMedia.style.width = "100%";
+        expandedMedia.style.height = "100%";
+        expandedMedia.style.border = "none";
       }
       
-      const { motion } = window.framerMotion;
+      expandedContent.innerHTML = "";
+      expandedContent.appendChild(expandedMedia);
       
+      // Show expanded overlay
+      expandedOverlay.style.display = "flex";
+      document.documentElement.style.overflow = "hidden";
+      
+      // Focus the collapse button for accessibility
+      setTimeout(() => {
+        document.getElementById("collapseMediaBtn")?.focus();
+      }, 100);
+    }
+    
+    function collapseExpandedMedia(expandedOverlay) {
+      if (!expandedOverlay) {
+        expandedOverlay = document.getElementById("expandedMediaOverlay");
+      }
+      if (expandedOverlay) {
+        expandedOverlay.style.display = "none";
+        // Clear the content
+        const expandedContent = document.getElementById("expandedMediaContent");
+        if (expandedContent) {
+          expandedContent.innerHTML = "";
+        }
+        // Only restore overflow if modal is closed
+        const modal = document.getElementById("project-overlay");
+        if (modal && modal.getAttribute("aria-hidden") === "true") {
+          document.documentElement.style.overflow = "";
+        }
+      }
+    }
+
+    // Open Project - Ryo-style modal
+    function openProject(p) {
+      console.log('openProject called with:', p);
+      if (!p) {
+        console.error('No project provided');
+        return;
+      }
+
+      // Get overlay element each time to ensure it exists
+      const overlay = document.getElementById("project-overlay");
+      if (!overlay) {
+        console.error('Overlay element not found');
+        return;
+      }
+
+      console.log('Opening modal...', overlay);
+      overlay.setAttribute("aria-hidden", "false");
+      overlay.style.display = "flex";
+      document.documentElement.style.overflow = "hidden";
+      console.log('Modal aria-hidden:', overlay.getAttribute("aria-hidden"));
+
+      // Media
+      const modalMedia = document.getElementById("modalMedia");
+      if (modalMedia) {
+        // Check if project has an iframe embed (like Portfolio OS)
+        const hasIframe = p.link && (p.link.includes('.html') || p.link.includes('os.html'));
+        const mediaContent = hasIframe && p.link.includes('os.html')
+          ? `<iframe src="${p.link}" style="width: 100%; height: 100%; border: none;" title="${p.title || ''} preview"></iframe>`
+          : `<img src="${p.thumb || ''}" alt="${p.title || ''} preview" />`;
+        
+        // Add media content and expand button
+        modalMedia.innerHTML = mediaContent + '<button class="expandMediaBtn" id="expandMediaBtn" type="button" aria-label="Expand preview"><span class="expandIcon">⛶</span></button>';
+      }
+      
+      // Setup expand/collapse functionality
+      setupMediaExpand(p);
+
+      // Header fields
+      const detailIcon = document.getElementById("detailIcon");
+      if (detailIcon) {
+        // Use icon field first, then logo if it's text/emoji, otherwise use first character of title
+        if (p.icon && typeof p.icon === 'string' && !p.icon.includes('<')) {
+          detailIcon.textContent = p.icon;
+        } else if (p.logo && typeof p.logo === 'string' && !p.logo.includes('<')) {
+          detailIcon.textContent = p.logo;
+        } else {
+          detailIcon.textContent = p.title ? p.title.charAt(0).toUpperCase() : "•";
+        }
+      }
+
+      const detailTitle = document.getElementById("detailTitle");
+      if (detailTitle) {
+        detailTitle.textContent = p.title || "Untitled";
+      }
+
+      const detailLocation = document.getElementById("detailLocation");
+      if (detailLocation) {
+        detailLocation.textContent = p.location || "—";
+      }
+
+      const detailDate = document.getElementById("detailDate");
+      if (detailDate) {
+        detailDate.textContent = formatDateLong(p.date);
+      }
+
+      // Chips (role + stack + tags)
+      const chipsEl = document.getElementById("detailChips");
+      if (chipsEl) {
+        const chips = [];
+        if (p.role) chips.push(`Role: ${p.role}`);
+        if (Array.isArray(p.stack)) chips.push(...p.stack);
+        if (Array.isArray(p.tags)) chips.push(...p.tags);
+        chipsEl.innerHTML = chips.map((c) => `<span class="chip">${c}</span>`).join("");
+      }
+
+      // Overview
+      const detailOverview = document.getElementById("detailOverview");
+      if (detailOverview) {
+        detailOverview.textContent = p.overview || p.description || p.desc || "No overview yet.";
+      }
+
+      // Project Link in Overview (shows for all projects with a link)
+      const detailOverviewLink = document.getElementById("detailOverviewLink");
+      const projectLink = document.getElementById("projectLink");
+      if (detailOverviewLink && projectLink) {
+        // Use the main link or first link from links array
+        const linkUrl = p.link || (Array.isArray(p.links) && p.links.length > 0 ? p.links[0].url : null);
+        if (linkUrl) {
+          projectLink.href = linkUrl;
+          // If it's a full URL, open in new tab; if relative, open in same tab
+          if (linkUrl.startsWith('http://') || linkUrl.startsWith('https://')) {
+            projectLink.target = '_blank';
+            projectLink.rel = 'noopener noreferrer';
+            projectLink.querySelector('span').textContent = 'View Project';
+          } else {
+            projectLink.target = '_self';
+            projectLink.removeAttribute('rel');
+            projectLink.querySelector('span').textContent = 'View Project';
+          }
+          detailOverviewLink.style.display = 'block';
+        } else {
+          detailOverviewLink.style.display = 'none';
+        }
+      }
+
+      // Expand Page Link (only for relative paths - indicates a dedicated HTML page exists)
+      const expandPageContainer = document.getElementById("expandPageContainer");
+      const expandPageLink = document.getElementById("expandPageLink");
+      if (expandPageContainer && expandPageLink) {
+        // Check if project has a relative path link (like os.html, html/projects/portfolio-os.html)
+        const projectLinkUrl = p.link || (Array.isArray(p.links) && p.links.length > 0 ? p.links[0].url : null);
+        if (projectLinkUrl && !projectLinkUrl.startsWith('http://') && !projectLinkUrl.startsWith('https://')) {
+          // It's a relative path, show expand page option
+          expandPageLink.href = projectLinkUrl;
+          expandPageLink.target = '_self';
+          expandPageContainer.style.display = 'block';
+        } else {
+          expandPageContainer.style.display = 'none';
+        }
+      }
+
+      // Releases
+      const releases = Array.isArray(p.releases) ? p.releases : [];
+      setSectionVisible("releasesSection", releases.length > 0);
+
+      const releasesEl = document.getElementById("detailReleases");
+      if (releasesEl) {
+        releasesEl.innerHTML = releases
+          .map((r) => {
+            const title = r.title || "Release";
+            const note = r.note || "";
+            const url = r.url || "#";
+            return `
+              <div class="releaseItem">
+                <p class="releaseTitle">${title}</p>
+                ${note ? `<p class="releaseNote">${note}</p>` : ""}
+                ${url && url !== "#"
+                  ? `<a class="releaseLink" href="${url}" target="_blank" rel="noreferrer">↗ View</a>`
+                  : ""}
+              </div>
+            `;
+          })
+          .join("");
+      }
+
+      // Tweets
+      const tweets = Array.isArray(p.tweets) ? p.tweets : [];
+      setSectionVisible("tweetsSection", tweets.length > 0);
+
+      const tweetsEl = document.getElementById("detailTweets");
+      if (tweetsEl) {
+        tweetsEl.innerHTML = tweets
+          .map((t) => {
+            const author = t.author || "—";
+            const handle = t.handle || "";
+            const text = t.text || "";
+            const media = t.media || "";
+            const url = t.url || "#";
+
+            return `
+              <div class="tweetCard">
+                <div class="tweetTop">
+                  <div class="tweetAuthor">
+                    <div class="tweetName">${author}</div>
+                    <div class="tweetHandle">${handle}</div>
+                  </div>
+                  <div aria-hidden="true">𝕏</div>
+                </div>
+
+                ${text ? `<div class="tweetText">${text}</div>` : ""}
+
+                ${media
+                  ? `<div class="tweetMedia"><img src="${media}" alt="Tweet media" loading="lazy" /></div>`
+                  : ""}
+
+                ${url && url !== "#"
+                  ? `<a class="tweetLink" href="${url}" target="_blank" rel="noreferrer">↗ Open on X</a>`
+                  : ""}
+              </div>
+            `;
+          })
+          .join("");
+      }
+
+      // Highlights
+      const highlights = Array.isArray(p.highlights) ? p.highlights : [];
+      setSectionVisible("highlightsSection", highlights.length > 0);
+
+      const hlEl = document.getElementById("detailHighlights");
+      if (hlEl) {
+        hlEl.innerHTML = highlights.map((h) => `<li>${h}</li>`).join("");
+      }
+    }
+
+    function initProjects() {
       // Projects Data - Load from individual project files
       const projects = [
         window.PortfolioOSProject,
@@ -1501,93 +1873,124 @@
         window.FluxdeskProject
       ].filter(p => p); // Filter out any undefined projects
 
-    // Elements
-    const grid = document.getElementById("projects-grid");
-    const overlay = document.getElementById("project-overlay");
+      console.log('Projects loaded:', projects.length, projects);
 
-    // Generate Project Cards with Wii-style styling
-    projects.forEach((p, index) => {
-      const cardContainer = document.createElement("div");
-      cardContainer.className = "cursor-pointer group project-card";
-      cardContainer.style.cssText = `
-        background: #0a0a0a;
-        border: 1px solid #1a1a1a;
-        border-radius: 28px !important;
-        overflow: hidden;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
-      `;
-      cardContainer.innerHTML = `
-        <div style="position: relative; overflow: hidden; border-radius: 28px 28px 0 0;">
-          <div style="aspect-ratio: 16/10; position: relative; overflow: hidden;">
-            <img src="${p.thumb}" alt="${p.title}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease, filter 0.4s ease; filter: grayscale(30%);">
-          </div>
-          <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.9) 100%);"></div>
-          <div style="position: absolute; top: 12px; left: 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #555; letter-spacing: 0.1em;">[${String(index + 1).padStart(2, '0')}]</div>
-        </div>
-        <div style="padding: 1.25rem; border-top: 1px solid #1a1a1a;">
-          <div style="display: flex; align-items: flex-start; gap: 1rem;">
-            <div style="width: 36px; height: 36px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: #111; border: 1px solid #222; border-radius: 8px;">${p.logo}</div>
-            <div style="flex: 1; min-width: 0;">
-              <h2 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: #fff; letter-spacing: 0.05em; margin: 0; line-height: 1.1;">${p.title.toUpperCase()}</h2>
-              <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #666; margin-top: 0.35rem; letter-spacing: 0.05em;">${p.company}</p>
+      // Elements
+      const grid = document.getElementById("projects-grid");
+      
+      if (!grid) {
+        console.error('Projects grid element not found!');
+        return;
+      }
+      
+      console.log('Grid element found:', grid);
+      
+      // Clear any existing content
+      grid.innerHTML = '';
+
+      // Generate Project Cards with Wii-style styling
+      projects.forEach((p, index) => {
+        const cardContainer = document.createElement("div");
+        cardContainer.className = "cursor-pointer group project-card";
+        cardContainer.style.cssText = `
+          background: #0a0a0a;
+          border: 1px solid #1a1a1a;
+          border-radius: 28px !important;
+          overflow: hidden;
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          position: relative;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+        `;
+        cardContainer.innerHTML = `
+          <div style="position: relative; overflow: hidden; border-radius: 28px 28px 0 0;">
+            <div style="aspect-ratio: 16/10; position: relative; overflow: hidden;">
+              <img src="${p.thumb}" alt="${p.title}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease, filter 0.4s ease; filter: grayscale(30%);">
             </div>
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.2rem; color: #333; transition: transform 0.3s ease, color 0.3s ease;">→</div>
+            <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.9) 100%);"></div>
+            <div style="position: absolute; top: 12px; left: 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #555; letter-spacing: 0.1em;">[${String(index + 1).padStart(2, '0')}]</div>
           </div>
-        </div>
-      `;
-      
-      // Wii-style hover effects with blue glow
-      cardContainer.addEventListener('mouseenter', () => {
-        cardContainer.style.borderColor = '#0066FF';
-        cardContainer.style.background = '#0f0f0f';
-        cardContainer.style.boxShadow = '0 8px 24px rgba(0, 102, 255, 0.4), 0 0 0 2px rgba(0, 102, 255, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05) inset';
-        cardContainer.style.transform = 'translateY(-4px)';
-        const img = cardContainer.querySelector('img');
-        if (img) {
-          img.style.transform = 'scale(1.05)';
-          img.style.filter = 'grayscale(0%)';
-        }
-        const arrow = cardContainer.querySelector('div[style*="font-size: 1.2rem"]');
-        if (arrow) {
-          arrow.style.transform = 'translateX(4px)';
-          arrow.style.color = '#0066FF';
-        }
+          <div style="padding: 1.25rem; border-top: 1px solid #1a1a1a;">
+            <div style="display: flex; align-items: flex-start; gap: 1rem;">
+              <div style="width: 36px; height: 36px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: #111; border: 1px solid #222; border-radius: 8px;">${p.logo}</div>
+              <div style="flex: 1; min-width: 0;">
+                <h2 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: #fff; letter-spacing: 0.05em; margin: 0; line-height: 1.1;">${p.title.toUpperCase()}</h2>
+                <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #666; margin-top: 0.35rem; letter-spacing: 0.05em;">${p.company}</p>
+              </div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.2rem; color: #333; transition: transform 0.3s ease, color 0.3s ease;">→</div>
+            </div>
+          </div>
+        `;
+        
+        // Wii-style hover effects with blue glow
+        cardContainer.addEventListener('mouseenter', () => {
+          cardContainer.style.borderColor = '#0066FF';
+          cardContainer.style.background = '#0f0f0f';
+          cardContainer.style.boxShadow = '0 8px 24px rgba(0, 102, 255, 0.4), 0 0 0 2px rgba(0, 102, 255, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05) inset';
+          cardContainer.style.transform = 'translateY(-4px)';
+          const img = cardContainer.querySelector('img');
+          if (img) {
+            img.style.transform = 'scale(1.05)';
+            img.style.filter = 'grayscale(0%)';
+          }
+          const arrow = cardContainer.querySelector('div[style*="font-size: 1.2rem"]');
+          if (arrow) {
+            arrow.style.transform = 'translateX(4px)';
+            arrow.style.color = '#0066FF';
+          }
+        });
+        
+        cardContainer.addEventListener('mouseleave', () => {
+          cardContainer.style.borderColor = '#1a1a1a';
+          cardContainer.style.background = '#0a0a0a';
+          cardContainer.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05) inset';
+          cardContainer.style.transform = 'translateY(0)';
+          const img = cardContainer.querySelector('img');
+          if (img) {
+            img.style.transform = 'scale(1)';
+            img.style.filter = 'grayscale(30%)';
+          }
+          const arrow = cardContainer.querySelector('div[style*="font-size: 1.2rem"]');
+          if (arrow) {
+            arrow.style.transform = 'translateX(0)';
+            arrow.style.color = '#333';
+          }
+        });
+        
+        cardContainer.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('Card clicked!', p.title);
+          openProject(p);
+        });
+        grid.appendChild(cardContainer);
       });
       
-      cardContainer.addEventListener('mouseleave', () => {
-        cardContainer.style.borderColor = '#1a1a1a';
-        cardContainer.style.background = '#0a0a0a';
-        cardContainer.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05) inset';
-        cardContainer.style.transform = 'translateY(0)';
-        const img = cardContainer.querySelector('img');
-        if (img) {
-          img.style.transform = 'scale(1)';
-          img.style.filter = 'grayscale(30%)';
-        }
-        const arrow = cardContainer.querySelector('div[style*="font-size: 1.2rem"]');
-        if (arrow) {
-          arrow.style.transform = 'translateX(0)';
-          arrow.style.color = '#333';
-        }
-      });
+      console.log('Rendered', projects.length, 'project cards');
       
-      cardContainer.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log('Card clicked, project:', p);
-        if (p && p.slug) {
-          // Use absolute path from root
-          const url = `/html/projects/${p.slug}.html`;
-          console.log('Navigating to:', url);
-          window.location.href = url;
-        } else {
-          console.error('Project missing slug:', p);
+      // Setup modal close handlers
+      const overlayForHandlers = document.getElementById("project-overlay");
+      if (overlayForHandlers) {
+        overlayForHandlers.addEventListener("click", (e) => {
+          if (e.target?.dataset?.close === "true") closeModal();
+        });
+      }
+
+      window.addEventListener("keydown", (e) => {
+        const overlayEl = document.getElementById("project-overlay");
+        if (e.key === "Escape" && overlayEl && overlayEl.getAttribute("aria-hidden") === "false") {
+          closeModal();
         }
       });
-      grid.appendChild(cardContainer);
-    });
+
+      // Stagger Grid Animation on Load
+      if (grid) {
+        grid.style.opacity = "0";
+        setTimeout(() => {
+          grid.style.transition = "opacity 0.6s";
+          grid.style.opacity = "1";
+        }, 100);
+      }
+    }
 
       // Render Dev Updates Section
       function renderDevUpdates(projectSlug, brandColor) {
@@ -1658,25 +2061,7 @@
         `;
       }
 
-      // Open Project - Navigate to project HTML page
-      function openProject(p) {
-        console.log('openProject called with:', p);
-        if (p && p.slug) {
-          const url = `html/projects/${p.slug}.html`;
-          console.log('Navigating to:', url);
-          window.location.href = url;
-        } else {
-          console.error('Project missing slug:', p);
-        }
-      }
 
-      // Stagger Grid Animation on Load
-      grid.style.opacity = "0";
-      setTimeout(() => {
-        grid.style.transition = "opacity 0.6s";
-        grid.style.opacity = "1";
-      }, 100);
-    }
     
     // Fallback function without Framer Motion
     function renderProjectsWithoutMotion() {
@@ -1858,7 +2243,6 @@ void setup() {
       ];
       
       const grid = document.getElementById("projects-grid");
-      const overlay = document.getElementById("project-overlay");
       if (!grid) return;
       
       projects.forEach((p, index) => {
@@ -2124,24 +2508,19 @@ void setup() {
     }
     
     // Wait for main-content to be visible
-    function waitForMainContent() {
-      const mainContent = document.getElementById("main-content");
-      if (mainContent && mainContent.style.display !== "none") {
-        // Wait a bit for Framer Motion to load
-        setTimeout(() => {
-          initProjects();
-        }, 500);
+    // Initialize projects when DOM is ready
+    function initializePortfolio() {
+      // Wait for project scripts to load
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+          setTimeout(initProjects, 100);
+        });
       } else {
-        setTimeout(waitForMainContent, 100);
+        setTimeout(initProjects, 100);
       }
     }
     
-    // Start checking when DOM is ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', waitForMainContent);
-    } else {
-      waitForMainContent();
-    }
+    initializePortfolio();
   </script>
   
   <!-- Footer -->

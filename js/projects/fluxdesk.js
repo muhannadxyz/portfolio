@@ -6,7 +6,8 @@ window.FluxdeskProject = {
   name: 'FluxDesk',
   title: 'FluxDesk',
   company: 'Helpdesk Ticket Management',
-  logo: '<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: #fff; font-family: system-ui, sans-serif;">FD</div>',
+  logo: 'FD',
+  icon: 'FD',
   thumb: 'images/fluxdesk1.png',
   gallery: [
     'images/fluxdesk1.png',
@@ -15,6 +16,10 @@ window.FluxdeskProject = {
   ],
   tagline: 'A polished helpdesk ticket management interface built with Laravel 12, Livewire v3, and Tailwind CSS.',
   description: 'FluxDesk is a helpdesk ticket management interface built with Laravel 12, Livewire v3, and Tailwind CSS. The Ticket Inbox at /tickets offers real-time search by subject or customer via wire:model.live, status and tag filters, and sorting by newest, oldest, or last activity. Ticket cards show subject, customer name, last activity, color-coded status badges (open, pending, solved, closed), priority badges (high, medium, low), assignee badges with shield icons, and tag badges, with skeleton loaders and clear empty states. The Ticket Detail page at /tickets/{id} includes a header with subject, customer info, timestamps, and live-updating badges; a conversation timeline with distinct styling for agents (blue) vs customers (gray), internal notes with dashed borders and yellow styling, avatar initials, and timestamps; a reply form with validation, internal-note checkbox, and loading states; and an action sidebar for status, assignee, and tag management with toast notifications. The app is responsive, accessible (ARIA, semantic HTML, keyboard navigation), and uses Livewire for a reactive UI with loading and error states.',
+  overview: 'FluxDesk is a polished helpdesk ticket management interface built with Laravel 12, Livewire v3, and Tailwind CSS. Features include real-time search, status/tag filters, conversation timelines with agent vs customer styling, internal notes, and a reactive UI with validation and loading states.',
+  location: 'Remote',
+  date: '2025-01-23',
+  role: 'Full-Stack Development',
   details: 'With more time I would integrate Flux UI for consistency, add advanced filtering (date ranges, saved presets) and bulk actions, keyboard shortcuts (e.g. j/k to navigate, r to reply), WebSockets for live updates, a rich text editor and file attachments, ticket history/audit log, advanced search with operators and saved searches, performance and caching improvements, dark mode, mobile/PWA, broader tests, and WCAG 2.1 AA plus i18n.',
   brandColor: '#6366f1',
   link: 'https://github.com/muhannadxyz/fluxdesk',
@@ -37,6 +42,8 @@ window.FluxdeskProject = {
     'Ticket detail page with agent vs customer conversation timeline, internal notes, reply form, and action sidebar.',
     'Livewire-powered reactive UI with validation, loading states, toasts, and accessibility (ARIA, keyboard).'
   ],
+  releases: [],
+  tweets: [],
 
   // Dev Updates
   updates: [

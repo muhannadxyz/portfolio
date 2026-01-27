@@ -6,10 +6,15 @@ window.WifiAnalyzerProject = {
   name: 'Public Wi-Fi Risk Analyzer',
   title: 'Public Wi-Fi Risk Analyzer',
   company: 'Security & Network Tool',
-  logo: '<img src="images/wifi-symbol.webp" alt="Wi-Fi Analyzer" style="width: 100%; height: 100%; object-fit: contain;">',
+  logo: '📶',
+  icon: '📶',
   thumb: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=800&h=600&fit=crop',
   tagline: 'Assess public Wi-Fi security risks',
   description: 'Public Wi-Fi Risk Analyzer is a comprehensive desktop application built with Python for robust cross-platform compatibility and extensive library ecosystem, and Python GUI using Tkinter for native-looking interface components, event-driven programming, and platform-consistent user experience. The application addresses a critical security need by helping users assess the security posture of public Wi-Fi networks before connecting, enabling informed decisions about network safety and data protection. It performs extensive, multi-layered security checks including HTTPS encryption verification by systematically testing connections to multiple secure websites with various certificate authorities, DNS resolution reliability testing that evaluates response times, checks for DNS hijacking or poisoning attempts, and verifies DNS-over-HTTPS support, comprehensive system firewall status detection using platform-specific system commands and API calls, and active VPN activity monitoring that detects VPN connections and assesses their effectiveness. The tool provides a sophisticated, weighted risk score based on multiple security factors with detailed explanations of each contributing element, and generates comprehensive, audit-ready logs with precise timestamps, detailed test results, and actionable recommendations for security improvement. The application works seamlessly cross-platform on Windows with native system integration, macOS with proper permission handling, and Linux with distribution-agnostic compatibility, ensuring consistent functionality regardless of operating system. The security assessment methodology includes systematic HTTPS support testing by attempting connections to multiple secure domains with various protocols and cipher suites, comprehensive DNS resolution capability verification that tests multiple DNS servers and evaluates response consistency, thorough system firewall status checking using platform-specific commands that provide accurate detection across different security configurations, and intelligent active VPN connection detection that identifies VPN usage and assesses connection quality. All security checks are meticulously logged with precise timestamps including millisecond accuracy, detailed test parameters, and comprehensive result data, and the application maintains an extensive history of network scans with searchable records, comparison tools, and trend analysis capabilities that enable users to track network security over time. The risk scoring algorithm employs sophisticated weighting of different security factors including encryption strength, DNS reliability, firewall protection level, and VPN effectiveness to provide an accurate, nuanced overall assessment of network safety that helps users make informed security decisions.',
+  overview: 'Public Wi-Fi Risk Analyzer is a desktop application that helps users assess the security posture of public Wi-Fi networks. It performs multi-layered security checks (HTTPS, DNS, firewall, VPN) and provides a weighted risk score with detailed explanations and audit-ready logs.',
+  location: 'Remote',
+  date: '2025-06-10',
+  role: 'Software Development',
   brandColor: '#EF4444',
   link: 'https://github.com/muhannadxyz/PublicWiFiAnalyzer',
   railText: 'PUBLIC WI‑FI RISK ANALYZER • SECURITY TOOL •',
@@ -28,6 +33,8 @@ window.WifiAnalyzerProject = {
     'Designed a desktop GUI with scan history and export workflows.',
     'Made checks cross-platform (Windows/macOS/Linux) where possible.'
   ],
+  releases: [],
+  tweets: [],
   codeSnippets: [
     {
       title: 'HTTPS Security Check',

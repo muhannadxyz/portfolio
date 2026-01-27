@@ -6,10 +6,15 @@ window.LucentirProject = {
   name: 'Lucentir',
   title: 'Lucentir',
   company: 'Privacy & Threat Intelligence',
-  logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="24" fill="url(#lucentir-gradient)"/><path d="M24 12C19 12 16 14 16 14V24C16 29 19.5 33 24 36C28.5 33 32 29 32 24V14C32 14 29 12 24 12Z" fill="white"/><defs><linearGradient id="lucentir-gradient" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop stop-color="#10B981"/><stop offset="1" stop-color="#059669"/></linearGradient></defs></svg>',
+  logo: '🛡️',
+  icon: '🛡️',
   thumb: 'images/lucentir.png',
   tagline: 'See clearly. Stay private.',
   description: 'Lucentir is a comprehensive privacy intelligence platform built with React for building dynamic, component-based user interfaces with efficient state management and interactive features, Next.js for server-side rendering, optimized routing, and performance enhancements including automatic code splitting and image optimization, and deployed on Vercel for global edge network distribution, automatic SSL certificates, and seamless CI/CD integration. The platform serves as an authoritative resource helping users make informed decisions by comparing and choosing privacy-focused services like VPNs, Ad-Blockers, password managers, and other privacy-critical tools. It maintains an extensive database scoring 256 different products across 5 key privacy pillars: data minimization evaluating how little data services collect, user control assessing the level of user agency over personal information, security practices examining encryption standards and security protocols, data sharing analyzing third-party data sharing practices, and transparency measuring how openly companies communicate their privacy practices. Users can apply sophisticated filtering options including free service identification, open-source software filtering, services with no telemetry tracking, jurisdiction-based filtering for data residency preferences, and compliance certification filtering for GDPR, CCPA, and other regulatory standards. The platform includes comprehensive side-by-side comparison tools that allow users to evaluate multiple products simultaneously across all privacy dimensions, detailed scoring methodology that explains how each score is calculated with weighted factors and evaluation criteria, and extensively cited sources for every privacy claim with links to privacy policies, security audits, and third-party verification reports. Each product profile includes exhaustive detailed breakdowns of privacy policies with section-by-section analysis, comprehensive data collection practices documentation with specific data types identified, and thorough security measures examination including encryption protocols, authentication methods, and vulnerability disclosure practices. The scoring system follows industry-standard IR/SOC reporting practices with rigorous evaluation frameworks, provides completely transparent evaluation criteria with publicly accessible methodology documentation, and enables users to make fully informed privacy decisions by understanding exactly how each score is derived. All claims are meticulously backed by cited sources with direct links to original documentation, and the entire methodology is clearly documented for independent verification, allowing privacy researchers, journalists, and users to audit and validate the platform\'s assessments.',
+  overview: 'Lucentir is a comprehensive privacy intelligence platform that helps users make informed decisions by comparing privacy-focused services. It scores 256 products across 5 privacy pillars: data minimization, user control, security practices, data sharing, and transparency. Features include side-by-side comparisons, sophisticated filtering, and extensively cited sources.',
+  location: 'Remote',
+  date: '2025-08-01',
+  role: 'Full-Stack Development',
   brandColor: '#10B981',
   link: 'https://lucentir.xyz/',
   railText: 'LUCENTIR • PRIVACY INTELLIGENCE •',
@@ -31,6 +36,8 @@ window.LucentirProject = {
     'Shipped side‑by‑side comparison UX with rich filters and sorting.',
     'Designed for transparency: citations and methodology visibility.'
   ],
+  releases: [],
+  tweets: [],
   
   // Dev Updates
   updates: [

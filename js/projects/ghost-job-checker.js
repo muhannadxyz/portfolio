@@ -6,10 +6,15 @@ window.GhostJobCheckerProject = {
   name: 'Ghost Job Checker',
   title: 'Ghost Job Checker',
   company: 'Job Posting Analysis Tool',
-  logo: '<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: #fff; font-family: system-ui, sans-serif;">GJC</div>',
+  logo: 'GJC',
+  icon: 'GJC',
   thumb: 'images/ghostchecker.png',
   tagline: 'Detect fake & phantom job postings before wasting your time',
   description: 'Ghost Job Checker is an AI-powered job posting analysis tool built entirely with plain HTML for semantic, accessible markup structure, vanilla JavaScript for client-side logic and API interactions without framework dependencies, and CSS for responsive styling and visual design. The tool addresses a critical problem in modern job searching by helping job seekers identify fake and phantom job postings before investing valuable time and effort in applications. It employs sophisticated text analysis algorithms that examine job descriptions using multiple weighted risk factors including stale risk detection that analyzes reposting patterns, posting age indicators, and applicant count signals to identify positions that have been open for extended periods without actual hiring intent. Pipeline risk assessment identifies evergreen language and talent pool terminology that suggests companies are collecting resumes rather than actively filling positions. Vague risk analysis evaluates text length, requirement specificity, and excessive buzzword usage to detect postings lacking concrete job details. The platform provides a comprehensive, transparent risk score from 0-100 with detailed explanations, hiring likelihood assessment that predicts the probability of actual recruitment activity, and extensive detailed analysis with categorized red flags highlighting concerning patterns and positive signals indicating legitimate opportunities. The system accepts both job URLs for automated content extraction from supported platforms and full job descriptions for manual analysis, with intelligent text parsing that detects common patterns in ghost job postings including unrealistic requirements, missing salary information, excessive buzzwords, and language suggesting continuous hiring rather than specific role fulfillment. Advanced features include confidence scoring based on text quality and signal strength, risk breakdown by category (stale, pipeline, vague), actionable recommendations for job seekers, and detailed evidence citations that explain each risk factor with specific examples from the analyzed text.',
+  overview: 'Ghost Job Checker is an AI-powered job posting analysis tool that helps job seekers identify fake and phantom job postings. It uses sophisticated text analysis algorithms with multiple weighted risk factors (stale, pipeline, vague) to provide a transparent risk score from 0-100 with detailed explanations and actionable recommendations.',
+  location: 'Remote',
+  date: '2025-01-02',
+  role: 'Full-Stack Development',
   details: 'Built to solve the problem of job seekers wasting time on fake job postings that companies keep up to collect resumes or maintain an appearance of growth. The tool uses heuristic analysis to detect multiple risk factors and provides transparent scoring with confidence levels. Features include URL fetching for LinkedIn/Indeed posts, manual description input, and detailed breakdowns of why a job might be a ghost posting.',
   brandColor: '#FF6B35',
   link: 'https://ghost-job-checker.vercel.app/',
@@ -32,6 +37,8 @@ window.GhostJobCheckerProject = {
     'Implemented intelligent text analysis for ghost job detection with confidence scoring.',
     'Created transparent scoring model with detailed breakdowns and actionable insights.'
   ],
+  releases: [],
+  tweets: [],
 
   // Dev Updates
   updates: [
