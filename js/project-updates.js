@@ -16,7 +16,8 @@ const ProjectUpdates = {
       window.WindTurbineProject,
       window.PostNoteProject,
       window.GhostJobCheckerProject,
-      window.FluxdeskProject
+      window.FluxdeskProject,
+      window.CreatePeeProject
     ].filter(p => p); // Filter out any undefined projects
     
     // Extract only the data needed for updates (slug, name, brandColor, updates)
@@ -52,7 +53,8 @@ const ProjectUpdates = {
       'wind-turbine': window.WindTurbineProject,
       'postnote': window.PostNoteProject,
       'ghost-job-checker': window.GhostJobCheckerProject,
-      'fluxdesk': window.FluxdeskProject
+      'fluxdesk': window.FluxdeskProject,
+      'createpee': window.CreatePeeProject
     };
     return projectMap[slug] || null;
   }
