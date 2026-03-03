@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"/>
-  <meta name="theme-color" content="#000000"/>
+  <meta name="theme-color" content="#f5f1e8"/>
   <title>Muhannad Abuzahrieh</title>
 
   <!-- Fonts and Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
@@ -221,26 +221,6 @@
       align-items: flex-start;
     }
     
-    .contact-btn {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      color: #000;
-      text-decoration: none;
-      padding: 0.6rem 1.2rem;
-      border: none;
-      transition: all 0.1s ease;
-      letter-spacing: 0.1em;
-      background: #fff;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-    
-    .contact-btn:hover {
-      background: #000;
-      color: #fff;
-      outline: 1px solid #fff;
-    }
-    
     .giant-name {
       font-family: 'Bebas Neue', sans-serif;
       font-size: clamp(8rem, 22vw, 32rem);
@@ -415,17 +395,6 @@
     .name-line-mixed {
       display: flex;
       align-items: baseline;
-    }
-    
-    .hero-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      padding-bottom: 2rem;
-      background: transparent;
-      margin-top: auto;
-      padding-top: 2rem;
-      position: relative;
     }
     
     .brand-mark {
@@ -720,7 +689,6 @@
     
     /* Improve touch targets for links */
     .directory-col li,
-    .contact-btn,
     .footer-bar a {
       -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
     }
@@ -777,6 +745,37 @@
     .footer-bar a:hover {
       color: #fff;
     }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.7rem 0.95rem;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.03);
+      color: #bdbdbd;
+      min-height: 42px;
+    }
+
+    .footer-link:hover {
+      border-color: rgba(255, 255, 255, 0.45);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+
+    .footer-link svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
     
     /* Mobile responsive */
     @media (max-width: 1024px) {
@@ -826,12 +825,6 @@
         width: 100%;
       }
       
-      .contact-btn {
-        font-size: 0.7rem;
-        padding: 0.5rem 1rem;
-        min-height: 44px; /* Touch target */
-      }
-      
       .directory-section {
         flex-direction: column;
         gap: 2rem;
@@ -840,14 +833,6 @@
       
       .directory-col {
         width: 100%;
-      }
-      
-      .hero-bottom {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 2.5rem;
-        width: 100%;
-        padding-top: 2rem;
       }
       
       .brand-mark {
@@ -863,10 +848,6 @@
       .roles {
         font-size: 0.7rem;
         line-height: 1.6;
-      }
-      
-      .timestamp {
-        font-size: 0.9rem;
       }
       
       .footer-bar {
@@ -927,11 +908,6 @@
         height: 8px;
       }
       
-      .contact-btn {
-        font-size: 0.65rem;
-        padding: 0.5rem 0.9rem;
-      }
-      
       .directory-section {
         gap: 1.5rem;
       }
@@ -946,11 +922,6 @@
         padding: 0.35rem 0;
       }
       
-      .hero-bottom {
-        gap: 2rem;
-        padding-top: 1.5rem;
-      }
-      
       .brand-mark {
         font-size: 1rem;
       }
@@ -962,10 +933,6 @@
       .roles {
         font-size: 0.65rem;
         margin-bottom: 1rem;
-      }
-      
-      .timestamp {
-        font-size: 0.85rem;
       }
       
       .projects-section {
@@ -1018,12 +985,6 @@
         height: 7px;
       }
       
-      .contact-btn {
-        font-size: 0.6rem;
-        padding: 0.45rem 0.8rem;
-        min-height: 40px;
-      }
-      
       .directory-section {
         gap: 1.25rem;
       }
@@ -1036,12 +997,6 @@
       .directory-col li {
         font-size: 0.7rem;
         padding: 0.3rem 0;
-      }
-      
-      .hero-bottom {
-        gap: 1.5rem;
-        padding-top: 1.25rem;
-        border-top-width: 1px;
       }
       
       .brand-mark {
@@ -1061,10 +1016,6 @@
       
       .roles span {
         margin-bottom: 0.25rem;
-      }
-      
-      .timestamp {
-        font-size: 0.8rem;
       }
       
       .projects-section {
@@ -1129,13 +1080,6 @@
         height: 6px;
       }
       
-      .contact-btn {
-        font-size: 0.55rem;
-        padding: 0.4rem 0.7rem;
-        min-height: 38px;
-        letter-spacing: 0.08em;
-      }
-      
       .directory-section {
         gap: 1rem;
       }
@@ -1157,11 +1101,6 @@
         font-size: 0.7rem;
       }
       
-      .hero-bottom {
-        gap: 1.25rem;
-        padding-top: 1rem;
-      }
-      
       .brand-mark {
         font-size: 0.8rem;
         letter-spacing: 0.15em;
@@ -1180,11 +1119,6 @@
       
       .roles span {
         margin-bottom: 0.2rem;
-      }
-      
-      .timestamp {
-        font-size: 0.75rem;
-        letter-spacing: 0.03em;
       }
       
       .projects-section {
@@ -1218,24 +1152,13 @@
         font-size: 0.65rem;
       }
       
-      /* Hamburger menu adjustments for mobile */
-      .hamburger {
-        top: 12px;
-        left: 12px;
-        width: 44px; /* Better touch target */
-        height: 44px;
-        padding: 10px;
-        z-index: 100;
+      .footer-links {
+        gap: 0.65rem;
       }
-      
-      .hamburger span {
-        width: 20px;
-        height: 2px;
-      }
-      
-      /* Ensure status indicator doesn't overlap hamburger */
-      .hero-top {
-        padding-top: 0.75rem;
+
+      .footer-link {
+        width: 100%;
+        justify-content: center;
       }
       
       .status-indicator {
@@ -1272,17 +1195,359 @@
         font-size: 0.5rem;
       }
       
-      .contact-btn {
-        font-size: 0.5rem;
-        padding: 0.35rem 0.6rem;
-      }
-      
       .projects-section {
         padding: 1.5rem 0.875rem;
       }
       
       .section-title {
         font-size: 1.25rem;
+      }
+    }
+  </style>
+  <style>
+    :root {
+      --page-bg: #f7f5ef;
+      --surface: #ffffff;
+      --surface-strong: #ffffff;
+      --line: rgba(34, 31, 26, 0.1);
+      --line-strong: rgba(34, 31, 26, 0.18);
+      --text-main: #171512;
+      --text-soft: #787166;
+      --display-font: 'Space Grotesk', sans-serif;
+      --mono-font: 'IBM Plex Mono', monospace;
+      --shadow-soft: 0 10px 30px rgba(32, 24, 12, 0.05);
+    }
+
+    body[data-theme="dark"] {
+      --page-bg: #121212;
+      --surface: #181818;
+      --surface-strong: #1f1f1f;
+      --line: rgba(255, 255, 255, 0.12);
+      --line-strong: rgba(255, 255, 255, 0.22);
+      --text-main: #f6f3ee;
+      --text-soft: #a8a096;
+      --shadow-soft: 0 12px 30px rgba(0, 0, 0, 0.28);
+    }
+
+    body {
+      background: var(--page-bg);
+      color: var(--text-main);
+      font-family: var(--display-font);
+    }
+
+    #neural-network {
+      display: none;
+    }
+
+    #main-content {
+      padding: 0 24px 24px;
+    }
+
+    .brutalist-hero {
+      min-height: auto;
+      background: transparent;
+      display: block;
+      padding: 0;
+    }
+
+    .hero-background {
+      inset: 0;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      overflow: visible;
+    }
+
+    .hero-background::before {
+      display: none;
+    }
+
+    .hero-background::after {
+      display: none;
+    }
+
+    .brutal-line,
+    .glitch-block,
+    .brutal-accent,
+    .scanlines,
+    .corner-mark,
+    .scroll-banner,
+    .floating-orb {
+      display: none !important;
+    }
+
+    .hero-main {
+      max-width: 1080px;
+      min-height: auto;
+      margin: 0 auto;
+      padding: 56px 0 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 28px;
+    }
+
+    .hero-top {
+      align-items: center;
+      justify-content: flex-end;
+      gap: 16px;
+    }
+
+    .hero-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 40px;
+    }
+
+    .status-indicator {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      height: 40px;
+      padding: 0 1.05rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--text-main);
+      font-family: var(--mono-font);
+      letter-spacing: 0.08em;
+      font-size: 0.72rem;
+      box-shadow: none;
+    }
+
+    .theme-toggle {
+      position: relative;
+      width: 58px;
+      height: 40px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: transparent;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .theme-toggle-track {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      color: var(--text-soft);
+      font-size: 12px;
+      line-height: 1;
+    }
+
+    .theme-toggle-thumb {
+      position: absolute;
+      top: 5px;
+      left: 4px;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: var(--text-main);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    body[data-theme="dark"] .theme-toggle-thumb {
+      transform: translateX(21px);
+      background: #f6f3ee;
+    }
+
+    body[data-theme="dark"] .theme-toggle-track {
+      color: #c2bbb2;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      box-shadow: none;
+      animation: none;
+    }
+
+    .giant-name-container {
+      max-width: 720px;
+    }
+
+    .hero-kicker {
+      margin: 0 0 0.75rem;
+      color: var(--text-soft);
+      font-family: var(--mono-font);
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .giant-name {
+      font-family: var(--display-font);
+      font-size: clamp(3.2rem, 8vw, 5.8rem);
+      line-height: 0.94;
+      letter-spacing: -0.07em;
+      color: var(--text-main);
+      cursor: default;
+      will-change: auto;
+    }
+
+    .giant-name::before,
+    .giant-name::after {
+      content: none;
+    }
+
+    .giant-name:hover {
+      animation: none;
+    }
+
+    .projects-section {
+      max-width: 1080px;
+      margin: 0 auto;
+      background: transparent;
+      padding: 20px 0 72px;
+      border-top: none;
+    }
+
+    .section-header {
+      align-items: flex-start;
+      gap: 18px;
+      padding-bottom: 0;
+      margin-bottom: 18px;
+      border-bottom: none;
+    }
+
+    .section-title {
+      margin: 0;
+      font-family: var(--display-font);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+      color: var(--text-main);
+    }
+
+    .section-intro {
+      display: none;
+    }
+
+    .section-count {
+      padding: 0;
+      border-radius: 0;
+      border: none;
+      background: transparent;
+      font-family: var(--mono-font);
+      font-size: 0.74rem;
+      color: var(--text-soft);
+    }
+
+    #projects-grid {
+      display: grid !important;
+      grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+      gap: 20px !important;
+    }
+
+    .project-card {
+      grid-column: span 4;
+      background: var(--surface) !important;
+      border: 1px solid var(--line) !important;
+      box-shadow: none !important;
+      border-radius: 20px !important;
+      overflow: hidden;
+      backdrop-filter: none;
+      -webkit-tap-highlight-color: rgba(23, 21, 18, 0.08);
+    }
+
+    .footer-bar {
+      max-width: 1080px;
+      margin: 0 auto 24px;
+      padding: 20px 0 0;
+      border: none;
+      border-top: 1px solid var(--line);
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      color: var(--text-soft);
+      text-transform: none;
+      letter-spacing: 0;
+      backdrop-filter: none;
+    }
+
+    .footer-bar a {
+      color: var(--text-soft);
+    }
+
+    .footer-link {
+      border-color: var(--line);
+      background: transparent;
+      color: var(--text-main);
+      border-radius: 999px;
+    }
+
+    .footer-link:hover {
+      background: #ffffff;
+      border-color: var(--line-strong);
+      color: var(--text-main);
+    }
+
+    @media (max-width: 1180px) {
+      .project-card {
+        grid-column: span 6;
+      }
+    }
+
+    @media (max-width: 900px) {
+      #main-content {
+        padding: 0 16px 16px;
+      }
+
+      .hero-main {
+        padding-top: 36px;
+      }
+
+      .section-header,
+      .footer-bar {
+        grid-template-columns: 1fr;
+        flex-direction: column;
+      }
+
+      .section-header,
+      .footer-bar {
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .hero-main {
+        padding: 28px 0 20px;
+        gap: 22px;
+      }
+
+      .hero-top {
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .giant-name {
+        font-size: clamp(2.6rem, 14vw, 4.2rem);
+      }
+
+      .project-card {
+        grid-column: span 12;
+      }
+
+      .footer-bar {
+        margin: 0 auto 16px;
+        padding: 18px 0 0;
+      }
+
+      .footer-links {
+        width: 100%;
+      }
+
+      .footer-link {
+        width: 100%;
+        justify-content: center;
       }
     }
   </style>
@@ -1294,26 +1559,6 @@
 
   <!-- Site Content -->
   <div id="main-content">
-    <!-- Hamburger Menu -->
-    <button class="hamburger" id="hamburger" onclick="toggleMenu()">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-    
-    <nav class="dropdown-nav" id="dropdown-nav">
-      <div class="dropdown-content">
-        <div class="dropdown-links">
-          <a href="#" onclick="scrollToProjects(); toggleMenu(); return false;">WORKS</a>
-          <!--<a href="portfolio.html" onclick="toggleMenu()">RESUME</a> -->
-          <!--<a href="dev.html" onclick="toggleMenu()">DEV LOG</a> -->
-          <a href="contact.html" onclick="toggleMenu()">CONTACT</a>
-          <a href="https://github.com/muhannadxyz" target="_blank" rel="noreferrer" onclick="toggleMenu()">GITHUB</a>
-          <a href="https://www.linkedin.com/in/muhannad-abuzahrieh-0b7330265/" target="_blank" rel="noreferrer" onclick="toggleMenu()">LINKEDIN</a>
-        </div>
-      </div>
-    </nav>
-    
     <!-- BRUTAL Hero Section -->
     <section class="brutalist-hero">
       <!-- Raw Background -->
@@ -1344,27 +1589,25 @@
       
       <div class="hero-main">
         <div class="hero-top">
-          <div class="status-indicator">
-            <span class="status-dot"></span>
-            AVAILABLE FOR WORK
+          <div class="hero-controls">
+            <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle light and dark mode" title="Toggle theme">
+              <span class="theme-toggle-track" aria-hidden="true">
+                <span>☀</span>
+                <span>☾</span>
+              </span>
+              <span class="theme-toggle-thumb" aria-hidden="true"></span>
+            </button>
+            <div class="status-indicator">
+              <span class="status-dot"></span>
+              AVAILABLE FOR WORK
+            </div>
           </div>
-          <a href="contact.html" class="contact-btn">CONTACT ↗</a>
         </div>
         
         <div class="giant-name-container">
+          <p class="hero-kicker">Software engineer</p>
           <h1 class="giant-name" data-text="MUHANNAD">MUHANNAD</h1>
-           <h1 class="giant-name" data-text="ABUZAHRIEH">ABUZAHRIEH</h1>
-        </div>
-        
-        <div class="hero-bottom">
-          <div class="meta-section">
-            <div class="roles">
-              <span>SOFTWARE ENGINEER</span>
-              <span>UI/UX ENTHUSIAST</span>
-              <span>BUILDING THE FUTURE</span>
-            </div>
-            <div class="timestamp" id="live-timestamp">00:00:00:00:00</div>
-          </div>
+          <h1 class="giant-name" data-text="ABUZAHRIEH">ABUZAHRIEH</h1>
         </div>
       </div>
       
@@ -1378,31 +1621,50 @@
       <!-- Geometric elements -->
       <div class="floating-orb"></div>
     </section>
-    
+
     <!-- Projects Section -->
     <section class="projects-section" id="projects-section">
       <div class="section-header">
-        <h2 class="section-title">SELECTED WORKS</h2>
-        <span class="section-count">[10]</span>
+        <div>
+          <h2 class="section-title">Selected projects</h2>
+        </div>
+        <span class="section-count" id="section-count">10 projects</span>
       </div>
       <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
     </section>
   </div> <!-- /main-content -->
   
   <script>
-    // Live timestamp
-    function updateTimestamp() {
-      const now = new Date();
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      const seconds = String(now.getSeconds()).padStart(2, '0');
-      
-      document.getElementById('live-timestamp').textContent = 
-        `${hours}:${minutes}:${seconds}`;
+    function applyTheme(theme) {
+      document.body.setAttribute('data-theme', theme);
+      try {
+        localStorage.setItem('theme', theme);
+      } catch (e) {}
+      const toggle = document.getElementById('theme-toggle');
+      if (toggle) {
+        toggle.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+      }
     }
-    
-    setInterval(updateTimestamp, 1000);
-    updateTimestamp();
+
+    function initThemeToggle() {
+      let savedTheme = null;
+      try {
+        savedTheme = localStorage.getItem('theme');
+      } catch (e) {}
+
+      const preferredDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      applyTheme(savedTheme || (preferredDark ? 'dark' : 'light'));
+
+      const toggle = document.getElementById('theme-toggle');
+      if (!toggle) return;
+
+      toggle.addEventListener('click', () => {
+        const currentTheme = document.body.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+        applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+      });
+    }
+
+    initThemeToggle();
     
     function scrollToProjects() {
       document.getElementById('projects-section').scrollIntoView({ behavior: 'smooth' });
@@ -1875,6 +2137,11 @@
 
       console.log('Projects loaded:', projects.length, projects);
 
+      const sectionCount = document.getElementById("section-count");
+      if (sectionCount) {
+        sectionCount.textContent = `${projects.length} projects`;
+      }
+
       // Elements
       const grid = document.getElementById("projects-grid");
       
@@ -1890,69 +2157,73 @@
 
       // Generate Project Cards with Wii-style styling
       projects.forEach((p, index) => {
+        const cardSummary = (p.tagline || p.overview || p.description || '').replace(/\s+/g, ' ').trim();
+        const truncatedSummary = cardSummary.length > 140 ? `${cardSummary.slice(0, 137)}...` : cardSummary;
         const cardContainer = document.createElement("div");
         cardContainer.className = "cursor-pointer group project-card";
         cardContainer.style.cssText = `
-          background: #0a0a0a;
-          border: 1px solid #1a1a1a;
+          background: rgba(255, 255, 255, 0.74);
+          border: 1px solid rgba(34, 31, 26, 0.1);
           border-radius: 28px !important;
           overflow: hidden;
           transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
           position: relative;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+          box-shadow: 0 18px 48px rgba(32, 24, 12, 0.08);
+          backdrop-filter: blur(18px);
         `;
         cardContainer.innerHTML = `
           <div style="position: relative; overflow: hidden; border-radius: 28px 28px 0 0;">
-            <div style="aspect-ratio: 16/10; position: relative; overflow: hidden;">
-              <img src="${p.thumb}" alt="${p.title}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease, filter 0.4s ease; filter: grayscale(30%);">
+            <div style="aspect-ratio: 16/10; position: relative; overflow: hidden; background: linear-gradient(180deg, rgba(247,243,236,0.95), rgba(237,231,221,0.82));">
+              <img src="${p.thumb}" alt="${p.title}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; opacity: 0.94;">
             </div>
-            <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.9) 100%);"></div>
-            <div style="position: absolute; top: 12px; left: 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #555; letter-spacing: 0.1em;">[${String(index + 1).padStart(2, '0')}]</div>
+            <div style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent 32%, rgba(23,21,18,0.1) 100%);"></div>
+            <div style="position: absolute; top: 14px; left: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; color: #6d665d; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.5rem 0.65rem; border-radius: 999px; background: rgba(255,255,255,0.82); border: 1px solid rgba(34,31,26,0.08);">${String(index + 1).padStart(2, '0')}</div>
           </div>
-          <div style="padding: 1.25rem; border-top: 1px solid #1a1a1a;">
+          <div style="padding: 1.35rem; border-top: 1px solid rgba(34,31,26,0.08);">
             <div style="display: flex; align-items: flex-start; gap: 1rem;">
-              <div style="width: 36px; height: 36px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: #111; border: 1px solid #222; border-radius: 8px;">${p.logo}</div>
+              <div style="width: 44px; height: 44px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.7); border: 1px solid rgba(34,31,26,0.08); border-radius: 14px; color: #171512; font-family: 'Space Grotesk', sans-serif; font-weight: 700;">${p.logo}</div>
               <div style="flex: 1; min-width: 0;">
-                <h2 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: #fff; letter-spacing: 0.05em; margin: 0; line-height: 1.1;">${p.title.toUpperCase()}</h2>
-                <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #666; margin-top: 0.35rem; letter-spacing: 0.05em;">${p.company}</p>
+                <p style="font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; color: #6d665d; margin: 0 0 0.45rem; letter-spacing: 0.08em; text-transform: uppercase;">${p.company}</p>
+                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.38rem; color: #171512; letter-spacing: -0.04em; margin: 0; line-height: 1.06;">${p.title}</h2>
+                <p style="font-family: 'Space Grotesk', sans-serif; font-size: 0.96rem; color: #6d665d; margin: 0.8rem 0 0; line-height: 1.65;">${truncatedSummary}</p>
               </div>
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.2rem; color: #333; transition: transform 0.3s ease, color 0.3s ease;">→</div>
+              <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.92rem; color: #171512; transition: transform 0.3s ease, background 0.3s ease; border: 1px solid rgba(34,31,26,0.08); background: rgba(255,255,255,0.7); width: 36px; height: 36px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">↗</div>
             </div>
           </div>
         `;
         
-        // Wii-style hover effects with blue glow
+        // Soft product-card hover state
         cardContainer.addEventListener('mouseenter', () => {
-          cardContainer.style.borderColor = '#0066FF';
-          cardContainer.style.background = '#0f0f0f';
-          cardContainer.style.boxShadow = '0 8px 24px rgba(0, 102, 255, 0.4), 0 0 0 2px rgba(0, 102, 255, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05) inset';
-          cardContainer.style.transform = 'translateY(-4px)';
+          cardContainer.style.borderColor = 'rgba(34, 31, 26, 0.18)';
+          cardContainer.style.background = 'rgba(255, 255, 255, 0.9)';
+          cardContainer.style.boxShadow = '0 24px 56px rgba(32, 24, 12, 0.12)';
+          cardContainer.style.transform = 'translateY(-6px)';
           const img = cardContainer.querySelector('img');
           if (img) {
             img.style.transform = 'scale(1.05)';
-            img.style.filter = 'grayscale(0%)';
           }
-          const arrow = cardContainer.querySelector('div[style*="font-size: 1.2rem"]');
+          const arrow = cardContainer.querySelector('div[style*="width: 36px"]');
           if (arrow) {
             arrow.style.transform = 'translateX(4px)';
-            arrow.style.color = '#0066FF';
+            arrow.style.background = '#171512';
+            arrow.style.color = '#f8f5ee';
           }
         });
         
         cardContainer.addEventListener('mouseleave', () => {
-          cardContainer.style.borderColor = '#1a1a1a';
-          cardContainer.style.background = '#0a0a0a';
-          cardContainer.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05) inset';
+          cardContainer.style.borderColor = 'rgba(34, 31, 26, 0.1)';
+          cardContainer.style.background = 'rgba(255, 255, 255, 0.74)';
+          cardContainer.style.boxShadow = '0 18px 48px rgba(32, 24, 12, 0.08)';
           cardContainer.style.transform = 'translateY(0)';
           const img = cardContainer.querySelector('img');
           if (img) {
             img.style.transform = 'scale(1)';
-            img.style.filter = 'grayscale(30%)';
           }
-          const arrow = cardContainer.querySelector('div[style*="font-size: 1.2rem"]');
+          const arrow = cardContainer.querySelector('div[style*="width: 36px"]');
           if (arrow) {
             arrow.style.transform = 'translateX(0)';
-            arrow.style.color = '#333';
+            arrow.style.background = 'rgba(255,255,255,0.7)';
+            arrow.style.color = '#171512';
           }
         });
         
@@ -2526,7 +2797,27 @@ void setup() {
   <!-- Footer -->
   <footer class="footer-bar">
     <div>© 2026 MUHANNAD ABUZAHRIEH</div>
-    <div style="display: flex; gap: 2rem;"></div>
+    <div class="footer-links">
+      <a class="footer-link" href="https://www.linkedin.com/in/muhannad-abuzahrieh-0b7330265/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6.94 8.5V18M6.99 5.99C6.99 6.68 6.43 7.24 5.74 7.24C5.05 7.24 4.49 6.68 4.49 5.99C4.49 5.3 5.05 4.74 5.74 4.74C6.43 4.74 6.99 5.3 6.99 5.99Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M11.02 18V12.57C11.02 10.94 12.34 9.62 13.97 9.62C15.6 9.62 16.92 10.94 16.92 12.57V18M11.02 13.2V8.5M16.92 18V13.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>LinkedIn</span>
+      </a>
+      <a class="footer-link" href="https://github.com/muhannadxyz" target="_blank" rel="noreferrer" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M9 19C4 20.5 4 16.5 2 16M16 22V18.13C16.04 17.61 15.97 17.08 15.79 16.59C15.61 16.1 15.32 15.66 14.94 15.3C18.5 14.9 22.25 13.55 22.25 7.36C22.25 5.78 21.68 4.25 20.67 3.05C21.15 1.77 21.11 0.36 20.56 -0.89C20.56 -0.89 19.31 -1.29 16 0.95C13.57 0.29 11.05 0.29 8.62 0.95C5.31 -1.29 4.06 -0.89 4.06 -0.89C3.51 0.36 3.47 1.77 3.95 3.05C2.94 4.25 2.37 5.78 2.37 7.36C2.37 13.54 6.12 14.9 9.68 15.3C9.31 15.65 9.03 16.08 8.85 16.56C8.68 17.04 8.61 17.55 8.65 18.06V22" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>GitHub</span>
+      </a>
+      <a class="footer-link" href="contact.html" aria-label="Contact">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M3 6.75L10.94 12.04C11.57 12.46 12.39 12.46 13.02 12.04L21 6.75M4.8 19.5H19.2C20.19 19.5 21 18.69 21 17.7V6.3C21 5.31 20.19 4.5 19.2 4.5H4.8C3.81 4.5 3 5.31 3 6.3V17.7C3 18.69 3.81 19.5 4.8 19.5Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Contact</span>
+      </a>
+    </div>
     <div>BUILDING THE FUTURE</div>
   </footer>
 

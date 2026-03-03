@@ -209,15 +209,3 @@ setTimeout(() => {
   // Make it globally accessible
   window.neuralNet = neuralNet;
 }, 500);
-
-// Hamburger Menu Toggle
-function toggleMenu() {
-  const hamburger = document.getElementById('hamburger');
-  const nav = document.getElementById('dropdown-nav');
-  
-  if (hamburger && nav) {
-    hamburger.classList.toggle('active');
-    nav.classList.toggle('open');
-  }
-}
-
