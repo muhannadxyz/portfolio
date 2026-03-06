@@ -9,7 +9,6 @@ const ProjectUpdates = {
     this.projectsData = [
       window.PortfolioOSProject,
       window.LucentirProject,
-      window.TonsorProject,
       window.ShadoconnectProject,
       window.RentwiseProject,
       window.WifiAnalyzerProject,
@@ -45,7 +44,6 @@ const ProjectUpdates = {
     const projectMap = {
       'portfolio-os': window.PortfolioOSProject,
       'lucentir': window.LucentirProject,
-      'tonsor': window.TonsorProject,
       'shadoconnect': window.ShadoconnectProject,
       'rentwise': window.RentwiseProject,
       'wifi-analyzer': window.WifiAnalyzerProject,
