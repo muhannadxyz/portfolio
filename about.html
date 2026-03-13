@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"/>
+  <meta name="theme-color" content="#f5f1e8"/>
+  <title>About — Muhannad Abuzahrieh</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="manifest" href="favicon/site.webmanifest">
+
+  <style>
+    :root {
+      --page-bg: #f7f5ef;
+      --surface: #ffffff;
+      --surface-strong: #f0ede6;
+      --line: rgba(34, 31, 26, 0.1);
+      --line-strong: rgba(34, 31, 26, 0.18);
+      --text-main: #171512;
+      --text-soft: #787166;
+      --display-font: 'Space Grotesk', sans-serif;
+      --mono-font: 'IBM Plex Mono', monospace;
+    }
+
+    body[data-theme="dark"] {
+      --page-bg: #121212;
+      --surface: #181818;
+      --surface-strong: #1f1f1f;
+      --line: rgba(255, 255, 255, 0.12);
+      --line-strong: rgba(255, 255, 255, 0.22);
+      --text-main: #f6f3ee;
+      --text-soft: #a8a096;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--page-bg);
+      color: var(--text-main);
+      font-family: var(--display-font);
+      min-height: 100vh;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    /* ── Top nav ── */
+    .top-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      background: var(--page-bg);
+      z-index: 100;
+    }
+
+    .nav-back {
+      font-family: var(--mono-font);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.15s ease;
+    }
+
+    .nav-back:hover { color: var(--text-main); }
+
+    .nav-title {
+      font-family: var(--mono-font);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+    }
+
+    /* ── Theme toggle ── */
+    .theme-toggle {
+      width: 40px;
+      height: 22px;
+      border-radius: 999px;
+      border: 1.5px solid var(--line-strong);
+      background: var(--surface-strong);
+      cursor: pointer;
+      position: relative;
+      transition: background 0.2s ease;
+    }
+
+    .theme-toggle-thumb {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--text-main);
+      position: absolute;
+      top: 50%;
+      left: 3px;
+      transform: translateY(-50%);
+      transition: left 0.2s ease, background 0.2s ease;
+    }
+
+    body[data-theme="dark"] .theme-toggle-thumb {
+      left: 19px;
+    }
+
+    /* ── Page layout ── */
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    /* ── Header ── */
+    .about-header {
+      margin-bottom: 3rem;
+    }
+
+    .kicker {
+      font-family: var(--mono-font);
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      margin-bottom: 1rem;
+    }
+
+    .about-name {
+      font-family: var(--display-font);
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--text-main);
+      margin-bottom: 1.75rem;
+    }
+
+    .status-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .badge {
+      font-family: var(--mono-font);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.85rem;
+      border-radius: 999px;
+      border: 1px solid;
+    }
+
+    .badge-green {
+      background: #dcf5e4;
+      color: #1a6636;
+      border-color: #b2dfc4;
+    }
+
+    body[data-theme="dark"] .badge-green {
+      background: #0d3320;
+      color: #6dd899;
+      border-color: #1a5532;
+    }
+
+    .badge-neutral {
+      background: var(--surface-strong);
+      color: var(--text-soft);
+      border-color: var(--line);
+    }
+
+    /* ── Divider ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--line);
+      margin: 2.5rem 0;
+    }
+
+    /* ── Bio section ── */
+    .bio-lead {
+      font-size: 1.35rem;
+      font-weight: 500;
+      line-height: 1.55;
+      color: var(--text-main);
+      margin-bottom: 1.25rem;
+    }
+
+    .bio-body {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--text-soft);
+    }
+
+    .bio-body + .bio-body {
+      margin-top: 1rem;
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-family: var(--mono-font);
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      margin-bottom: 1.25rem;
+    }
+
+    /* ── Highlights grid ── */
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    @media (max-width: 540px) {
+      .highlights-grid { grid-template-columns: 1fr; }
+    }
+
+    .highlight-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .highlight-num {
+      font-family: var(--mono-font);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--text-soft);
+      margin-bottom: 0.5rem;
+    }
+
+    .highlight-text {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-main);
+      line-height: 1.4;
+    }
+
+    /* ── Skills ── */
+    .skills-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .skill-chip {
+      font-family: var(--mono-font);
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      padding: 0.4rem 0.85rem;
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--text-soft);
+      border: 1px solid var(--line);
+    }
+
+    /* ── CTA ── */
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 3rem;
+    }
+
+    .cta-btn {
+      font-family: var(--mono-font);
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      border: 1.5px solid var(--line-strong);
+      color: var(--text-main);
+      background: var(--surface);
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .cta-btn:hover {
+      background: var(--surface-strong);
+      border-color: var(--text-soft);
+    }
+
+    .cta-btn-primary {
+      background: var(--text-main);
+      color: var(--page-bg);
+      border-color: var(--text-main);
+    }
+
+    .cta-btn-primary:hover {
+      opacity: 0.85;
+      background: var(--text-main);
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="top-nav">
+    <a href="index.html" class="nav-back">← Back</a>
+    <span class="nav-title">About</span>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">
+      <div class="theme-toggle-thumb"></div>
+    </button>
+  </nav>
+
+  <main class="page">
+
+    <!-- Header -->
+    <header class="about-header">
+      <p class="kicker">Software Engineer</p>
+      <h1 class="about-name">Muhannad<br>Abuzahrieh</h1>
+      <div class="status-row">
+        <span class="badge badge-green">Open to full-time</span>
+        <span class="badge badge-neutral">Graduated May 2025</span>
+        <span class="badge badge-neutral">First-gen student</span>
+        <span class="badge badge-neutral">San Francisco, CA</span>
+      </div>
+    </header>
+
+    <hr class="divider">
+
+    <!-- Bio -->
+    <section style="margin-bottom: 2.5rem;">
+      <p class="bio-lead">
+        I'm a first-generation college student who graduated in May 2025 with a degree in Computer Science. I build things at the intersection of design and engineering.
+      </p>
+      <p class="bio-body">
+        Growing up as a first-gen student, I had to figure most things out on my own — and that shaped how I approach problems. I dig into the details, I don't stop at "good enough," and I take real ownership of what I build.
+      </p>
+      <p class="bio-body">
+        My work ranges from OS-inspired browser interfaces to full-stack web apps. I care deeply about user experience, performance, and code that doesn't just work — it feels right. I'm currently looking for a full-time software engineering role where I can keep growing and ship things that matter.
+      </p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- Highlights -->
+    <section style="margin-bottom: 0;">
+      <p class="section-label">A few things about me</p>
+      <div class="highlights-grid">
+        <div class="highlight-card">
+          <p class="highlight-num">01</p>
+          <p class="highlight-text">First-generation college graduate, May 2025</p>
+        </div>
+        <div class="highlight-card">
+          <p class="highlight-num">02</p>
+          <p class="highlight-text">Built a full OS simulation in the browser — windows, apps, filesystem and all</p>
+        </div>
+        <div class="highlight-card">
+          <p class="highlight-num">03</p>
+          <p class="highlight-text">Obsessed with micro-interactions and things that feel alive</p>
+        </div>
+        <div class="highlight-card">
+          <p class="highlight-num">04</p>
+          <p class="highlight-text">Currently seeking full-time software engineering roles</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- Skills -->
+    <section style="margin-bottom: 0;">
+      <p class="section-label">Skills</p>
+      <div class="skills-wrap">
+        <span class="skill-chip">JavaScript</span>
+        <span class="skill-chip">TypeScript</span>
+        <span class="skill-chip">React</span>
+        <span class="skill-chip">Node.js</span>
+        <span class="skill-chip">Python</span>
+        <span class="skill-chip">HTML / CSS</span>
+        <span class="skill-chip">UI / UX Design</span>
+        <span class="skill-chip">Web APIs</span>
+        <span class="skill-chip">Canvas / WebGL</span>
+        <span class="skill-chip">IndexedDB</span>
+        <span class="skill-chip">Systems Thinking</span>
+        <span class="skill-chip">Git</span>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-row">
+      <a href="https://www.linkedin.com/in/muhannad-abuzahrieh-0b7330265/" target="_blank" rel="noreferrer" class="cta-btn cta-btn-primary">LinkedIn ↗</a>
+      <a href="index.html" class="cta-btn">View Projects</a>
+      <a href="contact.html" class="cta-btn">Contact</a>
+    </div>
+
+  </main>
+
+  <script>
+    (function() {
+      function applyTheme(theme) {
+        document.body.setAttribute('data-theme', theme);
+        try { localStorage.setItem('theme', theme); } catch(e) {}
+      }
+
+      let saved = null;
+      try { saved = localStorage.getItem('theme'); } catch(e) {}
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      applyTheme(saved || (prefersDark ? 'dark' : 'light'));
+
+      document.getElementById('theme-toggle').addEventListener('click', () => {
+        const current = document.body.getAttribute('data-theme');
+        applyTheme(current === 'dark' ? 'light' : 'dark');
+      });
+    })();
+  </script>
+</body>
+</html>

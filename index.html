@@ -1457,6 +1457,28 @@
       -webkit-tap-highlight-color: rgba(23, 21, 18, 0.08);
     }
 
+    body[data-theme="dark"] .card-title {
+      color: var(--text-main) !important;
+    }
+
+    body[data-theme="dark"] .card-company,
+    body[data-theme="dark"] .card-summary {
+      color: var(--text-soft) !important;
+    }
+
+    body[data-theme="dark"] .card-icon,
+    body[data-theme="dark"] .card-arrow {
+      color: var(--text-main) !important;
+      background: rgba(255,255,255,0.08) !important;
+      border-color: rgba(255,255,255,0.1) !important;
+    }
+
+    body[data-theme="dark"] .card-badge {
+      color: var(--text-soft) !important;
+      background: rgba(255,255,255,0.1) !important;
+      border-color: rgba(255,255,255,0.1) !important;
+    }
+
     .footer-bar {
       max-width: 1080px;
       margin: 0 auto 24px;
@@ -1550,10 +1572,124 @@
         justify-content: center;
       }
     }
+
+    @keyframes name-wiggle {
+      0%   { transform: translateX(0); }
+      15%  { transform: translateX(-6px) rotate(-1deg); }
+      30%  { transform: translateX(6px) rotate(1deg); }
+      45%  { transform: translateX(-4px) rotate(-0.5deg); }
+      60%  { transform: translateX(4px) rotate(0.5deg); }
+      75%  { transform: translateX(-2px); }
+      100% { transform: translateX(0); }
+    }
+
+    @keyframes btn-nudge {
+      0%, 100% { transform: translateX(0); }
+      40%       { transform: translateX(5px); }
+    }
+
+    .name-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .about-me-btn {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      color: var(--text-main);
+      background: var(--surface);
+      border: 1.5px solid var(--line-strong);
+      border-radius: 999px;
+      padding: 0.45rem 1rem;
+      text-decoration: none;
+      margin-top: 0.6rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+      flex-shrink: 0;
+      align-self: flex-start;
+    }
+
+    .about-me-btn:hover {
+      background: var(--text-main);
+      color: var(--page-bg);
+      border-color: var(--text-main);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      animation: btn-nudge 0.4s ease;
+    }
+
+    /* ── Promo banner ── */
+    .promo-banner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      background: #171512;
+      color: #f6f3ee;
+      text-decoration: none;
+      padding: 0.6rem 1rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: background 0.15s ease;
+      position: relative;
+      z-index: 200;
+    }
+
+    body[data-theme="dark"] .promo-banner {
+      background: #f6f3ee;
+      color: #171512;
+    }
+
+    .promo-banner:hover {
+      background: #2e2b26;
+    }
+
+    body[data-theme="dark"] .promo-banner:hover {
+      background: #e0ddd6;
+    }
+
+    .promo-banner-badge {
+      background: #4caf50;
+      color: #fff;
+      font-size: 0.6rem;
+      letter-spacing: 0.06em;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .promo-banner-arrow {
+      opacity: 0.6;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .promo-banner:hover .promo-banner-arrow {
+      transform: translateX(4px);
+      opacity: 1;
+    }
+
+    /* fix toggle + available-for-work alignment */
+    .hero-top {
+      display: flex !important;
+    }
   </style>
 </head>
 
 <body>
+  <!-- Promo Banner -->
+  <a href="https://chromewebstore.google.com/detail/ghost-job-checker/illipifdhfeobicoljamgfcoepfpmmpd?authuser=2&hl=en" target="_blank" rel="noopener noreferrer" class="promo-banner">
+    <span class="promo-banner-badge">Free</span>
+    <span>Ghost Job Checker — Chrome Extension</span>
+    <span class="promo-banner-arrow">→</span>
+  </a>
+
   <!-- Neural Network Visualization -->
   <canvas id="neural-network"></canvas>
 
@@ -1606,7 +1742,10 @@
         
         <div class="giant-name-container">
           <p class="hero-kicker">Software engineer</p>
-          <h1 class="giant-name" data-text="MUHANNAD">MUHANNAD</h1>
+          <div class="name-row">
+            <h1 class="giant-name" data-text="MUHANNAD">MUHANNAD</h1>
+            <a href="about.html" class="about-me-btn" aria-label="About Muhannad Abuzahrieh">About me →</a>
+          </div>
           <h1 class="giant-name" data-text="ABUZAHRIEH">ABUZAHRIEH</h1>
         </div>
       </div>
@@ -2175,53 +2314,55 @@
               <img src="${p.thumb}" alt="${p.title}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; opacity: 0.94;">
             </div>
             <div style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent 32%, rgba(23,21,18,0.1) 100%);"></div>
-            <div style="position: absolute; top: 14px; left: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; color: #6d665d; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.5rem 0.65rem; border-radius: 999px; background: rgba(255,255,255,0.82); border: 1px solid rgba(34,31,26,0.08);">${String(index + 1).padStart(2, '0')}</div>
+            <div class="card-badge" style="position: absolute; top: 14px; left: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; color: #6d665d; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.5rem 0.65rem; border-radius: 999px; background: rgba(255,255,255,0.82); border: 1px solid rgba(34,31,26,0.08);">${String(index + 1).padStart(2, '0')}</div>
           </div>
           <div style="padding: 1.35rem; border-top: 1px solid rgba(34,31,26,0.08);">
             <div style="display: flex; align-items: flex-start; gap: 1rem;">
-              <div style="width: 44px; height: 44px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.7); border: 1px solid rgba(34,31,26,0.08); border-radius: 14px; color: #171512; font-family: 'Space Grotesk', sans-serif; font-weight: 700;">${p.logo}</div>
+              <div class="card-icon" style="width: 44px; height: 44px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.7); border: 1px solid rgba(34,31,26,0.08); border-radius: 14px; color: #171512; font-family: 'Space Grotesk', sans-serif; font-weight: 700;">${p.logo}</div>
               <div style="flex: 1; min-width: 0;">
-                <p style="font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; color: #6d665d; margin: 0 0 0.45rem; letter-spacing: 0.08em; text-transform: uppercase;">${p.company}</p>
-                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.38rem; color: #171512; letter-spacing: -0.04em; margin: 0; line-height: 1.06;">${p.title}</h2>
-                <p style="font-family: 'Space Grotesk', sans-serif; font-size: 0.96rem; color: #6d665d; margin: 0.8rem 0 0; line-height: 1.65;">${truncatedSummary}</p>
+                <p class="card-company" style="font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; color: #6d665d; margin: 0 0 0.45rem; letter-spacing: 0.08em; text-transform: uppercase;">${p.company}</p>
+                <h2 class="card-title" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.38rem; color: #171512; letter-spacing: -0.04em; margin: 0; line-height: 1.06;">${p.title}</h2>
+                <p class="card-summary" style="font-family: 'Space Grotesk', sans-serif; font-size: 0.96rem; color: #6d665d; margin: 0.8rem 0 0; line-height: 1.65;">${truncatedSummary}</p>
               </div>
-              <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.92rem; color: #171512; transition: transform 0.3s ease, background 0.3s ease; border: 1px solid rgba(34,31,26,0.08); background: rgba(255,255,255,0.7); width: 36px; height: 36px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">↗</div>
+              <div class="card-arrow" style="font-family: 'IBM Plex Mono', monospace; font-size: 0.92rem; color: #171512; transition: transform 0.3s ease, background 0.3s ease; border: 1px solid rgba(34,31,26,0.08); background: rgba(255,255,255,0.7); width: 36px; height: 36px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">↗</div>
             </div>
           </div>
         `;
         
         // Soft product-card hover state
         cardContainer.addEventListener('mouseenter', () => {
-          cardContainer.style.borderColor = 'rgba(34, 31, 26, 0.18)';
-          cardContainer.style.background = 'rgba(255, 255, 255, 0.9)';
+          const isDark = document.body.getAttribute('data-theme') === 'dark';
+          cardContainer.style.borderColor = isDark ? 'rgba(255,255,255,0.18)' : 'rgba(34, 31, 26, 0.18)';
+          cardContainer.style.background = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255, 255, 255, 0.9)';
           cardContainer.style.boxShadow = '0 24px 56px rgba(32, 24, 12, 0.12)';
           cardContainer.style.transform = 'translateY(-6px)';
           const img = cardContainer.querySelector('img');
           if (img) {
             img.style.transform = 'scale(1.05)';
           }
-          const arrow = cardContainer.querySelector('div[style*="width: 36px"]');
+          const arrow = cardContainer.querySelector('.card-arrow');
           if (arrow) {
             arrow.style.transform = 'translateX(4px)';
-            arrow.style.background = '#171512';
-            arrow.style.color = '#f8f5ee';
+            arrow.style.background = isDark ? '#f6f3ee' : '#171512';
+            arrow.style.color = isDark ? '#171512' : '#f8f5ee';
           }
         });
-        
+
         cardContainer.addEventListener('mouseleave', () => {
-          cardContainer.style.borderColor = 'rgba(34, 31, 26, 0.1)';
-          cardContainer.style.background = 'rgba(255, 255, 255, 0.74)';
+          const isDark = document.body.getAttribute('data-theme') === 'dark';
+          cardContainer.style.borderColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(34, 31, 26, 0.1)';
+          cardContainer.style.background = isDark ? '' : 'rgba(255, 255, 255, 0.74)';
           cardContainer.style.boxShadow = '0 18px 48px rgba(32, 24, 12, 0.08)';
           cardContainer.style.transform = 'translateY(0)';
           const img = cardContainer.querySelector('img');
           if (img) {
             img.style.transform = 'scale(1)';
           }
-          const arrow = cardContainer.querySelector('div[style*="width: 36px"]');
+          const arrow = cardContainer.querySelector('.card-arrow');
           if (arrow) {
             arrow.style.transform = 'translateX(0)';
-            arrow.style.background = 'rgba(255,255,255,0.7)';
-            arrow.style.color = '#171512';
+            arrow.style.background = '';
+            arrow.style.color = '';
           }
         });
         
