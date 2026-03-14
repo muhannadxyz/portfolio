@@ -1718,6 +1718,9 @@
       }
     }
 
+    /* Desktop: show inline button, hide mobile one */
+    .about-me-mobile { display: none; }
+
     /* ── Better touch targets on mobile ── */
     @media (max-width: 768px) {
       .about-me-btn {
@@ -1731,6 +1734,16 @@
       }
       .footer-link {
         min-height: 46px;
+      }
+    }
+
+    /* ── On small phones, show button below ABUZAHRIEH instead of between names ── */
+    @media (max-width: 640px) {
+      .about-me-desktop { display: none !important; }
+      .about-me-mobile {
+        display: inline-flex;
+        align-items: center;
+        margin-top: 1rem;
       }
     }
 
@@ -1809,9 +1822,10 @@
           <p class="hero-kicker">Software engineer</p>
           <div class="name-row">
             <h1 class="giant-name" data-text="MUHANNAD">MUHANNAD</h1>
-            <a href="about.html" class="about-me-btn" aria-label="About Muhannad Abuzahrieh">About me →</a>
+            <a href="about.html" class="about-me-btn about-me-desktop" aria-label="About Muhannad Abuzahrieh">About me →</a>
           </div>
           <h1 class="giant-name" data-text="ABUZAHRIEH">ABUZAHRIEH</h1>
+          <a href="about.html" class="about-me-btn about-me-mobile" aria-label="About Muhannad Abuzahrieh">About me →</a>
         </div>
       </div>
       
