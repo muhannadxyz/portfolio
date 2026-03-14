@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover"/>
   <meta name="theme-color" content="#f5f1e8"/>
   <title>Muhannad Abuzahrieh</title>
 
@@ -841,6 +841,9 @@
       
       .meta-section {
         text-align: left;
+        position: static;
+        right: auto;
+        bottom: auto;
         width: 100%;
         padding: 1rem 1.25rem;
       }
@@ -1678,6 +1681,68 @@
     /* fix toggle + available-for-work alignment */
     .hero-top {
       display: flex !important;
+    }
+
+    /* ── Safe area insets for notched iPhones (Face ID / Dynamic Island) ── */
+    @supports (padding-left: env(safe-area-inset-left)) {
+      .promo-banner {
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+      }
+      #main-content {
+        padding-left: max(24px, env(safe-area-inset-left));
+        padding-right: max(24px, env(safe-area-inset-right));
+      }
+      @media (max-width: 900px) {
+        #main-content {
+          padding-left: max(16px, env(safe-area-inset-left));
+          padding-right: max(16px, env(safe-area-inset-right));
+        }
+      }
+      footer.footer-bar {
+        padding-bottom: max(0px, env(safe-area-inset-bottom));
+      }
+    }
+
+    /* ── Promo banner on very small screens ── */
+    @media (max-width: 420px) {
+      .promo-banner {
+        font-size: 0.62rem;
+        gap: 0.35rem;
+        padding: 0.5rem 0.875rem;
+        letter-spacing: 0.04em;
+      }
+      .promo-banner-badge {
+        font-size: 0.55rem;
+        padding: 0.1rem 0.4rem;
+      }
+    }
+
+    /* ── Better touch targets on mobile ── */
+    @media (max-width: 768px) {
+      .about-me-btn {
+        padding: 0.6rem 1.1rem;
+        min-height: 40px;
+        display: inline-flex;
+        align-items: center;
+      }
+      .theme-toggle {
+        height: 44px;
+      }
+      .footer-link {
+        min-height: 46px;
+      }
+    }
+
+    /* ── Footer: hide decorative text on small phones ── */
+    @media (max-width: 600px) {
+      .footer-bar > div:last-child {
+        display: none;
+      }
+      .footer-bar > div:first-child {
+        font-size: 0.7rem;
+        color: var(--text-soft);
+      }
     }
   </style>
 </head>

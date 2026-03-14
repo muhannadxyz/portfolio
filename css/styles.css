@@ -522,8 +522,8 @@ html {
 /* -- Hamburger Menu -- */
 .hamburger {
   position: fixed;
-  top: 24px;
-  left: 24px;
+  top: max(24px, env(safe-area-inset-top, 24px));
+  left: max(24px, env(safe-area-inset-left, 24px));
   z-index: 1001;
   width: 50px;
   height: 50px;
@@ -2740,6 +2740,101 @@ html {
   left: 0;
   color: #666;
   font-weight: 700;
+}
+
+/* ============================================
+   MODAL — MOBILE IMPROVEMENTS
+   ============================================ */
+
+/* iOS scroll fix for modal body */
+.modalBody {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* Bottom-sheet style modal on phones */
+@media (max-width: 768px) {
+  .modal {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .modalCard {
+    max-width: 100%;
+    width: 100%;
+    max-height: 93vh;
+    max-height: 93dvh;
+    border-radius: 20px 20px 0 0;
+    margin: 0;
+  }
+
+  .modalMedia {
+    height: 220px;
+  }
+
+  .modalClose {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .modalBody {
+    padding: 20px 16px 28px;
+  }
+
+  .detailTitle {
+    font-size: 22px;
+  }
+
+  .detailMetaRow {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .metaBlock {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .modalCard {
+    max-height: 95vh;
+    max-height: 95dvh;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .modalMedia {
+    height: 190px;
+  }
+
+  .modalBody {
+    padding: 16px 14px 24px;
+  }
+
+  .detailTitle {
+    font-size: 20px;
+  }
+
+  .detailHeader {
+    gap: 10px;
+  }
+
+  .detailIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 20px;
+  }
+
+  .chip {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+
+  .chips {
+    gap: 6px;
+  }
 }
 
 /* ============================================
