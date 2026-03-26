@@ -1,69 +1,74 @@
-// Ghost Job Checker Project Data, Template, and Styles
+// Ghost Job Checker Project Data (Web App + Chrome Extension)
 
 window.GhostJobCheckerProject = {
-  // Project Data
   slug: 'ghost-job-checker',
   name: 'Ghost Job Checker',
   title: 'Ghost Job Checker',
-  company: 'Job Posting Analysis Tool',
+  company: 'Web App + Chrome Extension',
   logo: 'GJC',
   icon: 'GJC',
   thumb: 'images/ghostchecker.png',
   tagline: 'Detect fake & phantom job postings before wasting your time',
-  description: 'Ghost Job Checker is an AI-powered job posting analysis tool built entirely with plain HTML for semantic, accessible markup structure, vanilla JavaScript for client-side logic and API interactions without framework dependencies, and CSS for responsive styling and visual design. The tool addresses a critical problem in modern job searching by helping job seekers identify fake and phantom job postings before investing valuable time and effort in applications. It employs sophisticated text analysis algorithms that examine job descriptions using multiple weighted risk factors including stale risk detection that analyzes reposting patterns, posting age indicators, and applicant count signals to identify positions that have been open for extended periods without actual hiring intent. Pipeline risk assessment identifies evergreen language and talent pool terminology that suggests companies are collecting resumes rather than actively filling positions. Vague risk analysis evaluates text length, requirement specificity, and excessive buzzword usage to detect postings lacking concrete job details. The platform provides a comprehensive, transparent risk score from 0-100 with detailed explanations, hiring likelihood assessment that predicts the probability of actual recruitment activity, and extensive detailed analysis with categorized red flags highlighting concerning patterns and positive signals indicating legitimate opportunities. The system accepts both job URLs for automated content extraction from supported platforms and full job descriptions for manual analysis, with intelligent text parsing that detects common patterns in ghost job postings including unrealistic requirements, missing salary information, excessive buzzwords, and language suggesting continuous hiring rather than specific role fulfillment. Advanced features include confidence scoring based on text quality and signal strength, risk breakdown by category (stale, pipeline, vague), actionable recommendations for job seekers, and detailed evidence citations that explain each risk factor with specific examples from the analyzed text.',
-  overview: 'Ghost Job Checker is an AI-powered job posting analysis tool that helps job seekers identify fake and phantom job postings. It uses sophisticated text analysis algorithms with multiple weighted risk factors (stale, pipeline, vague) to provide a transparent risk score from 0-100 with detailed explanations and actionable recommendations.',
+  description: 'Ghost Job Checker helps job seekers identify fake and phantom job postings — available as both a web app and a free Chrome Extension. The web app accepts a job URL or pasted description and runs it through a multi-factor risk model, returning a 0–100 risk score with a full breakdown: stale reposting patterns, evergreen pipeline language, vague requirement signals, and missing salary data. The Chrome Extension brings the same analysis directly into the browser — install it once and it analyzes job listings automatically on LinkedIn, Indeed, Greenhouse, and Lever as you browse, overlaying the risk score and red flags right on the page with no copy-pasting required. Both tools use heuristic text analysis with confidence scoring, hiring likelihood assessment, and actionable recommendations. No backend, no account, no data leaves your browser.',
+  overview: 'A job posting analysis tool — web app and Chrome Extension — that flags ghost jobs with a 0–100 risk score. Uses multi-factor heuristic detection (stale, pipeline, vague) with confidence scoring and detailed red flag breakdowns.',
   location: 'Remote',
   date: '2025-01-02',
-  role: 'Full-Stack Development',
-  details: 'Built to solve the problem of job seekers wasting time on fake job postings that companies keep up to collect resumes or maintain an appearance of growth. The tool uses heuristic analysis to detect multiple risk factors and provides transparent scoring with confidence levels. Features include URL fetching for LinkedIn/Indeed posts, manual description input, and detailed breakdowns of why a job might be a ghost posting.',
+  role: 'Full-Stack Development & Chrome Extension',
+  details: 'Built to solve the problem of job seekers wasting time on fake postings that companies keep up to collect resumes or maintain an appearance of growth. The web app was built first — plain HTML, CSS, and JavaScript, no framework. The Chrome Extension came next as the browser-native companion, removing the copy-paste friction by injecting analysis directly into supported job pages. The main technical challenge on the extension was injecting a clean, non-intrusive overlay UI into third-party pages without breaking their layout, while keeping analysis fast enough to feel instant.',
   brandColor: '#FF6B35',
   link: 'https://ghost-job-checker.vercel.app/',
-  railText: 'GHOST JOB CHECKER • JOB ANALYSIS •',
+  railText: 'GHOST JOB CHECKER • WEB APP + EXTENSION •',
   links: [
-    { label: 'Live', url: 'https://ghost-job-checker.vercel.app/' }
+    { label: 'Live', url: 'https://ghost-job-checker.vercel.app/' },
+    { label: 'Chrome Web Store', url: 'https://chromewebstore.google.com/detail/ghost-job-checker/illipifdhfeobicoljamgfcoepfpmmpd?authuser=2&hl=en' }
   ],
   stack: [
     'HTML',
     'JavaScript',
     'CSS',
-    'AI Text Analysis',
+    'Chrome Extensions API',
+    'Content Scripts',
     'Risk Scoring Model',
-    'URL Fetching',
     'Heuristic Detection',
     'UI / UX Design'
   ],
   highlights: [
-    'Built multi-factor risk analysis system detecting stale, pipeline, and vague job patterns.',
-    'Implemented intelligent text analysis for ghost job detection with confidence scoring.',
-    'Created transparent scoring model with detailed breakdowns and actionable insights.'
+    'Web app analyzes any job description or URL with a 0–100 risk score and breakdown by stale, pipeline, and vague risk factors.',
+    'Chrome Extension injects real-time analysis directly onto LinkedIn, Indeed, Greenhouse, and Lever job pages — no copy-paste needed.',
+    'Zero-friction, no-account setup — all analysis runs client-side with no data leaving the browser.'
   ],
   releases: [],
   tweets: [],
 
-  // Dev Updates
   updates: [
     {
       version: 'v1.0.0',
       date: '2025-01-02',
       type: 'major',
       changes: [
-        'Initial release of Ghost Job Checker',
-        'Implemented multi-factor risk analysis (stale, pipeline, vague)',
-        'Built URL fetching for LinkedIn/Indeed job postings',
-        'Created heuristic detection system for ghost job patterns',
-        'Added comprehensive scoring with confidence levels',
-        'Designed transparent UI with detailed risk breakdowns'
+        'Initial release of Ghost Job Checker web app',
+        'Multi-factor risk analysis: stale, pipeline, and vague detection',
+        'URL fetching for LinkedIn and Indeed job postings',
+        'Heuristic scoring with confidence levels and red flag breakdowns',
+        'Transparent 0–100 risk score with hiring likelihood assessment'
+      ]
+    },
+    {
+      version: 'v1.1.0',
+      date: '2025-02-01',
+      type: 'feature',
+      changes: [
+        'Launched Ghost Job Checker Chrome Extension on the Web Store',
+        'Real-time content script injection on LinkedIn, Indeed, Greenhouse, and Lever',
+        'Overlay UI that renders risk score and red flags directly on job pages',
+        'Full parity with web app risk model — no backend, no tracking'
       ]
     }
   ],
 
-  // HTML Template Path
   htmlTemplatePath: 'html/projects/ghost-job-checker.html',
-
-  // CSS Styles Path
   cssPath: 'css/projects/ghost-job-checker.css',
 
-  // HTML Template Function - loads from external HTML file
   async renderTemplate(devUpdatesHTML) {
     if (!window.ProjectLoader) return this.getFallbackTemplate(devUpdatesHTML);
     window.ProjectLoader.loadCSS('css/projects/brutal-project.css', 'brutal-project');
@@ -85,7 +90,6 @@ window.GhostJobCheckerProject = {
     });
   },
 
-  // Fallback template if HTML file fails to load
   getFallbackTemplate(devUpdatesHTML) {
     return `
       <div class="min-h-screen relative bg-black project-ghost-job-checker">
@@ -109,7 +113,7 @@ window.GhostJobCheckerProject = {
           <div class="max-w-5xl mx-auto space-y-8">
             <div class="project-card">
               <div class="flex items-center gap-3 mb-4">
-                <div class="card-icon role-icon">💼</div>
+                <div class="card-icon role-icon">👻</div>
                 <h2 class="text-3xl font-bold text-white">What It Is</h2>
               </div>
               <p class="text-lg text-gray-300 leading-relaxed">${this.description}</p>
@@ -129,8 +133,11 @@ window.GhostJobCheckerProject = {
               <p class="text-lg text-gray-300 leading-relaxed">${this.details}</p>
             </div>
             <div class="project-cta-card">
-              <h3 class="text-2xl font-bold text-white mb-6">Visit Project</h3>
-              <a href="${this.link}" target="_blank" class="project-cta-button">View Live Site →</a>
+              <h3 class="text-2xl font-bold text-white mb-6">Try It</h3>
+              <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                <a href="https://ghost-job-checker.vercel.app/" target="_blank" class="project-cta-button">Web App →</a>
+                <a href="https://chromewebstore.google.com/detail/ghost-job-checker/illipifdhfeobicoljamgfcoepfpmmpd?authuser=2&hl=en" target="_blank" class="project-cta-button">Add to Chrome →</a>
+              </div>
             </div>
           </div>
         </div>
