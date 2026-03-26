@@ -49,11 +49,9 @@
     .rw-topbar-left { display: flex; align-items: center; gap: 8px; }
     .rw-avatar {
       width: 22px; height: 22px;
-      background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 10px; font-weight: 700; color: #fff; flex-shrink: 0;
+      border-radius: 50%; overflow: hidden; flex-shrink: 0;
     }
+    .rw-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .rw-topbar-name { font-size: 13px; font-weight: 500; color: var(--text); text-decoration: none; }
     .rw-topbar-name:hover { color: var(--text); }
     .rw-topbar-sep  { font-size: 13px; color: var(--text3); }
@@ -288,7 +286,7 @@
   <!-- Topbar -->
   <header class="rw-topbar">
     <div class="rw-topbar-left">
-      <div class="rw-avatar">M</div>
+      <div class="rw-avatar"><img src="favicon/android-chrome-192x192.png" alt="MA"></div>
       <a href="index.html" class="rw-topbar-name">muhannad</a>
       <span class="rw-topbar-sep">›</span>
       <div class="rw-topbar-env">about</div>
@@ -307,6 +305,7 @@
       </svg>
       <span class="rw-sidebar-label">Projects</span>
     </a>
+    <div class="rw-sidebar-sep"></div>
     <a href="about.html" class="rw-sidebar-btn active">
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
         <circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.5"/>

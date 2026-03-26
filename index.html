@@ -50,11 +50,9 @@
     .rw-topbar-left { display: flex; align-items: center; gap: 8px; }
     .rw-avatar {
       width: 22px; height: 22px;
-      background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 10px; font-weight: 700; color: #fff; flex-shrink: 0;
+      border-radius: 50%; overflow: hidden; flex-shrink: 0;
     }
+    .rw-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .rw-topbar-name { font-size: 13px; font-weight: 500; color: var(--text); }
     .rw-topbar-sep  { font-size: 13px; color: var(--text3); }
     .rw-topbar-env {
@@ -96,6 +94,7 @@
       text-decoration: none;
       transition: background 0.15s, color 0.15s;
       font-family: 'Inter', system-ui, sans-serif;
+      box-sizing: border-box; -webkit-appearance: none; appearance: none;
     }
     .rw-sidebar-btn:hover { background: var(--surface2); color: var(--text2) !important; }
     .rw-sidebar-btn.active { background: var(--surface2); color: var(--text) !important; }
@@ -220,10 +219,9 @@
     .rw-hub-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
     .rw-hub-avatar {
       width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
-      background: linear-gradient(135deg, #6366F1, #8B5CF6);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 14px; font-weight: 700; color: #fff;
+      overflow: hidden;
     }
+    .rw-hub-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .rw-hub-name { font-size: 13px; font-weight: 700; color: var(--text); }
     .rw-hub-role { font-size: 11px; color: var(--text3); font-family: 'IBM Plex Mono', monospace; margin-top: 1px; }
     .rw-hub-bio {
@@ -316,9 +314,9 @@
     }
     .rw-chat-bot-icon {
       width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
-      background: linear-gradient(135deg, #6366F1, #8B5CF6);
-      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
     }
+    .rw-chat-bot-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .rw-chat-header-text { flex: 1; }
     .rw-chat-header-name { font-size: 12px; font-weight: 600; color: var(--text); }
     .rw-chat-header-sub  { font-size: 10px; color: var(--green); font-family: 'IBM Plex Mono', monospace; }
@@ -441,7 +439,7 @@
   <!-- Topbar -->
   <header class="rw-topbar">
     <div class="rw-topbar-left">
-      <div class="rw-avatar">M</div>
+      <div class="rw-avatar"><img src="favicon/android-chrome-192x192.png" alt="MA"></div>
       <span class="rw-topbar-name">muhannad</span>
       <span class="rw-topbar-sep">›</span>
       <div class="rw-topbar-env">portfolio</div>
@@ -532,13 +530,7 @@
   <div class="rw-chat-panel" id="chatPanel">
     <div class="rw-chat-header">
       <div class="rw-chat-bot-icon">
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-          <rect x="3" y="5" width="10" height="8" rx="2" stroke="white" stroke-width="1.4"/>
-          <path d="M5.5 3.5V5M10.5 3.5V5" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
-          <circle cx="5.5" cy="9" r="1" fill="white"/>
-          <circle cx="10.5" cy="9" r="1" fill="white"/>
-          <path d="M6.5 11h3" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
-        </svg>
+        <img src="favicon/android-chrome-192x192.png" alt="MA">
       </div>
       <div class="rw-chat-header-text">
         <div class="rw-chat-header-name">Portfolio Assistant</div>
@@ -966,7 +958,7 @@
       node.innerHTML = `
         <div class="rw-hub-body">
           <div class="rw-hub-header">
-            <div class="rw-hub-avatar">M</div>
+            <div class="rw-hub-avatar"><img src="favicon/android-chrome-192x192.png" alt="MA"></div>
             <div>
               <div class="rw-hub-name">Muhannad Abuzahrieh</div>
               <div class="rw-hub-role">Software Engineer</div>
@@ -975,11 +967,39 @@
           <div class="rw-hub-bio">First-gen CS grad building at the intersection of design and engineering.</div>
           <div class="rw-hub-footer">
             <span class="rw-hub-badge">Open to full-time</span>
-            <a href="about.html" class="rw-hub-link">View full profile ↗</a>
+            <span class="rw-hub-link">About Muhannad →</span>
           </div>
         </div>`;
-      // clicking the "View full profile" link navigates normally — no modal needed
-      node.addEventListener('mousedown', e => { e.stopPropagation(); });
+
+      let hubDragging = false, hubStartX, hubStartY, hubOrigLeft, hubOrigTop;
+      node.addEventListener('mousedown', e => {
+        if (e.button !== 0) return;
+        e.stopPropagation();
+        hubDragging = false;
+        hubStartX = e.clientX; hubStartY = e.clientY;
+        hubOrigLeft = parseFloat(node.style.left);
+        hubOrigTop  = parseFloat(node.style.top);
+        function onMove(ev) {
+          const dx = ev.clientX - hubStartX, dy = ev.clientY - hubStartY;
+          if (!hubDragging && (Math.abs(dx) > 4 || Math.abs(dy) > 4)) {
+            hubDragging = true; node.style.zIndex = '20'; node.style.transition = 'none';
+          }
+          if (hubDragging) {
+            node.style.left = (hubOrigLeft + dx / scale) + 'px';
+            node.style.top  = (hubOrigTop  + dy / scale) + 'px';
+            drawEdges();
+          }
+        }
+        function onUp() {
+          window.removeEventListener('mousemove', onMove);
+          window.removeEventListener('mouseup', onUp);
+          node.style.zIndex = ''; node.style.transition = '';
+          if (!hubDragging) window.location.href = 'about.html';
+          hubDragging = false;
+        }
+        window.addEventListener('mousemove', onMove);
+        window.addEventListener('mouseup', onUp);
+      });
       return node;
     }
 
