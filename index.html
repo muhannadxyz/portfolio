@@ -2257,6 +2257,7 @@
   <script src="js/projects/ghost-job-extension.js"></script>
   <script src="js/projects/jat.js"></script>
   <script src="js/projects/fluxdesk.js"></script>
+  <script src="js/projects/rx-check.js"></script>
 
   <!-- Load project updates module (combines all projects) -->
   <script src="js/project-updates.js"></script>
@@ -2585,7 +2586,8 @@
         window.GhostJobCheckerProject,
         window.GhostJobExtensionProject,
         window.JATProject,
-        window.FluxdeskProject
+        window.FluxdeskProject,
+        window.RxCheckProject
       ].filter(p => p); // Filter out any undefined projects
 
       console.log('Projects loaded:', projects.length, projects);
@@ -2746,9 +2748,10 @@
         window.GhostJobCheckerProject,
         window.GhostJobExtensionProject,
         window.JATProject,
-        window.FluxdeskProject
+        window.FluxdeskProject,
+        window.RxCheckProject
       ].filter(p => p); // Filter out any undefined projects
-      
+
       // Fallback project data (if project files not loaded)
       const fallbackProjects = [
         {
