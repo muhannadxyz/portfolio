@@ -91,14 +91,14 @@
       width: 100%; height: 34px;
       display: flex; align-items: center; gap: 9px;
       background: transparent; border: none; cursor: pointer;
-      border-radius: 7px; color: var(--text3);
+      border-radius: 7px; color: var(--text3) !important;
       padding: 0 10px; text-align: left;
       text-decoration: none;
       transition: background 0.15s, color 0.15s;
       font-family: 'Inter', system-ui, sans-serif;
     }
-    .rw-sidebar-btn:hover { background: var(--surface2); color: var(--text2); }
-    .rw-sidebar-btn.active { background: var(--surface2); color: var(--text); }
+    .rw-sidebar-btn:hover { background: var(--surface2); color: var(--text2) !important; }
+    .rw-sidebar-btn.active { background: var(--surface2); color: var(--text) !important; }
     .rw-sidebar-btn svg { flex-shrink: 0; }
     .rw-sidebar-label { font-size: 13px; font-weight: 500; }
     .rw-sidebar-ext {
@@ -122,10 +122,21 @@
       cursor: grab; position: relative; overflow: hidden;
     }
     .rw-canvas-bg.grabbing { cursor: grabbing; }
+    /* Nether stars */
+    .nether-star {
+      position: absolute; border-radius: 50%; pointer-events: none;
+      background: #fff; z-index: 1;
+      animation: starTwinkle var(--dur) ease-in-out infinite;
+      animation-delay: var(--del);
+    }
+    @keyframes starTwinkle {
+      0%,100% { opacity: 0.04; transform: scale(1); }
+      50% { opacity: var(--peak); transform: scale(var(--grow)); }
+    }
     /* Edge vignette */
     .rw-canvas-bg::after {
       content: '';
-      position: absolute; inset: 0; pointer-events: none;
+      position: absolute; inset: 0; pointer-events: none; z-index: 2;
       background: radial-gradient(ellipse at center, transparent 55%, rgba(11,12,15,0.75) 100%);
     }
     .rw-canvas {
@@ -140,7 +151,7 @@
 
     /* ── Node cards ── */
     .rw-node {
-      position: absolute; width: 220px;
+      position: absolute; width: 260px;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 8px;
@@ -169,13 +180,12 @@
     .rw-node-meta { flex: 1; min-width: 0; }
     .rw-node-title {
       font-size: 13px; font-weight: 600; color: var(--text);
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
       line-height: 1.3; margin-bottom: 3px;
     }
     .rw-node-sub {
       font-size: 11px; color: var(--text3);
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
       font-family: 'IBM Plex Mono', monospace;
+      line-height: 1.35;
     }
     .rw-node-footer {
       display: flex; align-items: center; gap: 6px;
@@ -195,6 +205,46 @@
       50%     { box-shadow: 0 0 0 4px rgba(35,209,139,0);   }
     }
     .rw-status-text { font-size: 11px; color: var(--text2); }
+
+    /* ── About Me hub node ── */
+    .rw-node.hub {
+      width: 240px;
+      border-color: #6366F1;
+      box-shadow: 0 0 0 1px rgba(99,102,241,0.15), 0 0 28px rgba(99,102,241,0.12);
+    }
+    .rw-node.hub:hover {
+      border-color: #818CF8;
+      box-shadow: 0 0 0 1px rgba(129,140,248,0.25), 0 8px 32px rgba(99,102,241,0.25);
+    }
+    .rw-hub-body { padding: 16px 14px 14px; }
+    .rw-hub-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .rw-hub-avatar {
+      width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, #6366F1, #8B5CF6);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700; color: #fff;
+    }
+    .rw-hub-name { font-size: 13px; font-weight: 700; color: var(--text); }
+    .rw-hub-role { font-size: 11px; color: var(--text3); font-family: 'IBM Plex Mono', monospace; margin-top: 1px; }
+    .rw-hub-bio {
+      font-size: 11px; color: var(--text2); line-height: 1.6;
+      margin-bottom: 10px;
+    }
+    .rw-hub-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 10px; border-top: 1px solid var(--border);
+    }
+    .rw-hub-badge {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.3px;
+      background: rgba(34,209,139,0.12); color: var(--green);
+      border: 1px solid rgba(34,209,139,0.25);
+      border-radius: 20px; padding: 3px 8px;
+    }
+    .rw-hub-link {
+      font-size: 11px; color: var(--text3);
+      text-decoration: none; transition: color 0.15s;
+    }
+    .rw-hub-link:hover { color: var(--text2); }
 
     /* ── Edge lines ── */
     .rw-edge {
@@ -219,10 +269,10 @@
       width: 32px; height: 32px;
       display: flex; align-items: center; justify-content: center;
       background: transparent; border: none;
-      color: var(--text2); cursor: pointer; font-size: 15px;
+      color: var(--text2) !important; cursor: pointer; font-size: 15px;
       transition: background 0.12s, color 0.12s;
     }
-    .rw-ctrl-btn:hover { background: var(--surface2); color: var(--text); }
+    .rw-ctrl-btn:hover { background: var(--surface2); color: var(--text) !important; }
     .rw-ctrl-divider { width: 1px; height: 18px; background: var(--border); }
     .rw-ctrl-pill {
       font-size: 11px; color: var(--text3);
@@ -231,6 +281,123 @@
       border-radius: 8px; height: 32px; padding: 0 10px;
       display: flex; align-items: center;
     }
+
+    /* ── Chat bot button active state ── */
+    #chatToggleBtn.active { background: rgba(99,102,241,0.18); box-shadow: 0 0 0 1px rgba(99,102,241,0.35) inset; }
+
+    /* ── Chat panel ── */
+    .rw-chat-panel {
+      position: fixed;
+      bottom: 58px;
+      left: calc(var(--sidebar-w) + 14px);
+      width: 340px;
+      max-height: 480px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex; flex-direction: column;
+      z-index: 400;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+      transform: translateY(8px) scale(0.97);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.2s cubic-bezier(0.34,1.3,0.64,1), opacity 0.18s ease;
+    }
+    .rw-chat-panel.open {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      pointer-events: all;
+    }
+    .rw-chat-header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 14px 11px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .rw-chat-bot-icon {
+      width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
+      background: linear-gradient(135deg, #6366F1, #8B5CF6);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .rw-chat-header-text { flex: 1; }
+    .rw-chat-header-name { font-size: 12px; font-weight: 600; color: var(--text); }
+    .rw-chat-header-sub  { font-size: 10px; color: var(--green); font-family: 'IBM Plex Mono', monospace; }
+    .rw-chat-close {
+      width: 22px; height: 22px; border-radius: 5px; border: none;
+      background: transparent; color: var(--text3) !important; cursor: pointer; font-size: 13px;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.12s, color 0.12s;
+    }
+    .rw-chat-close:hover { background: var(--surface2); color: var(--text2) !important; }
+    .rw-chat-messages {
+      flex: 1; overflow-y: auto; padding: 12px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .rw-chat-messages::-webkit-scrollbar { width: 4px; }
+    .rw-chat-messages::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+    .rw-chat-msg {
+      max-width: 88%; font-size: 12.5px; line-height: 1.55;
+      padding: 8px 11px; border-radius: 10px;
+    }
+    .rw-chat-msg.bot {
+      background: var(--surface2); color: var(--text2);
+      border: 1px solid var(--border); border-radius: 10px 10px 10px 3px;
+      align-self: flex-start;
+    }
+    .rw-chat-msg.user {
+      background: rgba(99,102,241,0.18); color: var(--text);
+      border: 1px solid rgba(99,102,241,0.25); border-radius: 10px 10px 3px 10px;
+      align-self: flex-end;
+    }
+    .rw-chat-msg.bot a { color: #818CF8; text-decoration: none; }
+    .rw-chat-msg.bot a:hover { text-decoration: underline; }
+    .rw-chat-typing {
+      display: flex; gap: 4px; align-items: center;
+      padding: 8px 11px; align-self: flex-start;
+    }
+    .rw-chat-typing span {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--text3); display: inline-block;
+      animation: typingBounce 1.2s ease-in-out infinite;
+    }
+    .rw-chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+    .rw-chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typingBounce {
+      0%,60%,100% { transform: translateY(0); opacity: 0.4; }
+      30% { transform: translateY(-4px); opacity: 1; }
+    }
+    .rw-chat-pills {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      padding: 0 12px 10px; flex-shrink: 0;
+    }
+    .rw-chat-pill {
+      font-size: 11px; color: var(--text3);
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 20px; padding: 4px 9px; cursor: pointer;
+      transition: color 0.12s, border-color 0.12s;
+      white-space: nowrap;
+    }
+    .rw-chat-pill:hover { color: var(--text2); border-color: var(--border2); }
+    .rw-chat-input-row {
+      display: flex; gap: 6px; padding: 10px 12px;
+      border-top: 1px solid var(--border); flex-shrink: 0;
+    }
+    .rw-chat-input {
+      flex: 1; background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 7px; padding: 7px 10px;
+      color: var(--text); font-size: 12.5px;
+      font-family: 'Inter', system-ui, sans-serif;
+      outline: none; transition: border-color 0.15s;
+    }
+    .rw-chat-input:focus { border-color: var(--border2); }
+    .rw-chat-input::placeholder { color: var(--text3); }
+    .rw-chat-send {
+      width: 30px; height: 30px; border-radius: 7px; border: none;
+      background: var(--purple); color: #fff; cursor: pointer; font-size: 14px;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.12s;
+    }
+    .rw-chat-send:hover { background: #5254CC; }
 
     /* ── Hint toast ── */
     .rw-hint {
@@ -279,10 +446,7 @@
       <span class="rw-topbar-sep">›</span>
       <div class="rw-topbar-env">portfolio</div>
     </div>
-    <nav class="rw-topbar-right">
-      <a href="about.html" class="rw-topnav-link">About</a>
-      <a href="contact.html" class="rw-topnav-btn">Contact</a>
-    </nav>
+    <nav class="rw-topbar-right"></nav>
   </header>
 
   <!-- Sidebar -->
@@ -352,10 +516,8 @@
   <!-- Bottom controls -->
   <div class="rw-controls">
     <div class="rw-ctrl-group">
-      <button class="rw-ctrl-btn" id="ctrlFit" title="Fit to screen">
-        <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-          <path d="M1 4.5V1.5h3M9 1.5h3v3M12 8.5v3H9M4 12H1V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+      <button class="rw-ctrl-btn rw-ctrl-bot" id="chatToggleBtn" title="Ask about Muhannad">
+        <span style="font-size:16px;line-height:1;">&#x1F916;</span>
       </button>
       <div class="rw-ctrl-divider"></div>
       <button class="rw-ctrl-btn" id="ctrlZoomIn"  title="Zoom in">+</button>
@@ -364,6 +526,36 @@
     </div>
     <div class="rw-ctrl-pill" id="zoomLabel">85%</div>
     <div class="rw-ctrl-pill" id="svcCount">— projects</div>
+  </div>
+
+  <!-- Chat panel -->
+  <div class="rw-chat-panel" id="chatPanel">
+    <div class="rw-chat-header">
+      <div class="rw-chat-bot-icon">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+          <rect x="3" y="5" width="10" height="8" rx="2" stroke="white" stroke-width="1.4"/>
+          <path d="M5.5 3.5V5M10.5 3.5V5" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
+          <circle cx="5.5" cy="9" r="1" fill="white"/>
+          <circle cx="10.5" cy="9" r="1" fill="white"/>
+          <path d="M6.5 11h3" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="rw-chat-header-text">
+        <div class="rw-chat-header-name">Portfolio Assistant</div>
+        <div class="rw-chat-header-sub">● online</div>
+      </div>
+      <button class="rw-chat-close" id="chatCloseBtn">✕</button>
+    </div>
+    <div class="rw-chat-messages" id="chatMessages"></div>
+    <div class="rw-chat-pills" id="chatPills"></div>
+    <div class="rw-chat-input-row">
+      <input class="rw-chat-input" id="chatInput" type="text" placeholder="Ask me anything...">
+      <button class="rw-chat-send" id="chatSendBtn">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M1 6h10M6 1l5 5-5 5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
   </div>
 
   <!-- Drag hint -->
@@ -587,7 +779,7 @@
     // ── Canvas state ───────────────────────────────────────────────────────
     const canvasBg = document.getElementById('canvasBg');
     const rwCanvas = document.getElementById('rwCanvas');
-    const NODE_W = 220, NODE_H = 114;
+    const NODE_W = 260, NODE_H = 114;
     const PAD = 700; // offset so all logical coords are positive
 
     let tx = 0, ty = 0, scale = 0.85;
@@ -607,35 +799,52 @@
     }
 
     // ── Node positions (logical, centered at 0,0) ─────────────────────────
+    // About Me lives at (0,0) — the center hub
     const nodeLayout = {
-      'portfolio-os':      { x:   0,  y: -370 },
-      'lucentir':          { x: -430, y: -190 },
-      'shadoconnect':      { x:  300, y: -220 },
-      'ghost-job-checker': { x:  -80, y:  -65 },
-      'wifi-analyzer':     { x: -510, y:  110 },
-      'rentwise':          { x:  170, y:   90 },
-      'jat':               { x:  470, y:   10 },
-      'fluxdesk':          { x: -460, y:  310 },
-      'wind-turbine':      { x: -120, y:  360 },
-      'postnote':          { x:  200, y:  340 },
-      'rx-check':          { x:  480, y:  260 },
+      'about-me':          { x:   0,  y:    0 },
+      'portfolio-os':      { x:  20,  y: -430 },
+      'lucentir':          { x: -460, y: -260 },
+      'shadoconnect':      { x:  340, y: -290 },
+      'ghost-job-checker': { x: -260, y: -120 },
+      'wifi-analyzer':     { x: -540, y:  110 },
+      'rentwise':          { x:  260, y:   80 },
+      'jat':               { x:  510, y: -110 },
+      'fluxdesk':          { x: -500, y:  330 },
+      'wind-turbine':      { x: -130, y:  420 },
+      'postnote':          { x:  220, y:  380 },
+      'rx-check':          { x:  520, y:  200 },
     };
 
-    // ── Edges ─────────────────────────────────────────────────────────────
+    // ── Edges — all projects connect to the About Me hub ──────────────────
     const EDGES = [
-      ['jat',               'ghost-job-checker'],
-      ['ghost-job-checker', 'lucentir'],
-      ['shadoconnect',      'rentwise'],
-      ['rentwise',          'fluxdesk'],
-      ['rx-check',          'postnote'],
+      ['about-me', 'portfolio-os'],
+      ['about-me', 'lucentir'],
+      ['about-me', 'shadoconnect'],
+      ['about-me', 'ghost-job-checker'],
+      ['about-me', 'wifi-analyzer'],
+      ['about-me', 'rentwise'],
+      ['about-me', 'jat'],
+      ['about-me', 'fluxdesk'],
+      ['about-me', 'wind-turbine'],
+      ['about-me', 'postnote'],
+      ['about-me', 'rx-check'],
     ];
 
-    function getNodeUrl(p) {
-      if (!p.link) return '';
-      if (p.link.startsWith('http')) {
-        try { return new URL(p.link).hostname.replace('www.',''); } catch { return ''; }
-      }
-      return p.link;
+    const nodeSummaries = {
+      'portfolio-os':      'macOS-style desktop in the browser',
+      'lucentir':          'AI-powered brand agency SaaS',
+      'shadoconnect':      'mentorship matchmaking platform',
+      'ghost-job-checker': 'fake job posting detector',
+      'wifi-analyzer':     'network signal strength analyzer',
+      'rentwise':          'smart apartment rent tracker',
+      'jat':               'job application tracking dashboard',
+      'fluxdesk':          'real-time helpdesk ticketing system',
+      'wind-turbine':      'renewable energy data simulator',
+      'postnote':          'quick collaborative sticky notes',
+      'rx-check':          'FDA drug interaction checker',
+    };
+    function getNodeSummary(p) {
+      return nodeSummaries[p.slug] || p.company || '';
     }
     function getStatus(p) {
       if (!p.link) return { cls:'github', label:'GitHub' };
@@ -664,7 +873,7 @@
             <div class="rw-node-icon" style="background:${col}1A;color:${col};border:1px solid ${col}30;">${getIcon(project)}</div>
             <div class="rw-node-meta">
               <div class="rw-node-title">${project.title}</div>
-              <div class="rw-node-sub">${getNodeUrl(project) || project.company || ''}</div>
+              <div class="rw-node-sub">${getNodeSummary(project)}</div>
             </div>
           </div>
           <div class="rw-node-footer">
@@ -724,9 +933,11 @@
     function getNodeCenter(slug) {
       const el = rwCanvas.querySelector(`[data-slug="${slug}"]`);
       if (!el) return null;
+      const w = parseFloat(getComputedStyle(el).width) || NODE_W;
+      const h = parseFloat(getComputedStyle(el).height) || NODE_H;
       return {
-        x: parseFloat(el.style.left) + NODE_W / 2,
-        y: parseFloat(el.style.top)  + NODE_H / 2,
+        x: parseFloat(el.style.left) + w / 2,
+        y: parseFloat(el.style.top)  + h / 2,
       };
     }
 
@@ -744,6 +955,34 @@
       });
     }
 
+    function buildAboutNode() {
+      const pos = nodeLayout['about-me'];
+      const node = document.createElement('div');
+      node.className = 'rw-node hub';
+      node.dataset.slug = 'about-me';
+      node.style.left = (PAD + pos.x - 120) + 'px'; // 240/2
+      node.style.top  = (PAD + pos.y - NODE_H/2 - 10) + 'px';
+      node.style.animationDelay = '40ms';
+      node.innerHTML = `
+        <div class="rw-hub-body">
+          <div class="rw-hub-header">
+            <div class="rw-hub-avatar">M</div>
+            <div>
+              <div class="rw-hub-name">Muhannad Abuzahrieh</div>
+              <div class="rw-hub-role">Software Engineer</div>
+            </div>
+          </div>
+          <div class="rw-hub-bio">First-gen CS grad building at the intersection of design and engineering.</div>
+          <div class="rw-hub-footer">
+            <span class="rw-hub-badge">Open to full-time</span>
+            <a href="about.html" class="rw-hub-link">View full profile ↗</a>
+          </div>
+        </div>`;
+      // clicking the "View full profile" link navigates normally — no modal needed
+      node.addEventListener('mousedown', e => { e.stopPropagation(); });
+      return node;
+    }
+
     function initProjects() {
       const projects = [
         window.PortfolioOSProject, window.LucentirProject, window.ShadoconnectProject,
@@ -754,8 +993,11 @@
 
       document.getElementById('svcCount').textContent = `${projects.length} projects`;
 
+      // About Me hub first (renders behind projects visually)
+      rwCanvas.appendChild(buildAboutNode());
+
       projects.forEach((p, i) => {
-        rwCanvas.appendChild(buildNode(p, 80 + i * 55));
+        rwCanvas.appendChild(buildNode(p, 100 + i * 55));
       });
 
       drawEdges();
@@ -807,9 +1049,337 @@
     // ── Controls ───────────────────────────────────────────────────────────
     document.getElementById('ctrlZoomIn') .addEventListener('click', () => { scale = Math.min(scale*1.2,3);   applyTransform(true); });
     document.getElementById('ctrlZoomOut').addEventListener('click', () => { scale = Math.max(scale*0.8,0.2); applyTransform(true); });
-    document.getElementById('ctrlFit')    .addEventListener('click', () => { scale = 0.85; resetView();       applyTransform(true); });
+    // ── Generate nether stars ─────────────────────────────────────────────
+    (function spawnStars() {
+      const bg = document.getElementById('canvasBg');
+      const count = 45;
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement('div');
+        star.className = 'nether-star';
+        const size = 1.5 + Math.random() * 2;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top  = Math.random() * 100 + '%';
+        star.style.setProperty('--dur', (3 + Math.random() * 5) + 's');
+        star.style.setProperty('--del', (Math.random() * 5) + 's');
+        star.style.setProperty('--peak', (0.15 + Math.random() * 0.45).toFixed(2));
+        star.style.setProperty('--grow', (1.2 + Math.random() * 0.6).toFixed(2));
+        bg.appendChild(star);
+      }
+    })();
 
     window.addEventListener('load', initProjects);
   </script>
+
+  <!-- ── Portfolio Chat Bot ── -->
+  <script>
+  (function() {
+
+    // ── Knowledge base ────────────────────────────────────────────────────────
+    const K = {
+      who: `Muhannad Abuzahrieh is a software engineer who graduated May 2025 with a B.S. in Computer Science. He's a first-generation college grad who builds at the intersection of design and engineering — interactive UIs, full-stack web apps, and browser-native tools. He cares deeply about user experience, performance, and clean code.`,
+
+      background: `He's a first-gen college student who had to figure most things out on his own — that shaped how he works. He digs into the details, doesn't stop at "good enough," and takes real ownership of what he builds. He's drawn to problems where design and engineering meet: things that feel alive, not just functional.`,
+
+      education: `B.S. in Computer Science, graduated May 2025. First-generation college graduate. He put himself through school while building projects on the side.`,
+
+      skills: `<b>Languages:</b> JavaScript, TypeScript, Python, HTML/CSS<br><b>Frontend:</b> React, Canvas/WebGL, Browser APIs, UI/UX Design<br><b>Backend:</b> Node.js, Express, SQLite (better-sqlite3), REST APIs<br><b>Browser:</b> Chrome Extensions API, Content Scripts, IndexedDB<br><b>Tools:</b> Git, Railway, Vercel<br><b>Concepts:</b> Systems thinking, heuristic modeling, risk scoring, virtual filesystems`,
+
+      available: `Yes — Muhannad is actively looking for full-time software engineering roles. He's strongest in frontend-heavy engineering (interactive UIs, browser APIs, Canvas/WebGL) but comfortable across the full stack. <a href="contact.html">Send him a message</a> or connect on <a href="https://www.linkedin.com/in/muhannad-abuzahrieh-0b7330265/" target="_blank">LinkedIn ↗</a>.`,
+
+      contact: `Best ways to reach Muhannad:<br>→ <a href="contact.html">Contact form</a> (fastest)<br>→ <a href="https://www.linkedin.com/in/muhannad-abuzahrieh-0b7330265/" target="_blank">LinkedIn ↗</a><br>→ <a href="https://github.com/muhannadxyz" target="_blank">GitHub ↗</a>`,
+
+      projects: `Muhannad has built <b>11 projects</b>. Here's a quick rundown:<br><br>
+🖥 <b>Portfolio OS</b> — Full macOS desktop simulation in the browser<br>
+🤖 <b>Lucentir</b> — AI-powered brand agency SaaS<br>
+🤝 <b>ShadoConnect</b> — Mentorship matchmaking platform<br>
+👻 <b>Ghost Job Checker</b> — Fake job posting detector (web app + Chrome extension)<br>
+📡 <b>Public Wi-Fi Risk Analyzer</b> — Network security risk scorer<br>
+🏠 <b>RentWise</b> — Smart apartment rent tracker<br>
+📋 <b>JAT</b> — Job application tracking dashboard<br>
+🎧 <b>FluxDesk</b> — Real-time helpdesk ticketing system<br>
+🌬 <b>Wind Turbine Monitor</b> — Renewable energy data simulator<br>
+📝 <b>PostNote</b> — Quick collaborative sticky notes<br>
+💊 <b>RxCheck</b> — FDA drug interaction checker<br><br>
+Ask me about any specific project for the full details!`,
+
+      os: `<b>Portfolio OS</b> is a full macOS-style desktop simulation running entirely in the browser — no backend, no frameworks, just vanilla HTML/CSS/JS.<br><br>
+It includes:<br>
+• Window manager with drag, resize, minimize, snap<br>
+• Virtual filesystem using IndexedDB (persists between sessions)<br>
+• Terminal with real commands<br>
+• Text editor, browser, music player, calculator, notes, weather<br>
+• Dock, menubar with live clock, right-click context menus<br>
+• Sound effects via Web Audio API<br><br>
+It's one of his most technically ambitious projects — a full OS architecture built from scratch.`,
+
+      ghostjob: `<b>Ghost Job Checker</b> is a tool that detects fake and phantom job postings before you waste time applying.<br><br>
+It comes in two forms:<br>
+→ <b>Web App</b> — paste a job URL or description, get a 0–100 risk score with a full breakdown<br>
+→ <b>Chrome Extension</b> — installs once, runs automatically on LinkedIn, Indeed, Greenhouse, and Lever, overlaying the risk score right on the page<br><br>
+The risk model checks for: stale reposting patterns, evergreen "pipeline" language, vague requirements, and missing salary data.<br><br>
+No backend, no account, no data leaves your browser. <a href="https://ghost-job-checker.vercel.app/" target="_blank">Try the web app ↗</a>`,
+
+      rxcheck: `<b>RxCheck</b> is a drug interaction checker built on real FDA safety data.<br><br>
+Type two or more medication names — it pulls from the FDA's FAERS adverse event reporting database and shows:<br>
+• How many patients reported problems with that combination<br>
+• What symptoms were reported<br>
+• Color-coded severity: high / moderate / low<br><br>
+Features: autocomplete via FDA NDC API, local search history via SQLite, deployed on Railway.<br>Stack: Node.js, Express, SQLite (better-sqlite3), Vanilla JS. <a href="https://drug-checker.up.railway.app/" target="_blank">Try it ↗</a>`,
+
+      lucentir: `<b>Lucentir</b> is an AI-powered brand agency SaaS platform. It helps businesses build and manage brand identities using AI assistance — think brand strategy, visual direction, and messaging — all in one product.<br><br>
+It's a full-stack project with a polished, production-level UI. One of his more design-forward builds.`,
+
+      shadoconnect: `<b>ShadoConnect</b> is a mentorship matchmaking platform. It connects people looking for guidance with mentors who have relevant experience.<br><br>
+Features include user profiles, a matching algorithm, and a messaging system. Built as a full-stack web app.`,
+
+      rentwise: `<b>RentWise</b> is a smart apartment rent tracker that helps renters make sense of the rental market. It tracks listings, compares prices, and gives you data to make smarter housing decisions.`,
+
+      jat: `<b>JAT (Job Application Tracker)</b> is a dashboard for managing your job search. It helps you track applications, deadlines, company details, and follow-ups — all in one organized view. Built to solve the chaos of tracking dozens of applications in spreadsheets.`,
+
+      fluxdesk: `<b>FluxDesk</b> is a real-time helpdesk ticketing system. It allows teams to manage support tickets, assign tasks, and track resolution status in real time. Built with a focus on speed and clean UX.`,
+
+      windturbine: `<b>Wind Turbine Monitor</b> is a renewable energy data simulator and monitoring dashboard. It simulates turbine performance data, tracks energy output, and visualizes generation metrics. A data-heavy project with real-time charting.`,
+
+      postnote: `<b>PostNote</b> is a quick collaborative sticky-note app. It lets users create, share, and organize notes in a simple, intuitive interface — built for speed and simplicity.`,
+
+      wifi: `<b>Public Wi-Fi Risk Analyzer</b> is a network security tool that scores the risk level of public Wi-Fi connections. It analyzes network signals and characteristics to warn users about potentially unsafe networks.`,
+
+      tech: `Muhannad's stack varies by project, but his core toolkit:<br><br>
+<b>Frontend:</b> Vanilla JavaScript, HTML/CSS, React, Canvas/WebGL<br>
+<b>Backend:</b> Node.js, Express, SQLite<br>
+<b>Browser tools:</b> Chrome Extensions API, Content Scripts, IndexedDB<br>
+<b>Deployment:</b> Railway, Vercel<br><br>
+He defaults to vanilla JS when he can — he built a full OS simulation without a single framework. When he does use libraries, he knows exactly why.`,
+    };
+
+    // ── Suggestions shown on open ────────────────────────────────────────────
+    const SUGGESTIONS = [
+      'Who is Muhannad?',
+      'List all projects',
+      'Is he available to hire?',
+      'Tell me about Portfolio OS',
+      'What tech stack does he use?',
+    ];
+
+    // ── Intent matching ───────────────────────────────────────────────────────
+    function botReply(q) {
+      const t = q.toLowerCase();
+
+      // Greetings
+      if (/^(hi|hello|hey|sup|yo|howdy|what'?s up)[\s!?]*$/.test(t.trim()))
+        return `Hey! I'm Muhannad's portfolio assistant. I know everything about his background, projects, and skills — just ask. Or try one of the quick prompts below! 👇`;
+
+      // Thanks
+      if (/thank|thanks|ty|great|awesome|perfect|appreciate/.test(t))
+        return `Happy to help! If you want to connect with Muhannad directly, <a href="contact.html">send him a message</a> or find him on <a href="https://www.linkedin.com/in/muhannad-abuzahrieh-0b7330265/" target="_blank">LinkedIn ↗</a>.`;
+
+      // ── Specific projects FIRST (before any general patterns) ──
+      if (/portfolio.?os|os mode|desktop.?sim|macos.?sim|window manager|browser os|os project/.test(t)) return K.os;
+      if (/ghost.?job|fake.?job|phantom.?job|job.?posting.?detect|chrome.?ext|extension/.test(t)) return K.ghostjob;
+      if (/rxcheck|rx.?check|rx check|drug.?inter|medication|fda.?data|faers|adverse.?event/.test(t)) return K.rxcheck;
+      if (/lucentir|brand.?agency|ai.?brand|brand.?identity/.test(t)) return K.lucentir;
+      if (/shadoconnect|shado\b|mentor/.test(t)) return K.shadoconnect;
+      if (/rentwise|rent.?wise|rent.?track|apartment/.test(t)) return K.rentwise;
+      if (/\bjat\b|job.?applic.?track|application.?tracker/.test(t)) return K.jat;
+      if (/fluxdesk|flux.?desk|helpdesk|ticketing/.test(t)) return K.fluxdesk;
+      if (/wind.?turb|turbine|renewable.?energy/.test(t)) return K.windturbine;
+      if (/postnote|post.?note|sticky.?note/.test(t)) return K.postnote;
+      if (/wi.?fi|wifi|network.?sec|network.?risk|public.?wifi/.test(t)) return K.wifi;
+
+      // All projects list
+      if (/all projects|list.*project|what project|show.*project|projects.*built|projects.*made|what has he built|what did he build/.test(t)) return K.projects;
+
+      // Tech stack
+      if (/skill|tech stack|language|framework|what does he use|tools|experience with|what can he/.test(t)) return K.skills;
+      if (/javascript|typescript|react|node\.?js|python|sqlite|express|indexeddb|canvas|webgl|railway|vercel/.test(t)) return K.tech;
+
+      // Hiring / availability
+      if (/hire|hiring|available|open to work|looking for|job|role|opportunity|full.?time|recruit/.test(t)) return K.available;
+
+      // Contact
+      if (/contact|reach|email|message|get in touch|linkedin|github/.test(t)) return K.contact;
+
+      // Education
+      if (/school|university|college|degree|graduated|first.gen|cs degree/.test(t)) return K.education;
+
+      // Who / bio — LAST so "tell me about X project" hits project checks first
+      if (/who is|about him|tell me about|introduce|background|bio|story/.test(t)) return K.who;
+
+      // Most impressive / favorite project
+      if (/most impressive|hardest|toughest|complex|best project|favorite|proudest/.test(t))
+        return `Probably <b>Portfolio OS</b> — building a full operating system simulation in the browser with vanilla JS is no small feat. Window management, a virtual filesystem, a working terminal, sound effects, and multiple apps — all from scratch. But <b>Ghost Job Checker</b> is arguably the most <i>useful</i> one, already helping real job seekers.`;
+
+      // How long / experience
+      if (/how long|years of|experience level|senior|junior|level/.test(t))
+        return `Muhannad graduated May 2025 with a CS degree. He's been building seriously for the past few years — but the portfolio speaks louder than a number. He ships full-stack apps, browser extensions, and interactive UIs at a level most people don't hit without years of industry experience.`;
+
+      // What makes him different
+      if (/different|unique|stand out|why hire|why him|what makes/.test(t))
+        return `A few things: he built a full OS in the browser without a framework. He ships end-to-end — design, frontend, backend, deployment. He's first-gen, self-directed, and doesn't cut corners. And he cares about the craft — the animations are smooth, the UX is intentional, the code is readable.`;
+
+      // Fallback
+      return `I didn't quite catch that — but I know Muhannad's projects, stack, background, and availability inside out. Try asking:<br>• "What projects has he built?"<br>• "Tell me about RxCheck"<br>• "Is he available to hire?"<br>• "What's his tech stack?"`;
+    }
+
+    // ── Follow-up suggestions per topic ──────────────────────────────────────
+    function getFollowUps(q) {
+      const t = q.toLowerCase();
+      if (/who|about|background|bio/.test(t))       return ['What projects has he built?','What are his skills?','Is he available to hire?'];
+      if (/project|built|made/.test(t))              return ['Tell me about Portfolio OS','Tell me about Ghost Job Checker','Tell me about RxCheck'];
+      if (/skill|stack|tech|language/.test(t))       return ['What projects showcase this?','Is he available to hire?','How can I contact him?'];
+      if (/hire|available|job|role/.test(t))         return ['How can I contact him?','What are his skills?','List all projects'];
+      if (/portfolio.?os|os mode/.test(t))           return ['Tell me about Ghost Job Checker','What tech stack does he use?','Is he available to hire?'];
+      if (/ghost|fake.?job|extension/.test(t))       return ['Tell me about RxCheck','Tell me about Portfolio OS','Is he available to hire?'];
+      if (/rxcheck|drug|fda/.test(t))               return ['Tell me about Ghost Job Checker','What tech does he use?','How can I contact him?'];
+      return [];
+    }
+
+    // ── DOM refs ──────────────────────────────────────────────────────────────
+    const panel     = document.getElementById('chatPanel');
+    const toggleBtn = document.getElementById('chatToggleBtn');
+    const closeBtn  = document.getElementById('chatCloseBtn');
+    const messages  = document.getElementById('chatMessages');
+    const input     = document.getElementById('chatInput');
+    const sendBtn   = document.getElementById('chatSendBtn');
+    const pillsEl   = document.getElementById('chatPills');
+
+    let everOpened = false;
+
+    function addMsg(html, role) {
+      const div = document.createElement('div');
+      div.className = 'rw-chat-msg ' + role;
+      div.innerHTML = html;
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function showTyping() {
+      const t = document.createElement('div');
+      t.className = 'rw-chat-typing'; t.id = 'chatTyping';
+      t.innerHTML = '<span></span><span></span><span></span>';
+      messages.appendChild(t);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function removeTyping() {
+      const t = document.getElementById('chatTyping');
+      if (t) t.remove();
+    }
+
+    function setPills(items) {
+      pillsEl.innerHTML = '';
+      items.forEach(s => {
+        const pill = document.createElement('button');
+        pill.className = 'rw-chat-pill';
+        pill.textContent = s;
+        pill.addEventListener('click', () => handleSend(s));
+        pillsEl.appendChild(pill);
+      });
+    }
+
+    function handleSend(q) {
+      q = (q || input.value).trim();
+      if (!q) return;
+      input.value = '';
+      pillsEl.innerHTML = '';
+      addMsg(q, 'user');
+      showTyping();
+      const delay = 420 + Math.random() * 300;
+      setTimeout(() => {
+        removeTyping();
+        addMsg(botReply(q), 'bot');
+        const fu = getFollowUps(q);
+        if (fu.length) setPills(fu);
+      }, delay);
+    }
+
+    function openChat() {
+      panel.classList.add('open');
+      toggleBtn.classList.add('active');
+      // Remove discovery pulse
+      toggleBtn.classList.remove('bot-pulse');
+      const beacon = document.getElementById('chatBeacon');
+      if (beacon) beacon.remove();
+
+      if (!everOpened) {
+        everOpened = true;
+        setTimeout(() => {
+          addMsg(`Hi! I'm Muhannad's portfolio assistant — I know his projects, background, and skills inside out. What would you like to know?`, 'bot');
+          setPills(SUGGESTIONS);
+        }, 100);
+      }
+    }
+
+    function closeChat() {
+      panel.classList.remove('open');
+      toggleBtn.classList.remove('active');
+    }
+
+    toggleBtn.addEventListener('click', () => panel.classList.contains('open') ? closeChat() : openChat());
+    closeBtn.addEventListener('click', closeChat);
+    sendBtn.addEventListener('click', () => handleSend());
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') handleSend(); });
+
+    // ── Discovery: pulse + floating tooltip after 2.5s ───────────────────────
+    setTimeout(() => {
+      if (everOpened) return;
+
+      // Pulse ring on the button
+      toggleBtn.classList.add('bot-pulse');
+
+      // Floating beacon tooltip
+      const beacon = document.createElement('div');
+      beacon.id = 'chatBeacon';
+      beacon.innerHTML = `<span>Ask me about Muhannad ✦</span>`;
+      Object.assign(beacon.style, {
+        position: 'fixed',
+        bottom: '58px',
+        left: 'calc(var(--sidebar-w) + 14px)',
+        background: 'linear-gradient(135deg,#6366F1,#8B5CF6)',
+        color: '#fff',
+        fontSize: '12px',
+        fontWeight: '600',
+        padding: '7px 13px',
+        borderRadius: '20px',
+        zIndex: '400',
+        boxShadow: '0 4px 20px rgba(99,102,241,0.45)',
+        cursor: 'pointer',
+        animation: 'beaconIn 0.35s cubic-bezier(0.34,1.3,0.64,1) forwards',
+        whiteSpace: 'nowrap',
+      });
+      beacon.addEventListener('click', openChat);
+      document.body.appendChild(beacon);
+
+      // Auto-dismiss after 5s
+      setTimeout(() => {
+        if (document.getElementById('chatBeacon')) {
+          beacon.style.transition = 'opacity 0.4s';
+          beacon.style.opacity = '0';
+          setTimeout(() => beacon.remove(), 400);
+          toggleBtn.classList.remove('bot-pulse');
+        }
+      }, 5000);
+    }, 2500);
+
+  })();
+  </script>
+
+  <style>
+    @keyframes beaconIn {
+      from { opacity:0; transform:translateY(8px) scale(0.92); }
+      to   { opacity:1; transform:translateY(0)   scale(1); }
+    }
+    @keyframes botPulse {
+      0%   { box-shadow: 0 0 0 0   rgba(99,102,241,0.6); }
+      70%  { box-shadow: 0 0 0 7px rgba(99,102,241,0); }
+      100% { box-shadow: 0 0 0 0   rgba(99,102,241,0); }
+    }
+    .rw-ctrl-btn.bot-pulse {
+      animation: botPulse 1.4s ease-out infinite;
+      border-color: rgba(99,102,241,0.5) !important;
+    }
+  </style>
 </body>
 </html>

@@ -2,415 +2,423 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"/>
-  <meta name="theme-color" content="#f5f1e8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover"/>
+  <meta name="theme-color" content="#0B0C0F"/>
   <title>About — Muhannad Abuzahrieh</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
   <link rel="manifest" href="favicon/site.webmanifest">
-
   <style>
     :root {
-      --page-bg: #f7f5ef;
-      --surface: #ffffff;
-      --surface-strong: #f0ede6;
-      --line: rgba(34, 31, 26, 0.1);
-      --line-strong: rgba(34, 31, 26, 0.18);
-      --text-main: #171512;
-      --text-soft: #787166;
-      --display-font: 'Space Grotesk', sans-serif;
-      --mono-font: 'IBM Plex Mono', monospace;
-    }
-
-    body[data-theme="dark"] {
-      --page-bg: #121212;
-      --surface: #181818;
-      --surface-strong: #1f1f1f;
-      --line: rgba(255, 255, 255, 0.12);
-      --line-strong: rgba(255, 255, 255, 0.22);
-      --text-main: #f6f3ee;
-      --text-soft: #a8a096;
+      --bg:        #0B0C0F;
+      --surface:   #131619;
+      --surface2:  #1A1D22;
+      --border:    #22262D;
+      --border2:   #343A45;
+      --text:      #E8E9EB;
+      --text2:     #8C9099;
+      --text3:     #4E535C;
+      --green:     #23D18B;
+      --purple:    #6366F1;
+      --topbar-h:  44px;
+      --sidebar-w: 200px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
-      background: var(--page-bg);
-      color: var(--text-main);
-      font-family: var(--display-font);
-      min-height: 100vh;
-      transition: background 0.2s ease, color 0.2s ease;
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Top nav ── */
-    .top-nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.25rem 2rem;
-      border-bottom: 1px solid var(--line);
-      position: sticky;
-      top: 0;
-      background: var(--page-bg);
-      z-index: 100;
+    /* ── Topbar ── */
+    .rw-topbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--topbar-h);
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 14px; z-index: 200; gap: 12px;
     }
-
-    .nav-back {
-      font-family: var(--mono-font);
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-soft);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: color 0.15s ease;
-    }
-
-    .nav-back:hover { color: var(--text-main); }
-
-    .nav-title {
-      font-family: var(--mono-font);
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-soft);
-    }
-
-    /* ── Theme toggle ── */
-    .theme-toggle {
-      width: 40px;
-      height: 22px;
-      border-radius: 999px;
-      border: 1.5px solid var(--line-strong);
-      background: var(--surface-strong);
-      cursor: pointer;
-      position: relative;
-      transition: background 0.2s ease;
-    }
-
-    .theme-toggle-thumb {
-      width: 14px;
-      height: 14px;
+    .rw-topbar-left { display: flex; align-items: center; gap: 8px; }
+    .rw-avatar {
+      width: 22px; height: 22px;
+      background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
       border-radius: 50%;
-      background: var(--text-main);
-      position: absolute;
-      top: 50%;
-      left: 3px;
-      transform: translateY(-50%);
-      transition: left 0.2s ease, background 0.2s ease;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 700; color: #fff; flex-shrink: 0;
+    }
+    .rw-topbar-name { font-size: 13px; font-weight: 500; color: var(--text); text-decoration: none; }
+    .rw-topbar-name:hover { color: var(--text); }
+    .rw-topbar-sep  { font-size: 13px; color: var(--text3); }
+    .rw-topbar-env {
+      display: flex; align-items: center; gap: 5px;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 6px; padding: 3px 8px;
+      font-size: 12px; font-weight: 500; color: var(--text2); cursor: default;
+    }
+    .rw-topbar-right { display: flex; align-items: center; gap: 6px; }
+
+    /* ── Sidebar ── */
+    .rw-sidebar {
+      position: fixed; top: var(--topbar-h); left: 0; bottom: 0;
+      width: var(--sidebar-w);
+      background: var(--surface); border-right: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      padding: 10px 8px; gap: 2px; z-index: 200;
+    }
+    .rw-sidebar-btn {
+      width: 100%; height: 34px;
+      display: flex; align-items: center; gap: 9px;
+      background: transparent; border: none; cursor: pointer;
+      border-radius: 7px; color: var(--text3);
+      padding: 0 10px; text-align: left;
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    .rw-sidebar-btn:hover { background: var(--surface2); color: var(--text2); }
+    .rw-sidebar-btn.active { background: var(--surface2); color: var(--text); }
+    .rw-sidebar-btn svg { flex-shrink: 0; }
+    .rw-sidebar-label { font-size: 13px; font-weight: 500; }
+    .rw-sidebar-ext {
+      margin-left: auto; font-size: 10px; color: var(--text3); opacity: 0;
+      transition: opacity 0.15s;
+    }
+    .rw-sidebar-btn:hover .rw-sidebar-ext { opacity: 1; }
+    .rw-sidebar-sep { width: 100%; height: 1px; background: var(--border); margin: 6px 0; }
+
+    /* ── Main content ── */
+    .rw-main {
+      position: fixed;
+      top: var(--topbar-h); left: var(--sidebar-w); right: 0; bottom: 0;
+      overflow-y: auto;
+      background: var(--bg);
+      background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 24px 24px;
     }
 
-    body[data-theme="dark"] .theme-toggle-thumb {
-      left: 19px;
-    }
-
-    /* ── Page layout ── */
-    .page {
-      max-width: 760px;
+    .about-inner {
+      max-width: 720px;
       margin: 0 auto;
-      padding: 4rem 2rem 6rem;
+      padding: 48px 32px 80px;
     }
 
     /* ── Header ── */
-    .about-header {
-      margin-bottom: 3rem;
-    }
-
-    .kicker {
-      font-family: var(--mono-font);
-      font-size: 0.7rem;
-      letter-spacing: 0.14em;
+    .about-kicker {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--text-soft);
-      margin-bottom: 1rem;
+      color: var(--text3);
+      margin-bottom: 16px;
     }
 
     .about-name {
-      font-family: var(--display-font);
-      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
       font-weight: 700;
-      letter-spacing: -0.04em;
-      line-height: 1;
-      color: var(--text-main);
-      margin-bottom: 1.75rem;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 20px;
     }
 
     .status-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 8px;
+      margin-bottom: 40px;
     }
 
     .badge {
-      font-family: var(--mono-font);
-      font-size: 0.7rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      padding: 0.4rem 0.85rem;
+      padding: 4px 10px;
       border-radius: 999px;
       border: 1px solid;
     }
-
     .badge-green {
-      background: #dcf5e4;
-      color: #1a6636;
-      border-color: #b2dfc4;
+      background: rgba(35, 209, 139, 0.1);
+      color: var(--green);
+      border-color: rgba(35, 209, 139, 0.25);
     }
-
-    body[data-theme="dark"] .badge-green {
-      background: #0d3320;
-      color: #6dd899;
-      border-color: #1a5532;
-    }
-
     .badge-neutral {
-      background: var(--surface-strong);
-      color: var(--text-soft);
-      border-color: var(--line);
+      background: var(--surface2);
+      color: var(--text2);
+      border-color: var(--border);
     }
 
     /* ── Divider ── */
-    .divider {
+    .rw-divider {
       border: none;
-      border-top: 1px solid var(--line);
-      margin: 2.5rem 0;
+      border-top: 1px solid var(--border);
+      margin: 32px 0;
     }
 
-    /* ── Bio section ── */
+    /* ── Bio ── */
     .bio-lead {
-      font-size: 1.35rem;
+      font-size: 1.15rem;
       font-weight: 500;
-      line-height: 1.55;
-      color: var(--text-main);
-      margin-bottom: 1.25rem;
+      line-height: 1.6;
+      color: var(--text);
+      margin-bottom: 16px;
     }
-
     .bio-body {
-      font-size: 1rem;
-      line-height: 1.8;
-      color: var(--text-soft);
+      font-size: 0.9375rem;
+      line-height: 1.75;
+      color: var(--text2);
     }
-
-    .bio-body + .bio-body {
-      margin-top: 1rem;
-    }
+    .bio-body + .bio-body { margin-top: 12px; }
 
     /* ── Section label ── */
     .section-label {
-      font-family: var(--mono-font);
-      font-size: 0.68rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--text-soft);
-      margin-bottom: 1.25rem;
+      color: var(--text3);
+      margin-bottom: 16px;
     }
 
     /* ── Highlights grid ── */
     .highlights-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-bottom: 2.5rem;
+      gap: 12px;
     }
-
     @media (max-width: 540px) {
       .highlights-grid { grid-template-columns: 1fr; }
     }
-
     .highlight-card {
       background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 1.25rem 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 18px;
     }
-
     .highlight-num {
-      font-family: var(--mono-font);
-      font-size: 0.65rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
       letter-spacing: 0.08em;
-      color: var(--text-soft);
-      margin-bottom: 0.5rem;
+      color: var(--text3);
+      margin-bottom: 8px;
     }
-
     .highlight-text {
-      font-size: 0.95rem;
+      font-size: 0.875rem;
       font-weight: 500;
-      color: var(--text-main);
-      line-height: 1.4;
+      color: var(--text);
+      line-height: 1.45;
     }
 
     /* ── Skills ── */
     .skills-wrap {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 8px;
     }
-
     .skill-chip {
-      font-family: var(--mono-font);
-      font-size: 0.72rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
       letter-spacing: 0.04em;
-      padding: 0.4rem 0.85rem;
-      border-radius: 999px;
+      padding: 5px 10px;
+      border-radius: 6px;
       background: var(--surface);
-      color: var(--text-soft);
-      border: 1px solid var(--line);
+      color: var(--text2);
+      border: 1px solid var(--border);
     }
 
     /* ── CTA ── */
     .cta-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-top: 3rem;
+      gap: 10px;
+      margin-top: 40px;
     }
-
     .cta-btn {
-      font-family: var(--mono-font);
-      font-size: 0.75rem;
-      letter-spacing: 0.08em;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
       text-decoration: none;
-      padding: 0.75rem 1.5rem;
-      border-radius: 999px;
-      border: 1.5px solid var(--line-strong);
-      color: var(--text-main);
+      padding: 9px 18px;
+      border-radius: 8px;
+      border: 1px solid var(--border2);
+      color: var(--text2);
       background: var(--surface);
-      transition: background 0.15s ease, border-color 0.15s ease;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
     }
-
     .cta-btn:hover {
-      background: var(--surface-strong);
-      border-color: var(--text-soft);
+      background: var(--surface2);
+      border-color: var(--text3);
+      color: var(--text);
     }
-
     .cta-btn-primary {
-      background: var(--text-main);
-      color: var(--page-bg);
-      border-color: var(--text-main);
+      background: var(--purple);
+      color: #fff;
+      border-color: var(--purple);
+    }
+    .cta-btn-primary:hover {
+      background: #5254CC;
+      border-color: #5254CC;
+      color: #fff;
     }
 
-    .cta-btn-primary:hover {
-      opacity: 0.85;
-      background: var(--text-main);
+    /* ── Scrollbar ── */
+    .rw-main::-webkit-scrollbar { width: 6px; }
+    .rw-main::-webkit-scrollbar-track { background: transparent; }
+    .rw-main::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+    /* ── Mobile ── */
+    @media (max-width: 800px) {
+      .rw-sidebar { display: none; }
+      .rw-main { left: 0; }
+      .about-inner { padding: 32px 20px 60px; }
     }
   </style>
 </head>
-
 <body>
-  <nav class="top-nav">
-    <a href="index.html" class="nav-back">← Back</a>
-    <span class="nav-title">About</span>
-    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">
-      <div class="theme-toggle-thumb"></div>
-    </button>
-  </nav>
 
-  <main class="page">
+  <!-- Topbar -->
+  <header class="rw-topbar">
+    <div class="rw-topbar-left">
+      <div class="rw-avatar">M</div>
+      <a href="index.html" class="rw-topbar-name">muhannad</a>
+      <span class="rw-topbar-sep">›</span>
+      <div class="rw-topbar-env">about</div>
+    </div>
+    <nav class="rw-topbar-right"></nav>
+  </header>
 
-    <!-- Header -->
-    <header class="about-header">
-      <p class="kicker">Software Engineer</p>
+  <!-- Sidebar -->
+  <aside class="rw-sidebar">
+    <a href="index.html" class="rw-sidebar-btn">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+        <rect x="1" y="1" width="6" height="6" rx="1.5" fill="currentColor" opacity=".6"/>
+        <rect x="9" y="1" width="6" height="6" rx="1.5" fill="currentColor" opacity=".6"/>
+        <rect x="1" y="9" width="6" height="6" rx="1.5" fill="currentColor" opacity=".6"/>
+        <rect x="9" y="9" width="6" height="6" rx="1.5" fill="currentColor" opacity=".6"/>
+      </svg>
+      <span class="rw-sidebar-label">Projects</span>
+    </a>
+    <a href="about.html" class="rw-sidebar-btn active">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+        <circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M2 14c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="rw-sidebar-label">About Me</span>
+    </a>
+    <a href="contact.html" class="rw-sidebar-btn">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+        <rect x="1" y="3" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M1 5l7 5 7-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="rw-sidebar-label">Contact</span>
+    </a>
+    <div class="rw-sidebar-sep"></div>
+    <a href="https://www.linkedin.com/in/muhannad-abuzahrieh-0b7330265/" target="_blank" rel="noreferrer" class="rw-sidebar-btn">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+        <rect x="1" y="1" width="14" height="14" rx="3" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M4 7v5M4 4.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M7 12V9c0-1.105.895-2 2-2s2 .895 2 2v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="rw-sidebar-label">LinkedIn</span>
+      <span class="rw-sidebar-ext">↗</span>
+    </a>
+    <a href="https://github.com/muhannadxyz" target="_blank" rel="noreferrer" class="rw-sidebar-btn">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+      </svg>
+      <span class="rw-sidebar-label">GitHub</span>
+      <span class="rw-sidebar-ext">↗</span>
+    </a>
+  </aside>
+
+  <!-- Main -->
+  <main class="rw-main">
+    <div class="about-inner">
+
+      <p class="about-kicker">Software Engineer</p>
       <h1 class="about-name">Muhannad<br>Abuzahrieh</h1>
+
       <div class="status-row">
         <span class="badge badge-green">Open to full-time</span>
         <span class="badge badge-neutral">Graduated May 2025</span>
         <span class="badge badge-neutral">First-gen student</span>
       </div>
-    </header>
 
-    <hr class="divider">
+      <hr class="rw-divider">
 
-    <!-- Bio -->
-    <section style="margin-bottom: 2.5rem;">
-      <p class="bio-lead">
-        I'm a first-generation college student who graduated in May 2025 with a degree in Computer Science. I build things at the intersection of design and engineering.
-      </p>
-      <p class="bio-body">
-        Growing up as a first-gen student, I had to figure most things out on my own, and that shaped how I approach problems. I dig into the details, I don't stop at "good enough," and I take real ownership of what I build.
-      </p>
-      <p class="bio-body">
-        My work ranges from OS-inspired browser interfaces to full-stack web apps. I care deeply about user experience, performance, and code quality. I'm currently looking for a full-time software engineering role where I can keep growing and ship things that matter.
-      </p>
-    </section>
+      <section style="margin-bottom: 32px;">
+        <p class="bio-lead">
+          I'm a first-generation college student who graduated in May 2025 with a degree in Computer Science. I build things at the intersection of design and engineering.
+        </p>
+        <p class="bio-body">
+          Growing up as a first-gen student, I had to figure most things out on my own, and that shaped how I approach problems. I dig into the details, I don't stop at "good enough," and I take real ownership of what I build.
+        </p>
+        <p class="bio-body">
+          My work ranges from OS-inspired browser interfaces to full-stack web apps. I care deeply about user experience, performance, and code quality. I'm currently looking for a full-time software engineering role where I can keep growing and ship things that matter.
+        </p>
+      </section>
 
-    <hr class="divider">
+      <hr class="rw-divider">
 
-    <!-- Highlights -->
-    <section style="margin-bottom: 0;">
-      <p class="section-label">A few things about me</p>
-      <div class="highlights-grid">
-        <div class="highlight-card">
-          <p class="highlight-num">01</p>
-          <p class="highlight-text">First-generation college graduate, May 2025</p>
+      <section style="margin-bottom: 32px;">
+        <p class="section-label">A few things about me</p>
+        <div class="highlights-grid">
+          <div class="highlight-card">
+            <p class="highlight-num">01</p>
+            <p class="highlight-text">First-generation college graduate, May 2025</p>
+          </div>
+          <div class="highlight-card">
+            <p class="highlight-num">02</p>
+            <p class="highlight-text">Built a full OS simulation in the browser — windows, apps, filesystem and all</p>
+          </div>
+          <div class="highlight-card">
+            <p class="highlight-num">03</p>
+            <p class="highlight-text">Obsessed with micro-interactions and things that feel alive</p>
+          </div>
+          <div class="highlight-card">
+            <p class="highlight-num">04</p>
+            <p class="highlight-text">Currently seeking full-time software engineering roles</p>
+          </div>
         </div>
-        <div class="highlight-card">
-          <p class="highlight-num">02</p>
-          <p class="highlight-text">Built a full OS simulation in the browser — windows, apps, filesystem and all</p>
+      </section>
+
+      <hr class="rw-divider">
+
+      <section>
+        <p class="section-label">Skills</p>
+        <div class="skills-wrap">
+          <span class="skill-chip">JavaScript</span>
+          <span class="skill-chip">TypeScript</span>
+          <span class="skill-chip">React</span>
+          <span class="skill-chip">Node.js</span>
+          <span class="skill-chip">Python</span>
+          <span class="skill-chip">HTML / CSS</span>
+          <span class="skill-chip">UI / UX Design</span>
+          <span class="skill-chip">Web APIs</span>
+          <span class="skill-chip">Canvas / WebGL</span>
+          <span class="skill-chip">IndexedDB</span>
+          <span class="skill-chip">Systems Thinking</span>
+          <span class="skill-chip">Git</span>
         </div>
-        <div class="highlight-card">
-          <p class="highlight-num">03</p>
-          <p class="highlight-text">Obsessed with micro-interactions and things that feel alive</p>
-        </div>
-        <div class="highlight-card">
-          <p class="highlight-num">04</p>
-          <p class="highlight-text">Currently seeking full-time software engineering roles</p>
-        </div>
+      </section>
+
+      <div class="cta-row">
+        <a href="https://www.linkedin.com/in/muhannad-abuzahrieh-0b7330265/" target="_blank" rel="noreferrer" class="cta-btn cta-btn-primary">LinkedIn ↗</a>
+        <a href="index.html" class="cta-btn">View Projects</a>
+        <a href="contact.html" class="cta-btn">Contact</a>
       </div>
-    </section>
 
-    <hr class="divider">
-
-    <!-- Skills -->
-    <section style="margin-bottom: 0;">
-      <p class="section-label">Skills</p>
-      <div class="skills-wrap">
-        <span class="skill-chip">JavaScript</span>
-        <span class="skill-chip">TypeScript</span>
-        <span class="skill-chip">React</span>
-        <span class="skill-chip">Node.js</span>
-        <span class="skill-chip">Python</span>
-        <span class="skill-chip">HTML / CSS</span>
-        <span class="skill-chip">UI / UX Design</span>
-        <span class="skill-chip">Web APIs</span>
-        <span class="skill-chip">Canvas / WebGL</span>
-        <span class="skill-chip">IndexedDB</span>
-        <span class="skill-chip">Systems Thinking</span>
-        <span class="skill-chip">Git</span>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <div class="cta-row">
-      <a href="https://www.linkedin.com/in/muhannad-abuzahrieh-0b7330265/" target="_blank" rel="noreferrer" class="cta-btn cta-btn-primary">LinkedIn ↗</a>
-      <a href="index.html" class="cta-btn">View Projects</a>
-      <a href="contact.html" class="cta-btn">Contact</a>
     </div>
-
   </main>
 
-  <script>
-    (function() {
-      function applyTheme(theme) {
-        document.body.setAttribute('data-theme', theme);
-        try { localStorage.setItem('theme', theme); } catch(e) {}
-      }
-
-      let saved = null;
-      try { saved = localStorage.getItem('theme'); } catch(e) {}
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      applyTheme(saved || (prefersDark ? 'dark' : 'light'));
-
-      document.getElementById('theme-toggle').addEventListener('click', () => {
-        const current = document.body.getAttribute('data-theme');
-        applyTheme(current === 'dark' ? 'light' : 'dark');
-      });
-    })();
-  </script>
 </body>
 </html>
