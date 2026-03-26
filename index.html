@@ -2208,10 +2208,7 @@
           <h3 class="sectionTitle">Project Overview</h3>
           <div class="overviewCard" id="detailOverview"></div>
           <div class="overviewLink" id="detailOverviewLink" style="display: none;">
-            <a href="#" id="projectLink" target="_blank" rel="noopener noreferrer" class="projectLink">
-              <span>View Project</span>
-              <span class="linkArrow">↗</span>
-            </a>
+            <div id="detailLinksContainer" style="display: flex; flex-wrap: wrap; gap: 0.5rem;"></div>
           </div>
         </section>
 
@@ -2460,24 +2457,25 @@
         detailOverview.textContent = p.overview || p.description || p.desc || "No overview yet.";
       }
 
-      // Project Link in Overview (shows for all projects with a link)
+      // Project Links in Overview
       const detailOverviewLink = document.getElementById("detailOverviewLink");
-      const projectLink = document.getElementById("projectLink");
-      if (detailOverviewLink && projectLink) {
-        // Use the main link or first link from links array
-        const linkUrl = p.link || (Array.isArray(p.links) && p.links.length > 0 ? p.links[0].url : null);
-        if (linkUrl) {
-          projectLink.href = linkUrl;
-          // If it's a full URL, open in new tab; if relative, open in same tab
-          if (linkUrl.startsWith('http://') || linkUrl.startsWith('https://')) {
-            projectLink.target = '_blank';
-            projectLink.rel = 'noopener noreferrer';
-            projectLink.querySelector('span').textContent = 'View Project';
-          } else {
-            projectLink.target = '_self';
-            projectLink.removeAttribute('rel');
-            projectLink.querySelector('span').textContent = 'View Project';
-          }
+      const detailLinksContainer = document.getElementById("detailLinksContainer");
+      if (detailOverviewLink && detailLinksContainer) {
+        // Build links list: use p.links array if available, else fall back to p.link
+        let linksList = [];
+        if (Array.isArray(p.links) && p.links.length > 0) {
+          linksList = p.links;
+        } else if (p.link) {
+          linksList = [{ label: 'View Project', url: p.link }];
+        }
+        if (linksList.length > 0) {
+          detailLinksContainer.innerHTML = linksList.map(l => {
+            const isExternal = l.url && (l.url.startsWith('http://') || l.url.startsWith('https://'));
+            return `<a href="${l.url}" target="${isExternal ? '_blank' : '_self'}" ${isExternal ? 'rel="noopener noreferrer"' : ''} class="projectLink">
+              <span>${l.label || 'View Project'}</span>
+              <span class="linkArrow">↗</span>
+            </a>`;
+          }).join('');
           detailOverviewLink.style.display = 'block';
         } else {
           detailOverviewLink.style.display = 'none';
