@@ -3,2247 +3,396 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover"/>
-  <meta name="theme-color" content="#f5f1e8"/>
+  <meta name="theme-color" content="#0B0C0F"/>
   <title>Muhannad Abuzahrieh</title>
-
-  <!-- Fonts and Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
   <link rel="manifest" href="favicon/site.webmanifest">
-
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Main stylesheet -->
   <link rel="stylesheet" href="css/styles.css">
   <style>
-    .prose img { border-radius: 1rem; margin: 2rem 0; }
-    .group:hover img { transform: scale(1.05); }
-    
-    /* BRUTAL Hero Styles */
-    .brutalist-hero {
-      --banner-w: 180px;
-      min-height: 100vh;
-      background: #000;
-      position: relative;
+    /* ── Variables ── */
+    :root {
+      --bg:        #0B0C0F;
+      --surface:   #131619;
+      --surface2:  #1A1D22;
+      --border:    #22262D;
+      --border2:   #343A45;
+      --text:      #E8E9EB;
+      --text2:     #8C9099;
+      --text3:     #4E535C;
+      --green:     #23D18B;
+      --topbar-h:  44px;
+      --sidebar-w: 48px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg) !important;
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      overflow: hidden !important;
+      height: 100vh !important;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Topbar ── */
+    .rw-topbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--topbar-h);
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 14px; z-index: 200; gap: 12px;
+    }
+    .rw-topbar-left { display: flex; align-items: center; gap: 8px; }
+    .rw-avatar {
+      width: 22px; height: 22px;
+      background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 700; color: #fff; flex-shrink: 0;
+    }
+    .rw-topbar-name { font-size: 13px; font-weight: 500; color: var(--text); }
+    .rw-topbar-sep  { font-size: 13px; color: var(--text3); }
+    .rw-topbar-env {
+      display: flex; align-items: center; gap: 5px;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 6px; padding: 3px 8px;
+      font-size: 12px; font-weight: 500; color: var(--text2); cursor: default;
+    }
+    .rw-topbar-env::after { content: '▾'; font-size: 9px; color: var(--text3); }
+    .rw-topbar-right { display: flex; align-items: center; gap: 6px; }
+    .rw-topnav-link {
+      font-size: 13px; color: var(--text2); text-decoration: none;
+      padding: 4px 10px; border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .rw-topnav-link:hover { background: var(--surface2); color: var(--text); }
+    .rw-topnav-btn {
+      font-size: 13px; font-weight: 500; color: var(--text);
+      background: var(--surface2); border: 1px solid var(--border2);
+      padding: 5px 12px; border-radius: 6px; cursor: pointer;
+      text-decoration: none; transition: background 0.15s, border-color 0.15s;
+    }
+    .rw-topnav-btn:hover { background: #252830; border-color: #555D6A; }
+
+    /* ── Sidebar ── */
+    .rw-sidebar {
+      position: fixed; top: var(--topbar-h); left: 0; bottom: 0;
+      width: var(--sidebar-w);
+      background: var(--surface); border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; align-items: center;
+      padding: 10px 0; gap: 2px; z-index: 200;
+    }
+    .rw-sidebar-btn {
+      width: 34px; height: 34px;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent; border: none; cursor: pointer;
+      border-radius: 7px; color: var(--text3);
+      transition: background 0.15s, color 0.15s;
+    }
+    .rw-sidebar-btn:hover { background: var(--surface2); color: var(--text2); }
+    .rw-sidebar-btn.active { background: var(--surface2); color: var(--text); }
+    .rw-sidebar-sep { width: 22px; height: 1px; background: var(--border); margin: 4px 0; }
+
+    /* ── Canvas area ── */
+    .rw-main {
+      position: fixed;
+      top: var(--topbar-h); left: var(--sidebar-w); right: 0; bottom: 0;
       overflow: hidden;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      padding: 0;
     }
-    
-    /* Raw concrete texture background */
-    .hero-background {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 0;
-      background: #000;
+    .rw-canvas-bg {
+      width: 100%; height: 100%;
+      background-color: var(--bg);
+      background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 24px 24px;
+      cursor: grab; position: relative; overflow: hidden;
     }
-    
-    /* Harsh noise grain */
-    .hero-background::before {
+    .rw-canvas-bg.grabbing { cursor: grabbing; }
+    /* Edge vignette */
+    .rw-canvas-bg::after {
       content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      opacity: 0.08;
-      pointer-events: none;
-      z-index: 1;
+      position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse at center, transparent 55%, rgba(11,12,15,0.75) 100%);
     }
-    
-    /* Aggressive grid lines */
-    .hero-background::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image: 
-        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-      background-size: 50px 50px;
-      z-index: 2;
-      pointer-events: none;
-    }
-    
-    /* Brutal accent lines */
-    .brutal-line {
-      position: absolute;
-      background: #fff;
-      z-index: 3;
-    }
-    
-    .brutal-line-h1 {
-      height: 1px;
-      width: 100%;
-      top: 20%;
-      left: 0;
-      opacity: 0.1;
-    }
-    
-    .brutal-line-h2 {
-      height: 2px;
-      width: 40%;
-      top: 80%;
-      left: 0;
-      opacity: 0.2;
-    }
-    
-    .brutal-line-v1 {
-      width: 1px;
-      height: 100%;
-      left: 25%;
-      top: 0;
-      opacity: 0.05;
-    }
-    
-    .brutal-line-v2 {
-      width: 2px;
-      height: 100%;
-      right: var(--banner-w);
-      top: 0;
-      opacity: 0.12;
-    }
-    
-    /* Glitch blocks */
-    .glitch-block {
-      position: absolute;
-      background: #fff;
-      z-index: 4;
-    }
-    
-    .glitch-block-1 {
-      width: 200px;
-      height: 3px;
-      top: 35%;
-      right: 10%;
-      animation: glitchFlicker 0.3s infinite;
-    }
-    
-    .glitch-block-3 {
-      width: 4px;
-      height: 150px;
-      top: 15%;
-      left: 15%;
-      animation: glitchFlicker 0.5s infinite 0.1s;
-    }
-    
-    @keyframes glitchFlicker {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 0.1; }
-      75% { opacity: 0.5; }
-    }
-    
-    /* WHITE ACCENT LINES */
-    .brutal-accent {
-      position: absolute;
-      background: #fff;
-      z-index: 5;
-    }
-    
-    .brutal-accent-1 {
-      width: 100%;
-      height: 1px;
-      bottom: 0;
-      left: 0;
-      opacity: 0.3;
-    }
-    
-    .brutal-accent-2 {
-      width: 1px;
-      height: 30%;
-      top: 0;
-      left: 0;
-      opacity: 0.2;
-    }
-    
-    /* Scanlines */
-    .scanlines {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0, 0, 0, 0.3) 2px,
-        rgba(0, 0, 0, 0.3) 4px
-      );
-      z-index: 6;
-      pointer-events: none;
-      animation: scanMove 8s linear infinite;
-    }
-    
-    @keyframes scanMove {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(8px); }
-    }
-    
-    /* Corner markers */
-    .corner-mark {
-      position: absolute;
-      width: 30px;
-      height: 30px;
-      border: 2px solid #fff;
-      z-index: 7;
-    }
-    
-    .corner-mark.tl { top: 20px; left: 80px; border-right: none; border-bottom: none; }
-    .corner-mark.tr { top: 20px; right: 200px; border-left: none; border-bottom: none; }
-    .corner-mark.bl { bottom: 20px; left: 80px; border-right: none; border-top: none; }
-    .corner-mark.br { bottom: 20px; right: 200px; border-left: none; border-top: none; }
-    
-    .hero-main {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      /* Reserve space for the right banner so it never overlaps text */
-      padding: 2rem calc(4rem + var(--banner-w)) 2rem 4rem;
-      position: relative;
-      z-index: 20;
-      background: transparent;
-    }
-    
-    .hero-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-    
-    .giant-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(8rem, 22vw, 32rem);
-      line-height: 0.85;
-      color: #ffffff;
-      letter-spacing: -0.02em;
-      margin: 0;
-      padding: 0;
-      text-transform: uppercase;
-      position: relative;
-      z-index: 20;
-      will-change: transform, text-shadow;
-      cursor: pointer;
-      transition: none;
-    }
-    
-    .giant-name::before,
-    .giant-name::after {
-      content: attr(data-text);
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: transparent;
-      opacity: 0;
-      pointer-events: none;
-    }
-    
-    .giant-name::before {
-      left: -2px;
-      text-shadow: 2px 0 #ff0000, -2px 0 #00ffff;
-      clip: rect(0, 900px, 0, 0);
-      z-index: -1;
-    }
-    
-    .giant-name::after {
-      left: 2px;
-      text-shadow: -2px 0 #00ffff, 2px 0 #ff0000;
-      clip: rect(0, 900px, 0, 0);
-      z-index: -2;
-    }
-    
-    .giant-name:hover {
-      animation: brutalGlitch 1.5s infinite;
-    }
-    
-    .giant-name:hover::before {
-      opacity: 0.6;
-      animation: brutalGlitchClip1 1.2s infinite linear alternate-reverse;
-    }
-    
-    .giant-name:hover::after {
-      opacity: 0.6;
-      animation: brutalGlitchClip2 1s infinite linear alternate-reverse;
-    }
-    
-    @keyframes brutalGlitchClip1 {
-      0% { clip: rect(0px, 9999px, 50px, 0); transform: skew(0deg); }
-      25% { clip: rect(20px, 9999px, 70px, 0); transform: skew(0.3deg); }
-      50% { clip: rect(10px, 9999px, 60px, 0); transform: skew(-0.3deg); }
-      75% { clip: rect(30px, 9999px, 80px, 0); transform: skew(0.2deg); }
-      100% { clip: rect(15px, 9999px, 65px, 0); transform: skew(-0.2deg); }
-    }
-    
-    @keyframes brutalGlitchClip2 {
-      0% { clip: rect(50px, 9999px, 100px, 0); transform: skew(0deg); }
-      25% { clip: rect(30px, 9999px, 80px, 0); transform: skew(-0.3deg); }
-      50% { clip: rect(40px, 9999px, 90px, 0); transform: skew(0.3deg); }
-      75% { clip: rect(20px, 9999px, 70px, 0); transform: skew(-0.2deg); }
-      100% { clip: rect(35px, 9999px, 85px, 0); transform: skew(0.2deg); }
-    }
-    
-    @keyframes brutalGlitch {
-      0%, 100% {
-        text-shadow: 
-          0 0 0 #fff,
-          0 0 0 #fff;
-        transform: translate(0) skew(0deg);
-        opacity: 1;
-      }
-      8% {
-        text-shadow: 
-          -3px 0 0 #ff0000,
-          3px 0 0 #00ffff;
-        transform: translate(-2px, 1px) skew(0.5deg);
-        opacity: 0.98;
-      }
-      8.2% {
-        text-shadow: 
-          3px 0 0 #ff0000,
-          -3px 0 0 #00ffff;
-        transform: translate(2px, -1px) skew(-0.5deg);
-        opacity: 0.99;
-      }
-      8.4% {
-        text-shadow: 
-          0 0 0 #fff,
-          0 0 0 #fff;
-        transform: translate(0) skew(0deg);
-        opacity: 1;
-      }
-      25% {
-        text-shadow: 
-          -2px 0 0 #ff0000,
-          2px 0 0 #00ffff;
-        transform: translate(-1px, 1px) skew(0.3deg);
-        opacity: 0.99;
-      }
-      25.1% {
-        text-shadow: 
-          2px 0 0 #ff0000,
-          -2px 0 0 #00ffff;
-        transform: translate(1px, -1px) skew(-0.3deg);
-        opacity: 1;
-      }
-      25.2% {
-        text-shadow: 
-          0 0 0 #fff,
-          0 0 0 #fff;
-        transform: translate(0) skew(0deg);
-        opacity: 1;
-      }
-      50% {
-        text-shadow: 
-          -4px 0 0 #ff0000,
-          4px 0 0 #00ffff;
-        transform: translate(-2px, 1px) skew(0.6deg);
-        opacity: 0.97;
-      }
-      50.1% {
-        text-shadow: 
-          4px 0 0 #ff0000,
-          -4px 0 0 #00ffff;
-        transform: translate(2px, -1px) skew(-0.6deg);
-        opacity: 0.98;
-      }
-      50.2% {
-        text-shadow: 
-          0 0 0 #fff,
-          0 0 0 #fff;
-        transform: translate(0) skew(0deg);
-        opacity: 1;
-      }
-      75% {
-        text-shadow: 
-          -2px 0 0 #ff0000,
-          2px 0 0 #00ffff;
-        transform: translate(-1px, 0.5px) skew(0.4deg);
-        opacity: 0.99;
-      }
-      75.1% {
-        text-shadow: 
-          2px 0 0 #ff0000,
-          -2px 0 0 #00ffff;
-        transform: translate(1px, -0.5px) skew(-0.4deg);
-        opacity: 1;
-      }
-      75.2% {
-        text-shadow: 
-          0 0 0 #fff,
-          0 0 0 #fff;
-        transform: translate(0) skew(0deg);
-        opacity: 1;
-      }
-    }
-    
-    .giant-name span {
-      display: block;
-    }
-    
-    .name-line-mixed {
-      display: flex;
-      align-items: baseline;
-    }
-    
-    .brand-mark {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.4rem;
-      color: #fff;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-    
-    .directory-section {
-      display: flex;
-      gap: 4rem;
-    }
-    
-    .directory-section:has(.directory-col:only-child) {
-      gap: 0;
-    }
-    
-    .directory-col h4 {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      color: #aaa;
-      margin-bottom: 1.25rem;
-      letter-spacing: 0.2em;
-      font-weight: 500;
-      text-transform: uppercase;
-    }
-    
-    .directory-col ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    
-    .directory-col li {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.9rem;
-      color: #bbb;
-      padding: 0.5rem 0;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      line-height: 1.4;
-    }
-    
-    .directory-col li:hover {
-      color: #fff;
-      transform: translateX(4px);
-    }
-    
-    .directory-col li.active {
-      color: #fff;
-      position: relative;
-      font-weight: 600;
-    }
-    
-    .directory-col li.active::before {
-      content: '→';
-      position: absolute;
-      left: -1.5rem;
-      color: #fff;
-      font-weight: 600;
-    }
-    
-    .directory-col li.external-link {
-      display: block;
-      align-items: center;
-      gap: 0.3rem;
-    }
-    
-    .external-link::after {
-      content: '↗';
-      font-size: 0.7em;
-    }
-    
-    .meta-section {
-      text-align: right;
-      position: absolute;
-      bottom: 2rem;
-      right: -1.5rem;
-      z-index: 25;
-      /* Hard plate so lines never slash through the text */
-      background: #000;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      padding: 16px 18px;
-      display: inline-block;
-    }
-    
-    .roles {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      color: rgba(255, 255, 255, 0.65);
-      line-height: 1.8;
-      margin-bottom: 1.5rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-    
-    .roles span {
-      display: block;
-    }
-    
-    .timestamp {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1rem;
-      color: #fff;
-      letter-spacing: 0.05em;
-      font-weight: 700;
-    }
-    
-    .tagline {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      color: #666;
-      margin-top: 0.5rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-    }
-    
-    /* Scrolling text banner - BRUTAL */
-    .scroll-banner {
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      width: var(--banner-w);
-      overflow: hidden;
-      background: #000;
-      border-left: 2px solid #fff;
-      z-index: 15;
-    }
-    
-    .scroll-text {
-      position: absolute;
-      width: 100%;
-      animation: scrollUp 25s linear infinite;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      color: #fff;
-      line-height: 1.8;
-      writing-mode: horizontal-tb;
-      padding: 1rem;
-      font-weight: 400;
-      letter-spacing: 0.05em;
-      opacity: 0.6;
+    .rw-canvas {
+      position: absolute; top: 0; left: 0;
+      transform-origin: 0 0;
       will-change: transform;
     }
-    
-    .scroll-block {
-      display: flex;
-      flex-direction: column;
+    .rw-edges {
+      position: absolute; top: 0; left: 0;
+      pointer-events: none; overflow: visible;
     }
 
-    .scroll-text span {
-      display: block;
-      white-space: nowrap;
+    /* ── Node cards ── */
+    .rw-node {
+      position: absolute; width: 220px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer; user-select: none;
+      opacity: 0;
+      animation: nodeIn 0.45s cubic-bezier(0.34,1.3,0.64,1) forwards;
+      transition: border-color 0.15s, box-shadow 0.15s;
     }
-    
-    @keyframes scrollUp {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-50%); }
-    }
-    
-    /* Floating cross */
-    .floating-orb {
-      position: absolute;
-      right: 350px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 40px;
-      height: 40px;
-      background: transparent;
+    .rw-node:hover {
+      border-color: var(--border2);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.03), 0 8px 28px rgba(0,0,0,0.55);
       z-index: 10;
     }
-    
-    .floating-orb::before {
-      content: '+';
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 80px;
-      color: #fff;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      opacity: 0.15;
-    }
-    
-    /* Status indicator - BRUTAL B&W */
-    .status-indicator {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      color: #fff;
-      margin-bottom: 1rem;
-      /* Push right so it doesn't sit under the hamburger */
-      margin-left: 30px;
-      background: transparent;
-      padding: 0;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      font-weight: 400;
-    }
-    
-    .status-dot {
-      width: 10px;
-      height: 10px;
-      background: #22c55e;
-      box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.25), 0 0 14px rgba(34, 197, 94, 0.8);
-      animation: harshBlink 1s step-end infinite;
-    }
-    
-    @keyframes harshBlink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.35; }
-    }
-    
-    /* Projects section - BRUTAL B&W */
-    .projects-section {
-      background: #000;
-      padding: 5rem 4rem;
-      position: relative;
-      border-top: 1px solid #333;
-    }
-    
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 3rem;
-      border-bottom: 1px solid #333;
-      padding-bottom: 1rem;
-    }
-    
-    .section-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 4rem;
-      color: #fff;
-      letter-spacing: 0.1em;
-      line-height: 0.9;
-    }
-    
-    .section-count {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.9rem;
-      color: #666;
-      font-weight: 400;
-    }
-    
-    /* Hide neural network on hero for clean brutalist look */
-    .brutalist-hero ~ #neural-network,
-    .brutalist-hero #neural-network {
-      opacity: 0.05 !important;
-    }
-    
-    /* Override hamburger for brutalist theme */
-    .brutalist-hero ~ .hamburger,
-    body:has(.brutalist-hero) .hamburger {
-      background: transparent;
-      border: 1px solid #333;
-    }
-    
-    body:has(.brutalist-hero) .hamburger span {
-      background: #fff !important;
-    }
-    
-    body:has(.brutalist-hero) .hamburger:hover {
-      background: #111;
-      border-color: #555;
-    }
-    
-    /* Ensure body doesn't overflow on mobile */
-    body {
-      overflow-x: hidden;
-      width: 100%;
-    }
-    
-    /* Project card touch improvements - Wii style */
-    .project-card {
-      -webkit-tap-highlight-color: rgba(0, 102, 255, 0.2);
-      cursor: pointer;
-      border-radius: 24px !important;
-    }
-    
-    /* Improve touch targets for links */
-    .directory-col li,
-    .footer-bar a {
-      -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
-    }
-    
-    /* Staggered animation for cards */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    .project-card {
-      animation: fadeInUp 0.6s ease forwards;
-      opacity: 0;
-    }
-    
-    .project-card:nth-child(1) { animation-delay: 0.1s; }
-    .project-card:nth-child(2) { animation-delay: 0.2s; }
-    .project-card:nth-child(3) { animation-delay: 0.3s; }
-    .project-card:nth-child(4) { animation-delay: 0.4s; }
-    .project-card:nth-child(5) { animation-delay: 0.5s; }
-    .project-card:nth-child(6) { animation-delay: 0.6s; }
-    .project-card:nth-child(7) { animation-delay: 0.7s; }
-    
-    /* NO soft vignettes - BRUTAL */
-    
-    /* Footer bar - BRUTAL BLACK */
-    .footer-bar {
-      background: #000;
-      border-top: 2px solid #fff;
-      padding: 2rem 4rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      color: #666;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      font-weight: 400;
-    }
-    
-    .footer-bar a {
-      color: #888;
-      text-decoration: none;
-      transition: all 0.1s ease;
-    }
-    
-    .footer-bar a:hover {
-      color: #fff;
-    }
-
-    .footer-links {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.9rem;
-      flex-wrap: wrap;
-    }
-
-    .footer-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-      padding: 0.7rem 0.95rem;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      background: rgba(255, 255, 255, 0.03);
-      color: #bdbdbd;
-      min-height: 42px;
-    }
-
-    .footer-link:hover {
-      border-color: rgba(255, 255, 255, 0.45);
-      background: rgba(255, 255, 255, 0.08);
-      color: #fff;
-    }
-
-    .footer-link svg {
-      width: 14px;
-      height: 14px;
-      flex-shrink: 0;
-    }
-    
-    /* Mobile responsive */
-    @media (max-width: 1024px) {
-      .brutalist-hero {
-        grid-template-columns: 1fr;
-        min-height: 100vh;
-      }
-      
-      .scroll-banner {
-        display: none;
-      }
-
-      .hero-main {
-        padding: 2rem 2rem 2rem 2rem;
-        min-height: 100vh;
-        justify-content: space-between;
-      }
-      
-      .hero-background .brutal-line-v2 {
-        display: none;
-      }
-      
-      .floating-orb {
-        display: none;
-      }
-      
-      .giant-name {
-        font-size: clamp(4rem, 15vw, 12rem);
-        line-height: 0.9;
-      }
-      
-      .giant-name-container {
-        margin: 2rem 0;
-      }
-      
-      .hero-top {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1.5rem;
-        width: 100%;
-        padding-top: 0.5rem; /* Space from hamburger */
-      }
-      
-      .status-indicator {
-        margin-left: 0;
-        margin-bottom: 0;
-        width: 100%;
-      }
-      
-      .directory-section {
-        flex-direction: column;
-        gap: 2rem;
-        width: 100%;
-      }
-      
-      .directory-col {
-        width: 100%;
-      }
-      
-      .brand-mark {
-        font-size: 1.1rem;
-      }
-      
-      .meta-section {
-        text-align: left;
-        position: static;
-        right: auto;
-        bottom: auto;
-        width: 100%;
-        padding: 1rem 1.25rem;
-      }
-      
-      .roles {
-        font-size: 0.7rem;
-        line-height: 1.6;
-      }
-      
-      .footer-bar {
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
-        padding: 2rem 2rem;
-      }
-      
-      .projects-section {
-        padding: 3rem 2rem;
-      }
-      
-      .section-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-      }
-      
-      .section-title {
-        font-size: 2.5rem;
-      }
-      
-      .section-count {
-        font-size: 0.8rem;
-      }
-      
-      #projects-grid {
-        grid-template-columns: 1fr !important;
-        gap: 1.5rem !important;
-      }
-    }
-    
-    @media (max-width: 768px) {
-      .hero-main {
-        padding: 1.5rem 1.5rem 2rem 1.5rem;
-      }
-      
-      .giant-name {
-        font-size: clamp(3.5rem, 20vw, 10rem);
-        line-height: 0.85;
-      }
-      
-      .giant-name-container {
-        margin: 1.5rem 0;
-      }
-      
-      .hero-top {
-        gap: 1.25rem;
-      }
-      
-      .status-indicator {
-        font-size: 0.65rem;
-      }
-      
-      .status-dot {
-        width: 8px;
-        height: 8px;
-      }
-      
-      .directory-section {
-        gap: 1.5rem;
-      }
-      
-      .directory-col h4 {
-        font-size: 0.6rem;
-        margin-bottom: 0.75rem;
-      }
-      
-      .directory-col li {
-        font-size: 0.75rem;
-        padding: 0.35rem 0;
-      }
-      
-      .brand-mark {
-        font-size: 1rem;
-      }
-      
-      .meta-section {
-        padding: 1rem;
-      }
-      
-      .roles {
-        font-size: 0.65rem;
-        margin-bottom: 1rem;
-      }
-      
-      .projects-section {
-        padding: 2.5rem 1.5rem;
-      }
-      
-      .section-title {
-        font-size: 2rem;
-      }
-      
-      .section-count {
-        font-size: 0.75rem;
-      }
-      
-      .corner-mark {
-        display: none;
-      }
-      
-      .glitch-block {
-        display: none;
-      }
-    }
-    
-    @media (max-width: 640px) {
-      .hero-main {
-        padding: 1.25rem 1.25rem 1.75rem 1.25rem;
-      }
-      
-      .giant-name {
-        font-size: clamp(2.5rem, 22vw, 8rem);
-        line-height: 0.8;
-      }
-      
-      .giant-name-container {
-        margin: 1rem 0 1.5rem 0;
-      }
-      
-      .hero-top {
-        gap: 1rem;
-        margin-bottom: 0.5rem;
-      }
-      
-      .status-indicator {
-        font-size: 0.6rem;
-        gap: 0.5rem;
-      }
-      
-      .status-dot {
-        width: 7px;
-        height: 7px;
-      }
-      
-      .directory-section {
-        gap: 1.25rem;
-      }
-      
-      .directory-col h4 {
-        font-size: 0.55rem;
-        margin-bottom: 0.5rem;
-      }
-      
-      .directory-col li {
-        font-size: 0.7rem;
-        padding: 0.3rem 0;
-      }
-      
-      .brand-mark {
-        font-size: 0.9rem;
-      }
-      
-      .meta-section {
-        padding: 0.875rem;
-        border-width: 1px;
-      }
-      
-      .roles {
-        font-size: 0.6rem;
-        line-height: 1.5;
-        margin-bottom: 0.875rem;
-      }
-      
-      .roles span {
-        margin-bottom: 0.25rem;
-      }
-      
-      .projects-section {
-        padding: 2rem 1.25rem;
-      }
-      
-      .section-header {
-        margin-bottom: 2rem;
-        padding-bottom: 0.75rem;
-      }
-      
-      .section-title {
-        font-size: 1.75rem;
-        line-height: 0.95;
-      }
-      
-      .section-count {
-        font-size: 0.7rem;
-      }
-      
-      #projects-grid {
-        gap: 1.25rem !important;
-      }
-      
-      .project-card {
-        border-width: 1px;
-        border-radius: 28px !important;
-      }
-      
-      .footer-bar {
-        padding: 1.5rem 1.25rem;
-        font-size: 0.7rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .hero-main {
-        padding: 1rem 1rem 1.5rem 1rem;
-      }
-      
-      .giant-name {
-        font-size: clamp(2rem, 24vw, 6rem);
-        letter-spacing: -0.01em;
-      }
-      
-      .giant-name-container {
-        margin: 0.75rem 0 1.25rem 0;
-      }
-      
-      .hero-top {
-        gap: 0.875rem;
-      }
-      
-      .status-indicator {
-        font-size: 0.55rem;
-        gap: 0.45rem;
-        margin-left: 0;
-      }
-      
-      .status-dot {
-        width: 6px;
-        height: 6px;
-      }
-      
-      .directory-section {
-        gap: 1rem;
-      }
-      
-      .directory-col h4 {
-        font-size: 0.5rem;
-        margin-bottom: 0.5rem;
-        letter-spacing: 0.15em;
-      }
-      
-      .directory-col li {
-        font-size: 0.65rem;
-        padding: 0.25rem 0;
-        letter-spacing: 0.08em;
-      }
-      
-      .directory-col li.active::before {
-        left: -1.25rem;
-        font-size: 0.7rem;
-      }
-      
-      .brand-mark {
-        font-size: 0.8rem;
-        letter-spacing: 0.15em;
-      }
-      
-      .meta-section {
-        padding: 0.75rem;
-        border-width: 1px;
-      }
-      
-      .roles {
-        font-size: 0.55rem;
-        line-height: 1.4;
-        margin-bottom: 0.75rem;
-      }
-      
-      .roles span {
-        margin-bottom: 0.2rem;
-      }
-      
-      .projects-section {
-        padding: 1.75rem 1rem;
-      }
-      
-      .section-header {
-        margin-bottom: 1.5rem;
-        padding-bottom: 0.625rem;
-      }
-      
-      .section-title {
-        font-size: 1.5rem;
-      }
-      
-      .section-count {
-        font-size: 0.65rem;
-      }
-      
-      #projects-grid {
-        gap: 1rem !important;
-      }
-      
-      .footer-bar {
-        padding: 1.25rem 1rem;
-        font-size: 0.65rem;
-        gap: 0.875rem;
-      }
-      
-      .footer-bar a {
-        font-size: 0.65rem;
-      }
-      
-      .footer-links {
-        gap: 0.65rem;
-      }
-
-      .footer-link {
-        width: 100%;
-        justify-content: center;
-      }
-      
-      .status-indicator {
-        padding-left: 0;
-      }
-      
-      /* Project card improvements for mobile */
-      .project-card {
-        min-height: auto;
-        border-radius: 28px !important;
-      }
-      
-      .project-card > div:first-child {
-        aspect-ratio: 16/10;
-      }
-      
-      /* Better spacing in project cards on mobile */
-      .project-card > div:last-child {
-        padding: 1rem;
-      }
-    }
-    
-    /* Extra small phones */
-    @media (max-width: 360px) {
-      .hero-main {
-        padding: 0.875rem 0.875rem 1.25rem 0.875rem;
-      }
-      
-      .giant-name {
-        font-size: clamp(1.75rem, 26vw, 5rem);
-      }
-      
-      .status-indicator {
-        font-size: 0.5rem;
-      }
-      
-      .projects-section {
-        padding: 1.5rem 0.875rem;
-      }
-      
-      .section-title {
-        font-size: 1.25rem;
-      }
-    }
-  </style>
-  <style>
-    :root {
-      --page-bg: #f7f5ef;
-      --surface: #ffffff;
-      --surface-strong: #ffffff;
-      --line: rgba(34, 31, 26, 0.1);
-      --line-strong: rgba(34, 31, 26, 0.18);
-      --text-main: #171512;
-      --text-soft: #787166;
-      --display-font: 'Space Grotesk', sans-serif;
-      --mono-font: 'IBM Plex Mono', monospace;
-      --shadow-soft: 0 10px 30px rgba(32, 24, 12, 0.05);
-    }
-
-    body[data-theme="dark"] {
-      --page-bg: #121212;
-      --surface: #181818;
-      --surface-strong: #1f1f1f;
-      --line: rgba(255, 255, 255, 0.12);
-      --line-strong: rgba(255, 255, 255, 0.22);
-      --text-main: #f6f3ee;
-      --text-soft: #a8a096;
-      --shadow-soft: 0 12px 30px rgba(0, 0, 0, 0.28);
-    }
-
-    body {
-      background: var(--page-bg);
-      color: var(--text-main);
-      font-family: var(--display-font);
-    }
-
-    #neural-network {
-      display: none;
-    }
-
-    #main-content {
-      padding: 0 24px 24px;
-    }
-
-    .brutalist-hero {
-      min-height: auto;
-      background: transparent;
-      display: block;
-      padding: 0;
-    }
-
-    .hero-background {
-      inset: 0;
-      background: transparent;
-      border: none;
-      border-radius: 0;
-      overflow: visible;
-    }
-
-    .hero-background::before {
-      display: none;
-    }
-
-    .hero-background::after {
-      display: none;
-    }
-
-    .brutal-line,
-    .glitch-block,
-    .brutal-accent,
-    .scanlines,
-    .corner-mark,
-    .scroll-banner,
-    .floating-orb {
-      display: none !important;
-    }
-
-    .hero-main {
-      max-width: 1080px;
-      min-height: auto;
-      margin: 0 auto;
-      padding: 56px 0 28px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      gap: 28px;
-    }
-
-    .hero-top {
-      align-items: center;
-      justify-content: flex-end;
-      gap: 16px;
-    }
-
-    .hero-controls {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-height: 40px;
-    }
-
-    .status-indicator {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0;
-      height: 40px;
-      padding: 0 1.05rem;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: transparent;
-      color: var(--text-main);
-      font-family: var(--mono-font);
-      letter-spacing: 0.08em;
-      font-size: 0.72rem;
-      box-shadow: none;
-    }
-
-    .theme-toggle {
-      position: relative;
-      width: 58px;
-      height: 40px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: transparent;
-      cursor: pointer;
-      padding: 0;
-      transition: background 0.2s ease, border-color 0.2s ease;
-    }
-
-    .theme-toggle-track {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 10px;
-      color: var(--text-soft);
-      font-size: 12px;
-      line-height: 1;
-    }
-
-    .theme-toggle-thumb {
-      position: absolute;
-      top: 5px;
-      left: 4px;
-      width: 28px;
-      height: 28px;
-      border-radius: 999px;
-      background: var(--text-main);
-      transition: transform 0.2s ease, background 0.2s ease;
-    }
-
-    body[data-theme="dark"] .theme-toggle-thumb {
-      transform: translateX(21px);
-      background: #f6f3ee;
-    }
-
-    body[data-theme="dark"] .theme-toggle-track {
-      color: #c2bbb2;
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      box-shadow: none;
-      animation: none;
-    }
-
-    .giant-name-container {
-      max-width: 720px;
-    }
-
-    .hero-kicker {
-      margin: 0 0 0.75rem;
-      color: var(--text-soft);
-      font-family: var(--mono-font);
-      font-size: 0.76rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .giant-name {
-      font-family: var(--display-font);
-      font-size: clamp(3.2rem, 8vw, 5.8rem);
-      line-height: 0.94;
-      letter-spacing: -0.07em;
-      color: var(--text-main);
-      cursor: default;
-      will-change: auto;
-    }
-
-    .giant-name::before,
-    .giant-name::after {
-      content: none;
-    }
-
-    .giant-name:hover {
-      animation: none;
-    }
-
-    .projects-section {
-      max-width: 1080px;
-      margin: 0 auto;
-      background: transparent;
-      padding: 20px 0 72px;
-      border-top: none;
-    }
-
-    .section-header {
-      align-items: flex-start;
-      gap: 18px;
-      padding-bottom: 0;
-      margin-bottom: 18px;
-      border-bottom: none;
-    }
-
-    .section-title {
-      margin: 0;
-      font-family: var(--display-font);
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      line-height: 1.02;
-      letter-spacing: -0.05em;
-      color: var(--text-main);
-    }
-
-    .section-intro {
-      display: none;
-    }
-
-    .section-count {
-      padding: 0;
-      border-radius: 0;
-      border: none;
-      background: transparent;
-      font-family: var(--mono-font);
-      font-size: 0.74rem;
-      color: var(--text-soft);
-    }
-
-    #projects-grid {
-      display: grid !important;
-      grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
-      gap: 20px !important;
-    }
-
-    .project-card {
-      grid-column: span 4;
-      background: var(--surface) !important;
-      border: 1px solid var(--line) !important;
-      box-shadow: none !important;
-      border-radius: 20px !important;
-      overflow: hidden;
-      backdrop-filter: none;
-      -webkit-tap-highlight-color: rgba(23, 21, 18, 0.08);
-    }
-
-    body[data-theme="dark"] .card-title {
-      color: var(--text-main) !important;
-    }
-
-    body[data-theme="dark"] .card-company,
-    body[data-theme="dark"] .card-summary {
-      color: var(--text-soft) !important;
-    }
-
-    body[data-theme="dark"] .card-icon,
-    body[data-theme="dark"] .card-arrow {
-      color: var(--text-main) !important;
-      background: rgba(255,255,255,0.08) !important;
-      border-color: rgba(255,255,255,0.1) !important;
-    }
-
-    body[data-theme="dark"] .card-badge {
-      color: var(--text-soft) !important;
-      background: rgba(255,255,255,0.1) !important;
-      border-color: rgba(255,255,255,0.1) !important;
-    }
-
-    .footer-bar {
-      max-width: 1080px;
-      margin: 0 auto 24px;
-      padding: 20px 0 0;
-      border: none;
-      border-top: 1px solid var(--line);
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
-      color: var(--text-soft);
-      text-transform: none;
-      letter-spacing: 0;
-      backdrop-filter: none;
-    }
-
-    .footer-bar a {
-      color: var(--text-soft);
-    }
-
-    .footer-link {
-      border-color: var(--line);
-      background: transparent;
-      color: var(--text-main);
-      border-radius: 999px;
-    }
-
-    .footer-link:hover {
-      background: #ffffff;
-      border-color: var(--line-strong);
-      color: var(--text-main);
-    }
-
-    @media (max-width: 1180px) {
-      .project-card {
-        grid-column: span 6;
-      }
-    }
-
-    @media (max-width: 900px) {
-      #main-content {
-        padding: 0 16px 16px;
-      }
-
-      .hero-main {
-        padding-top: 36px;
-      }
-
-      .section-header,
-      .footer-bar {
-        grid-template-columns: 1fr;
-        flex-direction: column;
-      }
-
-      .section-header,
-      .footer-bar {
-        align-items: flex-start;
-      }
-    }
-
-    @media (max-width: 720px) {
-      .hero-main {
-        padding: 28px 0 20px;
-        gap: 22px;
-      }
-
-      .hero-top {
-        flex-direction: row;
-        align-items: center;
-        flex-wrap: wrap;
-      }
-
-      .giant-name {
-        font-size: clamp(2.6rem, 14vw, 4.2rem);
-      }
-
-      .project-card {
-        grid-column: span 12;
-      }
-
-      .footer-bar {
-        margin: 0 auto 16px;
-        padding: 18px 0 0;
-      }
-
-      .footer-links {
-        width: 100%;
-      }
-
-      .footer-link {
-        width: 100%;
-        justify-content: center;
-      }
-    }
-
-    @keyframes name-wiggle {
-      0%   { transform: translateX(0); }
-      15%  { transform: translateX(-6px) rotate(-1deg); }
-      30%  { transform: translateX(6px) rotate(1deg); }
-      45%  { transform: translateX(-4px) rotate(-0.5deg); }
-      60%  { transform: translateX(4px) rotate(0.5deg); }
-      75%  { transform: translateX(-2px); }
-      100% { transform: translateX(0); }
-    }
-
-    @keyframes btn-nudge {
-      0%, 100% { transform: translateX(0); }
-      40%       { transform: translateX(5px); }
-    }
-
-    .name-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .about-me-btn {
+    @keyframes nodeIn {
+      from { opacity: 0; transform: scale(0.92) translateY(8px); }
+      to   { opacity: 1; transform: scale(1)    translateY(0);   }
+    }
+    .rw-node-inner { padding: 14px 14px 12px; }
+    .rw-node-header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 14px; }
+    .rw-node-icon {
+      width: 30px; height: 30px; border-radius: 7px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; letter-spacing: -0.5px;
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      white-space: nowrap;
-      color: var(--text-main);
-      background: var(--surface);
-      border: 1.5px solid var(--line-strong);
-      border-radius: 999px;
-      padding: 0.45rem 1rem;
-      text-decoration: none;
-      margin-top: 0.6rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-      transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
-      flex-shrink: 0;
-      align-self: flex-start;
     }
-
-    .about-me-btn:hover {
-      background: var(--text-main);
-      color: var(--page-bg);
-      border-color: var(--text-main);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-      animation: btn-nudge 0.4s ease;
+    .rw-node-meta { flex: 1; min-width: 0; }
+    .rw-node-title {
+      font-size: 13px; font-weight: 600; color: var(--text);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      line-height: 1.3; margin-bottom: 3px;
     }
-
-    /* ── Promo banner ── */
-    .promo-banner {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.6rem;
-      background: #171512;
-      color: #f6f3ee;
-      text-decoration: none;
-      padding: 0.6rem 1rem;
+    .rw-node-sub {
+      font-size: 11px; color: var(--text3);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      transition: background 0.15s ease;
-      position: relative;
-      z-index: 200;
     }
-
-    body[data-theme="dark"] .promo-banner {
-      background: #f6f3ee;
-      color: #171512;
+    .rw-node-footer {
+      display: flex; align-items: center; gap: 6px;
+      padding-top: 10px; border-top: 1px solid var(--border);
     }
-
-    .promo-banner:hover {
-      background: #2e2b26;
+    .rw-status-dot {
+      width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
     }
-
-    body[data-theme="dark"] .promo-banner:hover {
-      background: #e0ddd6;
+    .rw-status-dot.live {
+      background: var(--green);
+      animation: pulseDot 2.5s ease-in-out infinite;
     }
-
-    .promo-banner-badge {
-      background: #4caf50;
-      color: #fff;
-      font-size: 0.6rem;
-      letter-spacing: 0.06em;
-      padding: 0.15rem 0.5rem;
-      border-radius: 999px;
-      font-weight: 600;
-      flex-shrink: 0;
+    .rw-status-dot.github { background: var(--text3); }
+    .rw-status-dot.local  { background: #3B82F6; }
+    @keyframes pulseDot {
+      0%,100% { box-shadow: 0 0 0 0   rgba(35,209,139,0.4); }
+      50%     { box-shadow: 0 0 0 4px rgba(35,209,139,0);   }
     }
+    .rw-status-text { font-size: 11px; color: var(--text2); }
 
-    .promo-banner-arrow {
-      opacity: 0.6;
-      transition: transform 0.15s ease, opacity 0.15s ease;
+    /* ── Edge lines ── */
+    .rw-edge {
+      stroke: rgba(255,255,255,0.065); stroke-width: 1.5; fill: none;
+      stroke-dasharray: 6 10;
+      animation: flowEdge 2.2s linear infinite;
     }
+    @keyframes flowEdge { to { stroke-dashoffset: -16; } }
 
-    .promo-banner:hover .promo-banner-arrow {
-      transform: translateX(4px);
-      opacity: 1;
+    /* ── Bottom controls ── */
+    .rw-controls {
+      position: fixed; bottom: 18px;
+      left: calc(var(--sidebar-w) + 14px);
+      display: flex; align-items: center; gap: 4px; z-index: 300;
     }
-
-    /* fix toggle + available-for-work alignment */
-    .hero-top {
-      display: flex !important;
+    .rw-ctrl-group {
+      display: flex; align-items: center;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; overflow: hidden;
     }
-
-    /* ── Safe area insets for notched iPhones (Face ID / Dynamic Island) ── */
-    @supports (padding-left: env(safe-area-inset-left)) {
-      .promo-banner {
-        padding-left: max(1rem, env(safe-area-inset-left));
-        padding-right: max(1rem, env(safe-area-inset-right));
-      }
-      #main-content {
-        padding-left: max(24px, env(safe-area-inset-left));
-        padding-right: max(24px, env(safe-area-inset-right));
-      }
-      @media (max-width: 900px) {
-        #main-content {
-          padding-left: max(16px, env(safe-area-inset-left));
-          padding-right: max(16px, env(safe-area-inset-right));
-        }
-      }
-      footer.footer-bar {
-        padding-bottom: max(0px, env(safe-area-inset-bottom));
-      }
+    .rw-ctrl-btn {
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent; border: none;
+      color: var(--text2); cursor: pointer; font-size: 15px;
+      transition: background 0.12s, color 0.12s;
     }
-
-    /* ── Promo banner on very small screens ── */
-    @media (max-width: 420px) {
-      .promo-banner {
-        font-size: 0.62rem;
-        gap: 0.35rem;
-        padding: 0.5rem 0.875rem;
-        letter-spacing: 0.04em;
-      }
-      .promo-banner-badge {
-        font-size: 0.55rem;
-        padding: 0.1rem 0.4rem;
-      }
-    }
-
-    /* Desktop: show inline button, hide mobile one */
-    .about-me-mobile { display: none; }
-
-    /* ── Better touch targets on mobile ── */
-    @media (max-width: 768px) {
-      .about-me-btn {
-        padding: 0.6rem 1.1rem;
-        min-height: 40px;
-        display: inline-flex;
-        align-items: center;
-      }
-      .theme-toggle {
-        height: 44px;
-      }
-      .footer-link {
-        min-height: 46px;
-      }
-    }
-
-    /* ── On small phones, show button below ABUZAHRIEH instead of between names ── */
-    @media (max-width: 640px) {
-      .about-me-desktop { display: none !important; }
-      .about-me-mobile {
-        display: inline-flex;
-        align-items: center;
-        margin-top: 1rem;
-      }
-    }
-
-    /* ── Footer: hide decorative text on small phones ── */
-    @media (max-width: 600px) {
-      .footer-bar > div:last-child {
-        display: none;
-      }
-      .footer-bar > div:first-child {
-        font-size: 0.7rem;
-        color: var(--text-soft);
-      }
-    }
-  </style>
-  <style>
-    /* ============================================
-       ANDURIL-INSPIRED REDESIGN
-       ============================================ */
-
-    :root {
-      --page-bg: #000 !important;
-      --surface: #111 !important;
-      --line: rgba(255,255,255,0.08) !important;
-      --text-main: #fff !important;
-      --text-soft: rgba(255,255,255,0.5) !important;
-    }
-
-    body { background: #000 !important; color: #fff !important; }
-
-    #neural-network { display: none !important; }
-
-    #main-content { padding: 0 !important; }
-
-    .promo-banner {
-      background: #0a0a0a !important;
-      color: rgba(255,255,255,0.6) !important;
-      border-bottom: 1px solid rgba(255,255,255,0.06) !important;
-    }
-    body[data-theme="dark"] .promo-banner { background: #0a0a0a !important; color: rgba(255,255,255,0.6) !important; }
-    .promo-banner:hover, body[data-theme="dark"] .promo-banner:hover { background: #111 !important; }
-
-    .brutalist-hero { display: none !important; }
-
-    /* ── Nav ── */
-    .anduril-nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(0,0,0,0.92);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2.5rem;
-      height: 68px;
-    }
-
-    .anduril-nav-brand {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .anduril-nav-logo {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #fff;
-      text-decoration: none;
-      letter-spacing: -0.01em;
-      line-height: 1;
-    }
-
-    .anduril-nav-role {
+    .rw-ctrl-btn:hover { background: var(--surface2); color: var(--text); }
+    .rw-ctrl-divider { width: 1px; height: 18px; background: var(--border); }
+    .rw-ctrl-pill {
+      font-size: 11px; color: var(--text3);
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.62rem;
-      color: rgba(255,255,255,0.3);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      line-height: 1;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; height: 32px; padding: 0 10px;
+      display: flex; align-items: center;
     }
 
-    .anduril-nav-right {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      align-items: flex-end;
+    /* ── Hint toast ── */
+    .rw-hint {
+      position: fixed; bottom: 60px; left: 50%; transform: translateX(-50%);
+      font-size: 12px; color: var(--text3);
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 20px; padding: 6px 14px;
+      pointer-events: none; white-space: nowrap;
+      animation: hintFade 4.5s ease forwards; z-index: 300;
+    }
+    @keyframes hintFade {
+      0%,50% { opacity: 1; } 100% { opacity: 0; }
     }
 
-    .anduril-nav-right a {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.62);
-      text-decoration: none;
-      transition: color 0.15s;
-      line-height: 1;
-    }
-
-    .anduril-nav-right a:hover { color: #fff; }
-
-    @media (max-width: 768px) {
-      .anduril-nav { padding: 0 1.25rem; height: 60px; }
-    }
-
-    /* ── Projects section ── */
-    .projects-section {
-      max-width: none !important;
-      margin: 0 !important;
-      padding: 0 !important;
-    }
-
-    .section-header { display: none !important; }
-
-    /* ── Grid ── */
-    #projects-grid {
-      display: grid !important;
-      grid-template-columns: repeat(3, 1fr) !important;
-      grid-template-rows: 440px 440px 300px 440px 500px 440px !important;
-      gap: 4px !important;
-      padding: 4px !important;
-      background: #222 !important;
-    }
-
-    .anduril-card:nth-child(1) { grid-row: 1 / 3; grid-column: 1; }
-    .anduril-card:nth-child(2) { grid-row: 1;     grid-column: 2; }
-    .anduril-card:nth-child(3) { grid-row: 1;     grid-column: 3; }
-    .anduril-card:nth-child(4) { grid-row: 2;     grid-column: 2; }
-    .anduril-card:nth-child(5) { grid-row: 2;     grid-column: 3; }
-    .anduril-card:nth-child(6) { grid-row: 3;     grid-column: 1 / 3; }
-    .anduril-card:nth-child(7) { grid-row: 3;     grid-column: 3; }
-    .anduril-card:nth-child(8) { grid-row: 4;     grid-column: 1; }
-    .anduril-card:nth-child(9) { grid-row: 4;     grid-column: 2 / 4; }
-    .anduril-card:nth-child(10){ grid-row: 5;     grid-column: 1 / 4; }
-    .anduril-card:nth-child(11){ grid-row: 6;     grid-column: 1 / 4; }
-
-    /* ── Cards ── */
-    .anduril-card {
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      background: #111;
-    }
-
-    .anduril-card-img {
-      position: absolute;
-      inset: 0;
-    }
-
-    .anduril-card-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .anduril-card:hover .anduril-card-img img { transform: scale(1.04); }
-
-    .anduril-card-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.22) 45%, rgba(0,0,0,0.04) 100%);
-      transition: background 0.4s ease;
-    }
-
-    .anduril-card:hover .anduril-card-overlay {
-      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 45%, rgba(0,0,0,0.1) 100%);
-    }
-
-    .anduril-card-info {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      padding: 22px 26px;
-      pointer-events: none;
-    }
-
-    .anduril-card-text { flex: 1; min-width: 0; padding-right: 12px; }
-
-    .anduril-card-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(1rem, 1.7vw, 1.6rem);
-      font-weight: 600;
-      color: #fff;
-      margin: 0;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-    }
-
-    .anduril-card-sub {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.7rem;
-      color: rgba(255,255,255,0.58);
-      margin: 5px 0 0;
-      letter-spacing: 0.02em;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .anduril-card-arrow {
-      font-size: 1rem;
-      color: rgba(255,255,255,0.45);
-      align-self: flex-end;
-      flex-shrink: 0;
-      transition: transform 0.3s ease, color 0.3s ease;
-      line-height: 1;
-    }
-
-    .anduril-card:hover .anduril-card-arrow {
-      transform: translate(3px, -3px);
-      color: #fff;
-    }
-
-    /* ── Tablet grid ── */
-    @media (max-width: 900px) {
-      #projects-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        grid-template-rows: repeat(7, 280px) !important;
-        gap: 4px !important;
-        padding: 4px !important;
+    /* ── Mobile fallback ── */
+    @media (max-width: 700px) {
+      .rw-sidebar { display: none; }
+      .rw-main { left: 0; overflow-y: auto; }
+      .rw-canvas-bg {
+        cursor: default; background-image: none; overflow: auto;
+        min-height: calc(100vh - var(--topbar-h));
       }
-      .anduril-card:nth-child(1)  { grid-row: 1;     grid-column: 1 / 3; }
-      .anduril-card:nth-child(2)  { grid-row: 2;     grid-column: 1; }
-      .anduril-card:nth-child(3)  { grid-row: 2;     grid-column: 2; }
-      .anduril-card:nth-child(4)  { grid-row: 3;     grid-column: 1; }
-      .anduril-card:nth-child(5)  { grid-row: 3;     grid-column: 2; }
-      .anduril-card:nth-child(6)  { grid-row: 4;     grid-column: 1 / 3; }
-      .anduril-card:nth-child(7)  { grid-row: 5;     grid-column: 1; }
-      .anduril-card:nth-child(8)  { grid-row: 5;     grid-column: 2; }
-      .anduril-card:nth-child(9)  { grid-row: 6;     grid-column: 1 / 3; }
-      .anduril-card:nth-child(10) { grid-row: 7;     grid-column: 1 / 3; }
-    }
-
-    @media (max-width: 560px) {
-      #projects-grid {
-        grid-template-columns: 1fr !important;
-        grid-template-rows: repeat(10, 260px) !important;
+      .rw-canvas {
+        position: relative; transform: none !important;
+        display: flex; flex-direction: column;
+        align-items: center; gap: 12px; padding: 24px 16px;
       }
-      .anduril-card { grid-row: auto !important; grid-column: 1 !important; }
-    }
-
-    /* ── Footer ── */
-    .footer-bar { display: none !important; }
-
-    .anduril-footer {
-      background: #000;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      padding: 4rem 2rem 3rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 3rem;
-    }
-
-    .anduril-footer-name {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #fff;
-      display: block;
-      margin-bottom: 0.75rem;
-    }
-
-    .anduril-footer-copy {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.62rem;
-      color: rgba(255,255,255,0.3);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin: 0;
-    }
-
-    .anduril-footer-cols { display: flex; gap: 4rem; }
-
-    .anduril-footer-col {
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-    }
-
-    .anduril-footer-col h4 {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.62rem;
-      color: rgba(255,255,255,0.3);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin: 0 0 0.4rem;
-    }
-
-    .anduril-footer-col a {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.62);
-      text-decoration: none;
-      transition: color 0.15s;
-    }
-
-    .anduril-footer-col a:hover { color: #fff; }
-
-    @media (max-width: 640px) {
-      .anduril-footer { flex-direction: column; gap: 2rem; padding: 3rem 1.25rem 2rem; }
-      .anduril-footer-cols { gap: 2rem; }
+      .rw-node {
+        position: relative !important; left: auto !important; top: auto !important;
+        width: 100%; max-width: 360px;
+      }
+      .rw-edges { display: none; }
+      .rw-controls { display: none; }
+      .rw-hint { display: none; }
+      .rw-canvas-bg::after { display: none; }
     }
   </style>
 </head>
-
 <body>
 
-  <!-- Neural Network Visualization -->
-  <canvas id="neural-network"></canvas>
-
-  <!-- Site Content -->
-  <div id="main-content">
-    <!-- Navigation -->
-    <nav class="anduril-nav">
-      <div class="anduril-nav-brand">
-        <a href="index.html" class="anduril-nav-logo">Muhannad Abuzahrieh</a>
-        <span class="anduril-nav-role">Software Engineer</span>
-      </div>
-      <div class="anduril-nav-right">
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-      </div>
+  <!-- Topbar -->
+  <header class="rw-topbar">
+    <div class="rw-topbar-left">
+      <div class="rw-avatar">M</div>
+      <span class="rw-topbar-name">muhannad</span>
+      <span class="rw-topbar-sep">›</span>
+      <div class="rw-topbar-env">portfolio</div>
+    </div>
+    <nav class="rw-topbar-right">
+      <a href="about.html" class="rw-topnav-link">About</a>
+      <a href="contact.html" class="rw-topnav-btn">Contact</a>
     </nav>
+  </header>
 
-    <!-- Projects Section -->
-    <section class="projects-section" id="projects-section">
-      <div class="section-header">
-        <div>
-          <h2 class="section-title">Selected projects</h2>
-        </div>
-        <span class="section-count" id="section-count">10 projects</span>
+  <!-- Sidebar -->
+  <aside class="rw-sidebar">
+    <button class="rw-sidebar-btn active" title="Projects">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <rect x="1" y="1" width="6" height="6" rx="1.5" fill="currentColor"/>
+        <rect x="9" y="1" width="6" height="6" rx="1.5" fill="currentColor"/>
+        <rect x="1" y="9" width="6" height="6" rx="1.5" fill="currentColor"/>
+        <rect x="9" y="9" width="6" height="6" rx="1.5" fill="currentColor"/>
+      </svg>
+    </button>
+    <div class="rw-sidebar-sep"></div>
+    <button class="rw-sidebar-btn" title="About" onclick="location.href='about.html'">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <circle cx="8" cy="5" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M3 13.5C3 11.015 5.239 9 8 9s5 2.015 5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <button class="rw-sidebar-btn" title="Contact" onclick="location.href='contact.html'">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <rect x="1.5" y="3.5" width="13" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M1.5 5.5l6.5 4 6.5-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </aside>
+
+  <!-- Canvas -->
+  <main class="rw-main">
+    <div class="rw-canvas-bg" id="canvasBg">
+      <div class="rw-canvas" id="rwCanvas">
+        <svg id="edgeLayer" class="rw-edges" width="2400" height="2400"></svg>
+        <!-- nodes injected by JS -->
       </div>
-      <div id="projects-grid"></div>
-    </section>
-  </div> <!-- /main-content -->
-  
-  <script>
-    function applyTheme(theme) {
-      document.body.setAttribute('data-theme', theme);
-      try {
-        localStorage.setItem('theme', theme);
-      } catch (e) {}
-      const toggle = document.getElementById('theme-toggle');
-      if (toggle) {
-        toggle.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
-      }
-    }
+    </div>
+  </main>
 
-    function initThemeToggle() {
-      let savedTheme = null;
-      try {
-        savedTheme = localStorage.getItem('theme');
-      } catch (e) {}
+  <!-- Bottom controls -->
+  <div class="rw-controls">
+    <div class="rw-ctrl-group">
+      <button class="rw-ctrl-btn" id="ctrlFit" title="Fit to screen">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+          <path d="M1 4.5V1.5h3M9 1.5h3v3M12 8.5v3H9M4 12H1V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="rw-ctrl-divider"></div>
+      <button class="rw-ctrl-btn" id="ctrlZoomIn"  title="Zoom in">+</button>
+      <div class="rw-ctrl-divider"></div>
+      <button class="rw-ctrl-btn" id="ctrlZoomOut" title="Zoom out">−</button>
+    </div>
+    <div class="rw-ctrl-pill" id="zoomLabel">85%</div>
+    <div class="rw-ctrl-pill" id="svcCount">— projects</div>
+  </div>
 
-      const preferredDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      applyTheme(savedTheme || (preferredDark ? 'dark' : 'light'));
+  <!-- Drag hint -->
+  <div class="rw-hint" id="rwHint">Drag to explore &nbsp;·&nbsp; Scroll to zoom &nbsp;·&nbsp; Click to open</div>
 
-      const toggle = document.getElementById('theme-toggle');
-      if (!toggle) return;
-
-      toggle.addEventListener('click', () => {
-        const currentTheme = document.body.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-        applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
-      });
-    }
-
-    initThemeToggle();
-    
-    function scrollToProjects() {
-      document.getElementById('projects-section').scrollIntoView({ behavior: 'smooth' });
-    }
-    
-    // Fill the right banner so it always reaches the bottom (no blank gaps)
-    function fillScrollBanner() {
-      const banner = document.querySelector('.scroll-banner');
-      const scroller = document.querySelector('.scroll-banner .scroll-text');
-      if (!banner || !scroller) return;
-
-      const template = scroller.querySelector('[data-scroll-line]');
-      const line = template ? template.textContent.trim() : 'MUHANNAD • ABUZAHRIEH';
-      const computed = window.getComputedStyle(scroller);
-      const fontSize = parseFloat(computed.fontSize || '12');
-      const lineHeight = computed.lineHeight === 'normal'
-        ? fontSize * 1.8
-        : parseFloat(computed.lineHeight || String(fontSize * 1.8));
-
-      const paddingTop = parseFloat(computed.paddingTop || '0');
-      const paddingBottom = parseFloat(computed.paddingBottom || '0');
-      const usable = Math.max(0, banner.clientHeight - paddingTop - paddingBottom);
-      const linesNeeded = Math.ceil(usable / lineHeight) + 10; // overscan
-
-      const buildBlock = () => {
-        let html = '';
-        for (let i = 0; i < linesNeeded; i++) {
-          html += `<span>${line}</span>`;
-        }
-        return `<div class="scroll-block">${html}</div>`;
-      };
-
-      // Two identical blocks for seamless looping with translateY(-50%)
-      scroller.innerHTML = buildBlock() + buildBlock();
-    }
-
-    window.addEventListener('load', () => {
-      fillScrollBanner();
-      window.addEventListener('resize', () => {
-        // cheap debounce
-        window.clearTimeout(window.__bannerResizeT);
-        window.__bannerResizeT = window.setTimeout(fillScrollBanner, 100);
-      });
-    });
-  </script>
-
-  <!-- Ryo-style Project Modal -->
+  <!-- ── Project Modal ── -->
   <div id="project-overlay" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Project details" data-close="true">
     <div class="modalCard" role="document">
       <button class="modalClose" type="button" data-close="true" aria-label="Close">✕</button>
-
       <div class="modalMedia" id="modalMedia">
         <button class="expandMediaBtn" id="expandMediaBtn" type="button" aria-label="Expand preview">
           <span class="expandIcon">⛶</span>
         </button>
       </div>
-      
-      <!-- Expanded Media Overlay -->
-      <div class="expandedMediaOverlay" id="expandedMediaOverlay" style="display: none;">
+      <div class="expandedMediaOverlay" id="expandedMediaOverlay" style="display:none;">
         <button class="collapseMediaBtn" id="collapseMediaBtn" type="button" aria-label="Collapse preview">
           <span class="collapseIcon">✕</span>
         </button>
         <div class="expandedMediaContent" id="expandedMediaContent"></div>
       </div>
-
       <div class="modalBody">
         <div class="detailHeader">
           <div class="detailIcon" id="detailIcon">⌘</div>
           <div>
             <h2 class="detailTitle" id="detailTitle">Project Title</h2>
-
             <div class="detailMetaRow">
               <div class="metaBlock">
                 <div class="metaLabel">Location</div>
                 <div class="metaValue" id="detailLocation">—</div>
               </div>
-
               <div class="metaBlock">
                 <div class="metaLabel">Date</div>
                 <div class="metaValue" id="detailDate">—</div>
               </div>
             </div>
-
             <div class="chips" id="detailChips"></div>
           </div>
         </div>
-
         <section class="detailSection">
           <h3 class="sectionTitle">Project Overview</h3>
           <div class="overviewCard" id="detailOverview"></div>
-          <div class="overviewLink" id="detailOverviewLink" style="display: none;">
-            <div id="detailLinksContainer" style="display: flex; flex-wrap: wrap; gap: 0.5rem;"></div>
+          <div class="overviewLink" id="detailOverviewLink" style="display:none;">
+            <div id="detailLinksContainer" style="display:flex;flex-wrap:wrap;gap:0.5rem;"></div>
           </div>
         </section>
-
         <section class="detailSection" id="releasesSection" hidden>
           <h3 class="sectionTitle">Releases</h3>
           <div class="list" id="detailReleases"></div>
         </section>
-
         <section class="detailSection" id="tweetsSection" hidden>
           <h3 class="sectionTitle">Popular on Twitter</h3>
           <div class="tweetGrid" id="detailTweets"></div>
         </section>
-
         <section class="detailSection" id="highlightsSection" hidden>
           <h3 class="sectionTitle">Highlights</h3>
           <ul class="bullets" id="detailHighlights"></ul>
         </section>
-        
-        <div class="expandPageContainer" id="expandPageContainer" style="display: none;">
+        <div class="expandPageContainer" id="expandPageContainer" style="display:none;">
           <a href="#" id="expandPageLink" class="expandPageButton">
-            <span>Expand Page</span>
-            <span class="linkArrow">↗</span>
+            <span>Expand Page</span><span class="linkArrow">↗</span>
           </a>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- External JavaScript -->
-  <script src="js/script.js"></script>
-  
-  <!-- Load project loader helper first -->
+  <!-- Scripts -->
   <script src="js/projects/project-loader.js"></script>
-  
-  <!-- Load individual project files -->
   <script src="js/projects/portfolio-os.js"></script>
   <script src="js/projects/lucentir.js"></script>
   <script src="js/projects/shadoconnect.js"></script>
@@ -2255,923 +404,326 @@
   <script src="js/projects/jat.js"></script>
   <script src="js/projects/fluxdesk.js"></script>
   <script src="js/projects/rx-check.js"></script>
-
-  <!-- Load project updates module (combines all projects) -->
   <script src="js/project-updates.js"></script>
-  
-  <!-- Projects Showcase Script -->
+
   <script>
-    // Helper functions for Ryo-style modal (must be defined before initProjects)
+    // ── Modal helpers ──────────────────────────────────────────────────────
     function formatDateLong(iso) {
       if (!iso) return "—";
       const d = new Date(iso + "T00:00:00");
-      return d.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+      return d.toLocaleDateString(undefined, { year:"numeric", month:"long", day:"numeric" });
     }
-
-    function setSectionVisible(sectionId, visible) {
-      const el = document.getElementById(sectionId);
+    function setSectionVisible(id, v) {
+      const el = document.getElementById(id);
       if (!el) return;
-      if (visible) el.removeAttribute("hidden");
-      else el.setAttribute("hidden", "");
+      if (v) el.removeAttribute("hidden"); else el.setAttribute("hidden","");
     }
-
     function closeModal() {
-      const overlay = document.getElementById("project-overlay");
-      if (overlay) {
-        overlay.setAttribute("aria-hidden", "true");
-        document.documentElement.style.overflow = "";
-      }
-      // Also collapse expanded media if open
-      collapseExpandedMedia();
+      const o = document.getElementById("project-overlay");
+      if (o) { o.setAttribute("aria-hidden","true"); o.style.display=""; document.documentElement.style.overflow=""; }
     }
-    
     function setupMediaExpand(project) {
-      const expandBtn = document.getElementById("expandMediaBtn");
-      const collapseBtn = document.getElementById("collapseMediaBtn");
-      const expandedOverlay = document.getElementById("expandedMediaOverlay");
-      const expandedContent = document.getElementById("expandedMediaContent");
-      const modalMedia = document.getElementById("modalMedia");
-      
-      if (!expandBtn || !collapseBtn || !expandedOverlay || !expandedContent || !modalMedia) return;
-      
-      // Remove existing listeners to avoid duplicates
-      const newExpandBtn = expandBtn.cloneNode(true);
-      expandBtn.parentNode.replaceChild(newExpandBtn, expandBtn);
-      
-      newExpandBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        expandMedia(project, modalMedia, expandedContent, expandedOverlay);
-      });
-      
-      collapseBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        collapseExpandedMedia(expandedOverlay);
-      });
-      
-      // Close on overlay click
-      expandedOverlay.addEventListener("click", (e) => {
-        if (e.target === expandedOverlay) {
-          collapseExpandedMedia(expandedOverlay);
-        }
-      });
-      
-      // Close on ESC key (use a named function to avoid duplicates)
-      function handleExpandedEsc(e) {
-        if (e.key === "Escape" && expandedOverlay.style.display !== "none" && expandedOverlay.style.display !== "") {
-          e.stopPropagation(); // Prevent modal from closing
-          collapseExpandedMedia(expandedOverlay);
-        }
+      const expandBtn     = document.getElementById("expandMediaBtn");
+      const collapseBtn   = document.getElementById("collapseMediaBtn");
+      const expandedOvl   = document.getElementById("expandedMediaOverlay");
+      const expandedCont  = document.getElementById("expandedMediaContent");
+      const modalMedia    = document.getElementById("modalMedia");
+      if (!expandBtn||!collapseBtn||!expandedOvl||!expandedCont||!modalMedia) return;
+      const nb = expandBtn.cloneNode(true);
+      expandBtn.parentNode.replaceChild(nb, expandBtn);
+      nb.addEventListener("click", e => { e.stopPropagation(); expandMedia(modalMedia, expandedCont, expandedOvl); });
+      collapseBtn.addEventListener("click", e => { e.stopPropagation(); collapseMedia(expandedOvl); });
+      expandedOvl.addEventListener("click", e => { if (e.target===expandedOvl) collapseMedia(expandedOvl); });
+      function onEsc(e) {
+        if (e.key==="Escape" && expandedOvl.style.display!=="none") { e.stopPropagation(); collapseMedia(expandedOvl); }
       }
-      // Remove old listener if exists (using capture phase to catch it early)
-      document.removeEventListener("keydown", handleExpandedEsc, true);
-      document.addEventListener("keydown", handleExpandedEsc, true);
+      document.removeEventListener("keydown", onEsc, true);
+      document.addEventListener("keydown", onEsc, true);
     }
-    
-    function expandMedia(project, modalMedia, expandedContent, expandedOverlay) {
-      // Clone the media content (image or iframe)
-      const mediaClone = modalMedia.querySelector("img, iframe");
-      if (!mediaClone) return;
-      
-      // Create expanded version
-      const expandedMedia = mediaClone.cloneNode(true);
-      if (expandedMedia.tagName === "IMG") {
-        expandedMedia.style.width = "100%";
-        expandedMedia.style.height = "100%";
-        expandedMedia.style.objectFit = "contain";
-      } else if (expandedMedia.tagName === "IFRAME") {
-        expandedMedia.style.width = "100%";
-        expandedMedia.style.height = "100%";
-        expandedMedia.style.border = "none";
-      }
-      
-      expandedContent.innerHTML = "";
-      expandedContent.appendChild(expandedMedia);
-      
-      // Show expanded overlay
-      expandedOverlay.style.display = "flex";
+    function expandMedia(modalMedia, expandedCont, expandedOvl) {
+      const src = modalMedia.querySelector("img,iframe");
+      if (!src) return;
+      const clone = src.cloneNode(true);
+      clone.style.cssText = src.tagName==="IMG" ? "width:100%;height:100%;object-fit:contain;" : "width:100%;height:100%;border:none;";
+      expandedCont.innerHTML = "";
+      expandedCont.appendChild(clone);
+      expandedOvl.style.display = "flex";
       document.documentElement.style.overflow = "hidden";
-      
-      // Focus the collapse button for accessibility
-      setTimeout(() => {
-        document.getElementById("collapseMediaBtn")?.focus();
-      }, 100);
+      setTimeout(() => document.getElementById("collapseMediaBtn")?.focus(), 100);
     }
-    
-    function collapseExpandedMedia(expandedOverlay) {
-      if (!expandedOverlay) {
-        expandedOverlay = document.getElementById("expandedMediaOverlay");
-      }
-      if (expandedOverlay) {
-        expandedOverlay.style.display = "none";
-        // Clear the content
-        const expandedContent = document.getElementById("expandedMediaContent");
-        if (expandedContent) {
-          expandedContent.innerHTML = "";
-        }
-        // Only restore overflow if modal is closed
-        const modal = document.getElementById("project-overlay");
-        if (modal && modal.getAttribute("aria-hidden") === "true") {
-          document.documentElement.style.overflow = "";
-        }
+    function collapseMedia(expandedOvl) {
+      if (!expandedOvl) expandedOvl = document.getElementById("expandedMediaOverlay");
+      if (expandedOvl) {
+        expandedOvl.style.display = "none";
+        const ec = document.getElementById("expandedMediaContent");
+        if (ec) ec.innerHTML = "";
+        const m = document.getElementById("project-overlay");
+        if (m && m.getAttribute("aria-hidden")==="true") document.documentElement.style.overflow = "";
       }
     }
-
-    // Open Project - Ryo-style modal
     function openProject(p) {
-      console.log('openProject called with:', p);
-      if (!p) {
-        console.error('No project provided');
-        return;
-      }
-
-      // Get overlay element each time to ensure it exists
+      if (!p) return;
       const overlay = document.getElementById("project-overlay");
-      if (!overlay) {
-        console.error('Overlay element not found');
-        return;
-      }
-
-      console.log('Opening modal...', overlay);
-      overlay.setAttribute("aria-hidden", "false");
+      if (!overlay) return;
+      overlay.setAttribute("aria-hidden","false");
       overlay.style.display = "flex";
       document.documentElement.style.overflow = "hidden";
-      console.log('Modal aria-hidden:', overlay.getAttribute("aria-hidden"));
-
       // Media
-      const modalMedia = document.getElementById("modalMedia");
-      if (modalMedia) {
-        // Check if project has an iframe embed (like Portfolio OS)
-        const hasIframe = p.link && (p.link.includes('.html') || p.link.includes('os.html'));
-        const mediaContent = hasIframe && p.link.includes('os.html')
-          ? `<iframe src="${p.link}" style="width: 100%; height: 100%; border: none;" title="${p.title || ''} preview"></iframe>`
-          : `<img src="${p.thumb || ''}" alt="${p.title || ''} preview" />`;
-        
-        // Add media content and expand button
-        modalMedia.innerHTML = mediaContent + '<button class="expandMediaBtn" id="expandMediaBtn" type="button" aria-label="Expand preview"><span class="expandIcon">⛶</span></button>';
+      const mm = document.getElementById("modalMedia");
+      if (mm) {
+        const hasIframe = p.link && p.link.includes('os.html');
+        mm.innerHTML = (hasIframe
+          ? `<iframe src="${p.link}" style="width:100%;height:100%;border:none;" title="${p.title||''} preview"></iframe>`
+          : `<img src="${p.thumb||''}" alt="${p.title||''} preview" />`)
+          + '<button class="expandMediaBtn" id="expandMediaBtn" type="button" aria-label="Expand preview"><span class="expandIcon">⛶</span></button>';
       }
-      
-      // Setup expand/collapse functionality
       setupMediaExpand(p);
-
-      // Header fields
-      const detailIcon = document.getElementById("detailIcon");
-      if (detailIcon) {
-        // Use icon field first, then logo if it's text/emoji, otherwise use first character of title
-        if (p.icon && typeof p.icon === 'string' && !p.icon.includes('<')) {
-          detailIcon.textContent = p.icon;
-        } else if (p.logo && typeof p.logo === 'string' && !p.logo.includes('<')) {
-          detailIcon.textContent = p.logo;
-        } else {
-          detailIcon.textContent = p.title ? p.title.charAt(0).toUpperCase() : "•";
-        }
+      // Icon
+      const di = document.getElementById("detailIcon");
+      if (di) {
+        if (p.icon && !p.icon.includes('<')) di.textContent = p.icon;
+        else if (p.logo && !p.logo.includes('<')) di.textContent = p.logo;
+        else di.textContent = (p.title||'P').charAt(0).toUpperCase();
       }
-
-      const detailTitle = document.getElementById("detailTitle");
-      if (detailTitle) {
-        detailTitle.textContent = p.title || "Untitled";
+      const dt = document.getElementById("detailTitle");      if (dt) dt.textContent = p.title||"Untitled";
+      const dl = document.getElementById("detailLocation");   if (dl) dl.textContent = p.location||"—";
+      const dd = document.getElementById("detailDate");       if (dd) dd.textContent = formatDateLong(p.date);
+      // Chips
+      const chips = document.getElementById("detailChips");
+      if (chips) {
+        const items = [];
+        if (p.role) items.push(`Role: ${p.role}`);
+        if (Array.isArray(p.stack)) items.push(...p.stack);
+        chips.innerHTML = items.map(c=>`<span class="chip">${c}</span>`).join("");
       }
-
-      const detailLocation = document.getElementById("detailLocation");
-      if (detailLocation) {
-        detailLocation.textContent = p.location || "—";
-      }
-
-      const detailDate = document.getElementById("detailDate");
-      if (detailDate) {
-        detailDate.textContent = formatDateLong(p.date);
-      }
-
-      // Chips (role + stack + tags)
-      const chipsEl = document.getElementById("detailChips");
-      if (chipsEl) {
-        const chips = [];
-        if (p.role) chips.push(`Role: ${p.role}`);
-        if (Array.isArray(p.stack)) chips.push(...p.stack);
-        if (Array.isArray(p.tags)) chips.push(...p.tags);
-        chipsEl.innerHTML = chips.map((c) => `<span class="chip">${c}</span>`).join("");
-      }
-
       // Overview
-      const detailOverview = document.getElementById("detailOverview");
-      if (detailOverview) {
-        detailOverview.textContent = p.overview || p.description || p.desc || "No overview yet.";
-      }
-
-      // Project Links in Overview
-      const detailOverviewLink = document.getElementById("detailOverviewLink");
-      const detailLinksContainer = document.getElementById("detailLinksContainer");
-      if (detailOverviewLink && detailLinksContainer) {
-        // Build links list: use p.links array if available, else fall back to p.link
-        let linksList = [];
-        if (Array.isArray(p.links) && p.links.length > 0) {
-          linksList = p.links;
-        } else if (p.link) {
-          linksList = [{ label: 'View Project', url: p.link }];
-        }
-        if (linksList.length > 0) {
-          detailLinksContainer.innerHTML = linksList.map(l => {
-            const isExternal = l.url && (l.url.startsWith('http://') || l.url.startsWith('https://'));
-            return `<a href="${l.url}" target="${isExternal ? '_blank' : '_self'}" ${isExternal ? 'rel="noopener noreferrer"' : ''} class="projectLink">
-              <span>${l.label || 'View Project'}</span>
-              <span class="linkArrow">↗</span>
-            </a>`;
+      const ov = document.getElementById("detailOverview");
+      if (ov) ov.textContent = p.overview || p.description || "No overview yet.";
+      // Links
+      const ovLink = document.getElementById("detailOverviewLink");
+      const lc     = document.getElementById("detailLinksContainer");
+      if (ovLink && lc) {
+        let list = Array.isArray(p.links) && p.links.length ? p.links : (p.link ? [{label:'View Project',url:p.link}] : []);
+        if (list.length) {
+          lc.innerHTML = list.map(l => {
+            const ext = l.url && (l.url.startsWith('http://') || l.url.startsWith('https://'));
+            return `<a href="${l.url}" target="${ext?'_blank':'_self'}" ${ext?'rel="noopener noreferrer"':''} class="projectLink"><span>${l.label||'View Project'}</span><span class="linkArrow">↗</span></a>`;
           }).join('');
-          detailOverviewLink.style.display = 'block';
-        } else {
-          detailOverviewLink.style.display = 'none';
-        }
+          ovLink.style.display = 'block';
+        } else { ovLink.style.display = 'none'; }
       }
-
-      // Expand Page Link (only for relative paths - indicates a dedicated HTML page exists)
-      const expandPageContainer = document.getElementById("expandPageContainer");
-      const expandPageLink = document.getElementById("expandPageLink");
-      if (expandPageContainer && expandPageLink) {
-        // Check if project has a relative path link (like os.html, html/projects/portfolio-os.html)
-        const projectLinkUrl = p.link || (Array.isArray(p.links) && p.links.length > 0 ? p.links[0].url : null);
-        if (projectLinkUrl && !projectLinkUrl.startsWith('http://') && !projectLinkUrl.startsWith('https://')) {
-          // It's a relative path, show expand page option
-          expandPageLink.href = projectLinkUrl;
-          expandPageLink.target = '_self';
-          expandPageContainer.style.display = 'block';
-        } else {
-          expandPageContainer.style.display = 'none';
-        }
+      // Expand page
+      const epc = document.getElementById("expandPageContainer");
+      const epl = document.getElementById("expandPageLink");
+      if (epc && epl) {
+        const lu = p.link || (Array.isArray(p.links) && p.links.length ? p.links[0].url : null);
+        if (lu && !lu.startsWith('http')) { epl.href = lu; epc.style.display = 'block'; }
+        else epc.style.display = 'none';
       }
-
       // Releases
-      const releases = Array.isArray(p.releases) ? p.releases : [];
-      setSectionVisible("releasesSection", releases.length > 0);
-
-      const releasesEl = document.getElementById("detailReleases");
-      if (releasesEl) {
-        releasesEl.innerHTML = releases
-          .map((r) => {
-            const title = r.title || "Release";
-            const note = r.note || "";
-            const url = r.url || "#";
-            return `
-              <div class="releaseItem">
-                <p class="releaseTitle">${title}</p>
-                ${note ? `<p class="releaseNote">${note}</p>` : ""}
-                ${url && url !== "#"
-                  ? `<a class="releaseLink" href="${url}" target="_blank" rel="noreferrer">↗ View</a>`
-                  : ""}
-              </div>
-            `;
-          })
-          .join("");
-      }
-
+      const rels = Array.isArray(p.releases) ? p.releases : [];
+      setSectionVisible("releasesSection", rels.length > 0);
+      const re = document.getElementById("detailReleases");
+      if (re) re.innerHTML = rels.map(r=>`<div class="releaseItem"><p class="releaseTitle">${r.title||''}</p>${r.note?`<p class="releaseNote">${r.note}</p>`:''}${r.url&&r.url!=='#'?`<a class="releaseLink" href="${r.url}" target="_blank" rel="noreferrer">↗ View</a>`:''}</div>`).join('');
       // Tweets
-      const tweets = Array.isArray(p.tweets) ? p.tweets : [];
-      setSectionVisible("tweetsSection", tweets.length > 0);
-
-      const tweetsEl = document.getElementById("detailTweets");
-      if (tweetsEl) {
-        tweetsEl.innerHTML = tweets
-          .map((t) => {
-            const author = t.author || "—";
-            const handle = t.handle || "";
-            const text = t.text || "";
-            const media = t.media || "";
-            const url = t.url || "#";
-
-            return `
-              <div class="tweetCard">
-                <div class="tweetTop">
-                  <div class="tweetAuthor">
-                    <div class="tweetName">${author}</div>
-                    <div class="tweetHandle">${handle}</div>
-                  </div>
-                  <div aria-hidden="true">𝕏</div>
-                </div>
-
-                ${text ? `<div class="tweetText">${text}</div>` : ""}
-
-                ${media
-                  ? `<div class="tweetMedia"><img src="${media}" alt="Tweet media" loading="lazy" /></div>`
-                  : ""}
-
-                ${url && url !== "#"
-                  ? `<a class="tweetLink" href="${url}" target="_blank" rel="noreferrer">↗ Open on X</a>`
-                  : ""}
-              </div>
-            `;
-          })
-          .join("");
-      }
-
+      const tw = Array.isArray(p.tweets) ? p.tweets : [];
+      setSectionVisible("tweetsSection", tw.length > 0);
+      const te = document.getElementById("detailTweets");
+      if (te) te.innerHTML = tw.map(t=>`<div class="tweetCard"><div class="tweetTop"><div class="tweetAuthor"><div class="tweetName">${t.author||''}</div><div class="tweetHandle">${t.handle||''}</div></div><div>𝕏</div></div>${t.text?`<div class="tweetText">${t.text}</div>`:''}${t.media?`<div class="tweetMedia"><img src="${t.media}" alt="" loading="lazy"/></div>`:''}${t.url&&t.url!=='#'?`<a class="tweetLink" href="${t.url}" target="_blank" rel="noreferrer">↗ Open on X</a>`:''}</div>`).join('');
       // Highlights
-      const highlights = Array.isArray(p.highlights) ? p.highlights : [];
-      setSectionVisible("highlightsSection", highlights.length > 0);
+      const hl = Array.isArray(p.highlights) ? p.highlights : [];
+      setSectionVisible("highlightsSection", hl.length > 0);
+      const he = document.getElementById("detailHighlights");
+      if (he) he.innerHTML = hl.map(h=>`<li>${h}</li>`).join('');
+    }
+    // Modal close listeners
+    document.getElementById("project-overlay").addEventListener("click", e => {
+      if (e.target?.dataset?.close === "true") closeModal();
+    });
+    window.addEventListener("keydown", e => {
+      const o = document.getElementById("project-overlay");
+      if (e.key==="Escape" && o && o.getAttribute("aria-hidden")==="false") closeModal();
+    });
 
-      const hlEl = document.getElementById("detailHighlights");
-      if (hlEl) {
-        hlEl.innerHTML = highlights.map((h) => `<li>${h}</li>`).join("");
+    // ── Canvas state ───────────────────────────────────────────────────────
+    const canvasBg = document.getElementById('canvasBg');
+    const rwCanvas = document.getElementById('rwCanvas');
+    const NODE_W = 220, NODE_H = 114;
+    const PAD = 700; // offset so all logical coords are positive
+
+    let tx = 0, ty = 0, scale = 0.85;
+    let dragging = false, lastX = 0, lastY = 0;
+
+    function applyTransform(animated) {
+      if (animated) {
+        rwCanvas.style.transition = 'transform 0.38s cubic-bezier(0.4,0,0.2,1)';
+        setTimeout(() => { rwCanvas.style.transition = ''; }, 420);
+      } else { rwCanvas.style.transition = ''; }
+      rwCanvas.style.transform = `translate(${tx}px,${ty}px) scale(${scale})`;
+      document.getElementById('zoomLabel').textContent = Math.round(scale*100) + '%';
+    }
+    function resetView() {
+      tx = canvasBg.offsetWidth  / 2 - PAD * scale;
+      ty = canvasBg.offsetHeight / 2 - PAD * scale;
+    }
+
+    // ── Node positions (logical, centered at 0,0) ─────────────────────────
+    const nodeLayout = {
+      'portfolio-os':      { x:   0,  y: -370 },
+      'lucentir':          { x: -430, y: -190 },
+      'shadoconnect':      { x:  300, y: -220 },
+      'ghost-job-checker': { x:  -80, y:  -65 },
+      'wifi-analyzer':     { x: -510, y:  110 },
+      'rentwise':          { x:  170, y:   90 },
+      'jat':               { x:  470, y:   10 },
+      'fluxdesk':          { x: -460, y:  310 },
+      'wind-turbine':      { x: -120, y:  360 },
+      'postnote':          { x:  200, y:  340 },
+      'rx-check':          { x:  480, y:  260 },
+    };
+
+    // ── Edges ─────────────────────────────────────────────────────────────
+    const EDGES = [
+      ['jat',               'ghost-job-checker'],
+      ['ghost-job-checker', 'lucentir'],
+      ['shadoconnect',      'rentwise'],
+      ['rentwise',          'fluxdesk'],
+      ['rx-check',          'postnote'],
+    ];
+
+    function getNodeUrl(p) {
+      if (!p.link) return '';
+      if (p.link.startsWith('http')) {
+        try { return new URL(p.link).hostname.replace('www.',''); } catch { return ''; }
       }
+      return p.link;
+    }
+    function getStatus(p) {
+      if (!p.link) return { cls:'github', label:'GitHub' };
+      if (p.link.startsWith('http')) return { cls:'live', label:'Live' };
+      return { cls:'local', label:'Local' };
+    }
+    function getIcon(p) {
+      const l = p.logo || '';
+      if (l && !l.includes('<')) return l;
+      return (p.title||'P').charAt(0).toUpperCase();
+    }
+
+    function buildNode(project, delay) {
+      const pos = nodeLayout[project.slug] || { x: Math.random()*600-300, y: Math.random()*400-200 };
+      const st  = getStatus(project);
+      const col = project.brandColor || '#6366F1';
+      const node = document.createElement('div');
+      node.className = 'rw-node';
+      node.dataset.slug = project.slug;
+      node.style.left = (PAD + pos.x - NODE_W/2) + 'px';
+      node.style.top  = (PAD + pos.y - NODE_H/2) + 'px';
+      node.style.animationDelay = delay + 'ms';
+      node.innerHTML = `
+        <div class="rw-node-inner">
+          <div class="rw-node-header">
+            <div class="rw-node-icon" style="background:${col}1A;color:${col};border:1px solid ${col}30;">${getIcon(project)}</div>
+            <div class="rw-node-meta">
+              <div class="rw-node-title">${project.title}</div>
+              <div class="rw-node-sub">${getNodeUrl(project) || project.company || ''}</div>
+            </div>
+          </div>
+          <div class="rw-node-footer">
+            <span class="rw-status-dot ${st.cls}"></span>
+            <span class="rw-status-text">${st.label}</span>
+          </div>
+        </div>`;
+      node.addEventListener('click', e => {
+        e.stopPropagation();
+        node.style.borderColor = col;
+        setTimeout(() => { node.style.borderColor = ''; }, 250);
+        openProject(project);
+      });
+      return node;
+    }
+
+    function drawEdges() {
+      const svg = document.getElementById('edgeLayer');
+      svg.innerHTML = '';
+      EDGES.forEach(([a, b]) => {
+        const la = nodeLayout[a]; const lb = nodeLayout[b];
+        if (!la || !lb) return;
+        const x1 = PAD + la.x; const y1 = PAD + la.y;
+        const x2 = PAD + lb.x; const y2 = PAD + lb.y;
+        const dy = y2 - y1;
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', `M${x1} ${y1} C${x1} ${y1+dy*0.5} ${x2} ${y2-dy*0.5} ${x2} ${y2}`);
+        path.setAttribute('class', 'rw-edge');
+        svg.appendChild(path);
+      });
     }
 
     function initProjects() {
-      // Projects Data - Load from individual project files
       const projects = [
-        window.PortfolioOSProject,
-        window.LucentirProject,
-        window.ShadoconnectProject,
-        window.RentwiseProject,
-        window.WifiAnalyzerProject,
-        window.WindTurbineProject,
-        window.PostNoteProject,
-        window.GhostJobCheckerProject,
-        window.JATProject,
-        window.FluxdeskProject,
-        window.RxCheckProject
-      ].filter(p => p); // Filter out any undefined projects
+        window.PortfolioOSProject, window.LucentirProject, window.ShadoconnectProject,
+        window.RentwiseProject,    window.WifiAnalyzerProject, window.WindTurbineProject,
+        window.PostNoteProject,    window.GhostJobCheckerProject, window.JATProject,
+        window.FluxdeskProject,    window.RxCheckProject,
+      ].filter(Boolean);
 
-      console.log('Projects loaded:', projects.length, projects);
+      document.getElementById('svcCount').textContent = `${projects.length} projects`;
 
-      const sectionCount = document.getElementById("section-count");
-      if (sectionCount) {
-        sectionCount.textContent = `${projects.length} projects`;
-      }
-
-      // Elements
-      const grid = document.getElementById("projects-grid");
-      
-      if (!grid) {
-        console.error('Projects grid element not found!');
-        return;
-      }
-      
-      console.log('Grid element found:', grid);
-      
-      // Clear any existing content
-      grid.innerHTML = '';
-
-      // Generate Anduril-style cards
-      projects.forEach((p, index) => {
-        const cardContainer = document.createElement("div");
-        cardContainer.className = "anduril-card";
-        cardContainer.innerHTML = `
-          <div class="anduril-card-img">
-            <img src="${p.thumb}" alt="${p.title}">
-          </div>
-          <div class="anduril-card-overlay"></div>
-          <div class="anduril-card-info">
-            <div class="anduril-card-text">
-              <h2 class="anduril-card-title">${p.title}</h2>
-              <p class="anduril-card-sub">${p.company}</p>
-            </div>
-            <div class="anduril-card-arrow">↗</div>
-          </div>
-        `;
-
-        cardContainer.addEventListener("click", (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          openProject(p);
-        });
-        grid.appendChild(cardContainer);
-      });
-      
-      console.log('Rendered', projects.length, 'project cards');
-      
-      // Setup modal close handlers
-      const overlayForHandlers = document.getElementById("project-overlay");
-      if (overlayForHandlers) {
-        overlayForHandlers.addEventListener("click", (e) => {
-          if (e.target?.dataset?.close === "true") closeModal();
-        });
-      }
-
-      window.addEventListener("keydown", (e) => {
-        const overlayEl = document.getElementById("project-overlay");
-        if (e.key === "Escape" && overlayEl && overlayEl.getAttribute("aria-hidden") === "false") {
-          closeModal();
-        }
+      projects.forEach((p, i) => {
+        rwCanvas.appendChild(buildNode(p, 80 + i * 55));
       });
 
-      // Stagger Grid Animation on Load
-      if (grid) {
-        grid.style.opacity = "0";
-        setTimeout(() => {
-          grid.style.transition = "opacity 0.6s";
-          grid.style.opacity = "1";
-        }, 100);
+      drawEdges();
+      resetView();
+      applyTransform(false);
+    }
+
+    // ── Pan ────────────────────────────────────────────────────────────────
+    canvasBg.addEventListener('mousedown', e => {
+      if (e.button !== 0) return;
+      if (e.target.closest('.rw-node')) return;
+      dragging = true; lastX = e.clientX; lastY = e.clientY;
+      canvasBg.classList.add('grabbing');
+    });
+    window.addEventListener('mousemove', e => {
+      if (!dragging) return;
+      tx += e.clientX - lastX; ty += e.clientY - lastY;
+      lastX = e.clientX; lastY = e.clientY;
+      applyTransform(false);
+    });
+    window.addEventListener('mouseup', () => { dragging = false; canvasBg.classList.remove('grabbing'); });
+
+    // ── Zoom ───────────────────────────────────────────────────────────────
+    canvasBg.addEventListener('wheel', e => {
+      e.preventDefault();
+      const d = e.deltaY > 0 ? 0.9 : 1.1;
+      const r = canvasBg.getBoundingClientRect();
+      const cx = e.clientX - r.left;
+      const cy = e.clientY - r.top;
+      tx = cx + (tx - cx) * d;
+      ty = cy + (ty - cy) * d;
+      scale = Math.min(Math.max(scale * d, 0.2), 3);
+      applyTransform(false);
+    }, { passive: false });
+
+    // ── Touch pan ──────────────────────────────────────────────────────────
+    let ltx = 0, lty = 0;
+    canvasBg.addEventListener('touchstart', e => {
+      if (e.touches.length===1) { ltx = e.touches[0].clientX; lty = e.touches[0].clientY; }
+    }, { passive: true });
+    canvasBg.addEventListener('touchmove', e => {
+      if (e.touches.length===1) {
+        tx += e.touches[0].clientX - ltx; ty += e.touches[0].clientY - lty;
+        ltx = e.touches[0].clientX; lty = e.touches[0].clientY;
+        applyTransform(false);
       }
-    }
+    }, { passive: true });
 
-      // Render Dev Updates Section
-      function renderDevUpdates(projectSlug, brandColor) {
-        if (!window.ProjectUpdates) return '';
-        
-        const updates = window.ProjectUpdates.getUpdatesBySlug(projectSlug);
-        if (!updates || updates.length === 0) return '';
-        
-        const typeColors = {
-          major: '#9333EA',
-          feature: '#10B981',
-          enhancement: '#3B82F6',
-          bugfix: '#EF4444'
-        };
-        
-        const typeLabels = {
-          major: 'Major',
-          feature: 'Feature',
-          enhancement: 'Enhancement',
-          bugfix: 'Bug Fix'
-        };
-        
-        return `
-          <!-- Dev Updates Section Wrapper -->
-          <div style="margin: 40px 0; padding: 20px 0;">
-            <!-- Dev Updates Section -->
-            <div class="group" style="background: rgba(0,0,0,0.6); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.15); border-radius: 24px; padding: 40px; transition: all 0.4s; box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05) inset;">
-            <div class="flex items-center gap-3 mb-6">
-              <div style="width: 40px; height: 40px; background: linear-gradient(135deg, ${brandColor} 0%, ${brandColor}dd 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">📝</div>
-              <h3 class="text-3xl font-bold text-white">Dev Updates</h3>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 2rem; max-height: 600px; overflow-y: auto; padding-right: 12px;">
-              ${updates.map((update, index) => {
-                const formattedDate = new Date(update.date).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                });
-                const isLast = index === updates.length - 1;
-                return `
-                  <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 28px; border-left: 5px solid ${brandColor}; box-shadow: 0 4px 16px rgba(0,0,0,0.3); transition: all 0.3s ease; position: relative;">
-                    ${!isLast ? `<div style="position: absolute; bottom: -1rem; left: 50%; transform: translateX(-50%); width: 2px; height: 1rem; background: linear-gradient(to bottom, ${brandColor}40, transparent);"></div>` : ''}
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.08);">
-                      <div>
-                        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 8px;">
-                          <span style="padding: 8px 16px; background: ${brandColor}25; color: ${brandColor}; border: 1px solid ${brandColor}50; border-radius: 10px; font-size: 15px; font-weight: 700; letter-spacing: 0.5px;">${update.version}</span>
-                          <span style="padding: 8px 16px; background: ${typeColors[update.type]}25; color: ${typeColors[update.type]}; border: 1px solid ${typeColors[update.type]}50; border-radius: 10px; font-size: 14px; font-weight: 600;">${typeLabels[update.type]}</span>
-                        </div>
-                        <div style="color: #9ca3af; font-size: 14px; font-weight: 500;">${formattedDate}</div>
-                      </div>
-                    </div>
-                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;">
-                      ${update.changes.map(change => `
-                        <li style="display: flex; align-items: flex-start; gap: 12px; color: #e5e7eb; font-size: 15px; line-height: 1.7; padding-left: 4px;">
-                          <svg width="20" height="20" viewBox="0 0 16 16" fill="none" style="flex-shrink: 0; margin-top: 2px;">
-                            <path d="M6 8L7.5 9.5L10 7" stroke="${brandColor}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                          </svg>
-                          <span style="flex: 1;">${change}</span>
-                        </li>
-                      `).join('')}
-                    </ul>
-                  </div>
-                `;
-              }).join('')}
-            </div>
-          </div>
-          </div>
-        `;
-      }
+    // ── Controls ───────────────────────────────────────────────────────────
+    document.getElementById('ctrlZoomIn') .addEventListener('click', () => { scale = Math.min(scale*1.2,3);   applyTransform(true); });
+    document.getElementById('ctrlZoomOut').addEventListener('click', () => { scale = Math.max(scale*0.8,0.2); applyTransform(true); });
+    document.getElementById('ctrlFit')    .addEventListener('click', () => { scale = 0.85; resetView();       applyTransform(true); });
 
-
-    
-    // Fallback function without Framer Motion
-    function renderProjectsWithoutMotion() {
-      // Projects Data - Load from individual project files
-      const projects = [
-        window.PortfolioOSProject,
-        window.LucentirProject,
-        window.ShadoconnectProject,
-        window.RentwiseProject,
-        window.WifiAnalyzerProject,
-        window.WindTurbineProject,
-        window.PostNoteProject,
-        window.GhostJobCheckerProject,
-        window.JATProject,
-        window.FluxdeskProject,
-        window.RxCheckProject
-      ].filter(p => p); // Filter out any undefined projects
-
-      // Fallback project data (if project files not loaded)
-      const fallbackProjects = [
-        {
-          slug: "lucentir",
-          title: "Lucentir",
-          company: "Privacy & Threat Intelligence",
-          logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="24" fill="url(#lucentir-gradient-fb)"/><path d="M24 12C19 12 16 14 16 14V24C16 29 19.5 33 24 36C28.5 33 32 29 32 24V14C32 14 29 12 24 12Z" fill="white"/><defs><linearGradient id="lucentir-gradient-fb" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop stop-color="#10B981"/><stop offset="1" stop-color="#059669"/></linearGradient></defs></svg>',
-          thumb: "images/lucentir.png",
-          tagline: "See clearly. Stay private.",
-          description: "Built a privacy intelligence platform that scores 256 comparison cases across 5 pillars: minimization, control, security, sharing, transparency. Shipped VPN and Ad‑Blocker comparisons (10+ providers each) with privacy‑first toggles (Free/Open Source/No Telemetry), rich filters/sorting, and side‑by‑side comparison.",
-          details: "Implemented a transparent scoring model with cited sources per city (privacy and transparency links on every profile) and methodology aligned to IR/SOC reporting.",
-          brandColor: "#10B981",
-          link: "https://lucentir.xyz/"
-        },
-        {
-          slug: "shadoconnect",
-          title: "ShadoConnect",
-          company: "Healthcare & Education Platform",
-          logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#6366F1"/><circle cx="16" cy="18" r="4" fill="white"/><path d="M12 28C12 25 14 23 16 23C18 23 20 25 20 28" stroke="white" stroke-width="2" stroke-linecap="round"/><circle cx="32" cy="18" r="4" fill="white"/><path d="M28 28C28 25 30 23 32 23C34 23 36 25 36 28" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M20 24H28" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>',
-          thumb: "images/shadoconnect.png",
-          tagline: "Shape your future career with real experience",
-          description: "Built an AI-powered platform connecting high school and college students with healthcare professionals for shadowing, internships, and job opportunities. Developed intelligent matching algorithms that pair students with healthcare providers based on specialty, location, availability, and career interests. Implemented real-time scheduling, profile management, and communication tools to streamline the shadowing application process.",
-          details: "Created a comprehensive platform addressing the gap between aspiring healthcare students and professional mentors. Built features for student profile creation, healthcare professional discovery, application tracking, and automated scheduling. The platform serves both pre-med students seeking clinical exposure and healthcare facilities looking to mentor the next generation of medical professionals.",
-          brandColor: "#6366F1",
-          link: "https://shadoconnect.com"
-        },
-        {
-          slug: "rentwise",
-          title: "Rentwise",
-          company: "Property Management Platform",
-          logo: '<svg width="100%" height="100%" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#2563EB"/><rect x="18" y="14" width="12" height="20" rx="1" stroke="white" stroke-width="2"/><rect x="22" y="28" width="4" height="6" fill="white"/><rect x="20" y="18" width="2" height="2" fill="white"/><rect x="26" y="18" width="2" height="2" fill="white"/><rect x="20" y="22" width="2" height="2" fill="white"/><rect x="26" y="22" width="2" height="2" fill="white"/></svg>',
-          thumb: "images/rentwise1.jpeg",
-          tagline: "Streamline your rental operations",
-          description: "Built a comprehensive property management platform designed to streamline rental operations for landlords and property managers. Developed features for tenant management, lease tracking, maintenance request workflows, and financial reporting. Implemented automated rent collection, document management, and communication tools to improve efficiency.",
-          details: "Created an all-in-one solution addressing the complexities of managing rental properties. Built tenant portals for rent payments and maintenance requests, landlord dashboards for property oversight, automated lease renewals, and financial analytics. The platform reduces administrative overhead and improves tenant satisfaction through real-time notifications and seamless communication.",
-          brandColor: "#2563EB",
-          link: "https://rentwise.tech/",
-          gallery: [
-            "images/rentwise1.jpeg",
-            "images/rentwise2.jpeg",
-            "images/rentwise3.jpeg",
-            "images/rentwise4.jpeg"
-          ]
-        },
-        {
-          slug: "wifi-analyzer",
-          title: "Public Wi-Fi Risk Analyzer",
-          company: "Security & Network Tool",
-          logo: '<img src="images/wifi-symbol.webp" alt="Wi-Fi Analyzer" style="width: 100%; height: 100%; object-fit: contain;">',
-          thumb: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=800&h=600&fit=crop",
-          tagline: "Assess public Wi-Fi security risks",
-          description: "Developed a Python-based security application with Tkinter GUI to assess the safety of public Wi-Fi networks. Built comprehensive security checks including HTTPS support verification, DNS resolution testing, firewall status detection, and VPN activity monitoring. Implemented real-time connectivity testing and automated logging with timestamps for security audits.",
-          details: "Created a user-friendly desktop tool that helps users make informed decisions about public Wi-Fi security. The application performs multi-layered security assessments including SSL/TLS verification, network interface analysis, cross-platform firewall detection, and connectivity health checks. Features detailed logging and reporting to track network security over time.",
-          brandColor: "#EF4444",
-          link: "https://github.com/muhannadxyz/PublicWiFiAnalyzer",
-          codeSnippets: [
-            {
-              title: "HTTPS Security Check",
-              language: "python",
-              code: `def check_https_multiple():
-    test_domains = ["https://google.com", "https://example.com", "https://cloudflare.com"]
-    successes = 0
-    for domain in test_domains:
-        try:
-            response = requests.get(domain, timeout=5)
-            if response.url.startswith("https://"):
-                successes += 1
-        except:
-            continue
-    return successes >= 2`
-            },
-            {
-              title: "Firewall Detection",
-              language: "python",
-              code: `def check_firewall():
-    system = platform.system()
-    try:
-        if system == "Windows":
-            output = subprocess.getoutput("netsh advfirewall show allprofiles")
-            return "ON" in output
-        elif system == "Darwin":  # macOS
-            output = subprocess.getoutput("/usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate")
-            return "enabled" in output.lower()
-        elif system == "Linux":
-            output = subprocess.getoutput("sudo ufw status")
-            return "active" in output.lower()
-    except:
-        pass
-    return False`
-            }
-          ]
-        },
-        {
-          slug: "wind-turbine",
-          title: "Wind Turbine Monitoring System",
-          company: "IoT & Renewable Energy",
-          logo: '<img src="images/turbine.png" alt="Wind Turbine" style="width: 100%; height: 100%; object-fit: contain;">',
-          thumb: "images/turbine.png",
-          tagline: "Real-time renewable energy data collection",
-          description: "Developed an advanced IoT monitoring system for wind turbines using Arduino and real-time sensors. Implemented Hall-effect sensors for RPM measurement, voltage and current sensors for power analysis, and RTC integration for precise timestamping. Built a comprehensive data logging system that tracks turbine performance metrics including rotational speed, electrical output, and power generation in real-time.",
-          details: "Created an embedded systems solution for renewable energy monitoring. The system uses interrupt-driven Hall-effect sensing for accurate RPM calculation, analog sensor integration for voltage/current measurement, and automatic power computation. Features include real-time clock synchronization for data integrity, efficient pulse counting algorithms, and serial data logging for performance analysis and optimization.",
-          brandColor: "#059669",
-          link: "https://github.com/muhannadxyz/Turbine",
-          codeSnippets: [
-            {
-              title: "RPM & Power Monitoring Loop",
-              language: "c++",
-              code: `void loop() {
-    unsigned long currentTime = millis();
-    
-    // Calculate RPM every second
-    if (currentTime - lastTime >= 1000) {
-        int rpm = (pulseCount * 60); // Convert pulses to RPM
-        pulseCount = 0;              // Reset counter
-        lastTime = currentTime;
-
-        // Read voltage and current sensor values
-        voltage = analogRead(VOLTAGE_SENSOR) * (5.0 / 1023.0) * 10;
-        current = analogRead(CURRENT_SENSOR) * (5.0 / 1023.0) / 0.185;
-        power = voltage * current;
-
-        // Get current time
-        DateTime now = rtc.now();
-        
-        // Log data with timestamp
-        Serial.print("Timestamp: ");
-        Serial.print(now.year()); Serial.print("-");
-        Serial.print(now.month()); Serial.print("-");
-        Serial.print(now.day());
-        Serial.print(" | RPM: "); Serial.print(rpm);
-        Serial.print(" | Voltage: "); Serial.print(voltage);
-        Serial.print("V | Current: "); Serial.print(current);
-        Serial.print("A | Power: "); Serial.print(power);
-        Serial.println("W");
-    }
-}`
-            },
-            {
-              title: "Interrupt-Driven Hall Sensor",
-              language: "c++",
-              code: `// Interrupt service routine for hall sensor
-void countPulse() {
-    pulseCount++;  
-}
-
-void setup() {
-    Serial.begin(9600);
-    pinMode(HALL_SENSOR_PIN, INPUT);
-    
-    // Attach interrupt for accurate pulse counting
-    attachInterrupt(digitalPinToInterrupt(HALL_SENSOR_PIN), countPulse, RISING);
-    
-    // Initialize RTC
-    if (!rtc.begin()) {
-        Serial.println("Couldn't find RTC");
-        while (1);
-    }
-}`
-            }
-          ]
-        }
-      ];
-      
-      const grid = document.getElementById("projects-grid");
-      if (!grid) return;
-      
-      projects.forEach((p, index) => {
-        const card = document.createElement("div");
-        card.className = "anduril-card";
-        card.innerHTML = `
-          <div class="anduril-card-img">
-            <img src="${p.thumb}" alt="${p.title}">
-          </div>
-          <div class="anduril-card-overlay"></div>
-          <div class="anduril-card-info">
-            <div class="anduril-card-text">
-              <h2 class="anduril-card-title">${p.title}</h2>
-              <p class="anduril-card-sub">${p.company}</p>
-            </div>
-            <div class="anduril-card-arrow">↗</div>
-          </div>
-        `;
-
-        card.addEventListener("click", () => {
-          // Pause neural network to improve performance
-          if (window.neuralNet) {
-            window.neuralNet.pause();
-          }
-          
-          // Get dev updates for this project
-          const devUpdatesHTML = window.ProjectUpdates ? (() => {
-            const updates = window.ProjectUpdates.getUpdatesBySlug(p.slug);
-            if (!updates || updates.length === 0) return '';
-            
-            const typeColors = {
-              major: '#9333EA',
-              feature: '#10B981',
-              enhancement: '#3B82F6',
-              bugfix: '#EF4444'
-            };
-            
-            const typeLabels = {
-              major: 'Major',
-              feature: 'Feature',
-              enhancement: 'Enhancement',
-              bugfix: 'Bug Fix'
-            };
-            
-            return `
-              <!-- Dev Updates Section Wrapper -->
-              <div style="margin: 40px 0; padding: 20px 0;">
-                <!-- Dev Updates Section -->
-                <div class="group" style="background: rgba(0,0,0,0.6); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.15); border-radius: 24px; padding: 40px; transition: all 0.4s; box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05) inset;">
-                <div class="flex items-center gap-3 mb-6">
-                  <div style="width: 40px; height: 40px; background: linear-gradient(135deg, ${p.brandColor} 0%, ${p.brandColor}dd 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px;">📝</div>
-                  <h3 class="text-3xl font-bold text-white">Dev Updates</h3>
-                </div>
-                <div style="display: flex; flex-direction: column; gap: 2rem; max-height: 600px; overflow-y: auto; padding-right: 12px;">
-                  ${updates.map((update, index) => {
-                    const formattedDate = new Date(update.date).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    });
-                    const isLast = index === updates.length - 1;
-                    return `
-                      <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 28px; border-left: 5px solid ${p.brandColor}; box-shadow: 0 4px 16px rgba(0,0,0,0.3); transition: all 0.3s ease; position: relative;">
-                        ${!isLast ? `<div style="position: absolute; bottom: -1rem; left: 50%; transform: translateX(-50%); width: 2px; height: 1rem; background: linear-gradient(to bottom, ${p.brandColor}40, transparent);"></div>` : ''}
-                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.08);">
-                          <div>
-                            <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 8px;">
-                              <span style="padding: 8px 16px; background: ${p.brandColor}25; color: ${p.brandColor}; border: 1px solid ${p.brandColor}50; border-radius: 10px; font-size: 15px; font-weight: 700; letter-spacing: 0.5px;">${update.version}</span>
-                              <span style="padding: 8px 16px; background: ${typeColors[update.type]}25; color: ${typeColors[update.type]}; border: 1px solid ${typeColors[update.type]}50; border-radius: 10px; font-size: 14px; font-weight: 600;">${typeLabels[update.type]}</span>
-                            </div>
-                            <div style="color: #9ca3af; font-size: 14px; font-weight: 500;">${formattedDate}</div>
-                          </div>
-                        </div>
-                        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;">
-                          ${update.changes.map(change => `
-                            <li style="display: flex; align-items: flex-start; gap: 12px; color: #e5e7eb; font-size: 15px; line-height: 1.7; padding-left: 4px;">
-                              <svg width="20" height="20" viewBox="0 0 16 16" fill="none" style="flex-shrink: 0; margin-top: 2px;">
-                                <path d="M6 8L7.5 9.5L10 7" stroke="${p.brandColor}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                              </svg>
-                              <span style="flex: 1;">${change}</span>
-                            </li>
-                          `).join('')}
-                        </ul>
-                      </div>
-                    `;
-                  }).join('')}
-                </div>
-              </div>
-              </div>
-            `;
-          })() : '';
-          
-          overlay.innerHTML = `
-            <div class="min-h-screen relative bg-black">
-              <!-- Parallax Hero Image with Overlay -->
-              <div class="fixed inset-0 z-0" style="transform-origin: center;">
-                <img src="${p.thumb}" alt="${p.title}" class="w-full h-full object-cover scale-105" style="filter: brightness(0.4) saturate(1.2);">
-                <div class="absolute inset-0 bg-black"></div>
-              </div>
-              
-              <!-- Close Button -->
-              <button id="close" style="position: fixed; top: 24px; right: 24px; z-index: 9999; background: #fff; color: #000; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; cursor: pointer; border: 2px solid #fff; transition: all 0.1s ease;">✕</button>
-              
-              <!-- Hero Section -->
-              <div class="relative z-10 min-h-screen flex items-end pb-20 px-8 md:px-16">
-                <div class="max-w-6xl w-full">
-                  <!-- Project Icon -->
-                  <div class="mb-6" style="width: 120px; height: 120px; display: flex; align-items: center; justify-content: center;">${p.logo}</div>
-                  
-                  <!-- Title with Glass Effect -->
-                  <div class="inline-block mb-6" style="background: #000; border: 1px solid #fff; padding: 24px 32px;">
-                    <h1 class="text-5xl md:text-7xl font-bold text-white mb-2" style="line-height: 1.1;">${p.title}</h1>
-                    <p class="text-xl md:text-2xl text-gray-300">${p.company}</p>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Content Section -->
-              <div class="relative z-20 bg-black px-6 md:px-12 py-16">
-                <div class="max-w-5xl mx-auto space-y-8">
-                  
-                  <!-- Description Card -->
-                  <div class="group" style="background: #000; border: 1px solid #fff; padding: 40px;">
-                    <p class="text-lg text-white leading-relaxed mb-6">${p.description}</p>
-                    ${p.link ? `<a href="${p.link}" target="_blank" style="display: inline-block; padding: 16px 32px; background: #000; color: #fff; border: 2px solid #fff; font-size: 18px; font-weight: 700; text-decoration: none; text-transform: uppercase; letter-spacing: 0.1em; transition: all 0.1s ease;">Visit Site →</a>` : ''}
-                  </div>
-                  
-                  <!-- Visual Showcase / Code Flip Card -->
-                  ${p.codeSnippets ? `
-                  <div class="flip-card-container" onclick="this.querySelector('.flip-card').classList.toggle('flipped')">
-                    <div class="flip-card">
-                      <!-- Front: Image -->
-                      <div class="flip-card-front">
-                        <div style="border: 1px solid #fff; position: relative;">
-                          <img src="${p.thumb}" alt="Project showcase" class="w-full" style="display: block;">
-                          <div class="flip-hint">Click to see code 💻</div>
-                        </div>
-                      </div>
-                      
-                      <!-- Back: Code -->
-                      <div class="flip-card-back">
-                        <h3 class="text-2xl font-bold text-white mb-4" style="color: #10b981;">💻 Code Implementation</h3>
-                        <div style="max-height: 500px; overflow-y: auto;">
-                          ${p.codeSnippets.map(snippet => `
-                            <div style="margin-bottom: 24px;">
-                              <div style="background: rgba(255,255,255,0.05); padding: 12px 20px; border-radius: 12px 12px 0 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                                <div style="display: flex; align-items: center; justify-content: space-between;">
-                                  <span style="color: #10b981; font-weight: 600; font-size: 16px;">${snippet.title}</span>
-                                  <span style="color: #9ca3af; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">${snippet.language}</span>
-                                </div>
-                              </div>
-                              <pre style="margin: 0; padding: 20px; background: rgba(0,0,0,0.5); border-radius: 0 0 12px 12px; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.5; color: #e5e7eb;"><code>${snippet.code}</code></pre>
-                            </div>
-                          `).join('')}
-                        </div>
-                        <div style="margin-top: 20px; text-align: center; color: #9ca3af; font-size: 14px;">Click again to flip back</div>
-                      </div>
-                    </div>
-                  </div>
-                  ` : `
-                  <div style="border-radius: 24px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
-                    <img src="${p.thumb}" alt="Project showcase" class="w-full" style="display: block;">
-                  </div>
-                  `}
-                  
-                  ${p.gallery ? `
-                  <!-- Photo Gallery -->
-                  <div style="background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 40px;">
-                    <h3 class="text-2xl font-bold text-white mb-6">Project Gallery</h3>
-                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
-                      ${p.gallery.map(img => `
-                        <div style="border-radius: 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);">
-                          <img src="${img}" alt="Project screenshot" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-                        </div>
-                      `).join('')}
-                    </div>
-                  </div>
-                  ` : ''}
-                  
-                  <!-- Large Spacer before Dev Updates -->
-                  <div style="height: 120px;"></div>
-                  
-                  <!-- Prominent Divider before Dev Updates -->
-                  <div style="position: relative; margin: 80px 0; padding: 40px 0;">
-                    <div style="height: 2px; background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), rgba(255,255,255,0.3), transparent); margin-bottom: 20px;"></div>
-                    <div style="height: 1px; background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), rgba(255,255,255,0.1), transparent);"></div>
-                  </div>
-                  
-                  ${devUpdatesHTML}
-                  
-                  <!-- Large Spacer after Dev Updates -->
-                  <div style="height: 100px;"></div>
-                  
-                  
-                </div>
-              </div>
-            </div>
-          `;
-          overlay.classList.remove("hidden");
-          document.body.style.overflow = "hidden";
-          
-          // Close button event
-          const closeBtn = overlay.querySelector("#close");
-          if (closeBtn) {
-            closeBtn.addEventListener("click", (e) => {
-              e.preventDefault();
-              overlay.classList.add("hidden");
-              document.body.style.overflow = "";
-              // Resume neural network animation
-              if (window.neuralNet) {
-                window.neuralNet.resume();
-              }
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-          }
-        });
-        grid.appendChild(card);
-      });
-    }
-    
-    // Wait for main-content to be visible
-    // Initialize projects when DOM is ready
-    function initializePortfolio() {
-      // Wait for project scripts to load
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => {
-          setTimeout(initProjects, 100);
-        });
-      } else {
-        setTimeout(initProjects, 100);
-      }
-    }
-    
-    initializePortfolio();
+    window.addEventListener('load', initProjects);
   </script>
-  
-  <!-- Footer -->
-  <footer class="footer-bar"></footer>
-  <div class="anduril-footer">
-    <div class="anduril-footer-brand">
-      <span class="anduril-footer-name">Muhannad Abuzahrieh</span>
-      <p class="anduril-footer-copy">© 2026 Muhannad Abuzahrieh</p>
-    </div>
-    <div class="anduril-footer-cols">
-      <div class="anduril-footer-col">
-        <h4>Navigate</h4>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-      </div>
-      <div class="anduril-footer-col">
-        <h4>Social</h4>
-        <a href="https://www.linkedin.com/in/muhannad-abuzahrieh-0b7330265/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://github.com/muhannadxyz" target="_blank" rel="noopener noreferrer">GitHub</a>
-      </div>
-      <div class="anduril-footer-col">
-        <h4>Contact</h4>
-        <a href="contact.html">Get in Touch</a>
-      </div>
-    </div>
-  </div>
-
 </body>
 </html>
