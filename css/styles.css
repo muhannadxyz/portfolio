@@ -2732,7 +2732,7 @@ html {
 
 .bullets li {
   font-size: 14px;
-  color: #242424;
+  color: #E8E9EB;
   line-height: 1.6;
   padding-left: 20px;
   position: relative;
@@ -2742,7 +2742,7 @@ html {
   content: '•';
   position: absolute;
   left: 0;
-  color: #666;
+  color: #9BA1AB;
   font-weight: 700;
 }
 
