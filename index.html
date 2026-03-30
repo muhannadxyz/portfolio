@@ -82,8 +82,10 @@
       position: fixed; top: var(--topbar-h); left: 0; bottom: 0;
       width: var(--sidebar-w);
       background: var(--surface); border-right: 1px solid var(--border);
+      box-shadow: 2px 0 12px rgba(0,0,0,0.45);
       display: flex; flex-direction: column;
-      padding: 10px 8px; gap: 2px; z-index: 200;
+      padding: 10px 8px; gap: 2px; z-index: 210;
+      overflow: hidden;
     }
     .rw-sidebar-btn {
       width: 100%; height: 34px;
@@ -406,8 +408,233 @@
       pointer-events: none; white-space: nowrap;
       animation: hintFade 4.5s ease forwards; z-index: 300;
     }
+    .rw-hint-views {
+      position: fixed; bottom: 60px; right: 20px;
+      font-size: 12px; color: var(--text);
+      background: var(--surface2); border: 1px solid var(--border2);
+      border-radius: 20px; padding: 6px 14px;
+      pointer-events: none; white-space: nowrap;
+      opacity: 0; z-index: 300;
+      animation: hintFadeViews 4s ease forwards;
+      animation-delay: 5s;
+    }
     @keyframes hintFade {
       0%,50% { opacity: 1; } 100% { opacity: 0; }
+    }
+    @keyframes hintFadeViews {
+      0% { opacity: 0; } 15%,60% { opacity: 1; } 100% { opacity: 0; }
+    }
+
+    /* ── Gallery View ── */
+    /* ── View toggle pill ── */
+    .rw-view-toggle {
+      position: fixed;
+      bottom: 18px;
+      right: 20px;
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+    }
+    .rw-view-toggle-btn {
+      width: 36px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent; border: none; cursor: pointer;
+      color: #6B7280;
+      transition: background 0.15s, color 0.15s;
+      padding: 0;
+    }
+    .rw-view-toggle-btn:hover { background: var(--surface2); color: #C0C4CC; }
+    .rw-view-toggle-btn.active { background: var(--surface2); color: #E8E9EB; }
+    .rw-view-toggle-divider { width: 1px; height: 18px; background: var(--border); flex-shrink: 0; }
+    .gv-root {
+      position: absolute;
+      inset: 0;
+      overflow-y: auto;
+      background: #C5E0CF;
+      font-family: 'Inter', system-ui, sans-serif;
+      z-index: 50;
+    }
+    .gv-inner {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 40px 52px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .gv-toprow {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 36px;
+    }
+    .gv-hero-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.8px;
+      color: #2D5A45;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .gv-hero-name {
+      font-size: clamp(38px, 5vw, 58px);
+      font-weight: 800;
+      line-height: 1.0;
+      color: #0D1F17;
+      letter-spacing: -1.5px;
+      text-transform: uppercase;
+    }
+    .gv-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      color: #0D1F17;
+      background: rgba(13,31,23,0.08);
+      border: 1px solid rgba(13,31,23,0.15);
+      border-radius: 20px;
+      padding: 6px 14px;
+      white-space: nowrap;
+      margin-top: 6px;
+    }
+    .gv-badge::before {
+      content: ''; width: 7px; height: 7px; border-radius: 50%;
+      background: #1A9A5C; flex-shrink: 0;
+      box-shadow: 0 0 0 3px rgba(26,154,92,0.25);
+    }
+    .gv-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .gv-section-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #0D1F17;
+    }
+    .gv-section-count {
+      font-size: 11px;
+      font-weight: 500;
+      color: #2D5A45;
+      letter-spacing: 1px;
+    }
+    .gv-carousel-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .gv-arrow {
+      flex-shrink: 0;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(13,31,23,0.25);
+      background: rgba(255,255,255,0.55);
+      color: #0D1F17;
+      font-size: 22px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s, border-color 0.15s, transform 0.1s;
+      line-height: 1;
+      backdrop-filter: blur(4px);
+      z-index: 2;
+    }
+    .gv-arrow:hover {
+      background: rgba(255,255,255,0.85);
+      border-color: rgba(13,31,23,0.45);
+      transform: scale(1.06);
+    }
+    .gv-arrow:disabled { opacity: 0.3; cursor: default; transform: none; }
+    .gv-carousel {
+      flex: 1;
+      overflow: hidden;
+    }
+    .gv-track {
+      display: flex;
+      gap: 16px;
+      transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
+    }
+    .gv-card {
+      flex: 0 0 calc(33.333% - 11px);
+      min-width: 220px;
+      background: #F0F8F3;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(13,31,23,0.1);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .gv-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 36px rgba(13,31,23,0.14);
+    }
+    .gv-card-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: #1A2A22;
+      flex-shrink: 0;
+    }
+    .gv-card-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s;
+    }
+    .gv-card:hover .gv-card-img img { transform: scale(1.04); }
+    .gv-card-img-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px;
+    }
+    .gv-card-body {
+      padding: 16px 18px 18px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .gv-card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .gv-card-cat {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #3D7A5A;
+    }
+    .gv-card-num {
+      font-size: 10px;
+      font-weight: 600;
+      color: #7AAA8A;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+    .gv-card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #0D1F17;
+      line-height: 1.25;
+    }
+    .gv-card-desc {
+      font-size: 12px;
+      color: #3D5A47;
+      line-height: 1.5;
+      flex: 1;
     }
 
     /* ── Mobile fallback ── */
@@ -502,7 +729,30 @@
   </aside>
 
   <!-- Canvas -->
-  <main class="rw-main">
+  <main class="rw-main" id="canvasMain">
+    <!-- Gallery View (overlays the canvas) -->
+    <div class="gv-root" id="galleryView" style="display:none;">
+      <div class="gv-inner">
+        <div class="gv-toprow">
+          <div>
+            <div class="gv-hero-label">Software Engineer</div>
+            <h1 class="gv-hero-name">Muhannad<br>Abuzahrieh</h1>
+          </div>
+          <div class="gv-badge">Available for work</div>
+        </div>
+        <div class="gv-section-header">
+          <div class="gv-section-title">Selected Projects</div>
+          <div class="gv-section-count" id="gvCount"></div>
+        </div>
+        <div class="gv-carousel-wrap">
+          <button class="gv-arrow" id="gvPrev">&#8249;</button>
+          <div class="gv-carousel" id="gvCarousel">
+            <div class="gv-track" id="gvTrack"></div>
+          </div>
+          <button class="gv-arrow" id="gvNext">&#8250;</button>
+        </div>
+      </div>
+    </div>
     <div class="rw-canvas-bg" id="canvasBg">
       <div class="rw-canvas" id="rwCanvas">
         <svg id="edgeLayer" class="rw-edges" width="2400" height="2400"></svg>
@@ -552,6 +802,30 @@
 
   <!-- Drag hint -->
   <div class="rw-hint" id="rwHint">Drag to explore &nbsp;·&nbsp; Scroll to zoom &nbsp;·&nbsp; Click to open</div>
+  <!-- View toggle hint -->
+  <div class="rw-hint-views">Switch views &nbsp;·&nbsp; Canvas or Gallery</div>
+
+  <!-- View toggle (always on top) -->
+  <div class="rw-view-toggle">
+    <button class="rw-view-toggle-btn active" id="viewCanvas" title="Canvas view">
+      <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="3.5" cy="3.5" r="2" fill="currentColor"/>
+        <circle cx="12.5" cy="3.5" r="2" fill="currentColor"/>
+        <circle cx="8"    cy="8"   r="2" fill="currentColor"/>
+        <circle cx="3.5" cy="12.5" r="2" fill="currentColor"/>
+        <circle cx="12.5" cy="12.5" r="2" fill="currentColor"/>
+      </svg>
+    </button>
+    <div class="rw-view-toggle-divider"></div>
+    <button class="rw-view-toggle-btn" id="viewGallery" title="Gallery view">
+      <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1"  y="1"  width="6" height="6" rx="1.5" fill="currentColor"/>
+        <rect x="9"  y="1"  width="6" height="6" rx="1.5" fill="currentColor"/>
+        <rect x="1"  y="9"  width="6" height="6" rx="1.5" fill="currentColor"/>
+        <rect x="9"  y="9"  width="6" height="6" rx="1.5" fill="currentColor"/>
+      </svg>
+    </button>
+  </div>
 
   <!-- ── Project Modal ── -->
   <div id="project-overlay" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Project details" data-close="true">
@@ -1090,6 +1364,96 @@
     })();
 
     window.addEventListener('load', initProjects);
+
+    // ── Gallery View ───────────────────────────────────────────────────────
+    (function initGallery() {
+      const VISIBLE = 3; // cards visible at once
+      let currentIdx = 0;
+
+      const projectList = [
+        window.PortfolioOSProject, window.LucentirProject, window.ShadoconnectProject,
+        window.RentwiseProject,    window.WifiAnalyzerProject, window.WindTurbineProject,
+        window.PostNoteProject,    window.GhostJobCheckerProject, window.JATProject,
+        window.FluxdeskProject,    window.RxCheckProject,
+      ].filter(Boolean);
+
+      function buildGalleryCards() {
+        const track = document.getElementById('gvTrack');
+        if (!track) return;
+        document.getElementById('gvCount').textContent = projectList.length + ' PROJECTS';
+        track.innerHTML = projectList.map((p, i) => {
+          const num = String(i + 1).padStart(2, '0');
+          const cat = (p.company || '').toUpperCase();
+          const imgHtml = p.thumb
+            ? `<img src="${p.thumb}" alt="${p.title}" loading="lazy">`
+            : `<div class="gv-card-img-placeholder">${p.icon || p.logo || p.title.charAt(0)}</div>`;
+          return `
+            <div class="gv-card" data-slug="${p.slug}">
+              <div class="gv-card-img">${imgHtml}</div>
+              <div class="gv-card-body">
+                <div class="gv-card-meta">
+                  <span class="gv-card-cat">${cat}</span>
+                  <span class="gv-card-num">${num}</span>
+                </div>
+                <div class="gv-card-title">${p.title}</div>
+                <div class="gv-card-desc">${p.tagline || getNodeSummary(p)}</div>
+              </div>
+            </div>`;
+        }).join('');
+
+        // Click a card → open modal
+        track.querySelectorAll('.gv-card').forEach(card => {
+          card.addEventListener('click', () => {
+            const slug = card.dataset.slug;
+            const proj = projectList.find(p => p.slug === slug);
+            if (proj) openProject(proj);
+          });
+        });
+
+        updateCarousel();
+      }
+
+      function updateCarousel() {
+        const track = document.getElementById('gvTrack');
+        const carousel = document.getElementById('gvCarousel');
+        if (!track || !carousel) return;
+        const cardW = carousel.offsetWidth / VISIBLE;
+        track.style.transform = `translateX(-${currentIdx * cardW}px)`;
+        document.getElementById('gvPrev').disabled = currentIdx === 0;
+        document.getElementById('gvNext').disabled = currentIdx >= projectList.length - VISIBLE;
+      }
+
+      document.getElementById('gvPrev').addEventListener('click', () => {
+        if (currentIdx > 0) { currentIdx--; updateCarousel(); }
+      });
+      document.getElementById('gvNext').addEventListener('click', () => {
+        if (currentIdx < projectList.length - VISIBLE) { currentIdx++; updateCarousel(); }
+      });
+
+      window.addEventListener('resize', updateCarousel);
+
+      // ── View toggle ────────────────────────────────────────────────────
+      const canvasBtn   = document.getElementById('viewCanvas');
+      const galleryBtn  = document.getElementById('viewGallery');
+      const galleryView = document.getElementById('galleryView');
+      const chatPanel   = document.getElementById('chatPanel');
+
+      function showCanvas() {
+        galleryView.style.display = 'none';
+        canvasBtn.classList.add('active');
+        galleryBtn.classList.remove('active');
+      }
+      function showGallery() {
+        if (chatPanel) chatPanel.classList.remove('open');
+        galleryView.style.display = '';
+        galleryBtn.classList.add('active');
+        canvasBtn.classList.remove('active');
+        buildGalleryCards();
+      }
+
+      canvasBtn.addEventListener('click', showCanvas);
+      galleryBtn.addEventListener('click', showGallery);
+    })();
   </script>
 
   <!-- ── Portfolio Chat Bot ── -->
