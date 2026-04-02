@@ -248,9 +248,12 @@
 
     /* ── Edge lines ── */
     .rw-edge {
-      stroke: rgba(255,255,255,0.065); stroke-width: 1.5; fill: none;
+      stroke: rgba(255,255,255,0.45); stroke-width: 1.5; fill: none;
       stroke-dasharray: 6 10;
       animation: flowEdge 2.2s linear infinite;
+    }
+    .rw-edge-glow {
+      stroke: rgba(255,255,255,0.08); stroke-width: 6; fill: none;
     }
     @keyframes flowEdge { to { stroke-dashoffset: -16; } }
 
@@ -528,45 +531,18 @@
       color: #2D5A45;
       letter-spacing: 1px;
     }
-    .gv-carousel-wrap {
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-    .gv-arrow {
-      flex-shrink: 0;
-      width: 44px; height: 44px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(13,31,23,0.25);
-      background: rgba(255,255,255,0.55);
-      color: #0D1F17;
-      font-size: 22px;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.15s, border-color 0.15s, transform 0.1s;
-      line-height: 1;
-      backdrop-filter: blur(4px);
-      z-index: 2;
-    }
-    .gv-arrow:hover {
-      background: rgba(255,255,255,0.85);
-      border-color: rgba(13,31,23,0.45);
-      transform: scale(1.06);
-    }
-    .gv-arrow:disabled { opacity: 0.3; cursor: default; transform: none; }
-    .gv-carousel {
-      flex: 1;
-      overflow: hidden;
-    }
-    .gv-track {
-      display: flex;
+    .gv-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 16px;
-      transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
+    }
+    @media (max-width: 900px) {
+      .gv-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 580px) {
+      .gv-grid { grid-template-columns: 1fr; }
     }
     .gv-card {
-      flex: 0 0 calc(33.333% - 11px);
-      min-width: 220px;
       background: #F0F8F3;
       border-radius: 12px;
       overflow: hidden;
@@ -744,13 +720,7 @@
           <div class="gv-section-title">Selected Projects</div>
           <div class="gv-section-count" id="gvCount"></div>
         </div>
-        <div class="gv-carousel-wrap">
-          <button class="gv-arrow" id="gvPrev">&#8249;</button>
-          <div class="gv-carousel" id="gvCarousel">
-            <div class="gv-track" id="gvTrack"></div>
-          </div>
-          <button class="gv-arrow" id="gvNext">&#8250;</button>
-        </div>
+        <div class="gv-grid" id="gvTrack"></div>
       </div>
     </div>
     <div class="rw-canvas-bg" id="canvasBg">
@@ -1214,8 +1184,15 @@
         const ca = getNodeCenter(a); const cb = getNodeCenter(b);
         if (!ca || !cb) return;
         const dy = cb.y - ca.y;
+        const d = `M${ca.x} ${ca.y} C${ca.x} ${ca.y+dy*0.5} ${cb.x} ${cb.y-dy*0.5} ${cb.x} ${cb.y}`;
+        // glow layer
+        const glow = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        glow.setAttribute('d', d);
+        glow.setAttribute('class', 'rw-edge-glow');
+        svg.appendChild(glow);
+        // main line
         const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        path.setAttribute('d', `M${ca.x} ${ca.y} C${ca.x} ${ca.y+dy*0.5} ${cb.x} ${cb.y-dy*0.5} ${cb.x} ${cb.y}`);
+        path.setAttribute('d', d);
         path.setAttribute('class', 'rw-edge');
         svg.appendChild(path);
       });
@@ -1367,9 +1344,6 @@
 
     // ── Gallery View ───────────────────────────────────────────────────────
     (function initGallery() {
-      const VISIBLE = 3; // cards visible at once
-      let currentIdx = 0;
-
       const projectList = [
         window.PortfolioOSProject, window.LucentirProject, window.ShadoconnectProject,
         window.RentwiseProject,    window.WifiAnalyzerProject, window.WindTurbineProject,
@@ -1409,28 +1383,7 @@
             if (proj) openProject(proj);
           });
         });
-
-        updateCarousel();
       }
-
-      function updateCarousel() {
-        const track = document.getElementById('gvTrack');
-        const carousel = document.getElementById('gvCarousel');
-        if (!track || !carousel) return;
-        const cardW = carousel.offsetWidth / VISIBLE;
-        track.style.transform = `translateX(-${currentIdx * cardW}px)`;
-        document.getElementById('gvPrev').disabled = currentIdx === 0;
-        document.getElementById('gvNext').disabled = currentIdx >= projectList.length - VISIBLE;
-      }
-
-      document.getElementById('gvPrev').addEventListener('click', () => {
-        if (currentIdx > 0) { currentIdx--; updateCarousel(); }
-      });
-      document.getElementById('gvNext').addEventListener('click', () => {
-        if (currentIdx < projectList.length - VISIBLE) { currentIdx++; updateCarousel(); }
-      });
-
-      window.addEventListener('resize', updateCarousel);
 
       // ── View toggle ────────────────────────────────────────────────────
       const canvasBtn   = document.getElementById('viewCanvas');
