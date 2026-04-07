@@ -8,7 +8,7 @@ window.DriveReadyProject = {
   company: 'Driver Test Prep Platform',
   logo: 'DR',
   icon: 'DR',
-  thumb: 'images/driveready1.png',
+  thumb: 'images/driveready.png',
   tagline: 'Pass your driver test with confidence',
   description: 'DriveReady is a community-driven driver test preparation platform that helps users across all 50 U.S. states prepare for both written permit tests and practical road exams. The platform combines real community data with structured study materials to give test-takers the most complete preparation experience available. The BMV/DMV Locator Map shows testing center locations enriched with community-submitted route data and real pass rate statistics — so users know exactly what to expect before they show up. The Route Submission Tool lets people who have already tested share the actual paths they drove, along with driving tips and observations, building a growing knowledge base of real test routes. The Timed Practice Permit Test mirrors the actual exam experience with answer explanations and the ability to save results over time. The Handbook Library provides simplified summaries of state-specific driving rules alongside official state PDFs, covering all 50 states in one place. DriveReady is built around transparency and peer learning — surfacing real pass rates, real routes, and real advice from people who have already gone through the process.',
   overview: 'DriveReady is a community-driven platform for driver test prep. Features include a BMV/DMV locator map with pass rates, community route sharing, timed permit practice tests, and a 50-state handbook library.',
