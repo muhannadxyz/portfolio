@@ -871,6 +871,7 @@
   <script src="js/projects/jat.js"></script>
   <script src="js/projects/fluxdesk.js"></script>
   <script src="js/projects/rx-check.js"></script>
+  <script src="js/projects/driveready.js"></script>
   <script src="js/project-updates.js"></script>
 
   <script>
@@ -1047,6 +1048,7 @@
       'jat':               { x:  510, y: -110 },
       'fluxdesk':          { x: -500, y:  330 },
       'wind-turbine':      { x: -130, y:  420 },
+      'driveready':        { x:  400, y:  300 },
       'postnote':          { x:  220, y:  380 },
       'rx-check':          { x:  520, y:  200 },
     };
@@ -1062,6 +1064,7 @@
       ['about-me', 'jat'],
       ['about-me', 'fluxdesk'],
       ['about-me', 'wind-turbine'],
+      ['about-me', 'driveready'],
       ['about-me', 'postnote'],
       ['about-me', 'rx-check'],
     ];
@@ -1076,6 +1079,7 @@
       'jat':               'job application tracking dashboard',
       'fluxdesk':          'real-time helpdesk ticketing system',
       'wind-turbine':      'renewable energy data simulator',
+      'driveready':        'driver test prep & DMV locator platform',
       'postnote':          'quick collaborative sticky notes',
       'rx-check':          'FDA drug interaction checker',
     };
@@ -1259,7 +1263,7 @@
         window.PortfolioOSProject, window.LucentirProject, window.ShadoconnectProject,
         window.RentwiseProject,    window.WifiAnalyzerProject, window.WindTurbineProject,
         window.PostNoteProject,    window.GhostJobCheckerProject, window.JATProject,
-        window.FluxdeskProject,    window.RxCheckProject,
+        window.FluxdeskProject,    window.RxCheckProject,    window.DriveReadyProject,
       ].filter(Boolean);
 
       document.getElementById('svcCount').textContent = `${projects.length} projects`;
@@ -1348,7 +1352,7 @@
         window.PortfolioOSProject, window.LucentirProject, window.ShadoconnectProject,
         window.RentwiseProject,    window.WifiAnalyzerProject, window.WindTurbineProject,
         window.PostNoteProject,    window.GhostJobCheckerProject, window.JATProject,
-        window.FluxdeskProject,    window.RxCheckProject,
+        window.FluxdeskProject,    window.RxCheckProject,    window.DriveReadyProject,
       ].filter(Boolean);
 
       function buildGalleryCards() {
@@ -1427,7 +1431,7 @@
 
       contact: `Best ways to reach Muhannad:<br>→ <a href="contact.html">Contact form</a> (fastest)<br>→ <a href="https://www.linkedin.com/in/muhannad-abuzahrieh-0b7330265/" target="_blank">LinkedIn ↗</a><br>→ <a href="https://github.com/muhannadxyz" target="_blank">GitHub ↗</a>`,
 
-      projects: `Muhannad has built <b>11 projects</b>. Here's a quick rundown:<br><br>
+      projects: `Muhannad has built <b>12 projects</b>. Here's a quick rundown:<br><br>
 🖥 <b>Portfolio OS</b> — Full macOS desktop simulation in the browser<br>
 🤖 <b>Lucentir</b> — AI-powered brand agency SaaS<br>
 🤝 <b>ShadoConnect</b> — Mentorship matchmaking platform<br>
@@ -1438,7 +1442,8 @@
 🎧 <b>FluxDesk</b> — Real-time helpdesk ticketing system<br>
 🌬 <b>Wind Turbine Monitor</b> — Renewable energy data simulator<br>
 📝 <b>PostNote</b> — Quick collaborative sticky notes<br>
-💊 <b>RxCheck</b> — FDA drug interaction checker<br><br>
+💊 <b>RxCheck</b> — FDA drug interaction checker<br>
+🚗 <b>DriveReady</b> — Driver test prep & DMV locator platform<br><br>
 Ask me about any specific project for the full details!`,
 
       os: `<b>Portfolio OS</b> is a full macOS-style desktop simulation running entirely in the browser — no backend, no frameworks, just vanilla HTML/CSS/JS.<br><br>
@@ -1483,6 +1488,14 @@ Features include user profiles, a matching algorithm, and a messaging system. Bu
 
       wifi: `<b>Public Wi-Fi Risk Analyzer</b> is a network security tool that scores the risk level of public Wi-Fi connections. It analyzes network signals and characteristics to warn users about potentially unsafe networks.`,
 
+      driveready: `<b>DriveReady</b> is a community-driven driver test prep platform covering all 50 U.S. states. It helps people prepare for both written permit tests and practical road exams.<br><br>
+Features include:<br>
+• BMV/DMV Locator Map with community-submitted route data and real pass rates<br>
+• Route Submission Tool — users share the actual paths they drove and tips<br>
+• Timed Practice Permit Test with answer explanations and saved results<br>
+• 50-state Handbook Library with simplified summaries and official PDFs<br><br>
+Deployed on Railway. <a href="https://driveready.up.railway.app/" target="_blank">Try it ↗</a>`,
+
       tech: `Muhannad's stack varies by project, but his core toolkit:<br><br>
 <b>Frontend:</b> Vanilla JavaScript, HTML/CSS, React, Canvas/WebGL<br>
 <b>Backend:</b> Node.js, Express, SQLite<br>
@@ -1524,6 +1537,7 @@ He defaults to vanilla JS when he can — he built a full OS simulation without 
       if (/wind.?turb|turbine|renewable.?energy/.test(t)) return K.windturbine;
       if (/postnote|post.?note|sticky.?note/.test(t)) return K.postnote;
       if (/wi.?fi|wifi|network.?sec|network.?risk|public.?wifi/.test(t)) return K.wifi;
+      if (/driveready|drive.?ready|driver.?test|dmv|bmv|permit.?test|driving.?exam/.test(t)) return K.driveready;
 
       // All projects list
       if (/all projects|list.*project|what project|show.*project|projects.*built|projects.*made|what has he built|what did he build/.test(t)) return K.projects;
