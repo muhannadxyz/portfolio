@@ -2,864 +2,195 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover"/>
-  <meta name="theme-color" content="#0B0C0F"/>
-  <title>Muhannad Abuzahrieh</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta name="theme-color" content="#fdfdfc"/>
+  <meta name="description" content="Muhannad Abuzahrieh is a first-gen software engineer building at the intersection of design and engineering. Selected work, experience, and contact."/>
+  <title>Muhannad Abuzahrieh, Software Engineer</title>
   <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
   <link rel="manifest" href="favicon/site.webmanifest">
   <link rel="stylesheet" href="css/styles.css">
-  <style>
-    /* ── Variables ── */
-    :root {
-      --bg:        #0B0C0F;
-      --surface:   #131619;
-      --surface2:  #1A1D22;
-      --border:    #22262D;
-      --border2:   #343A45;
-      --text:      #E8E9EB;
-      --text2:     #8C9099;
-      --text3:     #4E535C;
-      --green:     #23D18B;
-      --topbar-h:  44px;
-      --sidebar-w: 200px;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html, body {
-      background: var(--bg) !important;
-      color: var(--text);
-      font-family: 'Inter', system-ui, sans-serif;
-      overflow: hidden !important;
-      height: 100vh !important;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* ── Topbar ── */
-    .rw-topbar {
-      position: fixed; top: 0; left: 0; right: 0;
-      height: var(--topbar-h);
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 14px; z-index: 200; gap: 12px;
-    }
-    .rw-topbar-left { display: flex; align-items: center; gap: 8px; }
-    .rw-avatar {
-      width: 22px; height: 22px;
-      border-radius: 50%; overflow: hidden; flex-shrink: 0;
-    }
-    .rw-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .rw-topbar-name { font-size: 13px; font-weight: 500; color: var(--text); }
-    .rw-topbar-sep  { font-size: 13px; color: var(--text3); }
-    .rw-topbar-env {
-      display: flex; align-items: center; gap: 5px;
-      background: var(--surface2); border: 1px solid var(--border);
-      border-radius: 6px; padding: 3px 8px;
-      font-size: 12px; font-weight: 500; color: var(--text2); cursor: default;
-    }
-    .rw-topbar-env::after { content: '▾'; font-size: 9px; color: var(--text3); }
-    .rw-topbar-right { display: flex; align-items: center; gap: 6px; }
-    .rw-topnav-link {
-      font-size: 13px; color: var(--text2); text-decoration: none;
-      padding: 4px 10px; border-radius: 6px;
-      transition: background 0.15s, color 0.15s;
-    }
-    .rw-topnav-link:hover { background: var(--surface2); color: var(--text); }
-    .rw-topnav-btn {
-      font-size: 13px; font-weight: 500; color: var(--text);
-      background: var(--surface2); border: 1px solid var(--border2);
-      padding: 5px 12px; border-radius: 6px; cursor: pointer;
-      text-decoration: none; transition: background 0.15s, border-color 0.15s;
-    }
-    .rw-topnav-btn:hover { background: #252830; border-color: #555D6A; }
-
-    /* ── Sidebar ── */
-    .rw-sidebar {
-      position: fixed; top: var(--topbar-h); left: 0; bottom: 0;
-      width: var(--sidebar-w);
-      background: var(--surface); border-right: 1px solid var(--border);
-      box-shadow: 2px 0 12px rgba(0,0,0,0.45);
-      display: flex; flex-direction: column;
-      padding: 10px 8px; gap: 2px; z-index: 210;
-      overflow: hidden;
-    }
-    .rw-sidebar-btn {
-      width: 100%; height: 34px;
-      display: flex; align-items: center; gap: 9px;
-      background: transparent; border: none; cursor: pointer;
-      border-radius: 7px; color: var(--text3) !important;
-      padding: 0 10px; text-align: left;
-      text-decoration: none;
-      transition: background 0.15s, color 0.15s;
-      font-family: 'Inter', system-ui, sans-serif;
-      box-sizing: border-box; -webkit-appearance: none; appearance: none;
-    }
-    .rw-sidebar-btn:hover { background: var(--surface2); color: var(--text2) !important; }
-    .rw-sidebar-btn.active { background: var(--surface2); color: var(--text) !important; }
-    .rw-sidebar-btn svg { flex-shrink: 0; }
-    .rw-sidebar-label { font-size: 13px; font-weight: 500; }
-    .rw-sidebar-ext {
-      margin-left: auto; font-size: 10px; color: var(--text3); opacity: 0;
-      transition: opacity 0.15s;
-    }
-    .rw-sidebar-btn:hover .rw-sidebar-ext { opacity: 1; }
-    .rw-sidebar-sep { width: 100%; height: 1px; background: var(--border); margin: 6px 0; }
-
-    /* ── Canvas area ── */
-    .rw-main {
-      position: fixed;
-      top: var(--topbar-h); left: var(--sidebar-w); right: 0; bottom: 0;
-      overflow: hidden;
-    }
-    .rw-canvas-bg {
-      width: 100%; height: 100%;
-      background-color: var(--bg);
-      background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
-      background-size: 24px 24px;
-      cursor: grab; position: relative; overflow: hidden;
-    }
-    .rw-canvas-bg.grabbing { cursor: grabbing; }
-    /* Nether stars */
-    .nether-star {
-      position: absolute; border-radius: 50%; pointer-events: none;
-      background: #fff; z-index: 1;
-      animation: starTwinkle var(--dur) ease-in-out infinite;
-      animation-delay: var(--del);
-    }
-    @keyframes starTwinkle {
-      0%,100% { opacity: 0.04; transform: scale(1); }
-      50% { opacity: var(--peak); transform: scale(var(--grow)); }
-    }
-    /* Edge vignette */
-    .rw-canvas-bg::after {
-      content: '';
-      position: absolute; inset: 0; pointer-events: none; z-index: 2;
-      background: radial-gradient(ellipse at center, transparent 55%, rgba(11,12,15,0.75) 100%);
-    }
-    .rw-canvas {
-      position: absolute; top: 0; left: 0;
-      transform-origin: 0 0;
-      will-change: transform;
-    }
-    .rw-edges {
-      position: absolute; top: 0; left: 0;
-      pointer-events: none; overflow: visible;
-    }
-
-    /* ── Node cards ── */
-    .rw-node {
-      position: absolute; width: 260px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      cursor: pointer; user-select: none;
-      opacity: 0;
-      animation: nodeIn 0.45s cubic-bezier(0.34,1.3,0.64,1) forwards;
-      transition: border-color 0.15s, box-shadow 0.15s;
-    }
-    .rw-node:hover {
-      border-color: var(--border2);
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.03), 0 8px 28px rgba(0,0,0,0.55);
-      z-index: 10;
-    }
-    @keyframes nodeIn {
-      from { opacity: 0; transform: scale(0.92) translateY(8px); }
-      to   { opacity: 1; transform: scale(1)    translateY(0);   }
-    }
-    .rw-node-inner { padding: 14px 14px 12px; }
-    .rw-node-header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 14px; }
-    .rw-node-icon {
-      width: 30px; height: 30px; border-radius: 7px; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 11px; font-weight: 700; letter-spacing: -0.5px;
-      font-family: 'IBM Plex Mono', monospace;
-    }
-    .rw-node-meta { flex: 1; min-width: 0; }
-    .rw-node-title {
-      font-size: 13px; font-weight: 600; color: var(--text);
-      line-height: 1.3; margin-bottom: 3px;
-    }
-    .rw-node-sub {
-      font-size: 11px; color: var(--text3);
-      font-family: 'IBM Plex Mono', monospace;
-      line-height: 1.35;
-    }
-    .rw-node-footer {
-      display: flex; align-items: center; gap: 6px;
-      padding-top: 10px; border-top: 1px solid var(--border);
-    }
-    .rw-status-dot {
-      width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
-    }
-    .rw-status-dot.live {
-      background: var(--green);
-      animation: pulseDot 2.5s ease-in-out infinite;
-    }
-    .rw-status-dot.github { background: var(--text3); }
-    .rw-status-dot.local  { background: #3B82F6; }
-    @keyframes pulseDot {
-      0%,100% { box-shadow: 0 0 0 0   rgba(35,209,139,0.4); }
-      50%     { box-shadow: 0 0 0 4px rgba(35,209,139,0);   }
-    }
-    .rw-status-text { font-size: 11px; color: var(--text2); }
-
-    /* ── About Me hub node ── */
-    .rw-node.hub {
-      width: 240px;
-      border-color: #6366F1;
-      box-shadow: 0 0 0 1px rgba(99,102,241,0.15), 0 0 28px rgba(99,102,241,0.12);
-    }
-    .rw-node.hub:hover {
-      border-color: #818CF8;
-      box-shadow: 0 0 0 1px rgba(129,140,248,0.25), 0 8px 32px rgba(99,102,241,0.25);
-    }
-    .rw-hub-body { padding: 16px 14px 14px; }
-    .rw-hub-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-    .rw-hub-avatar {
-      width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
-      overflow: hidden;
-    }
-    .rw-hub-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .rw-hub-name { font-size: 13px; font-weight: 700; color: var(--text); }
-    .rw-hub-role { font-size: 11px; color: var(--text3); font-family: 'IBM Plex Mono', monospace; margin-top: 1px; }
-    .rw-hub-bio {
-      font-size: 11px; color: var(--text2); line-height: 1.6;
-      margin-bottom: 10px;
-    }
-    .rw-hub-footer {
-      display: flex; align-items: center; justify-content: space-between;
-      padding-top: 10px; border-top: 1px solid var(--border);
-    }
-    .rw-hub-badge {
-      font-size: 10px; font-weight: 600; letter-spacing: 0.3px;
-      background: rgba(34,209,139,0.12); color: var(--green);
-      border: 1px solid rgba(34,209,139,0.25);
-      border-radius: 20px; padding: 3px 8px;
-    }
-    .rw-hub-link {
-      font-size: 11px; color: var(--text3);
-      text-decoration: none; transition: color 0.15s;
-    }
-    .rw-hub-link:hover { color: var(--text2); }
-
-    /* ── Edge lines ── */
-    .rw-edge {
-      stroke: rgba(255,255,255,0.45); stroke-width: 1.5; fill: none;
-      stroke-dasharray: 6 10;
-      animation: flowEdge 2.2s linear infinite;
-    }
-    .rw-edge-glow {
-      stroke: rgba(255,255,255,0.08); stroke-width: 6; fill: none;
-    }
-    @keyframes flowEdge { to { stroke-dashoffset: -16; } }
-
-    /* ── Bottom controls ── */
-    .rw-controls {
-      position: fixed; bottom: 18px;
-      left: calc(var(--sidebar-w) + 14px);
-      display: flex; align-items: center; gap: 4px; z-index: 300;
-    }
-    .rw-ctrl-group {
-      display: flex; align-items: center;
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 8px; overflow: hidden;
-    }
-    .rw-ctrl-btn {
-      width: 32px; height: 32px;
-      display: flex; align-items: center; justify-content: center;
-      background: transparent; border: none;
-      color: var(--text2) !important; cursor: pointer; font-size: 15px;
-      transition: background 0.12s, color 0.12s;
-    }
-    .rw-ctrl-btn:hover { background: var(--surface2); color: var(--text) !important; }
-    .rw-ctrl-divider { width: 1px; height: 18px; background: var(--border); }
-    .rw-ctrl-pill {
-      font-size: 11px; color: var(--text3);
-      font-family: 'IBM Plex Mono', monospace;
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 8px; height: 32px; padding: 0 10px;
-      display: flex; align-items: center;
-    }
-
-    /* ── Chat bot button active state ── */
-    #chatToggleBtn.active { background: rgba(99,102,241,0.18); box-shadow: 0 0 0 1px rgba(99,102,241,0.35) inset; }
-
-    /* ── Chat panel ── */
-    .rw-chat-panel {
-      position: fixed;
-      bottom: 58px;
-      left: calc(var(--sidebar-w) + 14px);
-      width: 340px;
-      max-height: 480px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      display: flex; flex-direction: column;
-      z-index: 400;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.6);
-      transform: translateY(8px) scale(0.97);
-      opacity: 0;
-      pointer-events: none;
-      transition: transform 0.2s cubic-bezier(0.34,1.3,0.64,1), opacity 0.18s ease;
-    }
-    .rw-chat-panel.open {
-      transform: translateY(0) scale(1);
-      opacity: 1;
-      pointer-events: all;
-    }
-    .rw-chat-header {
-      display: flex; align-items: center; gap: 10px;
-      padding: 12px 14px 11px;
-      border-bottom: 1px solid var(--border);
-      flex-shrink: 0;
-    }
-    .rw-chat-bot-icon {
-      width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
-      overflow: hidden;
-    }
-    .rw-chat-bot-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .rw-chat-header-text { flex: 1; }
-    .rw-chat-header-name { font-size: 12px; font-weight: 600; color: var(--text); }
-    .rw-chat-header-sub  { font-size: 10px; color: var(--green); font-family: 'IBM Plex Mono', monospace; }
-    .rw-chat-close {
-      width: 22px; height: 22px; border-radius: 5px; border: none;
-      background: transparent; color: var(--text3) !important; cursor: pointer; font-size: 13px;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.12s, color 0.12s;
-    }
-    .rw-chat-close:hover { background: var(--surface2); color: var(--text2) !important; }
-    .rw-chat-messages {
-      flex: 1; overflow-y: auto; padding: 12px;
-      display: flex; flex-direction: column; gap: 10px;
-    }
-    .rw-chat-messages::-webkit-scrollbar { width: 4px; }
-    .rw-chat-messages::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
-    .rw-chat-msg {
-      max-width: 88%; font-size: 12.5px; line-height: 1.55;
-      padding: 8px 11px; border-radius: 10px;
-    }
-    .rw-chat-msg.bot {
-      background: var(--surface2); color: var(--text2);
-      border: 1px solid var(--border); border-radius: 10px 10px 10px 3px;
-      align-self: flex-start;
-    }
-    .rw-chat-msg.user {
-      background: rgba(99,102,241,0.18); color: var(--text);
-      border: 1px solid rgba(99,102,241,0.25); border-radius: 10px 10px 3px 10px;
-      align-self: flex-end;
-    }
-    .rw-chat-msg.bot a { color: #818CF8; text-decoration: none; }
-    .rw-chat-msg.bot a:hover { text-decoration: underline; }
-    .rw-chat-typing {
-      display: flex; gap: 4px; align-items: center;
-      padding: 8px 11px; align-self: flex-start;
-    }
-    .rw-chat-typing span {
-      width: 5px; height: 5px; border-radius: 50%;
-      background: var(--text3); display: inline-block;
-      animation: typingBounce 1.2s ease-in-out infinite;
-    }
-    .rw-chat-typing span:nth-child(2) { animation-delay: 0.2s; }
-    .rw-chat-typing span:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes typingBounce {
-      0%,60%,100% { transform: translateY(0); opacity: 0.4; }
-      30% { transform: translateY(-4px); opacity: 1; }
-    }
-    .rw-chat-pills {
-      display: flex; flex-wrap: wrap; gap: 6px;
-      padding: 0 12px 10px; flex-shrink: 0;
-    }
-    .rw-chat-pill {
-      font-size: 11px; color: var(--text3);
-      background: var(--surface2); border: 1px solid var(--border);
-      border-radius: 20px; padding: 4px 9px; cursor: pointer;
-      transition: color 0.12s, border-color 0.12s;
-      white-space: nowrap;
-    }
-    .rw-chat-pill:hover { color: var(--text2); border-color: var(--border2); }
-    .rw-chat-input-row {
-      display: flex; gap: 6px; padding: 10px 12px;
-      border-top: 1px solid var(--border); flex-shrink: 0;
-    }
-    .rw-chat-input {
-      flex: 1; background: var(--surface2); border: 1px solid var(--border);
-      border-radius: 7px; padding: 7px 10px;
-      color: var(--text); font-size: 12.5px;
-      font-family: 'Inter', system-ui, sans-serif;
-      outline: none; transition: border-color 0.15s;
-    }
-    .rw-chat-input:focus { border-color: var(--border2); }
-    .rw-chat-input::placeholder { color: var(--text3); }
-    .rw-chat-send {
-      width: 30px; height: 30px; border-radius: 7px; border: none;
-      background: var(--purple); color: #fff; cursor: pointer; font-size: 14px;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.12s;
-    }
-    .rw-chat-send:hover { background: #5254CC; }
-
-    /* ── Hint toast ── */
-    .rw-hint {
-      position: fixed; bottom: 60px; left: 50%; transform: translateX(-50%);
-      font-size: 12px; color: var(--text3);
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 20px; padding: 6px 14px;
-      pointer-events: none; white-space: nowrap;
-      animation: hintFade 4.5s ease forwards; z-index: 300;
-    }
-    .rw-hint-views {
-      position: fixed; bottom: 60px; right: 20px;
-      font-size: 12px; color: var(--text);
-      background: var(--surface2); border: 1px solid var(--border2);
-      border-radius: 20px; padding: 6px 14px;
-      pointer-events: none; white-space: nowrap;
-      opacity: 0; z-index: 300;
-      animation: hintFadeViews 4s ease forwards;
-      animation-delay: 5s;
-    }
-    @keyframes hintFade {
-      0%,50% { opacity: 1; } 100% { opacity: 0; }
-    }
-    @keyframes hintFadeViews {
-      0% { opacity: 0; } 15%,60% { opacity: 1; } 100% { opacity: 0; }
-    }
-
-    /* ── Gallery View ── */
-    /* ── View toggle pill ── */
-    .rw-view-toggle {
-      position: fixed;
-      bottom: 18px;
-      right: 20px;
-      z-index: 500;
-      display: flex;
-      align-items: center;
-      background: var(--surface);
-      border: 1px solid var(--border2);
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.4);
-    }
-    .rw-view-toggle-btn {
-      width: 36px; height: 32px;
-      display: flex; align-items: center; justify-content: center;
-      background: transparent; border: none; cursor: pointer;
-      color: #6B7280;
-      transition: background 0.15s, color 0.15s;
-      padding: 0;
-    }
-    .rw-view-toggle-btn:hover { background: var(--surface2); color: #C0C4CC; }
-    .rw-view-toggle-btn.active { background: var(--surface2); color: #E8E9EB; }
-    .rw-view-toggle-divider { width: 1px; height: 18px; background: var(--border); flex-shrink: 0; }
-    .gv-root {
-      position: absolute;
-      inset: 0;
-      overflow-y: auto;
-      background: #C5E0CF;
-      font-family: 'Inter', system-ui, sans-serif;
-      z-index: 50;
-    }
-    .gv-inner {
-      min-height: 100%;
-      display: flex;
-      flex-direction: column;
-      padding: 40px 52px 60px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .gv-toprow {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      margin-bottom: 36px;
-    }
-    .gv-hero-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 1.8px;
-      color: #2D5A45;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-    .gv-hero-name {
-      font-size: clamp(38px, 5vw, 58px);
-      font-weight: 800;
-      line-height: 1.0;
-      color: #0D1F17;
-      letter-spacing: -1.5px;
-      text-transform: uppercase;
-    }
-    .gv-badge {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.8px;
-      color: #0D1F17;
-      background: rgba(13,31,23,0.08);
-      border: 1px solid rgba(13,31,23,0.15);
-      border-radius: 20px;
-      padding: 6px 14px;
-      white-space: nowrap;
-      margin-top: 6px;
-    }
-    .gv-badge::before {
-      content: ''; width: 7px; height: 7px; border-radius: 50%;
-      background: #1A9A5C; flex-shrink: 0;
-      box-shadow: 0 0 0 3px rgba(26,154,92,0.25);
-    }
-    .gv-section-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 24px;
-    }
-    .gv-section-title {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: #0D1F17;
-    }
-    .gv-section-count {
-      font-size: 11px;
-      font-weight: 500;
-      color: #2D5A45;
-      letter-spacing: 1px;
-    }
-    .gv-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-    @media (max-width: 900px) {
-      .gv-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 580px) {
-      .gv-grid { grid-template-columns: 1fr; }
-    }
-    .gv-card {
-      background: #F0F8F3;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid rgba(13,31,23,0.1);
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      display: flex;
-      flex-direction: column;
-    }
-    .gv-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 36px rgba(13,31,23,0.14);
-    }
-    .gv-card-img {
-      width: 100%;
-      aspect-ratio: 16/9;
-      overflow: hidden;
-      background: #1A2A22;
-      flex-shrink: 0;
-    }
-    .gv-card-img img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.35s;
-    }
-    .gv-card:hover .gv-card-img img { transform: scale(1.04); }
-    .gv-card-img-placeholder {
-      width: 100%; height: 100%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 28px;
-    }
-    .gv-card-body {
-      padding: 16px 18px 18px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .gv-card-meta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .gv-card-cat {
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: #3D7A5A;
-    }
-    .gv-card-num {
-      font-size: 10px;
-      font-weight: 600;
-      color: #7AAA8A;
-      font-family: 'IBM Plex Mono', monospace;
-    }
-    .gv-card-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: #0D1F17;
-      line-height: 1.25;
-    }
-    .gv-card-desc {
-      font-size: 12px;
-      color: #3D5A47;
-      line-height: 1.5;
-      flex: 1;
-    }
-
-    /* ── Mobile fallback ── */
-    @media (max-width: 800px) {
-      .rw-sidebar { display: none; }
-      .rw-main { left: 0; overflow-y: auto; }
-      .rw-canvas-bg {
-        cursor: default; background-image: none; overflow: auto;
-        min-height: calc(100vh - var(--topbar-h));
-      }
-      .rw-canvas {
-        position: relative; transform: none !important;
-        display: flex; flex-direction: column;
-        align-items: center; gap: 12px; padding: 24px 16px;
-      }
-      .rw-node {
-        position: relative !important; left: auto !important; top: auto !important;
-        width: 100%; max-width: 360px;
-      }
-      .rw-edges { display: none; }
-      .rw-controls { display: none; }
-      .rw-hint { display: none; }
-      .rw-canvas-bg::after { display: none; }
-    }
-  </style>
 </head>
 <body>
 
-  <!-- Topbar -->
-  <header class="rw-topbar">
-    <div class="rw-topbar-left">
-      <div class="rw-avatar"><img src="favicon/android-chrome-192x192.png" alt="MA"></div>
-      <span class="rw-topbar-name">muhannad</span>
-      <span class="rw-topbar-sep">›</span>
-      <div class="rw-topbar-env">portfolio</div>
-    </div>
-    <nav class="rw-topbar-right"></nav>
-  </header>
-
-  <!-- Sidebar -->
-  <aside class="rw-sidebar">
-    <!-- Projects (current page) -->
-    <button class="rw-sidebar-btn active">
-      <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-        <rect x="1" y="1" width="6" height="6" rx="1.5" fill="currentColor"/>
-        <rect x="9" y="1" width="6" height="6" rx="1.5" fill="currentColor"/>
-        <rect x="1" y="9" width="6" height="6" rx="1.5" fill="currentColor"/>
-        <rect x="9" y="9" width="6" height="6" rx="1.5" fill="currentColor"/>
-      </svg>
-      <span class="rw-sidebar-label">Projects</span>
+  <!-- ── Nav ── -->
+  <nav class="nav">
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navOverlay">
+      <span></span><span></span>
     </button>
+  </nav>
 
-    <div class="rw-sidebar-sep"></div>
+  <div class="nav-overlay" id="navOverlay">
+    <div class="nav-overlay-inner">
+      <a class="nav-overlay-link" href="#top" data-nav-link>Home</a>
+      <a class="nav-overlay-link" href="#experience" data-nav-link>Experience</a>
+      <a class="nav-overlay-link" href="#work" data-nav-link>Work</a>
+      <a class="nav-overlay-link" href="#contact" data-nav-link>Contact</a>
+      <div class="nav-overlay-sep"></div>
+      <a class="nav-overlay-link" href="https://www.linkedin.com/in/muhannad-abuzahrieh-0b7330265/" target="_blank" rel="noreferrer">LinkedIn</a>
+      <a class="nav-overlay-link" href="https://github.com/muhannadxyz" target="_blank" rel="noreferrer">GitHub</a>
+    </div>
+  </div>
 
-    <!-- About Me -->
-    <a href="about.html" class="rw-sidebar-btn">
-      <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-        <circle cx="8" cy="5" r="2.5" stroke="currentColor" stroke-width="1.5"/>
-        <path d="M3 13.5C3 11.015 5.239 9 8 9s5 2.015 5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
-      <span class="rw-sidebar-label">About Me</span>
-    </a>
+  <main id="top">
 
-    <!-- Contact -->
-    <a href="contact.html" class="rw-sidebar-btn">
-      <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-        <rect x="1.5" y="3.5" width="13" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
-        <path d="M1.5 5.5l6.5 4 6.5-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
-      <span class="rw-sidebar-label">Contact</span>
-    </a>
+    <!-- ── Hero ── -->
+    <section class="hero container">
+      <div class="hero-avatar reveal"><img src="favicon/android-chrome-192x192.png" alt="Muhannad Abuzahrieh"></div>
+      <h1 class="hero-name reveal">Muhannad Abuzahrieh</h1>
+      <p class="hero-sub reveal">I'm a software engineer and first-gen CS grad, currently interning at Keyfactor and open to full-time roles.</p>
+      <div class="hero-social reveal">
+        <a href="https://www.linkedin.com/in/muhannad-abuzahrieh-0b7330265/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.15 1.45-2.15 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
+        </a>
+        <a href="https://github.com/muhannadxyz" target="_blank" rel="noreferrer" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56 0-.27-.01-1.18-.02-2.14-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.34.96.1-.75.4-1.25.73-1.54-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11.05 11.05 0 0 1 2.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.77.12 3.06.74.8 1.18 1.83 1.18 3.09 0 4.43-2.69 5.41-5.26 5.69.42.36.78 1.08.78 2.18 0 1.57-.02 2.84-.02 3.23 0 .31.21.67.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></svg>
+        </a>
+      </div>
+    </section>
 
-    <div class="rw-sidebar-sep"></div>
-
-    <!-- LinkedIn -->
-    <a href="https://www.linkedin.com/in/muhannad-abuzahrieh-0b7330265/" target="_blank" rel="noreferrer" class="rw-sidebar-btn">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-      </svg>
-      <span class="rw-sidebar-label">LinkedIn</span>
-      <span class="rw-sidebar-ext">↗</span>
-    </a>
-
-    <!-- GitHub -->
-    <a href="https://github.com/muhannadxyz" target="_blank" rel="noreferrer" class="rw-sidebar-btn">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-      </svg>
-      <span class="rw-sidebar-label">GitHub</span>
-      <span class="rw-sidebar-ext">↗</span>
-    </a>
-  </aside>
-
-  <!-- Canvas -->
-  <main class="rw-main" id="canvasMain">
-    <!-- Gallery View (overlays the canvas) -->
-    <div class="gv-root" id="galleryView" style="display:none;">
-      <div class="gv-inner">
-        <div class="gv-toprow">
-          <div>
-            <div class="gv-hero-label">Software Engineer</div>
-            <h1 class="gv-hero-name">Muhannad<br>Abuzahrieh</h1>
+    <!-- ── Experience ── -->
+    <section class="section" id="experience">
+      <div class="container">
+        <p class="list-label reveal">Experience <span class="chev">›</span></p>
+        <div class="list-rows reveal">
+          <div class="list-row list-row--exp">
+            <div class="list-row-logo"><img src="https://www.google.com/s2/favicons?domain=keyfactor.com&sz=128" alt="Keyfactor logo" loading="lazy"></div>
+            <div>
+              <p class="list-row-title">Software Development Intern, Analytics &amp; AI</p>
+              <p class="list-row-meta">Keyfactor · Jul 2026 to Present · Hybrid</p>
+              <p class="list-row-desc">Assisting the Analytics &amp; AI Product Management team on intelligence capabilities for customers' cryptographic assets, and building software solutions with Product and Engineering for Fortune 500 companies and government agencies. Working in Python and C# on data analytics, third-party integrations, and long-term AI and machine learning strategy.</p>
+            </div>
           </div>
-          <div class="gv-badge">Available for work</div>
+          <div class="list-row list-row--exp">
+            <div class="list-row-logo"><img src="images/nafsi.svg" alt="Nafsi logo" loading="lazy"></div>
+            <div>
+              <p class="list-row-title">Software Engineer Intern</p>
+              <p class="list-row-meta">Nafsi · Aug 2025 to Jan 2026 · Remote</p>
+              <p class="list-row-desc">Architected custom WordPress themes and block components on a Sage and Acorn stack (PHP, Blade, Tailwind CSS) with a Node.js and Vite build pipeline, and built and shipped Rentwise, a full-stack landlord management app with custom PHP CRUD endpoints and a revenue dashboard. Wrote unit tests, managed deployments, and maintained technical documentation.</p>
+            </div>
+          </div>
+          <div class="list-row list-row--exp">
+            <div class="list-row-logo"><img src="https://www.google.com/s2/favicons?domain=outlier.ai&sz=128" alt="Outlier logo" loading="lazy"></div>
+            <div>
+              <p class="list-row-title">AI Code Evaluation Engineer</p>
+              <p class="list-row-meta">Outlier · Dec 2023 to Mar 2024 · Remote</p>
+              <p class="list-row-desc">Evaluated and annotated AI model outputs across Python, Java, C++, and SQL, contributing to a roughly 20% improvement in model output quality. Designed test cases and evaluation rubrics to benchmark AI reasoning and coding capabilities across languages.</p>
+            </div>
+          </div>
         </div>
-        <div class="gv-section-header">
-          <div class="gv-section-title">Selected Projects</div>
-          <div class="gv-section-count" id="gvCount"></div>
-        </div>
-        <div class="gv-grid" id="gvTrack"></div>
       </div>
-    </div>
-    <div class="rw-canvas-bg" id="canvasBg">
-      <div class="rw-canvas" id="rwCanvas">
-        <svg id="edgeLayer" class="rw-edges" width="2400" height="2400"></svg>
-        <!-- nodes injected by JS -->
-      </div>
-    </div>
-  </main>
+    </section>
 
-  <!-- Bottom controls -->
-  <div class="rw-controls">
-    <div class="rw-ctrl-group">
-      <button class="rw-ctrl-btn rw-ctrl-bot" id="chatToggleBtn" title="Ask about Muhannad">
-        <span style="font-size:16px;line-height:1;">&#x1F916;</span>
-      </button>
-      <div class="rw-ctrl-divider"></div>
-      <button class="rw-ctrl-btn" id="ctrlZoomIn"  title="Zoom in">+</button>
-      <div class="rw-ctrl-divider"></div>
-      <button class="rw-ctrl-btn" id="ctrlZoomOut" title="Zoom out">−</button>
-    </div>
-    <div class="rw-ctrl-pill" id="zoomLabel">85%</div>
-    <div class="rw-ctrl-pill" id="svcCount">— projects</div>
-  </div>
-
-  <!-- Chat panel -->
-  <div class="rw-chat-panel" id="chatPanel">
-    <div class="rw-chat-header">
-      <div class="rw-chat-bot-icon">
-        <img src="favicon/android-chrome-192x192.png" alt="MA">
+    <!-- ── Work ── -->
+    <section class="section" id="work">
+      <div class="container container--wide">
+        <p class="list-label reveal">Work <span class="chev">›</span></p>
+        <div class="work-grid reveal" id="workList"></div>
       </div>
-      <div class="rw-chat-header-text">
-        <div class="rw-chat-header-name">Portfolio Assistant</div>
-        <div class="rw-chat-header-sub">● online</div>
-      </div>
-      <button class="rw-chat-close" id="chatCloseBtn">✕</button>
-    </div>
-    <div class="rw-chat-messages" id="chatMessages"></div>
-    <div class="rw-chat-pills" id="chatPills"></div>
-    <div class="rw-chat-input-row">
-      <input class="rw-chat-input" id="chatInput" type="text" placeholder="Ask me anything...">
-      <button class="rw-chat-send" id="chatSendBtn">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-          <path d="M1 6h10M6 1l5 5-5 5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-    </div>
-  </div>
+    </section>
 
-  <!-- Drag hint -->
-  <div class="rw-hint" id="rwHint">Drag to explore &nbsp;·&nbsp; Scroll to zoom &nbsp;·&nbsp; Click to open</div>
-  <!-- View toggle hint -->
-  <div class="rw-hint-views">Switch views &nbsp;·&nbsp; Canvas or Gallery</div>
+    <!-- ── Contact ── -->
+    <section class="section" id="contact">
+      <div class="container">
+        <p class="list-label reveal">Contact <span class="chev">›</span></p>
+        <div class="reveal">
+          <p class="list-row-desc" style="margin-bottom: 28px;">Open to new opportunities, projects, and partnerships. Fill out the form and I'll get back to you.</p>
 
-  <!-- View toggle (always on top) -->
-  <div class="rw-view-toggle">
-    <button class="rw-view-toggle-btn active" id="viewCanvas" title="Canvas view">
-      <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="3.5" cy="3.5" r="2" fill="currentColor"/>
-        <circle cx="12.5" cy="3.5" r="2" fill="currentColor"/>
-        <circle cx="8"    cy="8"   r="2" fill="currentColor"/>
-        <circle cx="3.5" cy="12.5" r="2" fill="currentColor"/>
-        <circle cx="12.5" cy="12.5" r="2" fill="currentColor"/>
-      </svg>
-    </button>
-    <div class="rw-view-toggle-divider"></div>
-    <button class="rw-view-toggle-btn" id="viewGallery" title="Gallery view">
-      <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-        <rect x="1"  y="1"  width="6" height="6" rx="1.5" fill="currentColor"/>
-        <rect x="9"  y="1"  width="6" height="6" rx="1.5" fill="currentColor"/>
-        <rect x="1"  y="9"  width="6" height="6" rx="1.5" fill="currentColor"/>
-        <rect x="9"  y="9"  width="6" height="6" rx="1.5" fill="currentColor"/>
-      </svg>
-    </button>
-  </div>
+          <div class="contact-success" id="contactSuccess">Message sent. I'll get back to you soon.</div>
 
-  <!-- ── Project Modal ── -->
-  <div id="project-overlay" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Project details" data-close="true">
-    <div class="modalCard" role="document">
-      <button class="modalClose" type="button" data-close="true" aria-label="Close">✕</button>
-      <div class="modalMedia" id="modalMedia">
-        <button class="expandMediaBtn" id="expandMediaBtn" type="button" aria-label="Expand preview">
-          <span class="expandIcon">⛶</span>
-        </button>
-      </div>
-      <div class="expandedMediaOverlay" id="expandedMediaOverlay" style="display:none;">
-        <button class="collapseMediaBtn" id="collapseMediaBtn" type="button" aria-label="Collapse preview">
-          <span class="collapseIcon">✕</span>
-        </button>
-        <div class="expandedMediaContent" id="expandedMediaContent"></div>
-      </div>
-      <div class="modalBody">
-        <div class="detailHeader">
-          <div class="detailIcon" id="detailIcon">⌘</div>
-          <div>
-            <h2 class="detailTitle" id="detailTitle">Project Title</h2>
-            <div class="detailMetaRow">
-              <div class="metaBlock">
-                <div class="metaLabel">Location</div>
-                <div class="metaValue" id="detailLocation">—</div>
+          <form id="contactForm" action="https://formspree.io/f/mzzodeyq" method="POST">
+            <input type="hidden" name="_subject" value="New Portfolio Contact Form Submission">
+            <input type="hidden" name="_next" value="index.html?success=true#contact">
+            <input type="text" name="_gotcha" style="display:none">
+
+            <div class="form-row form-row-pair">
+              <div class="form-row">
+                <label class="form-label" for="name">Name</label>
+                <input type="text" id="name" name="name" class="form-input" placeholder="Jane Doe" required>
               </div>
-              <div class="metaBlock">
-                <div class="metaLabel">Date</div>
-                <div class="metaValue" id="detailDate">—</div>
+              <div class="form-row">
+                <label class="form-label" for="email">Email</label>
+                <input type="email" id="email" name="email" class="form-input" placeholder="jane@company.com" required>
               </div>
             </div>
-            <div class="chips" id="detailChips"></div>
+
+            <div class="form-row">
+              <label class="form-label" for="company">Company / Organization <span class="opt">(optional)</span></label>
+              <input type="text" id="company" name="company" class="form-input" placeholder="Company name">
+            </div>
+
+            <div class="form-row">
+              <label class="form-label" for="subject">Subject</label>
+              <input type="text" id="subject" name="subject" class="form-input" placeholder="Job opportunity / project inquiry" required>
+            </div>
+
+            <div class="form-row">
+              <label class="form-label" for="message">Message</label>
+              <textarea id="message" name="message" class="form-textarea" placeholder="Tell me about your project or opportunity..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">Send message <span>→</span></button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>© 2026 Muhannad Abuzahrieh</span>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/muhannad-abuzahrieh-0b7330265/" target="_blank" rel="noreferrer">LinkedIn</a>
+        <a href="https://github.com/muhannadxyz" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="#top">Back to top</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── Project modal ── -->
+  <div class="modal-backdrop" id="projectModal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Project details">
+    <div class="modal-card" role="document">
+      <button class="modal-close" type="button" id="modalClose" aria-label="Close">✕</button>
+      <div class="modal-media" id="modalMedia"></div>
+      <div class="modal-body">
+        <div class="modal-header">
+          <div class="modal-logo" id="modalLogo"></div>
+          <div>
+            <h3 class="modal-title" id="modalTitle"></h3>
+            <p class="modal-company" id="modalCompany"></p>
           </div>
         </div>
-        <section class="detailSection">
-          <h3 class="sectionTitle">Project Overview</h3>
-          <div class="overviewCard" id="detailOverview"></div>
-          <div class="overviewLink" id="detailOverviewLink" style="display:none;">
-            <div id="detailLinksContainer" style="display:flex;flex-wrap:wrap;gap:0.5rem;"></div>
-          </div>
-        </section>
-        <section class="detailSection" id="releasesSection" hidden>
-          <h3 class="sectionTitle">Releases</h3>
-          <div class="list" id="detailReleases"></div>
-        </section>
-        <section class="detailSection" id="tweetsSection" hidden>
-          <h3 class="sectionTitle">Popular on Twitter</h3>
-          <div class="tweetGrid" id="detailTweets"></div>
-        </section>
-        <section class="detailSection" id="highlightsSection" hidden>
-          <h3 class="sectionTitle">Highlights</h3>
-          <ul class="bullets" id="detailHighlights"></ul>
-        </section>
-        <div class="expandPageContainer" id="expandPageContainer" style="display:none;">
-          <a href="#" id="expandPageLink" class="expandPageButton">
-            <span>Expand Page</span><span class="linkArrow">↗</span>
-          </a>
+        <p class="modal-tagline" id="modalTagline"></p>
+
+        <div class="modal-section">
+          <p class="modal-section-title">Overview</p>
+          <p class="modal-desc" id="modalDesc"></p>
         </div>
+
+        <div class="modal-section">
+          <p class="modal-section-title">Stack</p>
+          <div class="modal-tags" id="modalStack"></div>
+        </div>
+
+        <div class="modal-section" id="modalHighlightsSection">
+          <p class="modal-section-title">Highlights</p>
+          <ul class="modal-bullets" id="modalHighlights"></ul>
+        </div>
+
+        <div class="modal-section" id="modalGallerySection">
+          <p class="modal-section-title">Gallery</p>
+          <div class="modal-gallery" id="modalGallery"></div>
+        </div>
+
+        <div class="modal-links" id="modalLinks"></div>
       </div>
     </div>
   </div>
 
   <!-- Scripts -->
-  <script src="js/projects/project-loader.js"></script>
   <script src="js/projects/portfolio-os.js"></script>
   <script src="js/projects/lucentir.js"></script>
   <script src="js/projects/shadoconnect.js"></script>
@@ -872,865 +203,178 @@
   <script src="js/projects/fluxdesk.js"></script>
   <script src="js/projects/rx-check.js"></script>
   <script src="js/projects/driveready.js"></script>
-  <script src="js/project-updates.js"></script>
+  <script src="js/projects/certscan.js"></script>
 
   <script>
-    // ── Modal helpers ──────────────────────────────────────────────────────
-    function formatDateLong(iso) {
-      if (!iso) return "—";
-      const d = new Date(iso + "T00:00:00");
-      return d.toLocaleDateString(undefined, { year:"numeric", month:"long", day:"numeric" });
+    // ── Project registry ────────────────────────────────────────────────
+    const FEATURED_SLUGS = ['driveready', 'lucentir'];
+
+    function buildRegistry() {
+      return [
+        window.CertScanProject,
+        window.DriveReadyProject,
+        window.LucentirProject,
+        window.PortfolioOSProject,
+        window.ShadoconnectProject,
+        window.RentwiseProject,
+        window.FluxdeskProject,
+        window.PostNoteProject,
+        window.GhostJobCheckerProject,
+        window.JATProject,
+        window.RxCheckProject,
+        window.WifiAnalyzerProject,
+        window.WindTurbineProject
+      ].filter(Boolean);
     }
-    function setSectionVisible(id, v) {
-      const el = document.getElementById(id);
-      if (!el) return;
-      if (v) el.removeAttribute("hidden"); else el.setAttribute("hidden","");
+
+    function renderWorkCard(p) {
+      const url = p.link || (Array.isArray(p.links) && p.links[0] && p.links[0].url) || '';
+      const visitLink = url
+        ? `<a class="work-card-visit" href="${url}" target="_blank" rel="noreferrer" aria-label="Open ${p.title} in a new tab" onclick="event.stopPropagation()">Visit <span>↗</span></a>`
+        : '';
+      return `
+        <div class="work-card-wrap">
+          <button class="work-card" type="button" data-open-project="${p.slug}">
+            <div class="work-card-media">${p.thumb ? `<img src="${p.thumb}" alt="${p.title} preview" loading="lazy">` : ''}</div>
+            <div class="work-card-body">
+              <p class="work-card-title">${p.title}</p>
+              <p class="work-card-tagline">${p.tagline || ''}</p>
+            </div>
+          </button>
+          ${visitLink}
+        </div>
+      `;
     }
-    function closeModal() {
-      const o = document.getElementById("project-overlay");
-      if (o) { o.setAttribute("aria-hidden","true"); o.style.display=""; document.documentElement.style.overflow=""; }
+
+    function renderWork() {
+      const all = buildRegistry();
+      document.getElementById('workList').innerHTML = all.map(renderWorkCard).join('');
     }
-    function setupMediaExpand(project) {
-      const expandBtn     = document.getElementById("expandMediaBtn");
-      const collapseBtn   = document.getElementById("collapseMediaBtn");
-      const expandedOvl   = document.getElementById("expandedMediaOverlay");
-      const expandedCont  = document.getElementById("expandedMediaContent");
-      const modalMedia    = document.getElementById("modalMedia");
-      if (!expandBtn||!collapseBtn||!expandedOvl||!expandedCont||!modalMedia) return;
-      const nb = expandBtn.cloneNode(true);
-      expandBtn.parentNode.replaceChild(nb, expandBtn);
-      nb.addEventListener("click", e => { e.stopPropagation(); expandMedia(modalMedia, expandedCont, expandedOvl); });
-      collapseBtn.addEventListener("click", e => { e.stopPropagation(); collapseMedia(expandedOvl); });
-      expandedOvl.addEventListener("click", e => { if (e.target===expandedOvl) collapseMedia(expandedOvl); });
-      function onEsc(e) {
-        if (e.key==="Escape" && expandedOvl.style.display!=="none") { e.stopPropagation(); collapseMedia(expandedOvl); }
-      }
-      document.removeEventListener("keydown", onEsc, true);
-      document.addEventListener("keydown", onEsc, true);
-    }
-    function expandMedia(modalMedia, expandedCont, expandedOvl) {
-      const src = modalMedia.querySelector("img,iframe");
-      if (!src) return;
-      const clone = src.cloneNode(true);
-      clone.style.cssText = src.tagName==="IMG" ? "width:100%;height:100%;object-fit:contain;" : "width:100%;height:100%;border:none;";
-      expandedCont.innerHTML = "";
-      expandedCont.appendChild(clone);
-      expandedOvl.style.display = "flex";
-      document.documentElement.style.overflow = "hidden";
-      setTimeout(() => document.getElementById("collapseMediaBtn")?.focus(), 100);
-    }
-    function collapseMedia(expandedOvl) {
-      if (!expandedOvl) expandedOvl = document.getElementById("expandedMediaOverlay");
-      if (expandedOvl) {
-        expandedOvl.style.display = "none";
-        const ec = document.getElementById("expandedMediaContent");
-        if (ec) ec.innerHTML = "";
-        const m = document.getElementById("project-overlay");
-        if (m && m.getAttribute("aria-hidden")==="true") document.documentElement.style.overflow = "";
-      }
-    }
-    function openProject(p) {
+
+    // ── Project modal ───────────────────────────────────────────────────
+    function thumbSrc(p) { return p.thumb || ''; }
+
+    function openProjectModal(slug) {
+      const p = buildRegistry().find(x => x.slug === slug);
       if (!p) return;
-      const overlay = document.getElementById("project-overlay");
-      if (!overlay) return;
-      overlay.setAttribute("aria-hidden","false");
-      overlay.style.display = "flex";
-      document.documentElement.style.overflow = "hidden";
-      // Media
-      const mm = document.getElementById("modalMedia");
-      if (mm) {
-        const hasIframe = p.link && p.link.includes('os.html');
-        mm.innerHTML = (hasIframe
-          ? `<iframe src="${p.link}" style="width:100%;height:100%;border:none;" title="${p.title||''} preview"></iframe>`
-          : `<img src="${p.thumb||''}" alt="${p.title||''} preview" />`)
-          + '<button class="expandMediaBtn" id="expandMediaBtn" type="button" aria-label="Expand preview"><span class="expandIcon">⛶</span></button>';
-      }
-      setupMediaExpand(p);
-      // Icon
-      const di = document.getElementById("detailIcon");
-      if (di) {
-        if (p.icon && !p.icon.includes('<')) di.textContent = p.icon;
-        else if (p.logo && !p.logo.includes('<')) di.textContent = p.logo;
-        else di.textContent = (p.title||'P').charAt(0).toUpperCase();
-      }
-      const dt = document.getElementById("detailTitle");      if (dt) dt.textContent = p.title||"Untitled";
-      const dl = document.getElementById("detailLocation");   if (dl) dl.textContent = p.location||"—";
-      const dd = document.getElementById("detailDate");       if (dd) dd.textContent = formatDateLong(p.date);
-      // Chips
-      const chips = document.getElementById("detailChips");
-      if (chips) {
-        const items = [];
-        if (p.role) items.push(`Role: ${p.role}`);
-        if (Array.isArray(p.stack)) items.push(...p.stack);
-        chips.innerHTML = items.map(c=>`<span class="chip">${c}</span>`).join("");
-      }
-      // Overview
-      const ov = document.getElementById("detailOverview");
-      if (ov) ov.textContent = p.overview || p.description || "No overview yet.";
-      // Links
-      const ovLink = document.getElementById("detailOverviewLink");
-      const lc     = document.getElementById("detailLinksContainer");
-      if (ovLink && lc) {
-        let list = Array.isArray(p.links) && p.links.length ? p.links : (p.link ? [{label:'View Project',url:p.link}] : []);
-        if (list.length) {
-          lc.innerHTML = list.map(l => {
-            const ext = l.url && (l.url.startsWith('http://') || l.url.startsWith('https://'));
-            return `<a href="${l.url}" target="${ext?'_blank':'_self'}" ${ext?'rel="noopener noreferrer"':''} class="projectLink"><span>${l.label||'View Project'}</span><span class="linkArrow">↗</span></a>`;
-          }).join('');
-          ovLink.style.display = 'block';
-        } else { ovLink.style.display = 'none'; }
-      }
-      // Expand page
-      const epc = document.getElementById("expandPageContainer");
-      const epl = document.getElementById("expandPageLink");
-      if (epc && epl) {
-        const lu = p.link || (Array.isArray(p.links) && p.links.length ? p.links[0].url : null);
-        if (lu && !lu.startsWith('http')) { epl.href = lu; epc.style.display = 'block'; }
-        else epc.style.display = 'none';
-      }
-      // Releases
-      const rels = Array.isArray(p.releases) ? p.releases : [];
-      setSectionVisible("releasesSection", rels.length > 0);
-      const re = document.getElementById("detailReleases");
-      if (re) re.innerHTML = rels.map(r=>`<div class="releaseItem"><p class="releaseTitle">${r.title||''}</p>${r.note?`<p class="releaseNote">${r.note}</p>`:''}${r.url&&r.url!=='#'?`<a class="releaseLink" href="${r.url}" target="_blank" rel="noreferrer">↗ View</a>`:''}</div>`).join('');
-      // Tweets
-      const tw = Array.isArray(p.tweets) ? p.tweets : [];
-      setSectionVisible("tweetsSection", tw.length > 0);
-      const te = document.getElementById("detailTweets");
-      if (te) te.innerHTML = tw.map(t=>`<div class="tweetCard"><div class="tweetTop"><div class="tweetAuthor"><div class="tweetName">${t.author||''}</div><div class="tweetHandle">${t.handle||''}</div></div><div>𝕏</div></div>${t.text?`<div class="tweetText">${t.text}</div>`:''}${t.media?`<div class="tweetMedia"><img src="${t.media}" alt="" loading="lazy"/></div>`:''}${t.url&&t.url!=='#'?`<a class="tweetLink" href="${t.url}" target="_blank" rel="noreferrer">↗ Open on X</a>`:''}</div>`).join('');
-      // Highlights
-      const hl = Array.isArray(p.highlights) ? p.highlights : [];
-      setSectionVisible("highlightsSection", hl.length > 0);
-      const he = document.getElementById("detailHighlights");
-      if (he) he.innerHTML = hl.map(h=>`<li>${h}</li>`).join('');
+      const modal = document.getElementById('projectModal');
+
+      const modalMedia = document.getElementById('modalMedia');
+      modalMedia.innerHTML = thumbSrc(p) ? `<img src="${thumbSrc(p)}" alt="${p.title} preview">` : '';
+      modalMedia.style.display = thumbSrc(p) ? '' : 'none';
+
+      const logo = document.getElementById('modalLogo');
+      logo.textContent = (p.icon || p.logo || p.title.charAt(0)).toString();
+
+      document.getElementById('modalTitle').textContent = p.title || '';
+      document.getElementById('modalCompany').textContent = p.company || '';
+      document.getElementById('modalTagline').textContent = p.tagline || '';
+      document.getElementById('modalDesc').textContent = p.overview || p.description || '';
+
+      document.getElementById('modalStack').innerHTML =
+        (p.stack || []).map(s => `<span class="tag">${s}</span>`).join('');
+
+      const highlights = p.highlights || [];
+      document.getElementById('modalHighlights').innerHTML =
+        highlights.map(h => `<li>${h}</li>`).join('');
+      document.getElementById('modalHighlightsSection').style.display = highlights.length ? '' : 'none';
+
+      const gallery = p.gallery || [];
+      document.getElementById('modalGallery').innerHTML =
+        gallery.map(src => `<a href="${src}" target="_blank" rel="noreferrer"><img src="${src}" alt="${p.title} screenshot" loading="lazy"></a>`).join('');
+      document.getElementById('modalGallerySection').style.display = gallery.length ? '' : 'none';
+
+      const url = p.link || (Array.isArray(p.links) && p.links[0] && p.links[0].url) || '';
+      const links = Array.isArray(p.links) && p.links.length
+        ? p.links
+        : (url ? [{ label: /github\.com/i.test(url) ? 'View source' : 'Visit site', url }] : []);
+      document.getElementById('modalLinks').innerHTML = links.map(l => {
+        const ext = /^https?:\/\//i.test(l.url || '');
+        return `<a href="${l.url}" class="inline-link" ${ext ? 'target="_blank" rel="noreferrer"' : ''}>${l.label || 'View project'}</a>`;
+      }).join('');
+
+      modal.setAttribute('aria-hidden', 'false');
+      modal.classList.add('is-open');
+      document.documentElement.style.overflow = 'hidden';
     }
-    // Modal close listeners
-    document.getElementById("project-overlay").addEventListener("click", e => {
-      if (e.target?.dataset?.close === "true") closeModal();
+
+    function closeProjectModal() {
+      const modal = document.getElementById('projectModal');
+      modal.setAttribute('aria-hidden', 'true');
+      modal.classList.remove('is-open');
+      document.documentElement.style.overflow = '';
+    }
+
+    document.addEventListener('click', e => {
+      const opener = e.target.closest('[data-open-project]');
+      if (opener) { openProjectModal(opener.getAttribute('data-open-project')); return; }
+      if (e.target.id === 'modalClose' || e.target.id === 'projectModal') closeProjectModal();
     });
-    window.addEventListener("keydown", e => {
-      const o = document.getElementById("project-overlay");
-      if (e.key==="Escape" && o && o.getAttribute("aria-hidden")==="false") closeModal();
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { closeProjectModal(); closeNav(); }
     });
 
-    // ── Canvas state ───────────────────────────────────────────────────────
-    const canvasBg = document.getElementById('canvasBg');
-    const rwCanvas = document.getElementById('rwCanvas');
-    const NODE_W = 260, NODE_H = 114;
-    const PAD = 700; // offset so all logical coords are positive
-
-    let tx = 0, ty = 0, scale = 0.85;
-    let dragging = false, lastX = 0, lastY = 0;
-
-    function applyTransform(animated) {
-      if (animated) {
-        rwCanvas.style.transition = 'transform 0.38s cubic-bezier(0.4,0,0.2,1)';
-        setTimeout(() => { rwCanvas.style.transition = ''; }, 420);
-      } else { rwCanvas.style.transition = ''; }
-      rwCanvas.style.transform = `translate(${tx}px,${ty}px) scale(${scale})`;
-      document.getElementById('zoomLabel').textContent = Math.round(scale*100) + '%';
+    // ── Nav overlay ──────────────────────────────────────────────────────
+    const navToggle = document.getElementById('navToggle');
+    const navOverlay = document.getElementById('navOverlay');
+    function openNav() {
+      navOverlay.classList.add('is-open');
+      navToggle.setAttribute('aria-expanded', 'true');
+      navToggle.setAttribute('aria-label', 'Close menu');
     }
-    function resetView() {
-      tx = canvasBg.offsetWidth  / 2 - PAD * scale;
-      ty = canvasBg.offsetHeight / 2 - PAD * scale;
+    function closeNav() {
+      navOverlay.classList.remove('is-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.setAttribute('aria-label', 'Open menu');
     }
-
-    // ── Node positions (logical, centered at 0,0) ─────────────────────────
-    // About Me lives at (0,0) — the center hub
-    const nodeLayout = {
-      'about-me':          { x:   0,  y:    0 },
-      'portfolio-os':      { x:  20,  y: -430 },
-      'lucentir':          { x: -460, y: -260 },
-      'shadoconnect':      { x:  340, y: -290 },
-      'ghost-job-checker': { x: -260, y: -120 },
-      'wifi-analyzer':     { x: -540, y:  110 },
-      'rentwise':          { x:  260, y:   80 },
-      'jat':               { x:  510, y: -110 },
-      'fluxdesk':          { x: -500, y:  330 },
-      'wind-turbine':      { x: -130, y:  420 },
-      'driveready':        { x:  400, y:  300 },
-      'postnote':          { x:  220, y:  380 },
-      'rx-check':          { x:  520, y:  200 },
-    };
-
-    // ── Edges — all projects connect to the About Me hub ──────────────────
-    const EDGES = [
-      ['about-me', 'portfolio-os'],
-      ['about-me', 'lucentir'],
-      ['about-me', 'shadoconnect'],
-      ['about-me', 'ghost-job-checker'],
-      ['about-me', 'wifi-analyzer'],
-      ['about-me', 'rentwise'],
-      ['about-me', 'jat'],
-      ['about-me', 'fluxdesk'],
-      ['about-me', 'wind-turbine'],
-      ['about-me', 'driveready'],
-      ['about-me', 'postnote'],
-      ['about-me', 'rx-check'],
-    ];
-
-    const nodeSummaries = {
-      'portfolio-os':      'macOS-style desktop in the browser',
-      'lucentir':          'AI-powered brand agency SaaS',
-      'shadoconnect':      'mentorship matchmaking platform',
-      'ghost-job-checker': 'fake job posting detector',
-      'wifi-analyzer':     'network signal strength analyzer',
-      'rentwise':          'smart apartment rent tracker',
-      'jat':               'job application tracking dashboard',
-      'fluxdesk':          'real-time helpdesk ticketing system',
-      'wind-turbine':      'renewable energy data simulator',
-      'driveready':        'driver test prep & DMV locator platform',
-      'postnote':          'quick collaborative sticky notes',
-      'rx-check':          'FDA drug interaction checker',
-    };
-    function getNodeSummary(p) {
-      return nodeSummaries[p.slug] || p.company || '';
-    }
-    function getStatus(p) {
-      if (!p.link) return { cls:'github', label:'GitHub' };
-      if (p.link.startsWith('http')) return { cls:'live', label:'Live' };
-      return { cls:'local', label:'Local' };
-    }
-    function getIcon(p) {
-      const l = p.logo || '';
-      if (l && !l.includes('<')) return l;
-      return (p.title||'P').charAt(0).toUpperCase();
-    }
-
-    function buildNode(project, delay) {
-      const pos = nodeLayout[project.slug] || { x: Math.random()*600-300, y: Math.random()*400-200 };
-      const st  = getStatus(project);
-      const col = project.brandColor || '#6366F1';
-      const node = document.createElement('div');
-      node.className = 'rw-node';
-      node.dataset.slug = project.slug;
-      node.style.left = (PAD + pos.x - NODE_W/2) + 'px';
-      node.style.top  = (PAD + pos.y - NODE_H/2) + 'px';
-      node.style.animationDelay = delay + 'ms';
-      node.innerHTML = `
-        <div class="rw-node-inner">
-          <div class="rw-node-header">
-            <div class="rw-node-icon" style="background:${col}1A;color:${col};border:1px solid ${col}30;">${getIcon(project)}</div>
-            <div class="rw-node-meta">
-              <div class="rw-node-title">${project.title}</div>
-              <div class="rw-node-sub">${getNodeSummary(project)}</div>
-            </div>
-          </div>
-          <div class="rw-node-footer">
-            <span class="rw-status-dot ${st.cls}"></span>
-            <span class="rw-status-text">${st.label}</span>
-          </div>
-        </div>`;
-
-      // ── Per-node drag ──────────────────────────────────────────────────
-      let nodeDragging = false, nodeStartX = 0, nodeStartY = 0;
-      let origLeft = 0, origTop = 0;
-
-      node.addEventListener('mousedown', e => {
-        if (e.button !== 0) return;
-        e.stopPropagation(); // block canvas pan
-        nodeDragging = false;
-        nodeStartX = e.clientX;
-        nodeStartY = e.clientY;
-        origLeft = parseFloat(node.style.left);
-        origTop  = parseFloat(node.style.top);
-
-        function onMove(ev) {
-          const dx = ev.clientX - nodeStartX;
-          const dy = ev.clientY - nodeStartY;
-          if (!nodeDragging && (Math.abs(dx) > 4 || Math.abs(dy) > 4)) {
-            nodeDragging = true;
-            node.style.zIndex = '20';
-            node.style.transition = 'none';
-          }
-          if (nodeDragging) {
-            node.style.left = (origLeft + dx / scale) + 'px';
-            node.style.top  = (origTop  + dy / scale) + 'px';
-            drawEdges();
-          }
-        }
-        function onUp(ev) {
-          window.removeEventListener('mousemove', onMove);
-          window.removeEventListener('mouseup', onUp);
-          node.style.zIndex = '';
-          node.style.transition = '';
-          if (!nodeDragging) {
-            // It was a click — open project
-            node.style.borderColor = col;
-            setTimeout(() => { node.style.borderColor = ''; }, 250);
-            openProject(project);
-          }
-          nodeDragging = false;
-        }
-        window.addEventListener('mousemove', onMove);
-        window.addEventListener('mouseup', onUp);
-      });
-
-      return node;
-    }
-
-    // drawEdges reads live node positions so edges follow dragged nodes
-    function getNodeCenter(slug) {
-      const el = rwCanvas.querySelector(`[data-slug="${slug}"]`);
-      if (!el) return null;
-      const w = parseFloat(getComputedStyle(el).width) || NODE_W;
-      const h = parseFloat(getComputedStyle(el).height) || NODE_H;
-      return {
-        x: parseFloat(el.style.left) + w / 2,
-        y: parseFloat(el.style.top)  + h / 2,
-      };
-    }
-
-    function drawEdges() {
-      const svg = document.getElementById('edgeLayer');
-      svg.innerHTML = '';
-      EDGES.forEach(([a, b]) => {
-        const ca = getNodeCenter(a); const cb = getNodeCenter(b);
-        if (!ca || !cb) return;
-        const dy = cb.y - ca.y;
-        const d = `M${ca.x} ${ca.y} C${ca.x} ${ca.y+dy*0.5} ${cb.x} ${cb.y-dy*0.5} ${cb.x} ${cb.y}`;
-        // glow layer
-        const glow = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        glow.setAttribute('d', d);
-        glow.setAttribute('class', 'rw-edge-glow');
-        svg.appendChild(glow);
-        // main line
-        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        path.setAttribute('d', d);
-        path.setAttribute('class', 'rw-edge');
-        svg.appendChild(path);
-      });
-    }
-
-    function buildAboutNode() {
-      const pos = nodeLayout['about-me'];
-      const node = document.createElement('div');
-      node.className = 'rw-node hub';
-      node.dataset.slug = 'about-me';
-      node.style.left = (PAD + pos.x - 120) + 'px'; // 240/2
-      node.style.top  = (PAD + pos.y - NODE_H/2 - 10) + 'px';
-      node.style.animationDelay = '40ms';
-      node.innerHTML = `
-        <div class="rw-hub-body">
-          <div class="rw-hub-header">
-            <div class="rw-hub-avatar"><img src="favicon/android-chrome-192x192.png" alt="MA"></div>
-            <div>
-              <div class="rw-hub-name">Muhannad Abuzahrieh</div>
-              <div class="rw-hub-role">Software Engineer</div>
-            </div>
-          </div>
-          <div class="rw-hub-bio">First-gen CS grad building at the intersection of design and engineering.</div>
-          <div class="rw-hub-footer">
-            <span class="rw-hub-badge">Open to full-time</span>
-            <span class="rw-hub-link">About Muhannad →</span>
-          </div>
-        </div>`;
-
-      let hubDragging = false, hubStartX, hubStartY, hubOrigLeft, hubOrigTop;
-      node.addEventListener('mousedown', e => {
-        if (e.button !== 0) return;
-        e.stopPropagation();
-        hubDragging = false;
-        hubStartX = e.clientX; hubStartY = e.clientY;
-        hubOrigLeft = parseFloat(node.style.left);
-        hubOrigTop  = parseFloat(node.style.top);
-        function onMove(ev) {
-          const dx = ev.clientX - hubStartX, dy = ev.clientY - hubStartY;
-          if (!hubDragging && (Math.abs(dx) > 4 || Math.abs(dy) > 4)) {
-            hubDragging = true; node.style.zIndex = '20'; node.style.transition = 'none';
-          }
-          if (hubDragging) {
-            node.style.left = (hubOrigLeft + dx / scale) + 'px';
-            node.style.top  = (hubOrigTop  + dy / scale) + 'px';
-            drawEdges();
-          }
-        }
-        function onUp() {
-          window.removeEventListener('mousemove', onMove);
-          window.removeEventListener('mouseup', onUp);
-          node.style.zIndex = ''; node.style.transition = '';
-          if (!hubDragging) window.location.href = 'about.html';
-          hubDragging = false;
-        }
-        window.addEventListener('mousemove', onMove);
-        window.addEventListener('mouseup', onUp);
-      });
-      return node;
-    }
-
-    function initProjects() {
-      const projects = [
-        window.PortfolioOSProject, window.LucentirProject, window.ShadoconnectProject,
-        window.RentwiseProject,    window.WifiAnalyzerProject, window.WindTurbineProject,
-        window.PostNoteProject,    window.GhostJobCheckerProject, window.JATProject,
-        window.FluxdeskProject,    window.RxCheckProject,    window.DriveReadyProject,
-      ].filter(Boolean);
-
-      document.getElementById('svcCount').textContent = `${projects.length} projects`;
-
-      // About Me hub first (renders behind projects visually)
-      rwCanvas.appendChild(buildAboutNode());
-
-      projects.forEach((p, i) => {
-        rwCanvas.appendChild(buildNode(p, 100 + i * 55));
-      });
-
-      drawEdges();
-      resetView();
-      applyTransform(false);
-    }
-
-    // ── Pan ────────────────────────────────────────────────────────────────
-    canvasBg.addEventListener('mousedown', e => {
-      if (e.button !== 0) return;
-      if (e.target.closest('.rw-node')) return;
-      dragging = true; lastX = e.clientX; lastY = e.clientY;
-      canvasBg.classList.add('grabbing');
+    navToggle.addEventListener('click', e => {
+      e.stopPropagation();
+      navOverlay.classList.contains('is-open') ? closeNav() : openNav();
     });
-    window.addEventListener('mousemove', e => {
-      if (!dragging) return;
-      tx += e.clientX - lastX; ty += e.clientY - lastY;
-      lastX = e.clientX; lastY = e.clientY;
-      applyTransform(false);
+    document.addEventListener('click', e => {
+      if (navOverlay.classList.contains('is-open') && !navOverlay.contains(e.target) && e.target !== navToggle) {
+        closeNav();
+      }
     });
-    window.addEventListener('mouseup', () => { dragging = false; canvasBg.classList.remove('grabbing'); });
+    document.querySelectorAll('[data-nav-link]').forEach(a => a.addEventListener('click', closeNav));
 
-    // ── Zoom ───────────────────────────────────────────────────────────────
-    canvasBg.addEventListener('wheel', e => {
-      e.preventDefault();
-      const d = e.deltaY > 0 ? 0.9 : 1.1;
-      const r = canvasBg.getBoundingClientRect();
-      const cx = e.clientX - r.left;
-      const cy = e.clientY - r.top;
-      tx = cx + (tx - cx) * d;
-      ty = cy + (ty - cy) * d;
-      scale = Math.min(Math.max(scale * d, 0.2), 3);
-      applyTransform(false);
-    }, { passive: false });
-
-    // ── Touch pan ──────────────────────────────────────────────────────────
-    let ltx = 0, lty = 0;
-    canvasBg.addEventListener('touchstart', e => {
-      if (e.touches.length===1) { ltx = e.touches[0].clientX; lty = e.touches[0].clientY; }
-    }, { passive: true });
-    canvasBg.addEventListener('touchmove', e => {
-      if (e.touches.length===1) {
-        tx += e.touches[0].clientX - ltx; ty += e.touches[0].clientY - lty;
-        ltx = e.touches[0].clientX; lty = e.touches[0].clientY;
-        applyTransform(false);
-      }
-    }, { passive: true });
-
-    // ── Controls ───────────────────────────────────────────────────────────
-    document.getElementById('ctrlZoomIn') .addEventListener('click', () => { scale = Math.min(scale*1.2,3);   applyTransform(true); });
-    document.getElementById('ctrlZoomOut').addEventListener('click', () => { scale = Math.max(scale*0.8,0.2); applyTransform(true); });
-    // ── Generate nether stars ─────────────────────────────────────────────
-    (function spawnStars() {
-      const bg = document.getElementById('canvasBg');
-      const count = 45;
-      for (let i = 0; i < count; i++) {
-        const star = document.createElement('div');
-        star.className = 'nether-star';
-        const size = 1.5 + Math.random() * 2;
-        star.style.width = size + 'px';
-        star.style.height = size + 'px';
-        star.style.left = Math.random() * 100 + '%';
-        star.style.top  = Math.random() * 100 + '%';
-        star.style.setProperty('--dur', (3 + Math.random() * 5) + 's');
-        star.style.setProperty('--del', (Math.random() * 5) + 's');
-        star.style.setProperty('--peak', (0.15 + Math.random() * 0.45).toFixed(2));
-        star.style.setProperty('--grow', (1.2 + Math.random() * 0.6).toFixed(2));
-        bg.appendChild(star);
-      }
-    })();
-
-    window.addEventListener('load', initProjects);
-
-    // ── Gallery View ───────────────────────────────────────────────────────
-    (function initGallery() {
-      const projectList = [
-        window.PortfolioOSProject, window.LucentirProject, window.ShadoconnectProject,
-        window.RentwiseProject,    window.WifiAnalyzerProject, window.WindTurbineProject,
-        window.PostNoteProject,    window.GhostJobCheckerProject, window.JATProject,
-        window.FluxdeskProject,    window.RxCheckProject,    window.DriveReadyProject,
-      ].filter(Boolean);
-
-      function buildGalleryCards() {
-        const track = document.getElementById('gvTrack');
-        if (!track) return;
-        document.getElementById('gvCount').textContent = projectList.length + ' PROJECTS';
-        track.innerHTML = projectList.map((p, i) => {
-          const num = String(i + 1).padStart(2, '0');
-          const cat = (p.company || '').toUpperCase();
-          const imgHtml = p.thumb
-            ? `<img src="${p.thumb}" alt="${p.title}" loading="lazy">`
-            : `<div class="gv-card-img-placeholder">${p.icon || p.logo || p.title.charAt(0)}</div>`;
-          return `
-            <div class="gv-card" data-slug="${p.slug}">
-              <div class="gv-card-img">${imgHtml}</div>
-              <div class="gv-card-body">
-                <div class="gv-card-meta">
-                  <span class="gv-card-cat">${cat}</span>
-                  <span class="gv-card-num">${num}</span>
-                </div>
-                <div class="gv-card-title">${p.title}</div>
-                <div class="gv-card-desc">${p.tagline || getNodeSummary(p)}</div>
-              </div>
-            </div>`;
-        }).join('');
-
-        // Click a card → open modal
-        track.querySelectorAll('.gv-card').forEach(card => {
-          card.addEventListener('click', () => {
-            const slug = card.dataset.slug;
-            const proj = projectList.find(p => p.slug === slug);
-            if (proj) openProject(proj);
-          });
-        });
-      }
-
-      // ── View toggle ────────────────────────────────────────────────────
-      const canvasBtn   = document.getElementById('viewCanvas');
-      const galleryBtn  = document.getElementById('viewGallery');
-      const galleryView = document.getElementById('galleryView');
-      const chatPanel   = document.getElementById('chatPanel');
-
-      function showCanvas() {
-        galleryView.style.display = 'none';
-        canvasBtn.classList.add('active');
-        galleryBtn.classList.remove('active');
-      }
-      function showGallery() {
-        if (chatPanel) chatPanel.classList.remove('open');
-        galleryView.style.display = '';
-        galleryBtn.classList.add('active');
-        canvasBtn.classList.remove('active');
-        buildGalleryCards();
-      }
-
-      canvasBtn.addEventListener('click', showCanvas);
-      galleryBtn.addEventListener('click', showGallery);
-    })();
-  </script>
-
-  <!-- ── Portfolio Chat Bot ── -->
-  <script>
-  (function() {
-
-    // ── Knowledge base ────────────────────────────────────────────────────────
-    const K = {
-      who: `Muhannad Abuzahrieh is a software engineer who graduated May 2025 with a B.S. in Computer Science. He's a first-generation college grad who builds at the intersection of design and engineering — interactive UIs, full-stack web apps, and browser-native tools. He cares deeply about user experience, performance, and clean code.`,
-
-      background: `He's a first-gen college student who had to figure most things out on his own — that shaped how he works. He digs into the details, doesn't stop at "good enough," and takes real ownership of what he builds. He's drawn to problems where design and engineering meet: things that feel alive, not just functional.`,
-
-      education: `B.S. in Computer Science, graduated May 2025. First-generation college graduate. He put himself through school while building projects on the side.`,
-
-      skills: `<b>Languages:</b> JavaScript, TypeScript, Python, HTML/CSS<br><b>Frontend:</b> React, Canvas/WebGL, Browser APIs, UI/UX Design<br><b>Backend:</b> Node.js, Express, SQLite (better-sqlite3), REST APIs<br><b>Browser:</b> Chrome Extensions API, Content Scripts, IndexedDB<br><b>Tools:</b> Git, Railway, Vercel<br><b>Concepts:</b> Systems thinking, heuristic modeling, risk scoring, virtual filesystems`,
-
-      available: `Yes — Muhannad is actively looking for full-time software engineering roles. He's strongest in frontend-heavy engineering (interactive UIs, browser APIs, Canvas/WebGL) but comfortable across the full stack. <a href="contact.html">Send him a message</a> or connect on <a href="https://www.linkedin.com/in/muhannad-abuzahrieh-0b7330265/" target="_blank">LinkedIn ↗</a>.`,
-
-      contact: `Best ways to reach Muhannad:<br>→ <a href="contact.html">Contact form</a> (fastest)<br>→ <a href="https://www.linkedin.com/in/muhannad-abuzahrieh-0b7330265/" target="_blank">LinkedIn ↗</a><br>→ <a href="https://github.com/muhannadxyz" target="_blank">GitHub ↗</a>`,
-
-      projects: `Muhannad has built <b>12 projects</b>. Here's a quick rundown:<br><br>
-🖥 <b>Portfolio OS</b> — Full macOS desktop simulation in the browser<br>
-🤖 <b>Lucentir</b> — AI-powered brand agency SaaS<br>
-🤝 <b>ShadoConnect</b> — Mentorship matchmaking platform<br>
-👻 <b>Ghost Job Checker</b> — Fake job posting detector (web app + Chrome extension)<br>
-📡 <b>Public Wi-Fi Risk Analyzer</b> — Network security risk scorer<br>
-🏠 <b>RentWise</b> — Smart apartment rent tracker<br>
-📋 <b>JAT</b> — Job application tracking dashboard<br>
-🎧 <b>FluxDesk</b> — Real-time helpdesk ticketing system<br>
-🌬 <b>Wind Turbine Monitor</b> — Renewable energy data simulator<br>
-📝 <b>PostNote</b> — Quick collaborative sticky notes<br>
-💊 <b>RxCheck</b> — FDA drug interaction checker<br>
-🚗 <b>DriveReady</b> — Driver test prep & DMV locator platform<br><br>
-Ask me about any specific project for the full details!`,
-
-      os: `<b>Portfolio OS</b> is a full macOS-style desktop simulation running entirely in the browser — no backend, no frameworks, just vanilla HTML/CSS/JS.<br><br>
-It includes:<br>
-• Window manager with drag, resize, minimize, snap<br>
-• Virtual filesystem using IndexedDB (persists between sessions)<br>
-• Terminal with real commands<br>
-• Text editor, browser, music player, calculator, notes, weather<br>
-• Dock, menubar with live clock, right-click context menus<br>
-• Sound effects via Web Audio API<br><br>
-It's one of his most technically ambitious projects — a full OS architecture built from scratch.`,
-
-      ghostjob: `<b>Ghost Job Checker</b> is a tool that detects fake and phantom job postings before you waste time applying.<br><br>
-It comes in two forms:<br>
-→ <b>Web App</b> — paste a job URL or description, get a 0–100 risk score with a full breakdown<br>
-→ <b>Chrome Extension</b> — installs once, runs automatically on LinkedIn, Indeed, Greenhouse, and Lever, overlaying the risk score right on the page<br><br>
-The risk model checks for: stale reposting patterns, evergreen "pipeline" language, vague requirements, and missing salary data.<br><br>
-No backend, no account, no data leaves your browser. <a href="https://ghost-job-checker.vercel.app/" target="_blank">Try the web app ↗</a>`,
-
-      rxcheck: `<b>RxCheck</b> is a drug interaction checker built on real FDA safety data.<br><br>
-Type two or more medication names — it pulls from the FDA's FAERS adverse event reporting database and shows:<br>
-• How many patients reported problems with that combination<br>
-• What symptoms were reported<br>
-• Color-coded severity: high / moderate / low<br><br>
-Features: autocomplete via FDA NDC API, local search history via SQLite, deployed on Railway.<br>Stack: Node.js, Express, SQLite (better-sqlite3), Vanilla JS. <a href="https://drug-checker.up.railway.app/" target="_blank">Try it ↗</a>`,
-
-      lucentir: `<b>Lucentir</b> is an AI-powered brand agency SaaS platform. It helps businesses build and manage brand identities using AI assistance — think brand strategy, visual direction, and messaging — all in one product.<br><br>
-It's a full-stack project with a polished, production-level UI. One of his more design-forward builds.`,
-
-      shadoconnect: `<b>ShadoConnect</b> is a mentorship matchmaking platform. It connects people looking for guidance with mentors who have relevant experience.<br><br>
-Features include user profiles, a matching algorithm, and a messaging system. Built as a full-stack web app.`,
-
-      rentwise: `<b>RentWise</b> is a smart apartment rent tracker that helps renters make sense of the rental market. It tracks listings, compares prices, and gives you data to make smarter housing decisions.`,
-
-      jat: `<b>JAT (Job Application Tracker)</b> is a dashboard for managing your job search. It helps you track applications, deadlines, company details, and follow-ups — all in one organized view. Built to solve the chaos of tracking dozens of applications in spreadsheets.`,
-
-      fluxdesk: `<b>FluxDesk</b> is a real-time helpdesk ticketing system. It allows teams to manage support tickets, assign tasks, and track resolution status in real time. Built with a focus on speed and clean UX.`,
-
-      windturbine: `<b>Wind Turbine Monitor</b> is a renewable energy data simulator and monitoring dashboard. It simulates turbine performance data, tracks energy output, and visualizes generation metrics. A data-heavy project with real-time charting.`,
-
-      postnote: `<b>PostNote</b> is a quick collaborative sticky-note app. It lets users create, share, and organize notes in a simple, intuitive interface — built for speed and simplicity.`,
-
-      wifi: `<b>Public Wi-Fi Risk Analyzer</b> is a network security tool that scores the risk level of public Wi-Fi connections. It analyzes network signals and characteristics to warn users about potentially unsafe networks.`,
-
-      driveready: `<b>DriveReady</b> is a community-driven driver test prep platform covering all 50 U.S. states. It helps people prepare for both written permit tests and practical road exams.<br><br>
-Features include:<br>
-• BMV/DMV Locator Map with community-submitted route data and real pass rates<br>
-• Route Submission Tool — users share the actual paths they drove and tips<br>
-• Timed Practice Permit Test with answer explanations and saved results<br>
-• 50-state Handbook Library with simplified summaries and official PDFs<br><br>
-Deployed on Railway. <a href="https://driveready.up.railway.app/" target="_blank">Try it ↗</a>`,
-
-      tech: `Muhannad's stack varies by project, but his core toolkit:<br><br>
-<b>Frontend:</b> Vanilla JavaScript, HTML/CSS, React, Canvas/WebGL<br>
-<b>Backend:</b> Node.js, Express, SQLite<br>
-<b>Browser tools:</b> Chrome Extensions API, Content Scripts, IndexedDB<br>
-<b>Deployment:</b> Railway, Vercel<br><br>
-He defaults to vanilla JS when he can — he built a full OS simulation without a single framework. When he does use libraries, he knows exactly why.`,
-    };
-
-    // ── Suggestions shown on open ────────────────────────────────────────────
-    const SUGGESTIONS = [
-      'Who is Muhannad?',
-      'List all projects',
-      'Is he available to hire?',
-      'Tell me about Portfolio OS',
-      'What tech stack does he use?',
-    ];
-
-    // ── Intent matching ───────────────────────────────────────────────────────
-    function botReply(q) {
-      const t = q.toLowerCase();
-
-      // Greetings
-      if (/^(hi|hello|hey|sup|yo|howdy|what'?s up)[\s!?]*$/.test(t.trim()))
-        return `Hey! I'm Muhannad's portfolio assistant. I know everything about his background, projects, and skills — just ask. Or try one of the quick prompts below! 👇`;
-
-      // Thanks
-      if (/thank|thanks|ty|great|awesome|perfect|appreciate/.test(t))
-        return `Happy to help! If you want to connect with Muhannad directly, <a href="contact.html">send him a message</a> or find him on <a href="https://www.linkedin.com/in/muhannad-abuzahrieh-0b7330265/" target="_blank">LinkedIn ↗</a>.`;
-
-      // ── Specific projects FIRST (before any general patterns) ──
-      if (/portfolio.?os|os mode|desktop.?sim|macos.?sim|window manager|browser os|os project/.test(t)) return K.os;
-      if (/ghost.?job|fake.?job|phantom.?job|job.?posting.?detect|chrome.?ext|extension/.test(t)) return K.ghostjob;
-      if (/rxcheck|rx.?check|rx check|drug.?inter|medication|fda.?data|faers|adverse.?event/.test(t)) return K.rxcheck;
-      if (/lucentir|brand.?agency|ai.?brand|brand.?identity/.test(t)) return K.lucentir;
-      if (/shadoconnect|shado\b|mentor/.test(t)) return K.shadoconnect;
-      if (/rentwise|rent.?wise|rent.?track|apartment/.test(t)) return K.rentwise;
-      if (/\bjat\b|job.?applic.?track|application.?tracker/.test(t)) return K.jat;
-      if (/fluxdesk|flux.?desk|helpdesk|ticketing/.test(t)) return K.fluxdesk;
-      if (/wind.?turb|turbine|renewable.?energy/.test(t)) return K.windturbine;
-      if (/postnote|post.?note|sticky.?note/.test(t)) return K.postnote;
-      if (/wi.?fi|wifi|network.?sec|network.?risk|public.?wifi/.test(t)) return K.wifi;
-      if (/driveready|drive.?ready|driver.?test|dmv|bmv|permit.?test|driving.?exam/.test(t)) return K.driveready;
-
-      // All projects list
-      if (/all projects|list.*project|what project|show.*project|projects.*built|projects.*made|what has he built|what did he build/.test(t)) return K.projects;
-
-      // Tech stack
-      if (/skill|tech stack|language|framework|what does he use|tools|experience with|what can he/.test(t)) return K.skills;
-      if (/javascript|typescript|react|node\.?js|python|sqlite|express|indexeddb|canvas|webgl|railway|vercel/.test(t)) return K.tech;
-
-      // Hiring / availability
-      if (/hire|hiring|available|open to work|looking for|job|role|opportunity|full.?time|recruit/.test(t)) return K.available;
-
-      // Contact
-      if (/contact|reach|email|message|get in touch|linkedin|github/.test(t)) return K.contact;
-
-      // Education
-      if (/school|university|college|degree|graduated|first.gen|cs degree/.test(t)) return K.education;
-
-      // Who / bio — LAST so "tell me about X project" hits project checks first
-      if (/who is|about him|tell me about|introduce|background|bio|story/.test(t)) return K.who;
-
-      // Most impressive / favorite project
-      if (/most impressive|hardest|toughest|complex|best project|favorite|proudest/.test(t))
-        return `Probably <b>Portfolio OS</b> — building a full operating system simulation in the browser with vanilla JS is no small feat. Window management, a virtual filesystem, a working terminal, sound effects, and multiple apps — all from scratch. But <b>Ghost Job Checker</b> is arguably the most <i>useful</i> one, already helping real job seekers.`;
-
-      // How long / experience
-      if (/how long|years of|experience level|senior|junior|level/.test(t))
-        return `Muhannad graduated May 2025 with a CS degree. He's been building seriously for the past few years — but the portfolio speaks louder than a number. He ships full-stack apps, browser extensions, and interactive UIs at a level most people don't hit without years of industry experience.`;
-
-      // What makes him different
-      if (/different|unique|stand out|why hire|why him|what makes/.test(t))
-        return `A few things: he built a full OS in the browser without a framework. He ships end-to-end — design, frontend, backend, deployment. He's first-gen, self-directed, and doesn't cut corners. And he cares about the craft — the animations are smooth, the UX is intentional, the code is readable.`;
-
-      // Fallback
-      return `I didn't quite catch that — but I know Muhannad's projects, stack, background, and availability inside out. Try asking:<br>• "What projects has he built?"<br>• "Tell me about RxCheck"<br>• "Is he available to hire?"<br>• "What's his tech stack?"`;
-    }
-
-    // ── Follow-up suggestions per topic ──────────────────────────────────────
-    function getFollowUps(q) {
-      const t = q.toLowerCase();
-      if (/who|about|background|bio/.test(t))       return ['What projects has he built?','What are his skills?','Is he available to hire?'];
-      if (/project|built|made/.test(t))              return ['Tell me about Portfolio OS','Tell me about Ghost Job Checker','Tell me about RxCheck'];
-      if (/skill|stack|tech|language/.test(t))       return ['What projects showcase this?','Is he available to hire?','How can I contact him?'];
-      if (/hire|available|job|role/.test(t))         return ['How can I contact him?','What are his skills?','List all projects'];
-      if (/portfolio.?os|os mode/.test(t))           return ['Tell me about Ghost Job Checker','What tech stack does he use?','Is he available to hire?'];
-      if (/ghost|fake.?job|extension/.test(t))       return ['Tell me about RxCheck','Tell me about Portfolio OS','Is he available to hire?'];
-      if (/rxcheck|drug|fda/.test(t))               return ['Tell me about Ghost Job Checker','What tech does he use?','How can I contact him?'];
-      return [];
-    }
-
-    // ── DOM refs ──────────────────────────────────────────────────────────────
-    const panel     = document.getElementById('chatPanel');
-    const toggleBtn = document.getElementById('chatToggleBtn');
-    const closeBtn  = document.getElementById('chatCloseBtn');
-    const messages  = document.getElementById('chatMessages');
-    const input     = document.getElementById('chatInput');
-    const sendBtn   = document.getElementById('chatSendBtn');
-    const pillsEl   = document.getElementById('chatPills');
-
-    let everOpened = false;
-
-    function addMsg(html, role) {
-      const div = document.createElement('div');
-      div.className = 'rw-chat-msg ' + role;
-      div.innerHTML = html;
-      messages.appendChild(div);
-      messages.scrollTop = messages.scrollHeight;
-    }
-
-    function showTyping() {
-      const t = document.createElement('div');
-      t.className = 'rw-chat-typing'; t.id = 'chatTyping';
-      t.innerHTML = '<span></span><span></span><span></span>';
-      messages.appendChild(t);
-      messages.scrollTop = messages.scrollHeight;
-    }
-
-    function removeTyping() {
-      const t = document.getElementById('chatTyping');
-      if (t) t.remove();
-    }
-
-    function setPills(items) {
-      pillsEl.innerHTML = '';
-      items.forEach(s => {
-        const pill = document.createElement('button');
-        pill.className = 'rw-chat-pill';
-        pill.textContent = s;
-        pill.addEventListener('click', () => handleSend(s));
-        pillsEl.appendChild(pill);
-      });
-    }
-
-    function handleSend(q) {
-      q = (q || input.value).trim();
-      if (!q) return;
-      input.value = '';
-      pillsEl.innerHTML = '';
-      addMsg(q, 'user');
-      showTyping();
-      const delay = 420 + Math.random() * 300;
-      setTimeout(() => {
-        removeTyping();
-        addMsg(botReply(q), 'bot');
-        const fu = getFollowUps(q);
-        if (fu.length) setPills(fu);
-      }, delay);
-    }
-
-    function openChat() {
-      panel.classList.add('open');
-      toggleBtn.classList.add('active');
-      // Remove discovery pulse
-      toggleBtn.classList.remove('bot-pulse');
-      const beacon = document.getElementById('chatBeacon');
-      if (beacon) beacon.remove();
-
-      if (!everOpened) {
-        everOpened = true;
+    // ── Contact form ─────────────────────────────────────────────────────
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('success') === 'true') {
+        const banner = document.getElementById('contactSuccess');
+        banner.classList.add('is-visible');
         setTimeout(() => {
-          addMsg(`Hi! I'm Muhannad's portfolio assistant — I know his projects, background, and skills inside out. What would you like to know?`, 'bot');
-          setPills(SUGGESTIONS);
-        }, 100);
+          banner.classList.remove('is-visible');
+          window.history.replaceState({}, document.title, window.location.pathname + '#contact');
+        }, 6000);
       }
+    });
+    document.getElementById('contactForm').addEventListener('submit', function () {
+      const btn = this.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.innerHTML = 'Sending... <span>→</span>';
+    });
+
+    // ── Scroll reveal ────────────────────────────────────────────────────
+    const revealItems = document.querySelectorAll('.reveal');
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+      revealItems.forEach(el => el.classList.add('is-visible'));
+    } else {
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      revealItems.forEach(el => io.observe(el));
+      setTimeout(() => revealItems.forEach(el => el.classList.add('is-visible')), 2500);
     }
 
-    function closeChat() {
-      panel.classList.remove('open');
-      toggleBtn.classList.remove('active');
-    }
-
-    toggleBtn.addEventListener('click', () => panel.classList.contains('open') ? closeChat() : openChat());
-    closeBtn.addEventListener('click', closeChat);
-    sendBtn.addEventListener('click', () => handleSend());
-    input.addEventListener('keydown', e => { if (e.key === 'Enter') handleSend(); });
-
-    // ── Discovery: pulse + floating tooltip after 2.5s ───────────────────────
-    setTimeout(() => {
-      if (everOpened) return;
-
-      // Pulse ring on the button
-      toggleBtn.classList.add('bot-pulse');
-
-      // Floating beacon tooltip
-      const beacon = document.createElement('div');
-      beacon.id = 'chatBeacon';
-      beacon.innerHTML = `<span>Ask me about Muhannad ✦</span>`;
-      Object.assign(beacon.style, {
-        position: 'fixed',
-        bottom: '58px',
-        left: 'calc(var(--sidebar-w) + 14px)',
-        background: 'linear-gradient(135deg,#6366F1,#8B5CF6)',
-        color: '#fff',
-        fontSize: '12px',
-        fontWeight: '600',
-        padding: '7px 13px',
-        borderRadius: '20px',
-        zIndex: '400',
-        boxShadow: '0 4px 20px rgba(99,102,241,0.45)',
-        cursor: 'pointer',
-        animation: 'beaconIn 0.35s cubic-bezier(0.34,1.3,0.64,1) forwards',
-        whiteSpace: 'nowrap',
-      });
-      beacon.addEventListener('click', openChat);
-      document.body.appendChild(beacon);
-
-      // Auto-dismiss after 5s
-      setTimeout(() => {
-        if (document.getElementById('chatBeacon')) {
-          beacon.style.transition = 'opacity 0.4s';
-          beacon.style.opacity = '0';
-          setTimeout(() => beacon.remove(), 400);
-          toggleBtn.classList.remove('bot-pulse');
-        }
-      }, 5000);
-    }, 2500);
-
-  })();
+    renderWork();
   </script>
-
-  <style>
-    @keyframes beaconIn {
-      from { opacity:0; transform:translateY(8px) scale(0.92); }
-      to   { opacity:1; transform:translateY(0)   scale(1); }
-    }
-    @keyframes botPulse {
-      0%   { box-shadow: 0 0 0 0   rgba(99,102,241,0.6); }
-      70%  { box-shadow: 0 0 0 7px rgba(99,102,241,0); }
-      100% { box-shadow: 0 0 0 0   rgba(99,102,241,0); }
-    }
-    .rw-ctrl-btn.bot-pulse {
-      animation: botPulse 1.4s ease-out infinite;
-      border-color: rgba(99,102,241,0.5) !important;
-    }
-  </style>
 </body>
 </html>

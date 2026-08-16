@@ -9,8 +9,8 @@ window.JATProject = {
   icon: 'JAT',
   thumb: 'images/JAT.png',
   tagline: 'Track every application. No account. No subscription. Just open the file.',
-  description: 'JAT is a free, open-source job application tracker built as a single HTML file. No sign-up, no subscription, no backend — just download and use it. Every other tracker wants you to create an account before you can log a single application. JAT skips all of that. Paste a LinkedIn, Indeed, Greenhouse, or Lever job link and it auto-extracts the company name, role, and date with no copy-pasting required. Track application status across Applied, Interview, Offer, Rejected, and Ghosted. Filter by status, search in real time, and sort by any column. Export your data to CSV whenever you want it back. Everything saves to your browser via localStorage — nothing leaves your device. Built with plain HTML, CSS, and JavaScript. One file. No framework, no backend, no database.',
-  overview: 'A free, single-file job application tracker. Paste a job link and it auto-fills the details. Track status, filter, search, sort, and export to CSV. Everything stays in your browser — no account needed.',
+  description: 'JAT is a free, open-source job application tracker built as a single HTML file. No sign-up, no subscription, no backend, just download and use it. Every other tracker wants you to create an account before you can log a single application. JAT skips all of that. Paste a LinkedIn, Indeed, Greenhouse, or Lever job link and it auto-extracts the company name, role, and date with no copy-pasting required. Track application status across Applied, Interview, Offer, Rejected, and Ghosted. Filter by status, search in real time, and sort by any column. Export your data to CSV whenever you want it back. Everything saves to your browser via localStorage, nothing leaves your device. Built with plain HTML, CSS, and JavaScript. One file. No framework, no backend, no database.',
+  overview: 'A free, single-file job application tracker. Paste a job link and it auto-fills the details. Track status, filter, search, sort, and export to CSV. Everything stays in your browser: no account needed.',
   location: 'Remote',
   date: '2025-03-01',
   role: 'Full-Stack Development',
@@ -19,7 +19,7 @@ window.JATProject = {
   link: 'https://jatts.vercel.app/',
   railText: 'JAT • JOB APPLICATION TRACKER •',
   links: [
-    { label: 'Live', url: 'https://jatts.vercel.app/' }
+    { label: 'Visit site', url: 'https://jatts.vercel.app/' }
   ],
   stack: [
     'HTML',
@@ -32,7 +32,7 @@ window.JATProject = {
   ],
   highlights: [
     'Auto-extracts company name, role, and date from LinkedIn, Indeed, Greenhouse, and Lever job links.',
-    'Full status pipeline: Applied, Interview, Offer, Rejected, Ghosted — with real-time search and filtering.',
+    'Full status pipeline: Applied, Interview, Offer, Rejected, Ghosted, with real-time search and filtering.',
     'Zero-dependency single HTML file. Data stays in the browser; export to CSV anytime.'
   ],
   releases: [],
@@ -44,12 +44,12 @@ window.JATProject = {
       date: '2025-03-01',
       type: 'major',
       changes: [
-        'Initial release of JAT — Job Application Tracker',
+        'Initial release of JAT, Job Application Tracker',
         'Auto-extraction of job details from LinkedIn, Indeed, Greenhouse, and Lever URLs',
         'Status tracking: Applied, Interview, Offer, Rejected, Ghosted',
         'Real-time search, column sorting, and status filtering',
         'CSV export for full data portability',
-        'localStorage persistence — no account or backend required',
+        'localStorage persistence, no account or backend required',
         'Single self-contained HTML file published on GitHub'
       ]
     }

@@ -19,7 +19,7 @@ window.RentwiseProject = {
   link: 'https://rentwise.tech/',
   railText: 'RENTWISE • PROPERTY MGMT •',
   links: [
-    { label: 'Live', url: 'https://rentwise.tech/' }
+    { label: 'Visit site', url: 'https://rentwise.tech/' }
   ],
   stack: [
     'Laravel (PHP)',

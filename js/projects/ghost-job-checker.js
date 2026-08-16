@@ -9,17 +9,17 @@ window.GhostJobCheckerProject = {
   icon: 'GJC',
   thumb: 'images/ghostchecker.png',
   tagline: 'Detect fake & phantom job postings before wasting your time',
-  description: 'Ghost Job Checker helps job seekers identify fake and phantom job postings — available as both a web app and a free Chrome Extension. The web app accepts a job URL or pasted description and runs it through a multi-factor risk model, returning a 0–100 risk score with a full breakdown: stale reposting patterns, evergreen pipeline language, vague requirement signals, and missing salary data. The Chrome Extension brings the same analysis directly into the browser — install it once and it analyzes job listings automatically on LinkedIn, Indeed, Greenhouse, and Lever as you browse, overlaying the risk score and red flags right on the page with no copy-pasting required. Both tools use heuristic text analysis with confidence scoring, hiring likelihood assessment, and actionable recommendations. No backend, no account, no data leaves your browser.',
-  overview: 'A job posting analysis tool available as a web app and a free Chrome Extension. The web app analyzes any job description or URL for fake/phantom signals. The Chrome Extension brings the same analysis directly onto LinkedIn, Indeed, Greenhouse, and Lever pages in real time — no copy-paste needed. Both use a multi-factor risk model (stale, pipeline, vague) to return a 0–100 score with detailed red flag breakdowns.',
+  description: 'Ghost Job Checker helps job seekers identify fake and phantom job postings, available as both a web app and a free Chrome Extension. The web app accepts a job URL or pasted description and runs it through a multi-factor risk model, returning a 0–100 risk score with a full breakdown: stale reposting patterns, evergreen pipeline language, vague requirement signals, and missing salary data. The Chrome Extension brings the same analysis directly into the browser: install it once and it analyzes job listings automatically on LinkedIn, Indeed, Greenhouse, and Lever as you browse, overlaying the risk score and red flags right on the page with no copy-pasting required. Both tools use heuristic text analysis with confidence scoring, hiring likelihood assessment, and actionable recommendations. No backend, no account, no data leaves your browser.',
+  overview: 'A job posting analysis tool available as a web app and a free Chrome Extension. The web app analyzes any job description or URL for fake/phantom signals. The Chrome Extension brings the same analysis directly onto LinkedIn, Indeed, Greenhouse, and Lever pages in real time, no copy-paste needed. Both use a multi-factor risk model (stale, pipeline, vague) to return a 0–100 score with detailed red flag breakdowns.',
   location: 'Remote',
   date: '2025-01-02',
   role: 'Full-Stack Development & Chrome Extension',
-  details: 'Built to solve the problem of job seekers wasting time on fake postings that companies keep up to collect resumes or maintain an appearance of growth. The web app was built first — plain HTML, CSS, and JavaScript, no framework. The Chrome Extension came next as the browser-native companion, removing the copy-paste friction by injecting analysis directly into supported job pages. The main technical challenge on the extension was injecting a clean, non-intrusive overlay UI into third-party pages without breaking their layout, while keeping analysis fast enough to feel instant.',
+  details: 'Built to solve the problem of job seekers wasting time on fake postings that companies keep up to collect resumes or maintain an appearance of growth. The web app was built first: plain HTML, CSS, and JavaScript, no framework. The Chrome Extension came next as the browser-native companion, removing the copy-paste friction by injecting analysis directly into supported job pages. The main technical challenge on the extension was injecting a clean, non-intrusive overlay UI into third-party pages without breaking their layout, while keeping analysis fast enough to feel instant.',
   brandColor: '#FF6B35',
   link: 'https://ghost-job-checker.vercel.app/',
   railText: 'GHOST JOB CHECKER • WEB APP + EXTENSION •',
   links: [
-    { label: 'Live', url: 'https://ghost-job-checker.vercel.app/' },
+    { label: 'Visit site', url: 'https://ghost-job-checker.vercel.app/' },
     { label: 'Chrome Web Store', url: 'https://chromewebstore.google.com/detail/ghost-job-checker/illipifdhfeobicoljamgfcoepfpmmpd?authuser=2&hl=en' }
   ],
   stack: [
@@ -34,8 +34,8 @@ window.GhostJobCheckerProject = {
   ],
   highlights: [
     'Web app analyzes any job description or URL with a 0–100 risk score and breakdown by stale, pipeline, and vague risk factors.',
-    'Chrome Extension injects real-time analysis directly onto LinkedIn, Indeed, Greenhouse, and Lever job pages — no copy-paste needed.',
-    'Zero-friction, no-account setup — all analysis runs client-side with no data leaving the browser.'
+    'Chrome Extension injects real-time analysis directly onto LinkedIn, Indeed, Greenhouse, and Lever job pages, no copy-paste needed.',
+    'Zero-friction, no-account setup: all analysis runs client-side with no data leaving the browser.'
   ],
   releases: [],
   tweets: [],
@@ -61,7 +61,7 @@ window.GhostJobCheckerProject = {
         'Launched Ghost Job Checker Chrome Extension on the Web Store',
         'Real-time content script injection on LinkedIn, Indeed, Greenhouse, and Lever',
         'Overlay UI that renders risk score and red flags directly on job pages',
-        'Full parity with web app risk model — no backend, no tracking'
+        'Full parity with web app risk model, no backend, no tracking'
       ]
     }
   ],

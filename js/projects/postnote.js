@@ -20,7 +20,7 @@ window.PostNoteProject = {
   link: 'https://post-note.vercel.app/',
   railText: 'POSTNOTE • REAL-TIME BOARD •',
   links: [
-    { label: 'Live', url: 'https://post-note.vercel.app/' }
+    { label: 'Visit site', url: 'https://post-note.vercel.app/' }
   ],
   stack: [
     'JavaScript',

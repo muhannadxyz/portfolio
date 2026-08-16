@@ -19,7 +19,7 @@ window.ShadoconnectProject = {
   link: 'https://shadoconnect.com',
   railText: 'SHADOCONNECT • HEALTHCARE / EDUCATION •',
   links: [
-    { label: 'Live', url: 'https://shadoconnect.com' }
+    { label: 'Visit site', url: 'https://shadoconnect.com' }
   ],
   stack: [
     'Lovable',

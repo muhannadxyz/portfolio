@@ -19,7 +19,7 @@ window.LucentirProject = {
   link: 'https://lucentir.xyz/',
   railText: 'LUCENTIR • PRIVACY INTELLIGENCE •',
   links: [
-    { label: 'Live', url: 'https://lucentir.xyz/' }
+    { label: 'Visit site', url: 'https://lucentir.xyz/' }
   ],
   stack: [
     'React',

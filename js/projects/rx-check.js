@@ -9,7 +9,7 @@ window.RxCheckProject = {
   icon: 'Rx',
   thumb: 'images/rx.png',
   tagline: 'Type two drugs. Know the risk instantly.',
-  description: 'RxCheck is a drug interaction checker that lets you type in two or more medications and instantly see if combining them is dangerous. It pulls real data from the FDA\'s adverse event reporting database (FAERS) — showing how many patients reported problems when taking those drugs together, and what symptoms they experienced. Results are color-coded by severity: high, moderate, and low. A built-in autocomplete powered by the FDA NDC API makes finding the right drug names fast. Search history is saved locally so you can revisit past checks without re-entering anything.',
+  description: 'RxCheck is a drug interaction checker that lets you type in two or more medications and instantly see if combining them is dangerous. It pulls real data from the FDA\'s adverse event reporting database (FAERS), showing how many patients reported problems when taking those drugs together, and what symptoms they experienced. Results are color-coded by severity: high, moderate, and low. A built-in autocomplete powered by the FDA NDC API makes finding the right drug names fast. Search history is saved locally so you can revisit past checks without re-entering anything.',
   overview: 'A drug interaction checker using real FDA FAERS data. Type two or more medications to see reported adverse events, severity ratings, and symptom details. Search history saves locally for quick lookups.',
   location: 'Remote',
   date: '2025-04-01',
@@ -19,7 +19,7 @@ window.RxCheckProject = {
   link: 'https://drug-checker.up.railway.app/',
   railText: 'RXCHECK • DRUG INTERACTION CHECKER •',
   links: [
-    { label: 'Live', url: 'https://drug-checker.up.railway.app/' }
+    { label: 'Visit site', url: 'https://drug-checker.up.railway.app/' }
   ],
   stack: [
     'Node.js',
